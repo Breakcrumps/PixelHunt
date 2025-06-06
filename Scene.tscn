@@ -1,0 +1,112 @@
+[gd_scene load_steps=13 format=3 uid="uid://djwr7bjxuxdfk"]
+
+[ext_resource type="PackedScene" uid="uid://dof2sgvhypbee" path="res://Player/Amogus.tscn" id="1_t6lng"]
+[ext_resource type="PackedScene" uid="uid://dx31uyob3yo44" path="res://UI/UI.tscn" id="2_4cvuw"]
+[ext_resource type="PackedScene" uid="uid://crjsrv8mfy60r" path="res://World/Light.tscn" id="3_j2eoc"]
+[ext_resource type="PackedScene" uid="uid://b468pt3e6l58g" path="res://World/npc.tscn" id="4_7mckg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4cvuw"]
+size = Vector3(10000, 10, 10000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6lng"]
+albedo_color = Color(0.94902, 0.921569, 0.964706, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4cvuw"]
+material = SubResource("StandardMaterial3D_t6lng")
+size = Vector3(10000, 10, 10000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t6lng"]
+size = Vector3(10, 12, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_j2eoc"]
+size = Vector3(10, 12, 10)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j2eoc"]
+sky_top_color = Color(0.385, 0.54, 0.73, 1)
+sky_horizon_color = Color(0.532, 0.63, 0.717, 1)
+
+[sub_resource type="Sky" id="Sky_7mckg"]
+sky_material = SubResource("ProceduralSkyMaterial_j2eoc")
+
+[sub_resource type="Environment" id="Environment_4cvuw"]
+background_mode = 2
+sky = SubResource("Sky_7mckg")
+ambient_light_source = 3
+
+[node name="Scene" type="Node3D"]
+
+[node name="Amogus" parent="." instance=ExtResource("1_t6lng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="UI" parent="." node_paths=PackedStringArray("_amogus") instance=ExtResource("2_4cvuw")]
+_amogus = NodePath("../Amogus")
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Floor"]
+shape = SubResource("BoxShape3D_4cvuw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Floor"]
+mesh = SubResource("BoxMesh_4cvuw")
+
+[node name="Building" type="StaticBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.739, 11, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Building"]
+shape = SubResource("BoxShape3D_t6lng")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Building"]
+mesh = SubResource("BoxMesh_j2eoc")
+
+[node name="Building2" type="StaticBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4158, 15, 29.776)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Building2"]
+shape = SubResource("BoxShape3D_t6lng")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Building2"]
+mesh = SubResource("BoxMesh_j2eoc")
+
+[node name="Building3" type="StaticBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.174, 15, -21.35)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Building3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.01471, 0)
+shape = SubResource("BoxShape3D_t6lng")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Building3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+mesh = SubResource("BoxMesh_j2eoc")
+
+[node name="StaticBody3D" parent="Map" instance=ExtResource("3_j2eoc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.61099, 6.57665, -1.0619)
+collision_layer = 16
+collision_mask = 0
+
+[node name="StaticBody3D2" parent="Map" instance=ExtResource("3_j2eoc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152.917, 18.5396, 0)
+collision_layer = 16
+collision_mask = 0
+_lightEnergy = 20.0
+_radius = 100.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4cvuw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 26.1339, 0)
+shadow_enabled = true
+
+[node name="NPC" parent="." instance=ExtResource("4_7mckg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3404, 6.78715, 31.1)

@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://b468pt3e6l58g"]
+
+[ext_resource type="PackedScene" uid="uid://cahk0wd4agwva" path="res://World/DialogueArea.tscn" id="1_o740w"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7n8fq"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_o740w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_disa7"]
+size = Vector3(0.5, 0.5, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o740w"]
+size = Vector3(2, 2, 2)
+
+[node name="NPC" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_7n8fq")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_o740w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.489303, -0.590042)
+mesh = SubResource("BoxMesh_disa7")
+
+[node name="DialogueArea" parent="." instance=ExtResource("1_o740w")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueArea"]
+shape = SubResource("BoxShape3D_o740w")
