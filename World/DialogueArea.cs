@@ -18,6 +18,6 @@ public partial class DialogueArea : Area3D
     if (!Input.IsActionJustPressed("Interact"))
       return;
 
-    EventBus.InitDialogue("Hello!");
+    EventBus.InitDialogue(GetParent().Name);
   }
 }

@@ -3,8 +3,6 @@ using Godot;
 [GlobalClass]
 public partial class Movement : Node
 {
-  public bool CanMove { get; set; } = true;
-
   [Export] private CharacterBody3D _character;
   [Export] private Node3D _cameraPivot;
 
@@ -23,17 +21,6 @@ public partial class Movement : Node
 
   public void Move()
   {
-    if (Input.MouseMode != Input.MouseModeEnum.Captured)
-    {
-      _character.Velocity = Vector3.Zero;
-      _character.MoveAndSlide();
-      return;
-    }
-
-    HandleSlowWalk();
-
-    HandleDebug();
-
     if (_character.IsOnFloor())
       _doubleJumps = 1;
 
@@ -43,6 +30,13 @@ public partial class Movement : Node
     ApplyVelocity(groundVelocity, verticalVelocity);
 
     _character.MoveAndSlide();
+  }
+
+  public override void _Input(InputEvent @event)
+  {
+    HandleSlowWalk();
+
+    HandleDebug();
   }
 
   private float VerticalVelocity()
@@ -99,7 +93,7 @@ public partial class Movement : Node
 
   private void HandleSlowWalk()
   {
-    if (!Input.IsActionJustPressed("SlowWalk"))
+    if (Input.IsActionJustPressed("SlowWalk"))
     {
       _slowWalk = !_slowWalk;
     }

@@ -18,6 +18,7 @@ Label/font_sizes/font_size = 18
 Label/styles/normal = SubResource("StyleBoxFlat_6lq5x")
 
 [node name="UI" type="Control" node_paths=PackedStringArray("_zFar", "_vBox")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

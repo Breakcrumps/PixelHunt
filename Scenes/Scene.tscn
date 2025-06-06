@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://djwr7bjxuxdfk"]
+[gd_scene load_steps=15 format=3 uid="uid://djwr7bjxuxdfk"]
 
-[ext_resource type="PackedScene" uid="uid://dof2sgvhypbee" path="res://Player/Amogus.tscn" id="1_t6lng"]
-[ext_resource type="PackedScene" uid="uid://dx31uyob3yo44" path="res://UI/UI.tscn" id="2_4cvuw"]
-[ext_resource type="PackedScene" uid="uid://crjsrv8mfy60r" path="res://World/Light.tscn" id="3_j2eoc"]
-[ext_resource type="PackedScene" uid="uid://b468pt3e6l58g" path="res://World/npc.tscn" id="4_7mckg"]
+[ext_resource type="PackedScene" uid="uid://dof2sgvhypbee" path="res://Player/Amogus.tscn" id="1_o8g73"]
+[ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Scenes/Scene.cs" id="1_v3fvj"]
+[ext_resource type="PackedScene" uid="uid://dx31uyob3yo44" path="res://UI/UI.tscn" id="2_v3fvj"]
+[ext_resource type="PackedScene" uid="uid://crjsrv8mfy60r" path="res://World/Light.tscn" id="3_qswnl"]
+[ext_resource type="PackedScene" uid="uid://b468pt3e6l58g" path="res://World/NPC.tscn" id="4_khr67"]
+[ext_resource type="PackedScene" uid="uid://c6t02yliea4kq" path="res://UI/DialogueBox.tscn" id="6_qswnl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4cvuw"]
 size = Vector3(10000, 10, 10000)
@@ -34,11 +36,12 @@ sky = SubResource("Sky_7mckg")
 ambient_light_source = 3
 
 [node name="Scene" type="Node3D"]
+script = ExtResource("1_v3fvj")
 
-[node name="Amogus" parent="." instance=ExtResource("1_t6lng")]
+[node name="Amogus" parent="." instance=ExtResource("1_o8g73")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 
-[node name="UI" parent="." node_paths=PackedStringArray("_amogus") instance=ExtResource("2_4cvuw")]
+[node name="UI" parent="." node_paths=PackedStringArray("_amogus") instance=ExtResource("2_v3fvj")]
 _amogus = NodePath("../Amogus")
 
 [node name="Map" type="Node3D" parent="."]
@@ -89,12 +92,12 @@ shape = SubResource("BoxShape3D_t6lng")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
 mesh = SubResource("BoxMesh_j2eoc")
 
-[node name="StaticBody3D" parent="Map" instance=ExtResource("3_j2eoc")]
+[node name="StaticBody3D" parent="Map" instance=ExtResource("3_qswnl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.61099, 6.57665, -1.0619)
 collision_layer = 16
 collision_mask = 0
 
-[node name="StaticBody3D2" parent="Map" instance=ExtResource("3_j2eoc")]
+[node name="StaticBody3D2" parent="Map" instance=ExtResource("3_qswnl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152.917, 18.5396, 0)
 collision_layer = 16
 collision_mask = 0
@@ -108,5 +111,7 @@ environment = SubResource("Environment_4cvuw")
 transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 26.1339, 0)
 shadow_enabled = true
 
-[node name="NPC" parent="." instance=ExtResource("4_7mckg")]
+[node name="NPC" parent="." instance=ExtResource("4_khr67")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3404, 6.78715, 31.1)
+
+[node name="DialogueBox" parent="." instance=ExtResource("6_qswnl")]
