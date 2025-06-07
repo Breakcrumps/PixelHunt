@@ -92,12 +92,12 @@ shape = SubResource("BoxShape3D_t6lng")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
 mesh = SubResource("BoxMesh_j2eoc")
 
-[node name="StaticBody3D" parent="Map" instance=ExtResource("3_qswnl")]
+[node name="Light" parent="Map" instance=ExtResource("3_qswnl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.61099, 6.57665, -1.0619)
 collision_layer = 16
 collision_mask = 0
 
-[node name="StaticBody3D2" parent="Map" instance=ExtResource("3_qswnl")]
+[node name="Light2" parent="Map" instance=ExtResource("3_qswnl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -152.917, 18.5396, 0)
 collision_layer = 16
 collision_mask = 0

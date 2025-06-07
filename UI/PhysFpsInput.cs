@@ -10,11 +10,6 @@ public partial class PhysFpsInput : LineEdit
     TextSubmitted += ChangePhysFps;
   }
 
-  public override void _ExitTree()
-  {
-    TextSubmitted -= ChangePhysFps;
-  }
-
   private void ChangePhysFps(string input)
   {
     if (!input.IsValidInt())

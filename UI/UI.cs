@@ -15,13 +15,15 @@ public partial class UI : Control
     _zFar.Text = $"Render distance: {camera.Far}";
   }
 
-  public override void _Input(InputEvent @event)
+  public override void _UnhandledInput(InputEvent @event)
   {
-    if (Input.IsActionJustPressed("Perspective"))
-    {
-      Input.MouseMode ^= Input.MouseModeEnum.Captured;
+    if (!@event.IsActionPressed("Pause"))
+      return;
 
-      GetTree().Paused = !GetTree().Paused;
-    }
+    Input.MouseMode ^= Input.MouseModeEnum.Captured;
+
+    GetTree().Paused = !GetTree().Paused;
+
+    AcceptEvent();
   }
 }

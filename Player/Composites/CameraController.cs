@@ -41,8 +41,6 @@ public partial class CameraController : Node
   {
     if (@event is not InputEventMouseMotion mouseMotion)
       return;
-    if (Input.MouseMode != Input.MouseModeEnum.Captured)
-      return;
 
     Vector2 motion = mouseMotion.Relative;
     Vector3 newRotation = _cameraPivot.Rotation;

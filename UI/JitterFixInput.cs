@@ -10,11 +10,6 @@ public partial class JitterFixInput : LineEdit
     TextSubmitted += ChangeJitterFix;
   }
 
-  public override void _ExitTree()
-  {
-    TextSubmitted -= ChangeJitterFix;
-  }
-
   private void ChangeJitterFix(string input)
   {
     if (!input.IsValidFloat())

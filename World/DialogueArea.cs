@@ -10,12 +10,12 @@ public partial class DialogueArea : Area3D
     BodyExited += (_) => { _active = false; };
   }
 
-  public override void _Input(InputEvent @event)
+  public override void _UnhandledInput(InputEvent @event)
   {
     if (!_active)
       return;
 
-    if (!Input.IsActionJustPressed("Interact"))
+    if (!@event.IsActionPressed("Interact"))
       return;
 
     EventBus.InitDialogue(GetParent().Name);

@@ -3,10 +3,12 @@
 [ext_resource type="Script" uid="uid://biehyuhcq5o4w" path="res://UI/DialogueBox.cs" id="1_nkpxt"]
 [ext_resource type="Texture2D" uid="uid://cfl4w1ddrqpwt" path="res://UI/textbox.png" id="2_4i1j6"]
 
-[node name="DialogueBox" type="CanvasLayer" node_paths=PackedStringArray("_label")]
+[node name="DialogueBox" type="CanvasLayer" node_paths=PackedStringArray("_label", "_timer")]
 process_mode = 3
+follow_viewport_enabled = true
 script = ExtResource("1_nkpxt")
 _label = NodePath("Control/Control/Label")
+_timer = NodePath("Timer")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -59,3 +61,5 @@ offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
+
+[node name="Timer" type="Timer" parent="."]

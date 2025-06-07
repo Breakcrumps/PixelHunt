@@ -32,11 +32,11 @@ public partial class Movement : Node
     _character.MoveAndSlide();
   }
 
-  public override void _Input(InputEvent @event)
+  public override void _UnhandledInput(InputEvent @event)
   {
-    HandleSlowWalk();
+    HandleSlowWalk(@event);
 
-    HandleDebug();
+    HandleDebug(@event);
   }
 
   private float VerticalVelocity()
@@ -91,22 +91,22 @@ public partial class Movement : Node
     return direction.Normalized() * speed;
   }
 
-  private void HandleSlowWalk()
+  private void HandleSlowWalk(InputEvent @event)
   {
-    if (Input.IsActionJustPressed("SlowWalk"))
-    {
-      _slowWalk = !_slowWalk;
-    }
+    if (!@event.IsActionPressed("SlowWalk"))
+      return;
+
+    _slowWalk = !_slowWalk;
   }
 
-  private void HandleDebug()
+  private void HandleDebug(InputEvent @event)
   {
-    if (Input.IsActionJustPressed("Debug"))
-    {
-      _isInDebugMode = !_isInDebugMode;
-      GetNode<CollisionShape3D>("%Hurtbox").Disabled = _isInDebugMode;
-      GetNode<CollisionShape3D>("%Legs").Disabled = _isInDebugMode;
-    }
+    if (!@event.IsActionPressed("Debug"))
+      return;
+    
+    _isInDebugMode = !_isInDebugMode;
+    GetNode<CollisionShape3D>("%Hurtbox").Disabled = _isInDebugMode;
+    GetNode<CollisionShape3D>("%Legs").Disabled = _isInDebugMode;
   }
 
   private void ApplyVelocity(Vector2 groundVelocity, float verticalVelocity)
