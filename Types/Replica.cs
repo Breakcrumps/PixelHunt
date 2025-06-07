@@ -1,0 +1,1 @@
+public record Replica(string Who, string Line);

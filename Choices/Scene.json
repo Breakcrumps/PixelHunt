@@ -1,0 +1,11 @@
+{
+  ":Empty": {
+    "": [{ "Who": "", "Line": "How shall we answer?" }],
+    "Yes": [
+      { "Who": "", "Line": "You've confirmed NPC's sentiment. You feel a surge of honesty resonating within yourself." }
+    ],
+    "No": [
+      { "Who": "", "Line": "You've rejected NPC's sentiment. You feel a surge of stoic nihilism." }
+    ]
+  }
+}

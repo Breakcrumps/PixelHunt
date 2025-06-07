@@ -1,14 +1,19 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public partial class DialogueBox : CanvasLayer
 {
-  [Export] private Label _label;
+  [Export] private RichTextLabel _nameBox;
+  [Export] private RichTextLabel _textBox;
   [Export] private Timer _timer;
 
   [Export] private float _cps = 25f;
 
-  private List<string> _lines = [];
+  private List<Replica> _lines = [];
+  private Dictionary<string, List<Replica>> _pendingOptions = [];
+
+  private bool _inChoice;
 
   public override void _Ready()
   {
@@ -25,20 +30,56 @@ public partial class DialogueBox : CanvasLayer
     if (!Visible)
       return;
 
-    if (!@event.IsActionPressed("Confirm"))
-      return;
-
     GetViewport().SetInputAsHandled();
 
-    if (_label.VisibleRatio != 1f)
+    if (_inChoice)
     {
-      _label.VisibleRatio = 1f;
+      HandleChoice(@event);
+    }
+
+    else if (@event.IsActionPressed("Confirm"))
+    {
+      HandleConfirm();
+    }
+  }
+
+  private void HandleConfirm()
+  {
+    if (_textBox.VisibleRatio != 1f)
+    {
+      _textBox.VisibleRatio = 1f;
       _timer.Stop();
     }
+
     else
     {
       NextLine();
     }
+  }
+
+  private void HandleChoice(InputEvent @event)
+  {
+    int optionIndex = (
+      @event.IsActionPressed("First") ? 1
+      : @event.IsActionPressed("Second") ? 2
+      : @event.IsActionPressed("Third") ? 3
+      : @event.IsActionPressed("Fourth") ? 4
+      : -1
+    );
+
+    if (optionIndex == -1)
+      return;
+
+    List<List<Replica>> lineList = [.. _pendingOptions.Select(x => x.Value)];
+
+    if (optionIndex >= lineList.Count)
+      return;
+
+    List<Replica> nextLines = [.. lineList[optionIndex]];
+
+    _inChoice = false;
+
+    ShowText(nextLines);
   }
 
   private void InitDialogue(string source)
@@ -47,17 +88,54 @@ public partial class DialogueBox : CanvasLayer
 
     GetTree().Paused = true;
 
+    _nameBox.Text = source;
+
     Show();
 
     ShowText();
   }
 
+  private void InitChoice(string label)
+  {
+    _pendingOptions = new(DialogueManager.Choices[label]);
+
+    _nameBox.Text = _pendingOptions[""][0].Who;
+
+    _textBox.VisibleRatio = 1f;
+    _textBox.Text = _pendingOptions[""][0].Line;
+
+    _inChoice = true;
+  }
+
   private void ShowText()
   {
-    _label.Text = _lines[0];
+    Replica next = _lines[0];
     _lines.RemoveAt(0);
 
-    _label.VisibleRatio = 0f;
+    if (next.Line.StartsWith(':'))
+    {
+      InitChoice(next.Line);
+      return;
+    }
+
+    _nameBox.Text = next.Who;
+    _textBox.Text = next.Line;
+
+    _textBox.VisibleRatio = 0f;
+
+    _timer.Start();
+    NextSymbol();
+  }
+
+  private void ShowText(List<Replica> lines)
+  {
+    Replica next = lines[0];
+    lines.RemoveAt(0);
+
+    _nameBox.Text = next.Who;
+    _textBox.Text = next.Line;
+
+    _textBox.VisibleRatio = 0f;
 
     _timer.Start();
     NextSymbol();
@@ -65,9 +143,9 @@ public partial class DialogueBox : CanvasLayer
 
   private void NextSymbol()
   {
-    _label.VisibleRatio += 1f / _label.Text.Length;
+    _textBox.VisibleRatio += 1f / _textBox.Text.Length;
 
-    if (_label.VisibleRatio == 1f)
+    if (_textBox.VisibleRatio == 1f)
       _timer.Stop();
   }
 
@@ -82,7 +160,7 @@ public partial class DialogueBox : CanvasLayer
   private void Finish()
   {
     Hide();
-    _label.Text = "";
+    _textBox.Text = "";
     GetTree().Paused = false;
   }
 }

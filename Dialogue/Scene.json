@@ -1,6 +1,8 @@
 {
   "NPC": [
-    "Hello, friend!",
-    "It's weirdly empty here, isn't it?"
+    { "Who": "NPC", "Line": "Hello, friend!" },
+    { "Who": "NPC", "Line": "It's weirdly empty here, isn't it?" },
+    { "Who": "", "Line": ":Empty" },
+    { "Who": "NPC", "Line": "Have a good day anyway." }
   ]
 }

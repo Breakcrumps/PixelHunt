@@ -1,14 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6t02yliea4kq"]
+[gd_scene load_steps=5 format=3 uid="uid://c6t02yliea4kq"]
 
 [ext_resource type="Script" uid="uid://biehyuhcq5o4w" path="res://UI/DialogueBox.cs" id="1_nkpxt"]
 [ext_resource type="Texture2D" uid="uid://cfl4w1ddrqpwt" path="res://UI/textbox.png" id="2_4i1j6"]
+[ext_resource type="Texture2D" uid="uid://dwv0n0dcu81pa" path="res://UI/namebox.png" id="4_5mryu"]
 
-[node name="DialogueBox" type="CanvasLayer" node_paths=PackedStringArray("_label", "_timer")]
+[sub_resource type="Theme" id="Theme_5mryu"]
+Label/constants/outline_size = 2
+Label/font_sizes/font_size = 25
+RichTextLabel/constants/outline_size = 4
+RichTextLabel/font_sizes/normal_font_size = 25
+
+[node name="DialogueBox" type="CanvasLayer" node_paths=PackedStringArray("_nameBox", "_textBox", "_timer")]
 process_mode = 3
 follow_viewport_enabled = true
 script = ExtResource("1_nkpxt")
-_label = NodePath("Control/Control/Label")
+_nameBox = NodePath("Control/Control2/NameBox")
+_textBox = NodePath("Control/Control/TextBox")
 _timer = NodePath("Timer")
+_cps = 28.0
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -18,6 +27,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = SubResource("Theme_5mryu")
 
 [node name="Control" type="Control" parent="Control"]
 layout_mode = 1
@@ -26,40 +36,61 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -350.0
-offset_top = -300.0
-offset_right = 350.0
+offset_left = -400.0
+offset_top = -200.0
+offset_right = 400.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="TextureRect" type="TextureRect" parent="Control/Control"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
 offset_left = -408.0
-offset_top = -73.0
 offset_right = 408.0
-offset_bottom = 73.0
+offset_bottom = 146.0
 grow_horizontal = 2
-grow_vertical = 2
 texture = ExtResource("2_4i1j6")
 
-[node name="Label" type="Label" parent="Control/Control"]
+[node name="TextBox" type="RichTextLabel" parent="Control/Control"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -27.5
-offset_right = 20.0
-offset_bottom = 27.5
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.07
+anchor_right = 0.975
+anchor_bottom = 0.48
+offset_bottom = 43.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 40
+
+[node name="Control2" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = -240.0
+offset_right = 380.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Control/Control2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_5mryu")
+
+[node name="NameBox" type="RichTextLabel" parent="Control/Control2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015
+anchor_top = 0.01
+anchor_right = 0.205
+anchor_bottom = 0.02
+offset_bottom = 33.6
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]
