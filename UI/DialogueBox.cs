@@ -11,6 +11,7 @@ public partial class DialogueBox : CanvasLayer
   [Export] private float _cps = 25f;
 
   private List<Replica> _lines = [];
+  private List<Replica> _choiceLines = [];
   private Dictionary<string, List<Replica>> _pendingOptions = [];
 
   private bool _inChoice;
@@ -75,11 +76,11 @@ public partial class DialogueBox : CanvasLayer
     if (optionIndex >= lineList.Count)
       return;
 
-    List<Replica> nextLines = [.. lineList[optionIndex]];
+    _choiceLines = [.. lineList[optionIndex]];
 
     _inChoice = false;
 
-    ShowText(nextLines);
+    ShowChoiceText();
   }
 
   private void InitDialogue(string source)
@@ -127,10 +128,10 @@ public partial class DialogueBox : CanvasLayer
     NextSymbol();
   }
 
-  private void ShowText(List<Replica> lines)
+  private void ShowChoiceText()
   {
-    Replica next = lines[0];
-    lines.RemoveAt(0);
+    Replica next = _choiceLines[0];
+    _choiceLines.RemoveAt(0);
 
     _nameBox.Text = next.Who;
     _textBox.Text = next.Line;
@@ -153,14 +154,17 @@ public partial class DialogueBox : CanvasLayer
   {
     if (_lines.Count == 0)
       Finish();
-    else
+    else if (_choiceLines.Count == 0)
       ShowText();
+    else
+      ShowChoiceText();
   }
 
   private void Finish()
   {
     Hide();
     _textBox.Text = "";
+    _nameBox.Text = "";
     GetTree().Paused = false;
   }
 }
