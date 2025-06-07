@@ -7,11 +7,6 @@ public partial class FpsInput : LineEdit
     TextSubmitted += ChangeFPSLimit;
   }
 
-  public override void _ExitTree()
-  {
-    TextSubmitted -= ChangeFPSLimit;
-  }
-
   private void ChangeFPSLimit(string input)
   {
     if (!input.IsValidInt())

@@ -6,7 +6,7 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_7mckg"]
 
-[node name="StaticBody3D" type="StaticBody3D"]
+[node name="Light" type="StaticBody3D"]
 script = ExtResource("1_v1p71")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
