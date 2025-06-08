@@ -6,6 +6,7 @@ public partial class DialogueBox : Control
 {
   [Export] private RichTextLabel _nameBox;
   [Export] private RichTextLabel _textBox;
+  [Export] private ChoiceContainer _choiceContainer;
   [Export] private Timer _timer;
 
   [Export] private float _cps = 25f;
@@ -95,6 +96,10 @@ public partial class DialogueBox : Control
   private void InitChoice(string label)
   {
     _pendingOptions = new(DialogueManager.Choices[label]);
+
+    List<string> optionSummaries = [.. _pendingOptions.Select(x => x.Key).Where(x => x != "")];
+
+    _choiceContainer.ShowChoices(optionSummaries);
 
     _nameBox.Text = _pendingOptions[""][0].Who;
 

@@ -1,11 +1,9 @@
-[gd_scene load_steps=18 format=4 uid="uid://dof2sgvhypbee"]
+[gd_scene load_steps=16 format=4 uid="uid://dof2sgvhypbee"]
 
 [ext_resource type="Script" uid="uid://jmfdamxd504" path="res://Player/Amogus.cs" id="1_h202v"]
 [ext_resource type="Script" uid="uid://1pnq7oqpicbw" path="res://Player/CharacterCamera.cs" id="2_rk32f"]
 [ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Player/Composites/Movement.cs" id="4_cvk4d"]
 [ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Player/Composites/CameraController.cs" id="5_lel00"]
-[ext_resource type="Shader" uid="uid://bjaywk2h7qjby" path="res://Player/amogus_body.gdshader" id="6_gnlu4"]
-[ext_resource type="Shader" uid="uid://bpsp1ejm7kmix" path="res://Player/amogus_eyeglass.gdshader" id="7_c3qhh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rk32f"]
 radius = 0.4
@@ -16,21 +14,19 @@ size = Vector3(0.8, 0.2, 0.8)
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_c4fqo"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j8i50"]
-render_priority = 0
-shader = ExtResource("6_gnlu4")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyxxv"]
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_c4fqo"]
-material = SubResource("ShaderMaterial_j8i50")
+material = SubResource("StandardMaterial3D_gyxxv")
 radius = 0.4
 height = 1.7
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t7bpg"]
-render_priority = 0
-shader = ExtResource("7_c3qhh")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4fqo"]
+albedo_color = Color(0, 0.521333, 0.92, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rk32f"]
-material = SubResource("ShaderMaterial_t7bpg")
+material = SubResource("StandardMaterial3D_c4fqo")
 size = Vector3(0.6, 0.3, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2g5j"]
