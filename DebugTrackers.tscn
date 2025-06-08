@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://3jdvr7d1ks8n"]
+[gd_scene load_steps=11 format=3 uid="uid://3jdvr7d1ks8n"]
 
 [ext_resource type="Script" uid="uid://brmv2idk1q3op" path="res://UI/FpsCounter.cs" id="1_cud8x"]
 [ext_resource type="Script" uid="uid://dti2dtwtdhtvj" path="res://UI/FpsInput.cs" id="2_5c2yk"]
@@ -8,49 +8,80 @@
 [ext_resource type="Script" uid="uid://cmxvgj5rk3h4f" path="res://UI/PhysFpsInput.cs" id="6_ai6s0"]
 [ext_resource type="Script" uid="uid://0ag4guj5ynsu" path="res://UI/JitterFix.cs" id="7_ga3i7"]
 [ext_resource type="Script" uid="uid://dv5g0p8qs8va8" path="res://UI/JitterFixInput.cs" id="8_2evna"]
+[ext_resource type="Script" uid="uid://bh7tt01m0lf75" path="res://WriteFlags.cs" id="9_601hj"]
+[ext_resource type="Script" uid="uid://cc8tl6j28spxe" path="res://LoadFlags.cs" id="10_bjb7n"]
 
-[node name="DebugTrackers" type="VBoxContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 
-[node name="FpsCounter" type="Label" parent="."]
+[node name="DebugTrackers" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 68.0
+offset_bottom = 268.0
+
+[node name="FpsCounter" type="Label" parent="DebugTrackers"]
 layout_mode = 2
 text = "FPS"
 script = ExtResource("1_cud8x")
 
-[node name="FPSInput" type="LineEdit" parent="."]
+[node name="FPSInput" type="LineEdit" parent="DebugTrackers"]
 layout_mode = 2
 placeholder_text = "FPS"
 script = ExtResource("2_5c2yk")
 
-[node name="ZFar" type="Label" parent="."]
+[node name="ZFar" type="Label" parent="DebugTrackers"]
 layout_mode = 2
 text = "ZFAR"
 script = ExtResource("3_601hj")
 
-[node name="ZFarInput" type="LineEdit" parent="."]
+[node name="ZFarInput" type="LineEdit" parent="DebugTrackers"]
 layout_mode = 2
 placeholder_text = "ZFar"
 script = ExtResource("4_bjb7n")
 
-[node name="PhysFPSCounter" type="Label" parent="." node_paths=PackedStringArray("_input")]
+[node name="PhysFPSCounter" type="Label" parent="DebugTrackers" node_paths=PackedStringArray("_input")]
 layout_mode = 2
 text = "PhysFPS"
 script = ExtResource("5_b1lg1")
 _input = NodePath("../PhysFPSInput")
 
-[node name="PhysFPSInput" type="LineEdit" parent="."]
+[node name="PhysFPSInput" type="LineEdit" parent="DebugTrackers"]
 layout_mode = 2
 placeholder_text = "PhysFPS"
 script = ExtResource("6_ai6s0")
 
-[node name="JitterFix" type="Label" parent="." node_paths=PackedStringArray("_input")]
+[node name="JitterFix" type="Label" parent="DebugTrackers" node_paths=PackedStringArray("_input")]
 layout_mode = 2
 text = "JitterFix"
 script = ExtResource("7_ga3i7")
 _input = NodePath("../JitterFixInput")
 
-[node name="JitterFixInput" type="LineEdit" parent="."]
+[node name="JitterFixInput" type="LineEdit" parent="DebugTrackers"]
 layout_mode = 2
 placeholder_text = "JitterFix"
 script = ExtResource("8_2evna")
+
+[node name="FileWork" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="WriteFlags" type="Button" parent="FileWork"]
+layout_mode = 2
+text = "Write flags"
+script = ExtResource("9_601hj")
+
+[node name="LoadFlags" type="Button" parent="FileWork"]
+layout_mode = 2
+text = "Load flags"
+script = ExtResource("10_bjb7n")

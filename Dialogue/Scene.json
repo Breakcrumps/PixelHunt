@@ -3,6 +3,8 @@
     { "Who": "NPC", "Line": "Hello, friend!" },
     { "Who": "NPC", "Line": "It's weirdly empty here, isn't it?" },
     { "Who": "", "Line": ":Empty" },
-    { "Who": "NPC", "Line": "Have a good day anyway." }
+    { "Who": "NPC", "Line": "What are you here for, anyway?" },
+    { "Who": "", "Line": ":Reason" },
+    { "Who": "NPC", "Line": "In any case, have a good day." }
   ]
 }

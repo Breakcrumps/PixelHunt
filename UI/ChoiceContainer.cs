@@ -21,4 +21,9 @@ public partial class ChoiceContainer : Control
       optionContainers[i].GetChild<RichTextLabel>(1).Text = $"{i + 1}: {optionSummaries[i]}";
     }
   }
+
+  public void HideChoices()
+  {
+    optionContainers.ForEach(x => x.Visible = false);
+  }
 }

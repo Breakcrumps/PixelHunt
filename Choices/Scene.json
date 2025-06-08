@@ -6,8 +6,23 @@
       { "Who": "NPC", "Line": "It does feel strange, doesn't it?" }
     ],
     "No": [
-      { "Who": "", "Line": "You've rejected NPC's sentiment. You feel a surge of stoic nihilism." },
+      { "Who": "", "Line": "You've rejected NPC's sentiment. You feel a surge of stoic nihilism.", "Actions": ["Nihilist"] },
       { "Who": "NPC", "Line": "If you feel so..." }
+    ]
+  },
+  ":Reason": {
+    "": [{ "Who": "NPC", "Line": "What are you here for, anyway?" }],
+    "Fun": [
+      { "Who": "NPC", "Line": "That's entirely understandable." },
+      { "Who": "NPC", "Line": "Although, there's not really that much to do here, is there?" }
+    ],
+    "Mission": [
+      { "Who": "NPC", "Line": "Oh, that sounds very important." }
+    ],
+    "Nothing": [
+      { "Who": "", "Line": "You invent a new peak for nihilism in your heart." },
+      { "Who": "NPC", "Line": "That's right. There is nothing here but endless cold unmoving body of mesh and collision." },
+      { "Who": "NPC", "Line": "Leave the demon to his demons. Rest your own soul. There is nothing else.", "Conditions": ["Nihilist"] }
     ]
   }
 }

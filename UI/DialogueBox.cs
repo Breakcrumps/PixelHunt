@@ -75,9 +75,11 @@ public partial class DialogueBox : Control
 
     _choiceLines = [.. lineList[optionIndex]];
 
+    _choiceContainer.HideChoices();
+
     _inChoice = false;
 
-    ShowChoiceText();
+    ShowText(_choiceLines);
   }
 
   private void InitDialogue(string source)
@@ -90,7 +92,7 @@ public partial class DialogueBox : Control
 
     Show();
 
-    ShowText();
+    ShowText(_lines);
   }
 
   private void InitChoice(string label)
@@ -109,30 +111,40 @@ public partial class DialogueBox : Control
     _inChoice = true;
   }
 
-  private void ShowText()
+  private void ShowText(List<Replica> lines)
   {
-    Replica next = _lines[0];
-    _lines.RemoveAt(0);
+    Replica next = lines[0];
+    lines.RemoveAt(0);
 
-    if (next.Line.StartsWith(':'))
+    GD.Print(next);
+
+    if (next.Conditions != null)
     {
-      InitChoice(next.Line);
-      return;
+      foreach (string conditionName in next.Conditions)
+      {
+        if (!DialogueManager.Flags[conditionName])
+        {
+          NextLine();
+          return;
+        }
+      }
     }
 
-    _nameBox.Text = next.Who;
-    _textBox.Text = next.Line;
+    if (next.Actions != null)
+    {
+      foreach (string flagName in next.Actions)
+      {
+        DialogueManager.Flags[flagName] = true;
 
-    _textBox.VisibleRatio = 0f;
+        DialogueManager.DumpFlags();
+      }
+    }
 
-    _timer.Start();
-    NextSymbol();
-  }
-
-  private void ShowChoiceText()
-  {
-    Replica next = _choiceLines[0];
-    _choiceLines.RemoveAt(0);
+    if (next.Line.StartsWith(':'))
+      {
+        InitChoice(next.Line);
+        return;
+      }
 
     _nameBox.Text = next.Who;
     _textBox.Text = next.Line;
@@ -157,10 +169,10 @@ public partial class DialogueBox : Control
       Finish();
 
     else if (_choiceLines.Count == 0)
-      ShowText();
+      ShowText(_lines);
       
     else
-      ShowChoiceText();
+      ShowText(_choiceLines);
   }
 
   private void Finish()

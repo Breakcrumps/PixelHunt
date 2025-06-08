@@ -26,7 +26,7 @@ theme = SubResource("Theme_dhkvj")
 script = ExtResource("1_3b2b5")
 
 [node name="DebugTrackers" parent="." instance=ExtResource("2_q0uhn")]
-layout_mode = 0
+layout_mode = 1
 
 [node name="DialogueBox" parent="." instance=ExtResource("8_d050y")]
 layout_mode = 1
