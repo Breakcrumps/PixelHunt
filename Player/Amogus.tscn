@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=4 uid="uid://dof2sgvhypbee"]
+[gd_scene load_steps=18 format=4 uid="uid://dof2sgvhypbee"]
 
 [ext_resource type="Script" uid="uid://jmfdamxd504" path="res://Player/Amogus.cs" id="1_h202v"]
+[ext_resource type="Script" uid="uid://1pnq7oqpicbw" path="res://Player/CharacterCamera.cs" id="2_rk32f"]
 [ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Player/Composites/Movement.cs" id="4_cvk4d"]
 [ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Player/Composites/CameraController.cs" id="5_lel00"]
 [ext_resource type="Shader" uid="uid://bjaywk2h7qjby" path="res://Player/amogus_body.gdshader" id="6_gnlu4"]
@@ -94,8 +95,8 @@ collision_mask = 16
 shape = SubResource("SeparationRayShape3D_c4fqo")
 spring_length = 5.0
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
-unique_name_in_owner = true
+[node name="CharacterCamera" type="Camera3D" parent="CameraPivot/SpringArm3D"]
+script = ExtResource("2_rk32f")
 
 [node name="Composites" type="Node" parent="."]
 

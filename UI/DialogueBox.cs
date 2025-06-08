@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public partial class DialogueBox : CanvasLayer
+public partial class DialogueBox : Control
 {
   [Export] private RichTextLabel _nameBox;
   [Export] private RichTextLabel _textBox;
@@ -31,17 +31,13 @@ public partial class DialogueBox : CanvasLayer
     if (!Visible)
       return;
 
-    GetViewport().SetInputAsHandled();
+    AcceptEvent();
 
     if (_inChoice)
-    {
       HandleChoice(@event);
-    }
 
     else if (@event.IsActionPressed("Confirm"))
-    {
       HandleConfirm();
-    }
   }
 
   private void HandleConfirm()
@@ -154,8 +150,10 @@ public partial class DialogueBox : CanvasLayer
   {
     if (_lines.Count == 0)
       Finish();
+
     else if (_choiceLines.Count == 0)
       ShowText();
+      
     else
       ShowChoiceText();
   }

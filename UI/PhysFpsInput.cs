@@ -3,7 +3,7 @@ using Godot;
 
 public partial class PhysFpsInput : LineEdit
 {
-  public Action PhysFpsChanged;
+  public event Action PhysFpsChanged;
 
   public override void _Ready()
   {
@@ -24,5 +24,6 @@ public partial class PhysFpsInput : LineEdit
     Clear();
 
     Input.MouseMode = Input.MouseModeEnum.Captured;
+    GetTree().Paused = false;
   }
 }

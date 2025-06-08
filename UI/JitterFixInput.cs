@@ -3,7 +3,7 @@ using Godot;
 
 public partial class JitterFixInput : LineEdit
 {
-  public Action JitterFixChanged;
+  public event Action JitterFixChanged;
 
   public override void _Ready()
   {
@@ -24,5 +24,6 @@ public partial class JitterFixInput : LineEdit
     Clear();
 
     Input.MouseMode = Input.MouseModeEnum.Captured;
+    GetTree().Paused = false;
   }
 }

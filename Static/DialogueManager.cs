@@ -23,10 +23,10 @@ public static class DialogueManager
   {
     GD.Print("---DIALOGUE DUMP---\n");
 
-    foreach (var (source, lines) in Dialogue)
+    foreach (var (source, replicas) in Dialogue)
     {
       GD.Print($"{source}:");
-      lines.ForEach(x => GD.Print($"\t{x}"));
+      replicas.ForEach(x => GD.Print($"\t{x}"));
     }
 
     GD.Print("\n\n\n");
@@ -40,10 +40,10 @@ public static class DialogueManager
     {
       GD.Print($"{name}:");
 
-      foreach (var (option, lines) in options)
+      foreach (var (option, replicas) in options)
       {
         GD.Print($"\t{option}:");
-        lines.ForEach(x => GD.Print($"\t\t{x}"));
+        replicas.ForEach(x => GD.Print($"\t\t{x}"));
       }
     }
 

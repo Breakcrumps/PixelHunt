@@ -11,11 +11,6 @@ public partial class JitterFix : Label
     _input.JitterFixChanged += UpdateDisplay;
   }
 
-  public override void _ExitTree()
-  {
-    _input.JitterFixChanged -= UpdateDisplay;
-  }
-
   private void UpdateDisplay()
   {
     Text = $"{Engine.PhysicsJitterFix}";

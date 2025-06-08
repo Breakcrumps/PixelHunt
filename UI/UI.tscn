@@ -1,12 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dx31uyob3yo44"]
+[gd_scene load_steps=6 format=3 uid="uid://dx31uyob3yo44"]
 
 [ext_resource type="Script" uid="uid://cjitarntoi6a7" path="res://UI/UI.cs" id="1_3b2b5"]
-[ext_resource type="Script" uid="uid://brmv2idk1q3op" path="res://UI/FpsCounter.cs" id="1_xodjk"]
-[ext_resource type="Script" uid="uid://dti2dtwtdhtvj" path="res://UI/FpsInput.cs" id="3_f1fl4"]
-[ext_resource type="Script" uid="uid://c37stpomnj2wk" path="res://UI/PhysFpsCounter.cs" id="3_q0uhn"]
-[ext_resource type="Script" uid="uid://cmxvgj5rk3h4f" path="res://UI/PhysFpsInput.cs" id="4_e707p"]
-[ext_resource type="Script" uid="uid://0ag4guj5ynsu" path="res://UI/JitterFix.cs" id="6_byuxr"]
-[ext_resource type="Script" uid="uid://dv5g0p8qs8va8" path="res://UI/JitterFixInput.cs" id="7_d050y"]
+[ext_resource type="PackedScene" uid="uid://3jdvr7d1ks8n" path="res://DebugTrackers.tscn" id="2_q0uhn"]
+[ext_resource type="PackedScene" uid="uid://c6t02yliea4kq" path="res://UI/DialogueBox.tscn" id="8_d050y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6lq5x"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -17,7 +13,7 @@ Label/constants/outline_size = 2
 Label/font_sizes/font_size = 18
 Label/styles/normal = SubResource("StyleBoxFlat_6lq5x")
 
-[node name="UI" type="Control" node_paths=PackedStringArray("_zFar", "_vBox")]
+[node name="UI" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -28,46 +24,9 @@ grow_vertical = 2
 mouse_filter = 1
 theme = SubResource("Theme_dhkvj")
 script = ExtResource("1_3b2b5")
-_zFar = NodePath("VBoxContainer/ZFar")
-_vBox = NodePath("VBoxContainer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="DebugTrackers" parent="." instance=ExtResource("2_q0uhn")]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
-[node name="FpsCounter" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "FPS"
-script = ExtResource("1_xodjk")
-
-[node name="FPSInput" type="LineEdit" parent="VBoxContainer"]
-layout_mode = 2
-placeholder_text = "FPS"
-script = ExtResource("3_f1fl4")
-
-[node name="ZFar" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "ZFAR"
-
-[node name="PhysFPSCounter" type="Label" parent="VBoxContainer" node_paths=PackedStringArray("_input")]
-layout_mode = 2
-text = "PhysFPS"
-script = ExtResource("3_q0uhn")
-_input = NodePath("../PhysFPSInput")
-
-[node name="PhysFPSInput" type="LineEdit" parent="VBoxContainer"]
-layout_mode = 2
-placeholder_text = "PhysFPS"
-script = ExtResource("4_e707p")
-
-[node name="JitterFix" type="Label" parent="VBoxContainer" node_paths=PackedStringArray("_input")]
-layout_mode = 2
-text = "JitterFix"
-script = ExtResource("6_byuxr")
-_input = NodePath("../JitterFixInput")
-
-[node name="JitterFixInput" type="LineEdit" parent="VBoxContainer"]
-layout_mode = 2
-placeholder_text = "JitterFix"
-script = ExtResource("7_d050y")
+[node name="DialogueBox" parent="." instance=ExtResource("8_d050y")]
+layout_mode = 1

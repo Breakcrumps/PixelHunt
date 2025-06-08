@@ -1,20 +1,20 @@
 using Godot;
 
-public partial class FpsInput : LineEdit
+public partial class ZFarInput : LineEdit
 {
   public override void _Ready()
   {
-    TextSubmitted += ChangeFPSLimit;
+    TextSubmitted += ChangeZFar;
   }
 
-  private void ChangeFPSLimit(string input)
+  private void ChangeZFar(string input)
   {
     if (!input.IsValidInt())
       return;
 
-    int newTargetFps = input.ToInt();
+    int newZFar = input.ToInt();
 
-    Engine.MaxFps = newTargetFps;
+    EventBus.ChangeZFar(newZFar);
 
     Clear();
 
