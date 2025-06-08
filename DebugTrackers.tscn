@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://3jdvr7d1ks8n"]
+[gd_scene load_steps=12 format=3 uid="uid://3jdvr7d1ks8n"]
 
 [ext_resource type="Script" uid="uid://brmv2idk1q3op" path="res://UI/Debug/Labels/FpsCounter.cs" id="1_cud8x"]
 [ext_resource type="Script" uid="uid://dti2dtwtdhtvj" path="res://UI/Debug/Input/FpsInput.cs" id="2_5c2yk"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://dv5g0p8qs8va8" path="res://UI/Debug/Input/JitterFixInput.cs" id="8_2evna"]
 [ext_resource type="Script" uid="uid://bh7tt01m0lf75" path="res://UI/Debug/Buttons/WriteFlags.cs" id="9_601hj"]
 [ext_resource type="Script" uid="uid://cc8tl6j28spxe" path="res://UI/Debug/Buttons/LoadFlags.cs" id="10_bjb7n"]
+[ext_resource type="Script" uid="uid://dtnqhq786xwgm" path="res://UI/Debug/Buttons/ResetFlags.cs" id="11_bjb7n"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -85,3 +86,8 @@ script = ExtResource("9_601hj")
 layout_mode = 2
 text = "Load flags"
 script = ExtResource("10_bjb7n")
+
+[node name="ResetFlags" type="Button" parent="FileWork"]
+layout_mode = 2
+text = "Reset flags"
+script = ExtResource("11_bjb7n")

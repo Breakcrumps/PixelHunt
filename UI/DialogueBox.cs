@@ -140,11 +140,11 @@ public partial class DialogueBox : Control
       }
     }
 
-    if (next.Line.StartsWith(':'))
-      {
-        InitChoice(next.Line);
-        return;
-      }
+    if (next.Choice != null)
+    {
+      InitChoice(next.Choice);
+      return;
+    }
 
     _nameBox.Text = next.Who;
     _textBox.Text = next.Line;

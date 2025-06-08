@@ -22,12 +22,12 @@ grow_vertical = 2
 mouse_filter = 1
 theme = SubResource("Theme_5mryu")
 script = ExtResource("1_nkpxt")
-_nameBox = NodePath("Control2/NameBox")
-_textBox = NodePath("Control/TextBox")
+_nameBox = NodePath("NameBoxContainer/NameBox")
+_textBox = NodePath("TextBoxContainer/TextBox")
 _choiceContainer = NodePath("ChoiceContainer")
 _timer = NodePath("Timer")
 
-[node name="Control" type="Control" parent="."]
+[node name="TextBoxContainer" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -40,7 +40,7 @@ offset_right = 400.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="TextureRect" type="TextureRect" parent="TextBoxContainer"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -51,7 +51,7 @@ offset_bottom = 146.0
 grow_horizontal = 2
 texture = ExtResource("2_4i1j6")
 
-[node name="TextBox" type="RichTextLabel" parent="Control"]
+[node name="TextBox" type="RichTextLabel" parent="TextBoxContainer"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.025
@@ -61,7 +61,7 @@ anchor_bottom = 0.48
 offset_bottom = 43.0
 grow_horizontal = 2
 
-[node name="Control2" type="Control" parent="."]
+[node name="NameBoxContainer" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -74,13 +74,13 @@ offset_right = 380.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="Control2"]
+[node name="TextureRect" type="TextureRect" parent="NameBoxContainer"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("4_5mryu")
 
-[node name="NameBox" type="RichTextLabel" parent="Control2"]
+[node name="NameBox" type="RichTextLabel" parent="NameBoxContainer"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.015
@@ -114,12 +114,12 @@ offset_left = -500.0
 offset_bottom = 150.0
 grow_horizontal = 0
 
-[node name="Top" type="Control" parent="ChoiceContainer/Control"]
+[node name="First" type="Control" parent="ChoiceContainer/Control"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="ChoiceContainer/Control/Top"]
+[node name="TextureRect" type="TextureRect" parent="ChoiceContainer/Control/First"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -133,7 +133,7 @@ grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("4_5mryu")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ChoiceContainer/Control/Top"]
+[node name="RichTextLabel" type="RichTextLabel" parent="ChoiceContainer/Control/First"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -146,12 +146,12 @@ offset_bottom = 20.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Down" type="Control" parent="ChoiceContainer/Control"]
+[node name="Secons" type="Control" parent="ChoiceContainer/Control"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="ChoiceContainer/Control/Down"]
+[node name="TextureRect" type="TextureRect" parent="ChoiceContainer/Control/Secons"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -165,7 +165,7 @@ grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("4_5mryu")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ChoiceContainer/Control/Down"]
+[node name="RichTextLabel" type="RichTextLabel" parent="ChoiceContainer/Control/Secons"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -178,12 +178,12 @@ offset_bottom = 20.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Left" type="Control" parent="ChoiceContainer/Control"]
+[node name="Third" type="Control" parent="ChoiceContainer/Control"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="ChoiceContainer/Control/Left"]
+[node name="TextureRect" type="TextureRect" parent="ChoiceContainer/Control/Third"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -197,7 +197,7 @@ grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("4_5mryu")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ChoiceContainer/Control/Left"]
+[node name="RichTextLabel" type="RichTextLabel" parent="ChoiceContainer/Control/Third"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -210,12 +210,12 @@ offset_bottom = 20.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Right" type="Control" parent="ChoiceContainer/Control"]
+[node name="Fourth" type="Control" parent="ChoiceContainer/Control"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="TextureRect" type="TextureRect" parent="ChoiceContainer/Control/Right"]
+[node name="TextureRect" type="TextureRect" parent="ChoiceContainer/Control/Fourth"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -229,7 +229,7 @@ grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("4_5mryu")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ChoiceContainer/Control/Right"]
+[node name="RichTextLabel" type="RichTextLabel" parent="ChoiceContainer/Control/Fourth"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0

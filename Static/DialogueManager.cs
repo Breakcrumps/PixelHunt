@@ -14,6 +14,8 @@ public static class DialogueManager
 
   static DialogueManager()
   {
+    ResetFlags();
+
     LoadFlags();
   }
 
@@ -29,6 +31,13 @@ public static class DialogueManager
     string flagJson = JsonSerializer.Serialize(Flags);
 
     File.WriteAllText(@"Saves\Flags.json", flagJson);
+  }
+
+  public static void ResetFlags()
+  {
+    string defaultFlagJson = File.ReadAllText(@"Saves\Default\Flags.json");
+
+    File.WriteAllText(@"Saves\Flags.json", defaultFlagJson);
   }
 
   public static void UpdateDialogueCache(string sceneName)
