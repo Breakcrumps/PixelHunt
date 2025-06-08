@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b468pt3e6l58g"]
 
-[ext_resource type="PackedScene" uid="uid://cahk0wd4agwva" path="res://World/DialogueArea.tscn" id="1_o740w"]
+[ext_resource type="Script" uid="uid://cfr362g6kspf1" path="res://World/DialogueArea.cs" id="1_o740w"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7n8fq"]
 
@@ -24,7 +24,9 @@ mesh = SubResource("CapsuleMesh_o740w")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.489303, -0.590042)
 mesh = SubResource("BoxMesh_disa7")
 
-[node name="DialogueArea" parent="." instance=ExtResource("1_o740w")]
+[node name="DialogueArea" type="Area3D" parent="."]
+script = ExtResource("1_o740w")
+_name = "NPC"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueArea"]
 shape = SubResource("BoxShape3D_o740w")

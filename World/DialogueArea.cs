@@ -1,7 +1,10 @@
 using Godot;
 
+[GlobalClass]
 public partial class DialogueArea : Area3D
 {
+  [Export] private string _name = "NO_NAME";
+
   private bool _active;
 
   public override void _Ready()
@@ -18,6 +21,6 @@ public partial class DialogueArea : Area3D
     if (!@event.IsActionPressed("Interact"))
       return;
 
-    EventBus.InitDialogue(GetParent().Name);
+    EventBus.InitDialogue(_name);
   }
 }

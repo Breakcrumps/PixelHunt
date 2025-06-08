@@ -6,5 +6,11 @@
     { "Who": "NPC", "Line": "What are you here for, anyway?" },
     { "Choice": "Reason" },
     { "Who": "NPC", "Line": "In any case, have a good day." }
+  ],
+  "Light": [
+    { "Line": "You feel slight heat emanating from the dim light. You're filled with Determination." }
+  ],
+  "NO_NAME": [
+    { "Who": "NO NAME ERROR!", "Line": "Name not selected on this DialogueArea." }
   ]
 }

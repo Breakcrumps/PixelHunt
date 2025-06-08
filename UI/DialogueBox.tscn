@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c6t02yliea4kq"]
 
 [ext_resource type="Script" uid="uid://biehyuhcq5o4w" path="res://UI/DialogueBox.cs" id="1_nkpxt"]
-[ext_resource type="Texture2D" uid="uid://cfl4w1ddrqpwt" path="res://UI/textbox.png" id="2_4i1j6"]
+[ext_resource type="Texture2D" uid="uid://bvwot7lvk3dqh" path="res://UI/new_textbox.png" id="2_5mryu"]
 [ext_resource type="Script" uid="uid://bbxigvy7wlx3q" path="res://UI/ChoiceContainer.cs" id="4_4jsxm"]
 [ext_resource type="Texture2D" uid="uid://dwv0n0dcu81pa" path="res://UI/namebox.png" id="4_5mryu"]
 
@@ -9,7 +9,7 @@
 Label/constants/outline_size = 2
 Label/font_sizes/font_size = 25
 RichTextLabel/constants/outline_size = 4
-RichTextLabel/font_sizes/normal_font_size = 25
+RichTextLabel/font_sizes/normal_font_size = 18
 
 [node name="DialogueBox" type="Control" node_paths=PackedStringArray("_nameBox", "_textBox", "_choiceContainer", "_timer")]
 process_mode = 3
@@ -49,15 +49,15 @@ offset_left = -408.0
 offset_right = 408.0
 offset_bottom = 146.0
 grow_horizontal = 2
-texture = ExtResource("2_4i1j6")
+texture = ExtResource("2_5mryu")
 
 [node name="TextBox" type="RichTextLabel" parent="TextBoxContainer"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.025
-anchor_top = 0.07
+anchor_top = 0.09
 anchor_right = 0.975
-anchor_bottom = 0.48
+anchor_bottom = 0.46
 offset_bottom = 43.0
 grow_horizontal = 2
 

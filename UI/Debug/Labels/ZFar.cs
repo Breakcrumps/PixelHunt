@@ -7,7 +7,7 @@ public partial class ZFar : Label
     EventBus.ZFarChange += UpdateDisplay;
   }
 
-  private void UpdateDisplay(int newZFar)
+  private void UpdateDisplay(float newZFar)
   {
     Text = $"ZFar: {newZFar}";
   }

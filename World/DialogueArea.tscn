@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cahk0wd4agwva"]
-
-[ext_resource type="Script" uid="uid://cfr362g6kspf1" path="res://World/DialogueArea.cs" id="1_t4ts6"]
-
-[node name="DialogueArea" type="Area3D"]
-script = ExtResource("1_t4ts6")
