@@ -1,12 +1,13 @@
-using System;
 using Godot;
 
 public partial class PhysFpsInput : LineEdit
 {
-  public event Action PhysFpsChanged;
+  [Export] private Label _physFpsLabel;
 
   public override void _Ready()
   {
+    _physFpsLabel.Text = $"{Engine.PhysicsTicksPerSecond}";
+
     TextSubmitted += ChangePhysFps;
   }
 
@@ -19,7 +20,7 @@ public partial class PhysFpsInput : LineEdit
 
     Engine.PhysicsTicksPerSecond = newPhysFps;
 
-    PhysFpsChanged?.Invoke();
+    _physFpsLabel.Text = $"{Engine.PhysicsTicksPerSecond}";
 
     Clear();
 

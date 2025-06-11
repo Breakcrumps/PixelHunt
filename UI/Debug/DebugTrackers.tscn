@@ -1,12 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://3jdvr7d1ks8n"]
+[gd_scene load_steps=10 format=3 uid="uid://3jdvr7d1ks8n"]
 
 [ext_resource type="Script" uid="uid://brmv2idk1q3op" path="res://UI/Debug/Labels/FpsCounter.cs" id="1_cud8x"]
 [ext_resource type="Script" uid="uid://dti2dtwtdhtvj" path="res://UI/Debug/Input/FpsInput.cs" id="2_5c2yk"]
 [ext_resource type="Script" uid="uid://dc4ft4634sb66" path="res://UI/Debug/Labels/ZFar.cs" id="3_601hj"]
 [ext_resource type="Script" uid="uid://d220wvj2gs0g6" path="res://UI/Debug/Input/ZFarInput.cs" id="4_bjb7n"]
-[ext_resource type="Script" uid="uid://c37stpomnj2wk" path="res://UI/Debug/Labels/PhysFpsCounter.cs" id="5_b1lg1"]
 [ext_resource type="Script" uid="uid://cmxvgj5rk3h4f" path="res://UI/Debug/Input/PhysFpsInput.cs" id="6_ai6s0"]
-[ext_resource type="Script" uid="uid://0ag4guj5ynsu" path="res://UI/Debug/Labels/JitterFix.cs" id="7_ga3i7"]
 [ext_resource type="Script" uid="uid://dv5g0p8qs8va8" path="res://UI/Debug/Input/JitterFixInput.cs" id="8_2evna"]
 [ext_resource type="Script" uid="uid://bh7tt01m0lf75" path="res://UI/Debug/Buttons/WriteFlags.cs" id="9_601hj"]
 [ext_resource type="Script" uid="uid://cc8tl6j28spxe" path="res://UI/Debug/Buttons/LoadFlags.cs" id="10_bjb7n"]
@@ -46,27 +44,25 @@ layout_mode = 2
 placeholder_text = "ZFar"
 script = ExtResource("4_bjb7n")
 
-[node name="PhysFPSCounter" type="Label" parent="DebugTrackers" node_paths=PackedStringArray("_input")]
+[node name="PhysFPSCounter" type="Label" parent="DebugTrackers"]
 layout_mode = 2
 text = "PhysFPS"
-script = ExtResource("5_b1lg1")
-_input = NodePath("../PhysFPSInput")
 
-[node name="PhysFPSInput" type="LineEdit" parent="DebugTrackers"]
+[node name="PhysFPSInput" type="LineEdit" parent="DebugTrackers" node_paths=PackedStringArray("_physFpsLabel")]
 layout_mode = 2
 placeholder_text = "PhysFPS"
 script = ExtResource("6_ai6s0")
+_physFpsLabel = NodePath("../PhysFPSCounter")
 
-[node name="JitterFix" type="Label" parent="DebugTrackers" node_paths=PackedStringArray("_input")]
+[node name="JitterFix" type="Label" parent="DebugTrackers"]
 layout_mode = 2
 text = "JitterFix"
-script = ExtResource("7_ga3i7")
-_input = NodePath("../JitterFixInput")
 
-[node name="JitterFixInput" type="LineEdit" parent="DebugTrackers"]
+[node name="JitterFixInput" type="LineEdit" parent="DebugTrackers" node_paths=PackedStringArray("_jitterFixLabel")]
 layout_mode = 2
 placeholder_text = "JitterFix"
 script = ExtResource("8_2evna")
+_jitterFixLabel = NodePath("../JitterFix")
 
 [node name="FileWork" type="VBoxContainer" parent="."]
 layout_mode = 1
