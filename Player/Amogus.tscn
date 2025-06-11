@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=4 uid="uid://dof2sgvhypbee"]
+[gd_scene load_steps=17 format=4 uid="uid://dof2sgvhypbee"]
 
 [ext_resource type="Script" uid="uid://jmfdamxd504" path="res://Player/Amogus.cs" id="1_h202v"]
 [ext_resource type="Script" uid="uid://1pnq7oqpicbw" path="res://Player/CharacterCamera.cs" id="2_rk32f"]
 [ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Player/Composites/Movement.cs" id="4_cvk4d"]
+[ext_resource type="Script" uid="uid://b47uacnwv7l18" path="res://World/AudioPlayer.cs" id="5_c4fqo"]
 [ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Player/Composites/CameraController.cs" id="5_lel00"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rk32f"]
@@ -132,3 +133,6 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Body/Stick"]
 transform = Transform3D(0.999999, -3.27826e-07, 0, 3.27826e-07, 0.999999, 0, 0, 0, 1, -9.09495e-11, 0.000110622, 0)
 shape = SubResource("CylinderShape3D_gnlu4")
+
+[node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
+script = ExtResource("5_c4fqo")

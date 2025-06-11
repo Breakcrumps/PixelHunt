@@ -6,7 +6,11 @@ public partial class Scene : Node3D
   {
     DialogueManager.UpdateDialogueCache(Name);
 
-    DialogueManager.DumpDialogueCache();
-    DialogueManager.DumpChoiceCache();
+    if (Flags.Debug)
+    {
+      DialogueManager.DumpDialogueCache();
+      DialogueManager.DumpChoiceCache();
+      DialogueManager.DumpFlags();
+    }
   }
 }

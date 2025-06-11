@@ -8,6 +8,7 @@ public partial class DialogueBox : Control
   [Export] private RichTextLabel _textBox;
   [Export] private ChoiceContainer _choiceContainer;
   [Export] private Timer _timer;
+  [Export] private AudioStreamPlayer3D _audioPlayer;
 
   [Export] private float _cps = 25f;
 
@@ -16,6 +17,9 @@ public partial class DialogueBox : Control
   private Dictionary<string, List<Replica>> _pendingOptions = [];
 
   private bool _inChoice;
+  private bool _waiting;
+
+  private List<int> _waitIndices = [];
 
   public override void _Ready()
   {
@@ -43,10 +47,26 @@ public partial class DialogueBox : Control
 
   private void HandleConfirm()
   {
-    if (_textBox.VisibleRatio != 1f)
+    if (_waiting)
     {
-      _textBox.VisibleRatio = 1f;
-      _timer.Stop();
+      _waiting = false;
+      _timer.Start();
+    }
+
+    else if (_textBox.VisibleRatio != 1f)
+    {
+      if (_waitIndices.Count == 0)
+      {
+        _textBox.VisibleRatio = 1f;
+        _timer.Stop();
+      }
+      else
+      {
+        _textBox.VisibleRatio = (float)_waitIndices[0] / _textBox.Text.Length;
+        _waiting = true;
+        _waitIndices.RemoveAt(0);
+        _timer.Stop();
+      }
     }
 
     else
@@ -79,7 +99,7 @@ public partial class DialogueBox : Control
 
     _inChoice = false;
 
-    ShowText(_choiceLines);
+    ShowLine(_choiceLines);
   }
 
   private void InitDialogue(string source)
@@ -92,7 +112,7 @@ public partial class DialogueBox : Control
 
     Show();
 
-    ShowText(_lines);
+    ShowLine(_lines);
   }
 
   private void InitChoice(string label)
@@ -111,24 +131,30 @@ public partial class DialogueBox : Control
     _inChoice = true;
   }
 
-  private void ShowText(List<Replica> lines)
+  private void ShowLine(List<Replica> lines)
   {
     Replica next = lines[0];
     lines.RemoveAt(0);
 
-    GD.Print(next);
+    if (Flags.Debug)
+      GD.Print(next);
+
+    if (next.Sound != null)
+    {
+      EventBus.PlaySound(next.Sound);
+    }
 
     if (next.Conditions != null)
-    {
-      foreach (string conditionName in next.Conditions)
       {
-        if (!DialogueManager.Flags[conditionName])
+        foreach (string conditionName in next.Conditions)
         {
-          NextLine();
-          return;
+          if (!DialogueManager.Flags[conditionName])
+          {
+            NextLine();
+            return;
+          }
         }
       }
-    }
 
     if (next.Actions != null)
     {
@@ -146,8 +172,10 @@ public partial class DialogueBox : Control
       return;
     }
 
+    UpdateWaitIndices(next.Line);
+
     _nameBox.Text = next.Who;
-    _textBox.Text = next.Line;
+    _textBox.Text = FormatLine(next.Line);
 
     _textBox.VisibleRatio = 0f;
 
@@ -157,6 +185,16 @@ public partial class DialogueBox : Control
 
   private void NextSymbol()
   {
+    int index = (int)(_textBox.Text.Length * _textBox.VisibleRatio);
+
+    if (_waitIndices.Contains(index))
+    {
+      _waiting = true;
+      _timer.Stop();
+      _waitIndices.RemoveAt(0);
+      return;
+    }
+
     _textBox.VisibleRatio += 1f / _textBox.Text.Length;
 
     if (_textBox.VisibleRatio == 1f)
@@ -169,10 +207,28 @@ public partial class DialogueBox : Control
       Finish();
 
     else if (_choiceLines.Count == 0)
-      ShowText(_lines);
+      ShowLine(_lines);
       
     else
-      ShowText(_choiceLines);
+      ShowLine(_choiceLines);
+  }
+
+  private string FormatLine(string line) => string.Join("", line.Split('|'));
+
+  private void UpdateWaitIndices(string line)
+  {
+    _waitIndices = [];
+
+    for (int i = 0; i < line.Length; i++)
+    {
+      if (line[i] == '|')
+      {
+        _waitIndices.Add(i);
+      }
+    }
+
+    if (Flags.Debug)
+      GD.Print($"Wait indices: {string.Join(", ", _waitIndices)}");
   }
 
   private void Finish()

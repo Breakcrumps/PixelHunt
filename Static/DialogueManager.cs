@@ -51,7 +51,7 @@ public static class DialogueManager
 
   public static void DumpDialogueCache()
   {
-    GD.Print("---DIALOGUE DUMP---\n");
+    GD.Print("---DIALOGUE DUMP---");
 
     foreach (var (source, replicas) in Dialogue)
     {
@@ -59,12 +59,12 @@ public static class DialogueManager
       replicas.ForEach(x => GD.Print($"\t{x}"));
     }
 
-    GD.Print("\n\n\n");
+    GD.Print("\n");
   }
 
   public static void DumpChoiceCache()
   {
-    GD.Print("---CHOICES DUMP---\n");
+    GD.Print("---CHOICES DUMP---");
 
     foreach (var (name, options) in Choices)
     {
@@ -77,7 +77,7 @@ public static class DialogueManager
       }
     }
 
-    GD.Print("\n\n\n");
+    GD.Print("\n");
   }
 
   public static void DumpFlags()
