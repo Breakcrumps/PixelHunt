@@ -16,9 +16,11 @@ size = Vector3(3, 3, 3)
 collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7n8fq")
 
 [node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_o740w")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
@@ -26,8 +28,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.489303, -0.590042)
 mesh = SubResource("BoxMesh_disa7")
 
 [node name="DialogueArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_o740w")
 _name = "NPC"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_o740w")

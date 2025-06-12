@@ -139,24 +139,24 @@ public partial class DialogueBox : Control
     if (Flags.Debug)
       GD.Print(next);
 
-    if (next.Sound != null)
+    if (next.Sound is not null)
     {
       EventBus.PlaySound(next.Sound);
     }
 
-    if (next.Conditions != null)
+    if (next.Conditions is not null)
+    {
+      foreach (string conditionName in next.Conditions)
       {
-        foreach (string conditionName in next.Conditions)
+        if (!DialogueManager.Flags[conditionName])
         {
-          if (!DialogueManager.Flags[conditionName])
-          {
-            NextLine();
-            return;
-          }
+          NextLine();
+          return;
         }
       }
+    }
 
-    if (next.Actions != null)
+    if (next.Actions is not null)
     {
       foreach (string flagName in next.Actions)
       {
@@ -166,7 +166,7 @@ public partial class DialogueBox : Control
       }
     }
 
-    if (next.Choice != null)
+    if (next.Choice is not null)
     {
       InitChoice(next.Choice);
       return;

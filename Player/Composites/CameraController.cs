@@ -6,7 +6,7 @@ public partial class CameraController : Node
   [Export] private SpringArm3D? _cameraSpring;
   [Export] private Node3D? _cameraPivot;
   [Export] private CharacterBody3D? _character;
-  [Export] private MeshInstance3D? _body;
+  [Export] private Node3D? _body;
 
   [Export(PropertyHint.Range, "0f, .01f")] private float _mouseSensitivity = .01f;
   [Export(PropertyHint.Range, "10f, 90f")] private float _tiltLimit = 75f;
@@ -16,8 +16,6 @@ public partial class CameraController : Node
   public override void _Ready()
   {
     _tiltLimit = Mathf.DegToRad(_tiltLimit);
-
-    _cameraSpring!.SpringLength = 8f;
   }
 
   public void AlignBody(double delta)

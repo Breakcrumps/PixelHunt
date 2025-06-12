@@ -13,13 +13,15 @@ public partial class DialogueArea : Area3D
     BodyExited += body => { if (body is Amogus) _active = false; };
   }
 
-  public override void _UnhandledInput(InputEvent @event)
+  public override void _ShortcutInput(InputEvent @event)
   {
     if (!_active)
       return;
 
     if (!@event.IsActionPressed("Interact"))
       return;
+
+    GetViewport().SetInputAsHandled();
 
     EventBus.InitDialogue(_name);
   }
