@@ -10,9 +10,6 @@
   "Light": [
     { "Line": "You feel slight heat emanating from the dim light.| You're filled with Determination." }
   ],
-  "Aboba": [
-    { "Line": "ABOBA", "Sound": "amogus" }
-  ],
   "NO_NAME": [
     { "Who": "NO NAME ERROR!", "Line": "Name not selected on this DialogueArea." }
   ]

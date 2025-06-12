@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://djwr7bjxuxdfk"]
+[gd_scene load_steps=15 format=3 uid="uid://djwr7bjxuxdfk"]
 
 [ext_resource type="PackedScene" uid="uid://dof2sgvhypbee" path="res://Player/Amogus.tscn" id="1_o8g73"]
 [ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Scenes/Scene.cs" id="1_v3fvj"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://crjsrv8mfy60r" path="res://World/Light.tscn" id="3_qswnl"]
 [ext_resource type="PackedScene" uid="uid://b468pt3e6l58g" path="res://World/npc.tscn" id="4_khr67"]
 [ext_resource type="Script" uid="uid://cfr362g6kspf1" path="res://World/DialogueArea.cs" id="5_qswnl"]
+[ext_resource type="Environment" uid="uid://c0dl521hmyhyu" path="res://Environment/Light.tres" id="6_s7xl2"]
+[ext_resource type="Script" uid="uid://cdsutjft0pyga" path="res://Scenes/SceneEnvironment.cs" id="7_g6k5w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4cvuw"]
 size = Vector3(10000, 10, 10000)
@@ -25,15 +27,6 @@ size = Vector3(10, 12, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_khr67"]
 size = Vector3(2, 2, 2)
-
-[sub_resource type="Sky" id="Sky_7mckg"]
-
-[sub_resource type="Environment" id="Environment_4cvuw"]
-background_mode = 2
-sky = SubResource("Sky_7mckg")
-ambient_light_source = 3
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_qswnl"]
 
 [node name="Scene" type="Node3D"]
 script = ExtResource("1_v3fvj")
@@ -113,22 +106,13 @@ _radius = 100.0
 [node name="Light3" parent="Map" instance=ExtResource("3_qswnl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.94481, 8.42882, 29.6966)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_4cvuw")
+[node name="SceneEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("6_s7xl2")
+script = ExtResource("7_g6k5w")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.866025, 0.375055, -0.330656, 0, -0.661312, -0.750111, -0.5, 0.649615, -0.572713, 0, 0, 0)
+transform = Transform3D(0.866025, -0.321394, -0.383022, -6.69697e-08, -0.766044, 0.642788, -0.5, -0.55667, -0.663414, 0, 0, 0)
 shadow_enabled = true
-sky_mode = 2
 
 [node name="NPC" parent="." instance=ExtResource("4_khr67")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3404, 5.5473, 31.1)
-
-[node name="DialogueArea" type="Area3D" parent="."]
-script = ExtResource("5_qswnl")
-_name = "Aboba"
-metadata/_custom_type_script = "uid://cfr362g6kspf1"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.01378, 9.06434)
-shape = SubResource("BoxShape3D_qswnl")

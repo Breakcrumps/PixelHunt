@@ -9,8 +9,8 @@ public partial class DialogueArea : Area3D
 
   public override void _Ready()
   {
-    BodyEntered += _ => { _active = true; };
-    BodyExited += _ => { _active = false; };
+    BodyEntered += body => { if (body is Amogus) _active = true; };
+    BodyExited += body => { if (body is Amogus) _active = false; };
   }
 
   public override void _UnhandledInput(InputEvent @event)
