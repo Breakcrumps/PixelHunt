@@ -3,8 +3,8 @@ using Godot;
 [GlobalClass]
 public partial class Movement : Node
 {
-  [Export] private CharacterBody3D _character;
-  [Export] private Node3D _cameraPivot;
+  [Export] private CharacterBody3D? _character;
+  [Export] private Node3D? _cameraPivot;
 
   [Export] private float _walkSpeed = 50f;
   [Export] private float _runSpeed = 100f;
@@ -21,8 +21,8 @@ public partial class Movement : Node
 
   public void Move()
   {
-    if (_character.IsOnFloor())
-      _doubleJumps = 1;
+    if (_character!.IsOnFloor())
+        _doubleJumps = 1;
 
     Vector2 groundVelocity = _isInDebugMode ? DebugGroundVelocity() : GroundVelocity();
     float verticalVelocity = _isInDebugMode ? DebugVerticalVelocity() : VerticalVelocity();
@@ -41,7 +41,7 @@ public partial class Movement : Node
 
   private float VerticalVelocity()
   {
-    float yVelocity = _character.IsOnFloor() ? 0f : _character.Velocity.Y - _g;
+    float yVelocity = _character!.IsOnFloor() ? 0f : _character.Velocity.Y - _g;
 
     if (Input.IsActionJustPressed("Jump"))
     {
@@ -111,8 +111,8 @@ public partial class Movement : Node
 
   private void ApplyVelocity(Vector2 groundVelocity, float verticalVelocity)
   {
-    _character.Velocity = new(groundVelocity.X, verticalVelocity, groundVelocity.Y);
+    _character!.Velocity = new(groundVelocity.X, verticalVelocity, groundVelocity.Y);
 
-    _character.Velocity = _character.Velocity.Rotated(Vector3.Up, _cameraPivot.Rotation.Y);
+    _character.Velocity = _character.Velocity.Rotated(Vector3.Up, _cameraPivot!.Rotation.Y);
   }
 }

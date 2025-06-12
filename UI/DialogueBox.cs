@@ -4,11 +4,11 @@ using Godot;
 
 public partial class DialogueBox : Control
 {
-  [Export] private RichTextLabel _nameBox;
-  [Export] private RichTextLabel _textBox;
-  [Export] private ChoiceContainer _choiceContainer;
-  [Export] private Timer _timer;
-  [Export] private AudioStreamPlayer3D _audioPlayer;
+  [Export] private RichTextLabel? _nameBox;
+  [Export] private RichTextLabel? _textBox;
+  [Export] private ChoiceContainer? _choiceContainer;
+  [Export] private Timer? _timer;
+  [Export] private AudioStreamPlayer3D? _audioPlayer;
 
   [Export] private float _cps = 25f;
 
@@ -23,7 +23,7 @@ public partial class DialogueBox : Control
 
   public override void _Ready()
   {
-    _timer.WaitTime = 1f / _cps;
+    _timer!.WaitTime = 1f / _cps;
     _timer.Timeout += NextSymbol;
 
     Hide();
@@ -50,22 +50,22 @@ public partial class DialogueBox : Control
     if (_waiting)
     {
       _waiting = false;
-      _timer.Start();
+      _timer!.Start();
     }
 
-    else if (_textBox.VisibleRatio != 1f)
+    else if (_textBox!.VisibleRatio != 1f)
     {
       if (_waitIndices.Count == 0)
       {
         _textBox.VisibleRatio = 1f;
-        _timer.Stop();
+        _timer!.Stop();
       }
       else
       {
         _textBox.VisibleRatio = (float)_waitIndices[0] / _textBox.Text.Length;
         _waiting = true;
         _waitIndices.RemoveAt(0);
-        _timer.Stop();
+        _timer!.Stop();
       }
     }
 
@@ -95,7 +95,7 @@ public partial class DialogueBox : Control
 
     _choiceLines = [.. lineList[optionIndex]];
 
-    _choiceContainer.HideChoices();
+    _choiceContainer!.HideChoices();
 
     _inChoice = false;
 
@@ -108,7 +108,7 @@ public partial class DialogueBox : Control
 
     GetTree().Paused = true;
 
-    _nameBox.Text = source;
+    _nameBox!.Text = source;
 
     Show();
 
@@ -121,11 +121,11 @@ public partial class DialogueBox : Control
 
     List<string> optionSummaries = [.. _pendingOptions.Select(x => x.Key).Where(x => x != "")];
 
-    _choiceContainer.ShowChoices(optionSummaries);
+    _choiceContainer!.ShowChoices(optionSummaries);
 
-    _nameBox.Text = _pendingOptions[""][0].Who;
+    _nameBox!.Text = _pendingOptions[""][0].Who;
 
-    _textBox.VisibleRatio = 1f;
+    _textBox!.VisibleRatio = 1f;
     _textBox.Text = _pendingOptions[""][0].Line;
 
     _inChoice = true;
@@ -174,23 +174,23 @@ public partial class DialogueBox : Control
 
     UpdateWaitIndices(next.Line);
 
-    _nameBox.Text = next.Who;
-    _textBox.Text = FormatLine(next.Line);
+    _nameBox!.Text = next.Who;
+    _textBox!.Text = next.RawLine;
 
     _textBox.VisibleRatio = 0f;
 
-    _timer.Start();
+    _timer!.Start();
     NextSymbol();
   }
 
   private void NextSymbol()
   {
-    int index = (int)(_textBox.Text.Length * _textBox.VisibleRatio);
+    int index = (int)(_textBox!.Text.Length * _textBox.VisibleRatio);
 
     if (_waitIndices.Contains(index))
     {
       _waiting = true;
-      _timer.Stop();
+      _timer!.Stop();
       _waitIndices.RemoveAt(0);
       return;
     }
@@ -198,7 +198,7 @@ public partial class DialogueBox : Control
     _textBox.VisibleRatio += 1f / _textBox.Text.Length;
 
     if (_textBox.VisibleRatio == 1f)
-      _timer.Stop();
+      _timer!.Stop();
   }
 
   private void NextLine()
@@ -212,8 +212,6 @@ public partial class DialogueBox : Control
     else
       ShowLine(_choiceLines);
   }
-
-  private string FormatLine(string line) => string.Join("", line.Split('|'));
 
   private void UpdateWaitIndices(string line)
   {
@@ -234,8 +232,8 @@ public partial class DialogueBox : Control
   private void Finish()
   {
     Hide();
-    _textBox.Text = "";
-    _nameBox.Text = "";
+    _textBox!.Text = "";
+    _nameBox!.Text = "";
     GetTree().Paused = false;
   }
 }

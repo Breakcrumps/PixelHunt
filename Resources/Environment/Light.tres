@@ -2,7 +2,7 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qreyt"]
 sky_top_color = Color(0.3182, 0.54395, 0.86, 1)
-sky_horizon_color = Color(0.1326, 0.78, 0.76921, 1)
+sky_horizon_color = Color(0.504, 0.8, 0.795067, 1)
 
 [sub_resource type="Sky" id="Sky_vq7c6"]
 sky_material = SubResource("ProceduralSkyMaterial_qreyt")

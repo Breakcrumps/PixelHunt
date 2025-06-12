@@ -23,7 +23,7 @@ public static class DialogueManager
   {
     string flagJson = File.ReadAllText(@"Saves\Flags.json");
 
-    Flags = JsonSerializer.Deserialize<Dictionary<string, bool>>(flagJson);
+    Flags = JsonSerializer.Deserialize<Dictionary<string, bool>>(flagJson)!;
   }
 
   public static void WriteFlags()
@@ -45,8 +45,8 @@ public static class DialogueManager
     string dialogueJson = File.ReadAllText(@$"Dialogue\{sceneName}.json");
     string choicesJson = File.ReadAllText(@$"Choices\{sceneName}.json");
 
-    Dialogue = JsonSerializer.Deserialize<Dictionary<string, List<Replica>>>(dialogueJson);
-    Choices = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, List<Replica>>>>(choicesJson);
+    Dialogue = JsonSerializer.Deserialize<Dictionary<string, List<Replica>>>(dialogueJson) ?? [];
+    Choices = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, List<Replica>>>>(choicesJson) ?? [];
   }
 
   public static void DumpDialogueCache()

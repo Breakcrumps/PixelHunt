@@ -3,11 +3,11 @@ using Godot;
 
 public partial class EnvInput : LineEdit
 {
-  [Export] private Label _envLabel;
+  [Export] private Label? _envLabel;
 
   public override void _Ready()
   {
-    _envLabel.Text = "Light";
+    _envLabel!.Text = "Light";
 
     TextSubmitted += ChangeEnvironment;
   }
@@ -19,12 +19,12 @@ public partial class EnvInput : LineEdit
     Input.MouseMode = Input.MouseModeEnum.Captured;
     GetTree().Paused = false;
 
-    string filepath = $@"Environment\{input}.tres";
+    string filepath = $@"Resources\Environment\{input}.tres";
 
     if (!File.Exists(filepath))
       return;
 
-    _envLabel.Text = input;
+    _envLabel!.Text = input;
 
     EventBus.ChangeEnvironment(input);
   }

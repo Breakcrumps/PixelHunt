@@ -2,5 +2,6 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Nullable>Enable</Nullable>
   </PropertyGroup>
 </Project>

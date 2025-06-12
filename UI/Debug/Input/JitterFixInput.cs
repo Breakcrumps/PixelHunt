@@ -2,11 +2,11 @@ using Godot;
 
 public partial class JitterFixInput : LineEdit
 {
-  [Export] private Label _jitterFixLabel;
+  [Export] private Label? _jitterFixLabel;
 
   public override void _Ready()
   {
-    _jitterFixLabel.Text = $"{Engine.PhysicsJitterFix}";
+    _jitterFixLabel!.Text = $"{Engine.PhysicsJitterFix}";
 
     TextSubmitted += ChangeJitterFix;
   }
@@ -20,7 +20,7 @@ public partial class JitterFixInput : LineEdit
 
     Engine.PhysicsJitterFix = newJitterFix;
 
-    _jitterFixLabel.Text = $"{Engine.PhysicsJitterFix}";
+    _jitterFixLabel!.Text = $"{Engine.PhysicsJitterFix}";
 
     Clear();
 

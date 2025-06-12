@@ -4,10 +4,10 @@ using System.Text;
 public record Replica(
   string Who = "",
   string Line = "",
-  List<string> Conditions = null,
-  List<string> Actions = null,
-  string Choice = null,
-  string Sound = null
+  List<string>? Conditions = null,
+  List<string>? Actions = null,
+  string? Choice = null,
+  string? Sound = null
 )
 {
   public override string ToString()
@@ -29,4 +29,6 @@ public record Replica(
 
     return $"{stringBuilder}";
   }
+
+  public string RawLine => string.Join("", Line.Split('|'));
 }

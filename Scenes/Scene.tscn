@@ -4,9 +4,9 @@
 [ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Scenes/Scene.cs" id="1_v3fvj"]
 [ext_resource type="PackedScene" uid="uid://dx31uyob3yo44" path="res://UI/UI.tscn" id="2_v3fvj"]
 [ext_resource type="PackedScene" uid="uid://crjsrv8mfy60r" path="res://World/Light.tscn" id="3_qswnl"]
-[ext_resource type="PackedScene" uid="uid://b468pt3e6l58g" path="res://World/npc.tscn" id="4_khr67"]
+[ext_resource type="PackedScene" uid="uid://civol26ukhi0i" path="res://World/NPC.tscn" id="4_khr67"]
 [ext_resource type="Script" uid="uid://cfr362g6kspf1" path="res://World/DialogueArea.cs" id="5_qswnl"]
-[ext_resource type="Environment" uid="uid://c0dl521hmyhyu" path="res://Environment/Light.tres" id="6_s7xl2"]
+[ext_resource type="Environment" uid="uid://c0dl521hmyhyu" path="res://Resources/Environment/Light.tres" id="6_s7xl2"]
 [ext_resource type="Script" uid="uid://cdsutjft0pyga" path="res://Scenes/SceneEnvironment.cs" id="7_g6k5w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4cvuw"]
