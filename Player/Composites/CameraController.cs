@@ -8,6 +8,7 @@ public partial class CameraController : Node
   [Export] private CharacterBody3D? _character;
   [Export] private Node3D? _body;
 
+  [ExportGroup("Parameters")]
   [Export(PropertyHint.Range, "0f, .01f")] private float _mouseSensitivity = .01f;
   [Export(PropertyHint.Range, "10f, 90f")] private float _tiltLimit = 75f;
   [Export] private float _turnSpeed = 5f;

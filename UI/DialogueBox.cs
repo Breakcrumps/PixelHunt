@@ -8,8 +8,8 @@ public partial class DialogueBox : Control
   [Export] private RichTextLabel? _textBox;
   [Export] private ChoiceContainer? _choiceContainer;
   [Export] private Timer? _timer;
-  [Export] private AudioStreamPlayer3D? _audioPlayer;
 
+  [ExportGroup("Parameters")]
   [Export] private float _cps = 25f;
 
   private List<Replica> _lines = [];

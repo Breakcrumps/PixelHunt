@@ -6,14 +6,17 @@ public partial class Movement : Node
   [Export] private CharacterBody3D? _character;
   [Export] private Node3D? _cameraPivot;
 
+  [ExportGroup("Parameters")]
   [Export] private float _walkSpeed = 50f;
   [Export] private float _runSpeed = 100f;
   [Export] private float _slowWalkSpeed = 10f;
   [Export] private float _debugWalkSpeed = 5000f;
   [Export] private float _debugRunSpeed = 10_000f;
   [Export] private float _jumpVelocity = 200f;
-  [Export] private float _hoverVelocity = 1000f;
   [Export] private float _g = 15f;
+
+  [ExportGroup("Debug")]
+  [Export] private float _hoverVelocity = 1000f;
 
   private bool _slowWalk;
   private bool _isInDebugMode;

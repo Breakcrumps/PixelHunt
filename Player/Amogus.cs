@@ -2,7 +2,6 @@ using Godot;
 
 public partial class Amogus : CharacterBody3D
 {
-  [ExportGroup("Composites")]
   [Export] private Movement? _movement;
   [Export] private CameraController? _cameraController;
 

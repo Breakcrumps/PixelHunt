@@ -38,6 +38,8 @@ _character = NodePath("../..")
 _cameraPivot = NodePath("../../CameraPivot")
 _walkSpeed = 20.0
 _runSpeed = 30.0
+_jumpVelocity = 75.0
+_g = 5.0
 metadata/_custom_type_script = "uid://dyk3bbbwwp4fn"
 
 [node name="CameraController" type="Node" parent="Composites" node_paths=PackedStringArray("_cameraSpring", "_cameraPivot", "_character", "_body")]
