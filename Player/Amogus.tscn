@@ -1,22 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://dof2sgvhypbee"]
+[gd_scene load_steps=10 format=3 uid="uid://dof2sgvhypbee"]
 
 [ext_resource type="Script" uid="uid://jmfdamxd504" path="res://Player/Amogus.cs" id="1_h202v"]
 [ext_resource type="Script" uid="uid://1pnq7oqpicbw" path="res://Player/CharacterCamera.cs" id="2_rk32f"]
 [ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Player/Composites/Movement.cs" id="4_cvk4d"]
 [ext_resource type="Script" uid="uid://b47uacnwv7l18" path="res://World/AudioPlayer.cs" id="5_c4fqo"]
 [ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Player/Composites/CameraController.cs" id="5_lel00"]
-[ext_resource type="PackedScene" uid="uid://c5jkwh75toj2v" path="res://Player/Model.tscn" id="6_rk32f"]
+[ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Player/Composites/Animator.cs" id="5_rk32f"]
+[ext_resource type="PackedScene" uid="uid://bltmeenfjxxii" path="res://Player/Children/au.tscn" id="7_gnlu4"]
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_c4fqo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rk32f"]
 size = Vector3(1.08246, 1.91895, 0.261475)
 
-[node name="Amogus" type="CharacterBody3D" node_paths=PackedStringArray("_movement", "_cameraController")]
+[node name="Amogus" type="CharacterBody3D" node_paths=PackedStringArray("_movement", "_cameraController", "_animator")]
 collision_mask = 28
 script = ExtResource("1_h202v")
 _movement = NodePath("Composites/Movement")
 _cameraController = NodePath("Composites/CameraController")
+_animator = NodePath("Composites/Animator")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -36,10 +38,6 @@ script = ExtResource("2_rk32f")
 script = ExtResource("4_cvk4d")
 _character = NodePath("../..")
 _cameraPivot = NodePath("../../CameraPivot")
-_walkSpeed = 20.0
-_runSpeed = 30.0
-_jumpVelocity = 75.0
-_g = 5.0
 metadata/_custom_type_script = "uid://dyk3bbbwwp4fn"
 
 [node name="CameraController" type="Node" parent="Composites" node_paths=PackedStringArray("_cameraSpring", "_cameraPivot", "_character", "_body")]
@@ -47,10 +45,14 @@ script = ExtResource("5_lel00")
 _cameraSpring = NodePath("../../CameraPivot/SpringArm3D")
 _cameraPivot = NodePath("../../CameraPivot")
 _character = NodePath("../..")
-_body = NodePath("../../4232_autosave")
+_body = NodePath("../../Au")
 _tiltLimit = 60.0
 _zoomSpeed = 20.0
 metadata/_custom_type_script = "uid://yspitpsmijxs"
+
+[node name="Animator" type="Node" parent="Composites"]
+script = ExtResource("5_rk32f")
+metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
 [node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
 script = ExtResource("5_c4fqo")
@@ -59,4 +61,4 @@ script = ExtResource("5_c4fqo")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000640869, 0.959473, 0.0152588)
 shape = SubResource("BoxShape3D_rk32f")
 
-[node name="4232_autosave" parent="." instance=ExtResource("6_rk32f")]
+[node name="Au" parent="." instance=ExtResource("7_gnlu4")]

@@ -7,18 +7,18 @@ public partial class Movement : Node
   [Export] private Node3D? _cameraPivot;
 
   [ExportGroup("Parameters")]
-  [Export] private float _walkSpeed = 50f;
-  [Export] private float _runSpeed = 100f;
+  [Export] private float _walkSpeed = 20f;
+  [Export] private float _runSpeed = 30f;
   [Export] private float _slowWalkSpeed = 10f;
-  [Export] private float _debugWalkSpeed = 5000f;
-  [Export] private float _debugRunSpeed = 10_000f;
-  [Export] private float _jumpVelocity = 200f;
-  [Export] private float _g = 15f;
+  [Export] private float _jumpVelocity = 100f;
+  [Export] private float _g = 9.8f;
 
   [ExportGroup("Debug")]
+  [Export] private float _debugWalkSpeed = 5000f;
+  [Export] private float _debugRunSpeed = 10_000f;
   [Export] private float _hoverVelocity = 1000f;
 
-  private bool _slowWalk;
+  public bool SlowWalk { get; private set; }
   private bool _isInDebugMode;
   private int _doubleJumps;
 
@@ -37,6 +37,9 @@ public partial class Movement : Node
 
   public override void _UnhandledInput(InputEvent @event)
   {
+    if (GetTree().Paused)
+      return;
+
     HandleSlowWalk(@event);
 
     HandleDebug(@event);
@@ -67,7 +70,7 @@ public partial class Movement : Node
   private Vector2 GroundVelocity()
   {
     float speed = (
-      _slowWalk
+      SlowWalk
       ? _slowWalkSpeed
       : Input.IsActionPressed("Run")
       ? _runSpeed
@@ -96,10 +99,10 @@ public partial class Movement : Node
 
   private void HandleSlowWalk(InputEvent @event)
   {
-    if (!@event.IsActionPressed("SlowWalk"))
+    if (!@event.IsActionReleased("SlowWalk"))
       return;
 
-    _slowWalk = !_slowWalk;
+    SlowWalk = !SlowWalk;
   }
 
   private void HandleDebug(InputEvent @event)
@@ -118,4 +121,5 @@ public partial class Movement : Node
 
     _character.Velocity = _character.Velocity.Rotated(Vector3.Up, _cameraPivot!.Rotation.Y);
   }
+  
 }
