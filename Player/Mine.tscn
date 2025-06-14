@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://c7oe2lbgklgf7"]
+[gd_scene load_steps=13 format=3 uid="uid://c7oe2lbgklgf7"]
 
 [ext_resource type="PackedScene" uid="uid://ubakxne6vmax" path="res://Import/Mine.glb" id="1_0o3si"]
 [ext_resource type="Script" uid="uid://b2v707dadwp1a" path="res://Player/Children/CharacterTree.cs" id="2_0o3si"]
-[ext_resource type="Script" uid="uid://cf2md3jubxn6o" path="res://Player/Children/CharacterPlayer.cs" id="2_3lmce"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0o3si"]
 
@@ -74,11 +73,7 @@ bones/15/rotation = Quaternion(0.00374689, 0.707097, -0.707097, -0.00374689)
 bones/16/position = Vector3(-0.0671654, 0.495227, 0.429989)
 bones/17/rotation = Quaternion(-0.00374689, 0.707097, -0.707097, 0.00374689)
 
-[node name="AnimationPlayer" parent="." index="1"]
-script = ExtResource("2_3lmce")
-
 [node name="PlayerTree" type="AnimationTree" parent="." index="2"]
-process_mode = 4
 tree_root = SubResource("AnimationNodeBlendTree_xglkt")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Fall/blend_amount = 0.00694444
