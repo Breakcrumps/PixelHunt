@@ -6,12 +6,12 @@
 [ext_resource type="Script" uid="uid://b47uacnwv7l18" path="res://World/AudioPlayer.cs" id="5_c4fqo"]
 [ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Player/Composites/CameraController.cs" id="5_lel00"]
 [ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Player/Composites/Animator.cs" id="5_rk32f"]
-[ext_resource type="PackedScene" uid="uid://bltmeenfjxxii" path="res://Player/Children/au.tscn" id="7_gnlu4"]
+[ext_resource type="PackedScene" uid="uid://c7oe2lbgklgf7" path="res://Player/Mine.tscn" id="7_gnlu4"]
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_c4fqo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rk32f"]
-size = Vector3(1.08246, 1.91895, 0.261475)
+size = Vector3(0.595322, 1.86414, 0.27771)
 
 [node name="Amogus" type="CharacterBody3D" node_paths=PackedStringArray("_movement", "_cameraController", "_animator")]
 collision_mask = 28
@@ -34,10 +34,14 @@ script = ExtResource("2_rk32f")
 
 [node name="Composites" type="Node" parent="."]
 
-[node name="Movement" type="Node" parent="Composites" node_paths=PackedStringArray("_character", "_cameraPivot")]
+[node name="Movement" type="Node" parent="Composites" node_paths=PackedStringArray("_character", "_cameraPivot", "_collision")]
 script = ExtResource("4_cvk4d")
 _character = NodePath("../..")
 _cameraPivot = NodePath("../../CameraPivot")
+_collision = NodePath("../../CollisionShape3D")
+_walkSpeed = 10.0
+_runSpeed = 20.0
+_slowWalkSpeed = 5.0
 metadata/_custom_type_script = "uid://dyk3bbbwwp4fn"
 
 [node name="CameraController" type="Node" parent="Composites" node_paths=PackedStringArray("_cameraSpring", "_cameraPivot", "_character", "_body")]
@@ -45,7 +49,7 @@ script = ExtResource("5_lel00")
 _cameraSpring = NodePath("../../CameraPivot/SpringArm3D")
 _cameraPivot = NodePath("../../CameraPivot")
 _character = NodePath("../..")
-_body = NodePath("../../Au")
+_body = NodePath("../../CollisionShape3D")
 _tiltLimit = 60.0
 _zoomSpeed = 20.0
 metadata/_custom_type_script = "uid://yspitpsmijxs"
@@ -58,7 +62,8 @@ metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 script = ExtResource("5_c4fqo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000640869, 0.959473, 0.0152588)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00240344, 0.932067, 0.00714123)
 shape = SubResource("BoxShape3D_rk32f")
 
-[node name="Au" parent="." instance=ExtResource("7_gnlu4")]
+[node name="Mine" parent="CollisionShape3D" instance=ExtResource("7_gnlu4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00240344, -0.932067, -0.00714123)

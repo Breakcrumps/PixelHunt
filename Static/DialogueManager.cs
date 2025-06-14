@@ -5,10 +5,10 @@ using Godot;
 
 public static class DialogueManager
 {
-  public static string Scene { get; set; } = "";
+  public static string Scene { private get; set; } = "";
 
-  public static Dictionary<string, List<Replica>> Dialogue { get; set; } = [];
-  public static Dictionary<string, Dictionary<string, List<Replica>>> Choices { get; set; } = [];
+  public static Dictionary<string, List<Replica>> Dialogue { get; private set; } = [];
+  public static Dictionary<string, Dictionary<string, List<Replica>>> Choices { get; private set; } = [];
 
   public static Dictionary<string, bool> Flags { get; set; } = [];
 

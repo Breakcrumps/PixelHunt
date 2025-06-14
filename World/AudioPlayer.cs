@@ -1,5 +1,6 @@
 using Godot;
 
+[GlobalClass]
 public partial class AudioPlayer : AudioStreamPlayer3D
 {
   public override void _Ready()

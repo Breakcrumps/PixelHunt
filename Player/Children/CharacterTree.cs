@@ -1,6 +1,7 @@
 using Godot;
 
-public partial class PlayerTree : AnimationTree
+[GlobalClass]
+public partial class CharacterTree : AnimationTree
 {
   public override void _Ready()
   {

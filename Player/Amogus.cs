@@ -11,7 +11,6 @@ public partial class Amogus : CharacterBody3D
     _movement!.Move();
     _cameraController!.AlignBody(delta);
 
-
     AnimateMovement();
   }
 
@@ -19,13 +18,12 @@ public partial class Amogus : CharacterBody3D
   {
     Vector2 horizontalVelocity = new(Velocity.X, Velocity.Z);
 
-    if (horizontalVelocity == Vector2.Zero || !IsOnFloor())
-      _animator!.CurrentAnim = Anim.Idle;
-    else if (Input.IsActionPressed("Run"))
-      _animator!.CurrentAnim = Anim.Run;
-    else if (_movement!.SlowWalk)
-      _animator!.CurrentAnim = Anim.SlowWalk;
-    else
-      _animator!.CurrentAnim = Anim.Walk;
+    _animator!.CurrentAnim = (
+      !IsOnFloor()
+      ? Velocity.Y > 0 ? Anim.Rise : Anim.Fall
+      : horizontalVelocity != Vector2.Zero
+      ? horizontalVelocity.Length() > 15f ? Anim.Run : Anim.Walk
+      : Anim.Idle
+    );
   }
 }

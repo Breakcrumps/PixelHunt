@@ -1,0 +1,88 @@
+[gd_scene load_steps=14 format=3 uid="uid://c7oe2lbgklgf7"]
+
+[ext_resource type="PackedScene" uid="uid://ubakxne6vmax" path="res://Import/Mine.glb" id="1_0o3si"]
+[ext_resource type="Script" uid="uid://b2v707dadwp1a" path="res://Player/Children/CharacterTree.cs" id="2_0o3si"]
+[ext_resource type="Script" uid="uid://cf2md3jubxn6o" path="res://Player/Children/CharacterPlayer.cs" id="2_3lmce"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0o3si"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3lmce"]
+animation = &"Fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0o3si"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_pkpbe"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xglkt"]
+animation = &"Rise"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_xglkt"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h4sc1"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_3lmce"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pkpbe"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xglkt"]
+graph_offset = Vector2(-209.102, 44.2702)
+nodes/Fall/node = SubResource("AnimationNodeBlend2_0o3si")
+nodes/Fall/position = Vector2(280, 120)
+nodes/FallAnim/node = SubResource("AnimationNodeAnimation_3lmce")
+nodes/FallAnim/position = Vector2(100, 420)
+nodes/IdleAnim/node = SubResource("AnimationNodeAnimation_0o3si")
+nodes/IdleAnim/position = Vector2(-100, 100)
+nodes/Rise/node = SubResource("AnimationNodeBlend2_pkpbe")
+nodes/Rise/position = Vector2(460, 120)
+nodes/RiseAnim/node = SubResource("AnimationNodeAnimation_xglkt")
+nodes/RiseAnim/position = Vector2(280, 420)
+nodes/Run/node = SubResource("AnimationNodeBlend2_xglkt")
+nodes/Run/position = Vector2(640, 120)
+nodes/RunAnim/node = SubResource("AnimationNodeAnimation_h4sc1")
+nodes/RunAnim/position = Vector2(460, 420)
+nodes/Walk/node = SubResource("AnimationNodeBlend2_3lmce")
+nodes/Walk/position = Vector2(100, 120)
+nodes/WalkAnim/node = SubResource("AnimationNodeAnimation_pkpbe")
+nodes/WalkAnim/position = Vector2(-100, 280)
+nodes/output/position = Vector2(820, 160)
+node_connections = [&"Fall", 0, &"Walk", &"Fall", 1, &"FallAnim", &"Rise", 0, &"Fall", &"Rise", 1, &"RiseAnim", &"Run", 0, &"Rise", &"Run", 1, &"RunAnim", &"Walk", 0, &"IdleAnim", &"Walk", 1, &"WalkAnim", &"output", 0, &"Run"]
+
+[node name="Mine" instance=ExtResource("1_0o3si")]
+
+[node name="Armature" parent="." index="0"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/rotation = Quaternion(-0.0242767, 0, 0, 0.999705)
+bones/1/rotation = Quaternion(0.0967823, 1.1865e-07, 1.15374e-08, 0.995306)
+bones/2/rotation = Quaternion(-0.00663301, 0.00536627, 0.99241, -0.122674)
+bones/3/rotation = Quaternion(0.0216839, -0.00419523, -0.0516271, 0.998422)
+bones/5/rotation = Quaternion(-0.0343734, -0.00471108, 0.999395, -0.00230625)
+bones/6/rotation = Quaternion(-0.0545318, 0.000181092, -0.00969958, 0.998465)
+bones/7/rotation = Quaternion(0.600459, -0.025537, 0.0235848, 0.7989)
+bones/8/rotation = Quaternion(0.00663301, 0.00536627, 0.99241, 0.122674)
+bones/9/rotation = Quaternion(0.0216839, 0.00419523, 0.0516271, 0.998422)
+bones/11/rotation = Quaternion(0.0343734, -0.00471108, 0.999395, 0.00230625)
+bones/12/rotation = Quaternion(-0.0545318, -0.000181092, 0.00969958, 0.998465)
+bones/13/rotation = Quaternion(0.600459, 0.025537, -0.0235848, 0.7989)
+bones/14/position = Vector3(0.0671654, 0.495227, 0.429989)
+bones/14/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
+bones/15/rotation = Quaternion(0.00374689, 0.707097, -0.707097, -0.00374689)
+bones/16/position = Vector3(-0.0671654, 0.495227, 0.429989)
+bones/17/rotation = Quaternion(-0.00374689, 0.707097, -0.707097, 0.00374689)
+
+[node name="AnimationPlayer" parent="." index="1"]
+script = ExtResource("2_3lmce")
+
+[node name="PlayerTree" type="AnimationTree" parent="." index="2"]
+process_mode = 4
+tree_root = SubResource("AnimationNodeBlendTree_xglkt")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Fall/blend_amount = 0.00694444
+parameters/Rise/blend_amount = 0
+parameters/Run/blend_amount = 0.00694444
+parameters/Walk/blend_amount = 0.00694444
+script = ExtResource("2_0o3si")

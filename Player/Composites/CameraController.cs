@@ -21,6 +21,9 @@ public partial class CameraController : Node
 
   public void AlignBody(double delta)
   {
+    if (_body is null)
+      return;
+
     if (_character?.Velocity == Vector3.Zero)
       return;
 

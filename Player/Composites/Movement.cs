@@ -5,6 +5,7 @@ public partial class Movement : Node
 {
   [Export] private CharacterBody3D? _character;
   [Export] private Node3D? _cameraPivot;
+  [Export] private CollisionShape3D? _collision;
 
   [ExportGroup("Parameters")]
   [Export] private float _walkSpeed = 20f;
@@ -109,10 +110,9 @@ public partial class Movement : Node
   {
     if (!@event.IsActionPressed("Debug"))
       return;
-    
+
     _isInDebugMode = !_isInDebugMode;
-    GetNode<CollisionShape3D>("%Hurtbox").Disabled = _isInDebugMode;
-    GetNode<CollisionShape3D>("%Legs").Disabled = _isInDebugMode;
+    _collision!.Disabled = true;
   }
 
   private void ApplyVelocity(Vector2 groundVelocity, float verticalVelocity)
