@@ -42,6 +42,9 @@ _collision = NodePath("../../CollisionShape3D")
 _walkSpeed = 10.0
 _runSpeed = 20.0
 _slowWalkSpeed = 5.0
+_debugWalkSpeed = 50.0
+_debugRunSpeed = 100.0
+_hoverVelocity = 50.0
 metadata/_custom_type_script = "uid://dyk3bbbwwp4fn"
 
 [node name="CameraController" type="Node" parent="Composites" node_paths=PackedStringArray("_cameraSpring", "_cameraPivot", "_character", "_body")]

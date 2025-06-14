@@ -112,12 +112,19 @@ public partial class Movement : Node
       return;
 
     _isInDebugMode = !_isInDebugMode;
-    _collision!.Disabled = true;
+    _collision!.Disabled = _isInDebugMode;
+
+    Flags.FunFlightShenanigans = _isInDebugMode;
   }
 
   private void ApplyVelocity(Vector2 groundVelocity, float verticalVelocity)
   {
     _character!.Velocity = new(groundVelocity.X, verticalVelocity, groundVelocity.Y);
+
+    if (Flags.FunFlightShenanigans)
+    {
+      _character.Velocity = _character.Velocity.Rotated(Vector3.Forward, _cameraPivot!.Rotation.X);
+    }
 
     _character.Velocity = _character.Velocity.Rotated(Vector3.Up, _cameraPivot!.Rotation.Y);
   }

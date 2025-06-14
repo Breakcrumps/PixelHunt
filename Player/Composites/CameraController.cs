@@ -27,6 +27,12 @@ public partial class CameraController : Node
     if (_character?.Velocity == Vector3.Zero)
       return;
 
+    if (Flags.FunFlightShenanigans)
+    {
+      _body!.Rotation = _body.Rotation.Lerp(_cameraPivot!.Rotation, _turnSpeed * (float)delta);
+      return;
+    }
+
     Vector3 targetDirection = new(0f, _cameraPivot!.Rotation.Y, 0f);
 
     _body!.Rotation = _body.Rotation.Lerp(targetDirection, _turnSpeed * (float)delta);
