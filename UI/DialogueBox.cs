@@ -4,6 +4,8 @@ using Godot;
 
 public partial class DialogueBox : Control
 {
+  private AudioPlayer? _audioPlayer;
+  
   [Export] private RichTextLabel? _nameBox;
   [Export] private RichTextLabel? _textBox;
   [Export] private ChoiceContainer? _choiceContainer;
@@ -21,6 +23,15 @@ public partial class DialogueBox : Control
 
   private List<int> _waitIndices = [];
 
+  private DialogueBox()
+  {
+    EventBus.Created += node =>
+    {
+      if (node is AudioPlayer audioPlayer)
+        _audioPlayer = audioPlayer;
+    };
+  }
+
   public override void _Ready()
   {
     _timer!.WaitTime = 1f / _cps;
@@ -28,7 +39,7 @@ public partial class DialogueBox : Control
 
     Hide();
 
-    EventBus.DialogueInit += InitDialogue;
+    EventBus.NotifyCreation(this);
   }
 
   public override void _Input(InputEvent @event)
@@ -102,7 +113,7 @@ public partial class DialogueBox : Control
     ShowLine(_choiceLines);
   }
 
-  private void InitDialogue(string source)
+  public void InitDialogue(string source)
   {
     _lines = [.. DialogueManager.Dialogue[source]];
 
@@ -141,7 +152,7 @@ public partial class DialogueBox : Control
 
     if (next.Sound is not null)
     {
-      EventBus.PlaySound(next.Sound);
+      _audioPlayer?.PlaySound(next.Sound);
     }
 
     if (next.Conditions is not null)

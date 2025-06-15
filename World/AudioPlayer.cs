@@ -5,12 +5,12 @@ public partial class AudioPlayer : AudioStreamPlayer3D
 {
   public override void _Ready()
   {
-    EventBus.SoundPlay += PlaySound;
+    EventBus.NotifyCreation(this);
 
     ProcessMode = ProcessModeEnum.Always;
   }
 
-  private void PlaySound(string filename)
+  public void PlaySound(string filename)
   {
     string filepath = $@"Sounds\{filename}.mp3";
 

@@ -2,13 +2,12 @@ using Godot;
 
 public partial class ZFarLabel : Label
 {
-  public override void _Ready()
+  private ZFarLabel()
   {
-    EventBus.ZFarChange += UpdateDisplay;
-  }
-
-  private void UpdateDisplay(float newZFar)
-  {
-    Text = $"ZFar: {newZFar}";
+    EventBus.Created += node =>
+    {
+      if (node is CharacterCamera characterCamera)
+        Text = $"{characterCamera.Far}";
+    };
   }
 }

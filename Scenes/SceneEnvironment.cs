@@ -4,7 +4,7 @@ public partial class SceneEnvironment : WorldEnvironment
 {
   public override void _Ready()
   {
-    EventBus.EnvironmentChange += ChangeEnvironment;
+    EventBus.NotifyCreation(this);
   }
 
   private void ChangeEnvironment(string envName)

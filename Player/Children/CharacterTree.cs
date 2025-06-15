@@ -5,7 +5,6 @@ public partial class CharacterTree : AnimationTree
 {
   public override void _Ready()
   {
-    EventBus.BlendParameterChange += (parameter, value)
-      => Set(parameter, value);
+    EventBus.NotifyCreation(this);
   }
 }

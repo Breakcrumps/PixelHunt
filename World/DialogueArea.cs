@@ -3,9 +3,17 @@ using Godot;
 [GlobalClass]
 public partial class DialogueArea : Area3D
 {
+  private DialogueBox? _dialogueBox;
+  
   [Export] private string _name = "NO_NAME";
 
   private bool _active;
+
+  private DialogueArea()
+  {
+    EventBus.Created += node
+      => { if (node is DialogueBox dialogueBox) _dialogueBox = dialogueBox; };
+  }
 
   public override void _Ready()
   {
@@ -23,6 +31,6 @@ public partial class DialogueArea : Area3D
 
     GetViewport().SetInputAsHandled();
 
-    EventBus.InitDialogue(_name);
+    _dialogueBox?.InitDialogue(_name);
   }
 }

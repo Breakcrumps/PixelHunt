@@ -5,6 +5,8 @@ public enum Anim { Idle, Walk, Run, Hover, Rise, Fall }
 [GlobalClass]
 public partial class Animator : Node
 {
+  private CharacterTree? _characterTree;
+
   [ExportGroup("Parameters")]
   [Export] private float _fastBlendSpeed = 15f;
   [Export] private float _slowBlendSpeed = 7f;
@@ -17,6 +19,15 @@ public partial class Animator : Node
   private float _riseValue = 0f;
   private float _fallValue = 0f;
 
+  private Animator()
+  {
+    EventBus.Created += node =>
+    {
+      if (node is CharacterTree characterTree)
+        _characterTree = characterTree;
+    };
+  }
+
   public override void _PhysicsProcess(double delta)
   {
     SetBlendValues(delta);
@@ -26,11 +37,11 @@ public partial class Animator : Node
 
   private void UpdateTree()
   {
-    EventBus.ChangeBlendParameter("parameters/Walk/blend_amount", _walkValue);
-    EventBus.ChangeBlendParameter("parameters/Run/blend_amount", _runValue);
-    EventBus.ChangeBlendParameter("parameters/Hover/blend_amount", _hoverValue);
-    EventBus.ChangeBlendParameter("parameters/Rise/blend_amount", _riseValue);
-    EventBus.ChangeBlendParameter("parameters/Fall/blend_amount", _fallValue);
+    _characterTree?.Set("parameters/Walk/blend_amount", _walkValue);
+    _characterTree?.Set("parameters/Run/blend_amount", _runValue);
+    _characterTree?.Set("parameters/Hover/blend_amount", _hoverValue);
+    _characterTree?.Set("parameters/Rise/blend_amount", _riseValue);
+    _characterTree?.Set("parameters/Fall/blend_amount", _fallValue);
   }
 
   private void SetBlendValues(double delta)

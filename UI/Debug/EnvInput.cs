@@ -3,12 +3,21 @@ using Godot;
 
 public partial class EnvInput : LineEdit
 {
-  [Export] private Label? _envLabel;
+  private SceneEnvironment? _sceneEnv;
+
+  [Export] private EnvLabel? _envLabel;
+
+  private EnvInput()
+  {
+    EventBus.Created += node =>
+    {
+      if (node is SceneEnvironment sceneEnv)
+        _sceneEnv = sceneEnv;
+    };
+  }
 
   public override void _Ready()
   {
-    _envLabel!.Text = "Light";
-
     TextSubmitted += ChangeEnvironment;
   }
 
@@ -24,8 +33,7 @@ public partial class EnvInput : LineEdit
     if (!File.Exists(filepath))
       return;
 
-    _envLabel!.Text = input;
-
-    EventBus.ChangeEnvironment(input);
+    _sceneEnv!.Environment = ResourceLoader.Load<Environment>(filepath);
+    _envLabel?.UpdateDisplay(_sceneEnv.Environment);
   }
 }

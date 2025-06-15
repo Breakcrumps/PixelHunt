@@ -1,14 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://3jdvr7d1ks8n"]
+[gd_scene load_steps=12 format=3 uid="uid://3jdvr7d1ks8n"]
 
 [ext_resource type="Script" uid="uid://brmv2idk1q3op" path="res://UI/Debug/Labels/FpsLabel.cs" id="1_cud8x"]
 [ext_resource type="Script" uid="uid://dti2dtwtdhtvj" path="res://UI/Debug/Input/FpsInput.cs" id="2_5c2yk"]
-[ext_resource type="Script" uid="uid://dc4ft4634sb66" path="res://UI/Debug/Labels/ZFarLabel.cs" id="3_601hj"]
+[ext_resource type="Script" uid="uid://dtc0vc2754ugq" path="res://UI/Debug/Labels/ZFarLabel.cs" id="3_601hj"]
 [ext_resource type="Script" uid="uid://d220wvj2gs0g6" path="res://UI/Debug/Input/ZFarInput.cs" id="4_bjb7n"]
 [ext_resource type="Script" uid="uid://cmxvgj5rk3h4f" path="res://UI/Debug/Input/PhysFpsInput.cs" id="6_ai6s0"]
 [ext_resource type="Script" uid="uid://dv5g0p8qs8va8" path="res://UI/Debug/Input/JitterFixInput.cs" id="8_2evna"]
 [ext_resource type="Script" uid="uid://bh7tt01m0lf75" path="res://UI/Debug/Buttons/WriteFlags.cs" id="9_601hj"]
 [ext_resource type="Script" uid="uid://cc8tl6j28spxe" path="res://UI/Debug/Buttons/LoadFlags.cs" id="10_bjb7n"]
 [ext_resource type="Script" uid="uid://dj83q2vaa5fcb" path="res://UI/Debug/EnvInput.cs" id="10_f0jn6"]
+[ext_resource type="Script" uid="uid://cmg4uajst0igs" path="res://UI/Debug/Labels/EnvLabel.cs" id="10_ffmdf"]
 [ext_resource type="Script" uid="uid://dtnqhq786xwgm" path="res://UI/Debug/Buttons/ResetFlags.cs" id="11_bjb7n"]
 
 [node name="Control" type="Control"]
@@ -67,10 +68,11 @@ layout_mode = 2
 text = "ZFAR"
 script = ExtResource("3_601hj")
 
-[node name="ZFarInput" type="LineEdit" parent="HBoxContainer/DebugTrackers"]
+[node name="ZFarInput" type="LineEdit" parent="HBoxContainer/DebugTrackers" node_paths=PackedStringArray("_zFarLabel")]
 layout_mode = 2
 placeholder_text = "ZFar..."
 script = ExtResource("4_bjb7n")
+_zFarLabel = NodePath("../ZFarLabel")
 
 [node name="PhysFPSLabel" type="Label" parent="HBoxContainer/DebugTrackers"]
 layout_mode = 2
@@ -98,6 +100,7 @@ layout_mode = 2
 [node name="EnvLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Env"
+script = ExtResource("10_ffmdf")
 
 [node name="EnvInput" type="LineEdit" parent="HBoxContainer/VBoxContainer" node_paths=PackedStringArray("_envLabel")]
 layout_mode = 2
