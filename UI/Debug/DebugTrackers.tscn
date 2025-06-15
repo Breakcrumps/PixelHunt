@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://3jdvr7d1ks8n"]
+[gd_scene load_steps=13 format=3 uid="uid://3jdvr7d1ks8n"]
 
 [ext_resource type="Script" uid="uid://brmv2idk1q3op" path="res://UI/Debug/Labels/FpsLabel.cs" id="1_cud8x"]
 [ext_resource type="Script" uid="uid://dti2dtwtdhtvj" path="res://UI/Debug/Input/FpsInput.cs" id="2_5c2yk"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dj83q2vaa5fcb" path="res://UI/Debug/EnvInput.cs" id="10_f0jn6"]
 [ext_resource type="Script" uid="uid://cmg4uajst0igs" path="res://UI/Debug/Labels/EnvLabel.cs" id="10_ffmdf"]
 [ext_resource type="Script" uid="uid://dtnqhq786xwgm" path="res://UI/Debug/Buttons/ResetFlags.cs" id="11_bjb7n"]
+[ext_resource type="Script" uid="uid://ctk0yeiqfxikb" path="res://UI/Debug/Input/SunAngleInput.cs" id="12_1kwxm"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -107,3 +108,8 @@ layout_mode = 2
 placeholder_text = "Env name..."
 script = ExtResource("10_f0jn6")
 _envLabel = NodePath("../EnvLabel")
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "SunAngle..."
+script = ExtResource("12_1kwxm")

@@ -21,7 +21,7 @@ public partial class Animator : Node
 
   private Animator()
   {
-    EventBus.Created += node =>
+    EventBus.Ready += node =>
     {
       if (node is CharacterTree characterTree)
         _characterTree = characterTree;

@@ -8,7 +8,7 @@ public partial class ZFarInput : LineEdit
 
   private ZFarInput()
   {
-    EventBus.Created += node =>
+    EventBus.Ready += node =>
     {
       if (node is CharacterCamera characterCamera)
         _characterCamera = characterCamera;

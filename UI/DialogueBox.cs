@@ -25,7 +25,7 @@ public partial class DialogueBox : Control
 
   private DialogueBox()
   {
-    EventBus.Created += node =>
+    EventBus.Ready += node =>
     {
       if (node is AudioPlayer audioPlayer)
         _audioPlayer = audioPlayer;
@@ -39,7 +39,7 @@ public partial class DialogueBox : Control
 
     Hide();
 
-    EventBus.NotifyCreation(this);
+    EventBus.NotifyReady(this);
   }
 
   public override void _Input(InputEvent @event)

@@ -9,7 +9,7 @@ public partial class EnvInput : LineEdit
 
   private EnvInput()
   {
-    EventBus.Created += node =>
+    EventBus.Ready += node =>
     {
       if (node is SceneEnvironment sceneEnv)
         _sceneEnv = sceneEnv;
@@ -27,6 +27,18 @@ public partial class EnvInput : LineEdit
 
     Input.MouseMode = Input.MouseModeEnum.Captured;
     GetTree().Paused = false;
+
+    if (_envLabel is null)
+    {
+      GD.Print(_envLabel);
+      return;
+    }
+
+    if (input == "Delete")
+    {
+      _envLabel?.Free();
+      return;
+    }
 
     string filepath = $@"Resources\Environment\{input}.tres";
 

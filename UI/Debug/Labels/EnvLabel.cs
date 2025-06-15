@@ -4,7 +4,7 @@ public partial class EnvLabel : Label
 {
   private EnvLabel()
   {
-    EventBus.Created += node =>
+    EventBus.Ready += node =>
     {
       if (node is SceneEnvironment env)
         UpdateDisplay(env.Environment);

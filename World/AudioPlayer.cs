@@ -5,7 +5,7 @@ public partial class AudioPlayer : AudioStreamPlayer3D
 {
   public override void _Ready()
   {
-    EventBus.NotifyCreation(this);
+    EventBus.NotifyReady(this);
 
     ProcessMode = ProcessModeEnum.Always;
   }

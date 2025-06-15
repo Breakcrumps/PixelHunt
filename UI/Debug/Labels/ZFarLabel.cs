@@ -4,7 +4,7 @@ public partial class ZFarLabel : Label
 {
   private ZFarLabel()
   {
-    EventBus.Created += node =>
+    EventBus.Ready += node =>
     {
       if (node is CharacterCamera characterCamera)
         Text = $"{characterCamera.Far}";

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://djwr7bjxuxdfk"]
+[gd_scene load_steps=16 format=3 uid="uid://djwr7bjxuxdfk"]
 
 [ext_resource type="PackedScene" uid="uid://dof2sgvhypbee" path="res://Player/Amogus.tscn" id="1_o8g73"]
 [ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Scenes/Scene.cs" id="1_v3fvj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cfr362g6kspf1" path="res://World/DialogueArea.cs" id="5_qswnl"]
 [ext_resource type="Environment" uid="uid://bmhf24dt38fst" path="res://Resources/Environment/Dark.tres" id="6_s7xl2"]
 [ext_resource type="Script" uid="uid://cdsutjft0pyga" path="res://Scenes/SceneEnvironment.cs" id="7_g6k5w"]
+[ext_resource type="Script" uid="uid://b240q6ecqc53s" path="res://World/Sun.cs" id="8_g6k5w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4cvuw"]
 size = Vector3(10000, 10, 10000)
@@ -82,7 +83,7 @@ shape = SubResource("BoxShape3D_t6lng")
 mesh = SubResource("BoxMesh_j2eoc")
 
 [node name="Light" parent="Map" instance=ExtResource("3_qswnl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.61099, 6.57665, -1.0619)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.78167, 0.657052, 0)
 collision_layer = 16
 collision_mask = 0
 
@@ -107,9 +108,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.94481, 8.42882, 29.6966)
 environment = ExtResource("6_s7xl2")
 script = ExtResource("7_g6k5w")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.866025, -0.321394, -0.383022, -6.69697e-08, -0.766044, 0.642788, -0.5, -0.55667, -0.663414, 0, 0, 0)
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, 0.5, 2.18557e-08, -3.82137e-15, 4.37114e-08, -1, -0.5, 0.866025, 3.78552e-08, 0, 0, 0)
 shadow_enabled = true
+script = ExtResource("8_g6k5w")
 
 [node name="NPC" parent="." instance=ExtResource("4_khr67")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34, 0, 31.1)

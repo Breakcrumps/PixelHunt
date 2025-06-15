@@ -1,9 +1,12 @@
 using Godot;
 
-public partial class CharacterCamera : Camera3D
+[GlobalClass]
+public partial class Sun : DirectionalLight3D
 {
   public override void _Ready()
   {
+    ShadowEnabled = true;
+
     EventBus.NotifyReady(this);
   }
 }

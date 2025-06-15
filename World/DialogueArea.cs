@@ -11,7 +11,7 @@ public partial class DialogueArea : Area3D
 
   private DialogueArea()
   {
-    EventBus.Created += node
+    EventBus.Ready += node
       => { if (node is DialogueBox dialogueBox) _dialogueBox = dialogueBox; };
   }
 
