@@ -1,0 +1,3 @@
+- [x] Make character face movement direction with lerp
+- [ ] Change current run animation to a more relaxed one and add another one to sprint
+- [ ] Add an attack animation and sync the hitbox to its active frames.

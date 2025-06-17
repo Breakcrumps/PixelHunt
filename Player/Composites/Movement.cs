@@ -6,11 +6,13 @@ public partial class Movement : Node
   [Export] private CharacterBody3D? _character;
   [Export] private Node3D? _cameraPivot;
   [Export] private CollisionShape3D? _collision;
+  [Export] private Node3D? _body;
 
   [ExportGroup("Parameters")]
   [Export] private float _walkSpeed = 20f;
   [Export] private float _runSpeed = 30f;
   [Export] private float _slowWalkSpeed = 10f;
+  [Export] private float _turnSpeed = 10f;
   [Export] private float _jumpVelocity = 100f;
   [Export] private float _g = 9.8f;
 
@@ -23,15 +25,17 @@ public partial class Movement : Node
   private bool _isInDebugMode;
   private int _doubleJumps;
 
-  public void Move()
+  public void Move(double delta)
   {
     if (_character!.IsOnFloor())
-        _doubleJumps = 1;
+      _doubleJumps = 1;
 
     Vector2 groundVelocity = _isInDebugMode ? DebugGroundVelocity() : GroundVelocity();
     float verticalVelocity = _isInDebugMode ? DebugVerticalVelocity() : VerticalVelocity();
 
     ApplyVelocity(groundVelocity, verticalVelocity);
+
+    AlignBody(delta);
 
     _character.MoveAndSlide();
   }
@@ -113,20 +117,29 @@ public partial class Movement : Node
 
     _isInDebugMode = !_isInDebugMode;
     _collision!.Disabled = _isInDebugMode;
-
-    Flags.FunFlightShenanigans = _isInDebugMode;
   }
 
   private void ApplyVelocity(Vector2 groundVelocity, float verticalVelocity)
   {
     _character!.Velocity = new(groundVelocity.X, verticalVelocity, groundVelocity.Y);
 
-    if (Flags.FunFlightShenanigans)
-    {
-      _character.Velocity = _character.Velocity.Rotated(Vector3.Forward, _cameraPivot!.Rotation.X);
-    }
-
     _character.Velocity = _character.Velocity.Rotated(Vector3.Up, _cameraPivot!.Rotation.Y);
   }
-  
+
+  private void AlignBody(double delta)
+  {
+    Vector2 horizontalVelocity = new(_character!.Velocity.X, _character.Velocity.Z);
+
+    if (horizontalVelocity == Vector2.Zero)
+      return;
+
+    _body!.Rotation = _body.Rotation with
+    {
+      Y = Mathf.LerpAngle(
+        _body.Rotation.Y,
+        horizontalVelocity.AngleTo(new Vector2(0, -1)),
+        _turnSpeed * (float)delta
+      )
+    };
+  }
 }

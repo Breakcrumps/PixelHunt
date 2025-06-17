@@ -6,7 +6,6 @@ public partial class CameraController : Node
   [Export] private SpringArm3D? _cameraSpring;
   [Export] private Node3D? _cameraPivot;
   [Export] private CharacterBody3D? _character;
-  [Export] private Node3D? _body;
 
   [ExportGroup("Parameters")]
   [Export(PropertyHint.Range, "0f, .01f")] private float _mouseSensitivity = .01f;
@@ -17,25 +16,6 @@ public partial class CameraController : Node
   public override void _Ready()
   {
     _tiltLimit = Mathf.DegToRad(_tiltLimit);
-  }
-
-  public void AlignBody(double delta)
-  {
-    if (_body is null)
-      return;
-
-    if (_character?.Velocity == Vector3.Zero)
-      return;
-
-    if (Flags.FunFlightShenanigans)
-    {
-      _body!.Rotation = _body.Rotation.Lerp(_cameraPivot!.Rotation, _turnSpeed * (float)delta);
-      return;
-    }
-
-    Vector3 targetDirection = new(0f, _cameraPivot!.Rotation.Y, 0f);
-
-    _body!.Rotation = _body.Rotation.Lerp(targetDirection, _turnSpeed * (float)delta);
   }
 
   public override void _PhysicsProcess(double delta)

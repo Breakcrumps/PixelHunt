@@ -1,7 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://c7oe2lbgklgf7"]
+[gd_scene load_steps=16 format=3 uid="uid://c7oe2lbgklgf7"]
 
 [ext_resource type="PackedScene" uid="uid://ubakxne6vmax" path="res://Import/Mine.glb" id="1_0o3si"]
 [ext_resource type="Script" uid="uid://b2v707dadwp1a" path="res://Player/Children/CharacterTree.cs" id="2_0o3si"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pkpbe"]
+animation = &"Walk"
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0o3si"]
 
@@ -16,23 +19,24 @@ animation = &"Hover"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0o3si"]
 animation = &"Idle"
 
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_xglkt"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h4sc1"]
+animation = &"Jog"
+
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_pkpbe"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xglkt"]
 animation = &"Rise"
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_xglkt"]
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_0o3si"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h4sc1"]
-animation = &"Run"
-
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_3lmce"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pkpbe"]
-animation = &"Walk"
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_hur5q"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xglkt"]
-graph_offset = Vector2(31.8422, 80.4028)
+graph_offset = Vector2(-91.843, 185.974)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_pkpbe")
+nodes/Animation/position = Vector2(-340, 300)
 nodes/Fall/node = SubResource("AnimationNodeBlend2_0o3si")
 nodes/Fall/position = Vector2(280, 120)
 nodes/FallAnim/node = SubResource("AnimationNodeAnimation_3lmce")
@@ -42,21 +46,21 @@ nodes/Hover/position = Vector2(820, 120)
 nodes/HoverAnim/node = SubResource("AnimationNodeAnimation_dkakq")
 nodes/HoverAnim/position = Vector2(620, 420)
 nodes/IdleAnim/node = SubResource("AnimationNodeAnimation_0o3si")
-nodes/IdleAnim/position = Vector2(-100, 100)
+nodes/IdleAnim/position = Vector2(-340, 120)
+nodes/Jog/node = SubResource("AnimationNodeBlend2_xglkt")
+nodes/Jog/position = Vector2(640, 120)
+nodes/JogAnim/node = SubResource("AnimationNodeAnimation_h4sc1")
+nodes/JogAnim/position = Vector2(460, 420)
 nodes/Rise/node = SubResource("AnimationNodeBlend2_pkpbe")
 nodes/Rise/position = Vector2(460, 120)
 nodes/RiseAnim/node = SubResource("AnimationNodeAnimation_xglkt")
 nodes/RiseAnim/position = Vector2(280, 420)
-nodes/Run/node = SubResource("AnimationNodeBlend2_xglkt")
-nodes/Run/position = Vector2(640, 120)
-nodes/RunAnim/node = SubResource("AnimationNodeAnimation_h4sc1")
-nodes/RunAnim/position = Vector2(460, 420)
-nodes/Walk/node = SubResource("AnimationNodeBlend2_3lmce")
-nodes/Walk/position = Vector2(100, 120)
-nodes/WalkAnim/node = SubResource("AnimationNodeAnimation_pkpbe")
-nodes/WalkAnim/position = Vector2(-100, 280)
-nodes/output/position = Vector2(980, 160)
-node_connections = [&"Fall", 0, &"Walk", &"Fall", 1, &"FallAnim", &"Hover", 0, &"Run", &"Hover", 1, &"HoverAnim", &"Rise", 0, &"Fall", &"Rise", 1, &"RiseAnim", &"Run", 0, &"Rise", &"Run", 1, &"RunAnim", &"Walk", 0, &"IdleAnim", &"Walk", 1, &"WalkAnim", &"output", 0, &"Hover"]
+nodes/Speed/node = SubResource("AnimationNodeTimeScale_0o3si")
+nodes/Speed/position = Vector2(1060, 140)
+nodes/Walk/node = SubResource("AnimationNodeBlend2_hur5q")
+nodes/Walk/position = Vector2(-160, 140)
+nodes/output/position = Vector2(1320, 160)
+node_connections = [&"Fall", 0, &"Walk", &"Fall", 1, &"FallAnim", &"Hover", 0, &"Jog", &"Hover", 1, &"HoverAnim", &"Jog", 0, &"Rise", &"Jog", 1, &"JogAnim", &"Rise", 0, &"Fall", &"Rise", 1, &"RiseAnim", &"Speed", 0, &"Hover", &"Walk", 0, &"IdleAnim", &"Walk", 1, &"Animation", &"output", 0, &"Speed"]
 
 [node name="Mine" instance=ExtResource("1_0o3si")]
 
@@ -64,33 +68,34 @@ node_connections = [&"Fall", 0, &"Walk", &"Fall", 1, &"FallAnim", &"Hover", 0, &
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Armature" index="0"]
-bones/0/position = Vector3(0, 0.909858, -1.9257e-05)
-bones/0/rotation = Quaternion(-0.0219356, -0.000465975, 9.93349e-06, 0.999759)
-bones/1/rotation = Quaternion(0.0937217, 0.000463997, -4.55295e-05, 0.995598)
-bones/2/rotation = Quaternion(-0.00436663, 0.00523123, 0.996654, -0.0814464)
-bones/3/rotation = Quaternion(0.0267345, -0.00518506, -0.0515522, 0.998299)
+bones/0/position = Vector3(0, 0.91576, -0.00281192)
+bones/0/rotation = Quaternion(-0.0242669, 0.028346, 0.000688349, 0.999303)
+bones/1/rotation = Quaternion(0.0967434, -0.0283211, 0.00137114, 0.994905)
+bones/2/rotation = Quaternion(-0.0341123, -0.218455, 0.968083, -0.118022)
+bones/3/rotation = Quaternion(0.0746334, -0.0145944, -0.0507055, 0.995814)
 bones/4/rotation = Quaternion(0.00137121, -0.000836752, -0.00800315, 0.999967)
-bones/5/rotation = Quaternion(-0.0338477, -0.00355979, 0.999417, -0.00253025)
-bones/6/rotation = Quaternion(-0.0592131, 0.000181039, -0.0105322, 0.99819)
-bones/7/rotation = Quaternion(0.60087, -0.0253559, 0.0238217, 0.79859)
-bones/8/rotation = Quaternion(0.00516867, 0.00459912, 0.995534, 0.0941498)
-bones/9/rotation = Quaternion(0.0246833, 0.00481716, 0.0515794, 0.998352)
+bones/5/rotation = Quaternion(-0.0644997, 0.368409, 0.926996, -0.0281552)
+bones/6/rotation = Quaternion(-0.484752, 0.00015788, -0.0862229, 0.870391)
+bones/7/rotation = Quaternion(0.521563, -0.0327316, 0.0443174, 0.851432)
+bones/8/rotation = Quaternion(-0.00861742, 0.128285, 0.984099, 0.12255)
+bones/9/rotation = Quaternion(0.0864263, 0.0169105, 0.0504795, 0.994835)
 bones/10/rotation = Quaternion(0.00137121, 0.000836752, 0.00800315, 0.999967)
-bones/11/rotation = Quaternion(0.0348264, 0.00417246, 0.999381, 0.00284633)
-bones/12/rotation = Quaternion(-0.0640267, -0.000180983, 0.0113884, 0.997883)
-bones/13/rotation = Quaternion(0.601311, 0.0253729, -0.0240979, 0.798248)
+bones/11/rotation = Quaternion(0.00148786, -0.15578, 0.987755, -0.0084444)
+bones/12/rotation = Quaternion(-0.00305439, -0.000181367, 0.000543289, 0.999995)
+bones/13/rotation = Quaternion(0.600395, 0.0243196, -0.0198573, 0.799087)
 bones/14/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
-bones/15/position = Vector3(0.0977423, 0.0717018, -0.0356724)
-bones/15/rotation = Quaternion(0.0037266, 0.710906, -0.703267, -0.00376708)
-bones/17/position = Vector3(-0.0977423, 0.0728986, -0.028215)
-bones/17/rotation = Quaternion(-0.00373946, 0.708496, -0.705695, 0.00375431)
+bones/15/position = Vector3(0.0977423, 0.198929, 0.151943)
+bones/15/rotation = Quaternion(0.0030609, 0.816275, -0.577639, -0.00432542)
+bones/17/position = Vector3(-0.0977423, -0.110985, -0.282409)
+bones/17/rotation = Quaternion(-0.00335269, 0.774375, -0.632705, 0.0041034)
 
 [node name="PlayerTree" type="AnimationTree" parent="." index="2"]
 tree_root = SubResource("AnimationNodeBlendTree_xglkt")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Fall/blend_amount = 0.00694444
-parameters/Hover/blend_amount = 0
-parameters/Rise/blend_amount = 0
-parameters/Run/blend_amount = 0.00694444
-parameters/Walk/blend_amount = 0.00694444
+parameters/Fall/blend_amount = false
+parameters/Hover/blend_amount = false
+parameters/Jog/blend_amount = false
+parameters/Rise/blend_amount = false
+parameters/Speed/scale = 1.0
+parameters/Walk/blend_amount = 1
 script = ExtResource("2_0o3si")
