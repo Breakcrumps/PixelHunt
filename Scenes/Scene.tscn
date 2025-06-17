@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://djwr7bjxuxdfk"]
+[gd_scene load_steps=17 format=3 uid="uid://djwr7bjxuxdfk"]
 
 [ext_resource type="PackedScene" uid="uid://dof2sgvhypbee" path="res://Player/Amogus.tscn" id="1_o8g73"]
 [ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Scenes/Scene.cs" id="1_v3fvj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Environment" uid="uid://c0dl521hmyhyu" path="res://Resources/Environment/Light.tres" id="6_g6k5w"]
 [ext_resource type="Script" uid="uid://cdsutjft0pyga" path="res://Scenes/SceneEnvironment.cs" id="7_g6k5w"]
 [ext_resource type="Script" uid="uid://b240q6ecqc53s" path="res://World/Sun.cs" id="8_g6k5w"]
+[ext_resource type="PackedScene" uid="uid://cu0iyt20pk40w" path="res://Enemy/Enemy.tscn" id="10_tn73o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4cvuw"]
 size = Vector3(10000, 10, 10000)
@@ -115,3 +116,6 @@ script = ExtResource("8_g6k5w")
 
 [node name="NPC" parent="." instance=ExtResource("4_khr67")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34, 0.03173, 31.1)
+
+[node name="Enemy" parent="." instance=ExtResource("10_tn73o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.3312, 2.23823, 0)

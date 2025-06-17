@@ -18,12 +18,12 @@ public partial class AttackArea : Area3D
     if (_attackCollision!.Disabled)
       return;
 
-    if (node is not Npc npc)
+    if (node is not Enemy enemy)
       return;
 
     Attack attack = new(_attackPower, _attackPushback);
 
-    npc.ProcessHit(attack, GlobalPosition);
+    enemy.ProcessHit(attack, GlobalPosition);
 
     _attackCollision!.Disabled = true;
   }

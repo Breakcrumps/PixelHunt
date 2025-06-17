@@ -101,8 +101,9 @@ _tiltLimit = 60.0
 _zoomSpeed = 20.0
 metadata/_custom_type_script = "uid://yspitpsmijxs"
 
-[node name="Animator" type="Node" parent="Composites"]
+[node name="Animator" type="Node" parent="Composites" node_paths=PackedStringArray("_mine")]
 script = ExtResource("5_rk32f")
+_mine = NodePath("../../CollisionShape3D/Mine")
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
 [node name="AttackManager" type="Node" parent="Composites" node_paths=PackedStringArray("_animPlayer")]

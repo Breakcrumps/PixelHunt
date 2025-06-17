@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public enum Anim { Idle, Walk, Jog, Run, Hover, Rise, Fall }
@@ -5,99 +6,61 @@ public enum Anim { Idle, Walk, Jog, Run, Hover, Rise, Fall }
 [GlobalClass]
 public partial class Animator : Node
 {
-  private CharacterTree? _characterTree;
+  [Export] private Mine? _mine;
 
   [ExportGroup("Parameters")]
   [Export] private float _fastBlendSpeed = 15f;
   [Export] private float _slowBlendSpeed = 7f;
 
+  private float[] _animValues = new float[Enum.GetNames<Anim>().Length];
+
   public Anim CurrentAnim { private get; set; } = Anim.Idle;
-
   public float MovingSpeed { private get; set; }
-
-  private float _walkValue;
-  private float _jogValue;
-  private float _runValue;
-  private float _hoverValue;
-  private float _riseValue;
-  private float _fallValue;
-
-  private Animator()
-  {
-    EventBus.Ready += node =>
-    {
-      if (node is CharacterTree characterTree)
-        _characterTree = characterTree;
-    };
-  }
 
   public override void _PhysicsProcess(double delta)
   {
+    HandleAnimationSpeed();
+
     SetBlendValues(delta);
 
     UpdateTree();
   }
 
-  private void UpdateTree()
-  {
-    _characterTree?.Set("parameters/Walk/blend_amount", _walkValue);
-    _characterTree?.Set("parameters/Jog/blend_amount", _jogValue);
-    _characterTree?.Set("parameters/Hover/blend_amount", _hoverValue);
-    _characterTree?.Set("parameters/Rise/blend_amount", _riseValue);
-    _characterTree?.Set("parameters/Fall/blend_amount", _fallValue);
-  }
-
   private void SetBlendValues(double delta)
   {
-
-    switch (CurrentAnim)
+    for (int i = 0; i < _animValues.Length; i++)
     {
-      case Anim.Idle:
-        _walkValue = Mathf.Lerp(_walkValue, 0f, _fastBlendSpeed * (float)delta);
-        _jogValue = Mathf.Lerp(_jogValue, 0f, _fastBlendSpeed * (float)delta);
-        _hoverValue = Mathf.Lerp(_hoverValue, 0f, _slowBlendSpeed * (float)delta);
-        _riseValue = Mathf.Lerp(_riseValue, 0f, _fastBlendSpeed * (float)delta);
-        _fallValue = Mathf.Lerp(_fallValue, 0f, _slowBlendSpeed * (float)delta);
-        break;
-      case Anim.Walk:
-        _characterTree?.Set("parameters/Speed/scale", MovingSpeed / 4f);
+      float blendSpeed = (
+        i == (int)Anim.Fall
+        ? _slowBlendSpeed
+        : _fastBlendSpeed
+      );
 
-        _walkValue = Mathf.Lerp(_walkValue, 1f, _fastBlendSpeed * (float)delta);
-        _jogValue = Mathf.Lerp(_jogValue, 0f, _fastBlendSpeed * (float)delta);
-        _hoverValue = Mathf.Lerp(_hoverValue, 0f, _slowBlendSpeed * (float)delta);
-        _riseValue = Mathf.Lerp(_riseValue, 0f, _fastBlendSpeed * (float)delta);
-        _fallValue = Mathf.Lerp(_fallValue, 0f, _slowBlendSpeed * (float)delta);
-        break;
-      case Anim.Jog:
-        _characterTree?.Set("parameters/Speed/scale", MovingSpeed / 7f);
-
-        _walkValue = Mathf.Lerp(_walkValue, 0f, _fastBlendSpeed * (float)delta);
-        _jogValue = Mathf.Lerp(_jogValue, 1f, _fastBlendSpeed * (float)delta);
-        _hoverValue = Mathf.Lerp(_hoverValue, 0f, _slowBlendSpeed * (float)delta);
-        _riseValue = Mathf.Lerp(_riseValue, 0f, _fastBlendSpeed * (float)delta);
-        _fallValue = Mathf.Lerp(_fallValue, 0f, _slowBlendSpeed * (float)delta);
-        break;
-      case Anim.Hover:
-        _walkValue = Mathf.Lerp(_walkValue, 0f, _fastBlendSpeed * (float)delta);
-        _jogValue = Mathf.Lerp(_jogValue, 0f, _fastBlendSpeed * (float)delta);
-        _hoverValue = Mathf.Lerp(_hoverValue, 1f, _slowBlendSpeed * (float)delta);
-        _riseValue = Mathf.Lerp(_riseValue, 0f, _fastBlendSpeed * (float)delta);
-        _fallValue = Mathf.Lerp(_fallValue, 0f, _slowBlendSpeed * (float)delta);
-        break;
-      case Anim.Rise:
-        _walkValue = Mathf.Lerp(_walkValue, 0f, _fastBlendSpeed * (float)delta);
-        _jogValue = Mathf.Lerp(_jogValue, 0f, _fastBlendSpeed * (float)delta);
-        _hoverValue = Mathf.Lerp(_hoverValue, 0f, _slowBlendSpeed * (float)delta);
-        _riseValue = Mathf.Lerp(_riseValue, 1f, _fastBlendSpeed * (float)delta);
-        _fallValue = Mathf.Lerp(_fallValue, 0f, _slowBlendSpeed * (float)delta);
-        break;
-      case Anim.Fall:
-        _walkValue = Mathf.Lerp(_walkValue, 0f, _fastBlendSpeed * (float)delta);
-        _jogValue = Mathf.Lerp(_jogValue, 0f, _fastBlendSpeed * (float)delta);
-        _hoverValue = Mathf.Lerp(_hoverValue, 0f, _slowBlendSpeed * (float)delta);
-        _riseValue = Mathf.Lerp(_riseValue, 0f, _fastBlendSpeed * (float)delta);
-        _fallValue = Mathf.Lerp(_fallValue, 1f, _slowBlendSpeed * (float)delta);
-        break;
+      if (i == (int)CurrentAnim)
+        _animValues[i] = Mathf.Lerp(_animValues[i], 1f, blendSpeed * (float)delta);
+      else
+        _animValues[i] = Mathf.Lerp(_animValues[i], 0f, blendSpeed * (float)delta);
     }
+  }
+
+  private void UpdateTree()
+  {
+    for (int i = 0; i < _animValues.Length; i++)
+      _mine!.AnimationTree!.Set($"parameters/{Enum.GetName(typeof(Anim), i)}/blend_amount", _animValues[i]);
+  }
+
+  private void HandleAnimationSpeed()
+  {
+    if (CurrentAnim == Anim.Walk)
+      SetAnimationSpeed(MovingSpeed / 4f);
+    else if (CurrentAnim == Anim.Jog)
+      SetAnimationSpeed(MovingSpeed / 7f);
+    else
+      SetAnimationSpeed(1f);
+  }
+
+  private void SetAnimationSpeed(float speed)
+  {
+    _mine!.AnimationTree!.Set("parameters/Speed/scale", speed);
   }
 }

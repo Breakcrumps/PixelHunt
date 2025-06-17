@@ -6,6 +6,11 @@ public partial class Amogus : CharacterBody3D
   [Export] private CameraController? _cameraController;
   [Export] private Animator? _animator;
 
+  public override void _Ready()
+  {
+    EventBus.NotifyReady(this);
+  }
+
   public override void _PhysicsProcess(double delta)
   {
     _movement!.Move(delta);
@@ -24,7 +29,7 @@ public partial class Amogus : CharacterBody3D
       ? Velocity.Y == 0 ? Anim.Hover
       : Velocity.Y > 0 ? Anim.Rise : Anim.Fall
       : horizontalVelocity != Vector2.Zero
-      ? horizontalVelocity.Length() > 7f ? Anim.Run : Anim.Walk
+      ? horizontalVelocity.Length() > 7f ? Anim.Jog : Anim.Walk
       : Anim.Idle
     );
   }
