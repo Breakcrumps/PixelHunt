@@ -1,40 +1,31 @@
 using Godot;
 
-public partial class Enemy : CharacterBody3D
+public partial class Enemy : Character
 {
   private Amogus? _playerCharacter;
   private AudioPlayer? _audioPlayer;
 
   [Export] private Node3D? _body;
+  [Export] private CollisionShape3D? _bodyContainer;
   [Export] private Animator? _animator;
 
   [ExportGroup("Parameters")]
   [Export] public int Health { get; set; } = 100;
-  [Export] private float _speed = 10f;
+  [Export] public float Speed { get; private set; } = .3f;
   [Export] private float _turnSpeed = 10f;
 
   private float _pushback;
   private bool _inPushback;
   private Vector3 _pushbackDirection;
 
-  private Enemy()
+  public override void _Ready()
   {
-    EventBus.Ready += node =>
-    {
-      if (node is AudioPlayer audioPlayer)
-        _audioPlayer = audioPlayer;
-      if (node is Amogus playerCharacter)
-        _playerCharacter = playerCharacter;
-    };
+    _playerCharacter = (Amogus)GetTree().GetFirstNodeInGroup("Player");
+    _audioPlayer = (AudioPlayer)GetTree().GetFirstNodeInGroup("AudioPlayer");
   }
 
   public override void _PhysicsProcess(double delta)
   {
-    if (_inPushback)
-      HandlePushback();
-    else
-      Move(delta);
-
     ApplyGravity();
 
     MoveAndSlide();
@@ -54,22 +45,22 @@ public partial class Enemy : CharacterBody3D
   {
     Vector3 spatialDirection = _playerCharacter!.GlobalPosition - GlobalPosition;
 
-    Velocity = spatialDirection.Normalized() * _speed;
+    Velocity = spatialDirection.Normalized() * Speed;
 
     AlignBody(delta);
   }
 
-  private void AlignBody(double delta)
+  public void AlignBody(double delta)
   {
     Vector2 horizontalVelocity = new(Velocity.X, Velocity.Z);
 
     if (horizontalVelocity == Vector2.Zero)
       return;
 
-    _body!.Rotation = _body.Rotation with
+    _bodyContainer!.Rotation = _bodyContainer.Rotation with
     {
       Y = Mathf.LerpAngle(
-        _body.Rotation.Y,
+        _bodyContainer.Rotation.Y,
         horizontalVelocity.AngleTo(new Vector2(0, -1)),
         _turnSpeed * (float)delta
       )
@@ -109,12 +100,10 @@ public partial class Enemy : CharacterBody3D
   {
     Vector2 horizontalVelocity = new(Velocity.X, Velocity.Z);
 
-    _animator!.MovingSpeed = horizontalVelocity.Length();
-
-    _animator.CurrentAnim = (
+    _animator!.CurrentAnim = (
       !IsOnFloor() ? Anim.Fall
       : horizontalVelocity == Vector2.Zero
-      ? Anim.Idle : Anim.Jog
+      ? Anim.Idle : Anim.Walk
     );
   }
 }

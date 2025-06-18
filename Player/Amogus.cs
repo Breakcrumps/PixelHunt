@@ -1,15 +1,10 @@
 using Godot;
 
-public partial class Amogus : CharacterBody3D
+public partial class Amogus : Character
 {
   [Export] private Movement? _movement;
   [Export] private CameraController? _cameraController;
   [Export] private Animator? _animator;
-
-  public override void _Ready()
-  {
-    EventBus.NotifyReady(this);
-  }
 
   public override void _PhysicsProcess(double delta)
   {

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://vchx108v0okk"]
+
+[ext_resource type="PackedScene" uid="uid://bor1ekmd5bk67" path="res://Import/Enemy.glb" id="1_2cvju"]
+[ext_resource type="PackedScene" uid="uid://b4hetf32vqftm" path="res://Player/Children/ModelTree.tscn" id="2_4m7de"]
+[ext_resource type="Script" uid="uid://c6b362jfss7ba" path="res://Player/Children/Mine.cs" id="2_tmvn0"]
+
+[node name="EnemyModel" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_2cvju")]
+script = ExtResource("2_tmvn0")
+AnimationTree = NodePath("MineTree")
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(0, 0.82256, -0.0527557)
+bones/0/rotation = Quaternion(0.450341, 0.0308255, 0.0279305, 0.891887)
+bones/1/rotation = Quaternion(-0.108342, -0.0386722, -0.0153222, 0.993243)
+bones/2/rotation = Quaternion(0.0132832, 0.255806, 0.965138, -0.0538116)
+bones/3/rotation = Quaternion(0.216239, -0.0543213, -0.227466, 0.947918)
+bones/4/rotation = Quaternion(0.00137121, -0.000836744, -0.00800316, 0.999967)
+bones/5/rotation = Quaternion(-0.0511003, 0.38478, 0.917338, -0.0884596)
+bones/6/rotation = Quaternion(-0.292528, 0.000173181, -0.0520319, 0.95484)
+bones/7/rotation = Quaternion(0.659923, -0.0536907, -0.0408511, 0.748298)
+bones/8/rotation = Quaternion(-0.0215855, 0.262374, 0.956132, 0.128474)
+bones/9/rotation = Quaternion(0.187676, 0.0286857, 0.0367209, 0.981125)
+bones/10/rotation = Quaternion(0.00137121, 0.000836749, 0.00800315, 0.999967)
+bones/11/rotation = Quaternion(0.0671548, 0.861534, 0.467746, 0.185644)
+bones/12/rotation = Quaternion(-0.565518, -0.000148516, 0.100589, 0.818579)
+bones/13/rotation = Quaternion(0.456826, 0.134039, 0.012595, 0.879309)
+bones/14/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
+bones/15/position = Vector3(0.226909, 0.145435, -0.436119)
+bones/15/rotation = Quaternion(0.00265959, 0.864906, -0.501907, -0.00458312)
+bones/17/position = Vector3(-0.162451, 0.253573, 0.257545)
+bones/17/rotation = Quaternion(-0.00319687, 0.797498, -0.603299, 0.00422592)
+
+[node name="MineTree" parent="." index="2" instance=ExtResource("2_4m7de")]

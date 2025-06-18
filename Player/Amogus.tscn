@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dof2sgvhypbee"]
+[gd_scene load_steps=15 format=3 uid="uid://dof2sgvhypbee"]
 
 [ext_resource type="Script" uid="uid://jmfdamxd504" path="res://Player/Amogus.cs" id="1_h202v"]
-[ext_resource type="Script" uid="uid://1pnq7oqpicbw" path="res://Player/CharacterCamera.cs" id="2_rk32f"]
 [ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Player/Composites/Movement.cs" id="4_cvk4d"]
 [ext_resource type="Script" uid="uid://b47uacnwv7l18" path="res://World/AudioPlayer.cs" id="5_c4fqo"]
 [ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Player/Composites/CameraController.cs" id="5_lel00"]
@@ -55,7 +54,7 @@ _data = {
 &"RESET": SubResource("Animation_t7bpg")
 }
 
-[node name="Amogus" type="CharacterBody3D" node_paths=PackedStringArray("_movement", "_cameraController", "_animator")]
+[node name="Amogus" type="CharacterBody3D" node_paths=PackedStringArray("_movement", "_cameraController", "_animator") groups=["Player"]]
 collision_mask = 28
 script = ExtResource("1_h202v")
 _movement = NodePath("Composites/Movement")
@@ -71,8 +70,7 @@ collision_mask = 16
 shape = SubResource("SeparationRayShape3D_c4fqo")
 spring_length = 2.5
 
-[node name="CharacterCamera" type="Camera3D" parent="CameraPivot/SpringArm3D"]
-script = ExtResource("2_rk32f")
+[node name="CharacterCamera" type="Camera3D" parent="CameraPivot/SpringArm3D" groups=["CharacterCamera"]]
 
 [node name="Composites" type="Node" parent="."]
 
@@ -104,6 +102,7 @@ metadata/_custom_type_script = "uid://yspitpsmijxs"
 [node name="Animator" type="Node" parent="Composites" node_paths=PackedStringArray("_mine")]
 script = ExtResource("5_rk32f")
 _mine = NodePath("../../CollisionShape3D/Mine")
+_adaptiveSpeed = true
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
 [node name="AttackManager" type="Node" parent="Composites" node_paths=PackedStringArray("_animPlayer")]
@@ -111,7 +110,7 @@ script = ExtResource("6_j8i50")
 _animPlayer = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://1hhi0untthbc"
 
-[node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
+[node name="AudioPlayer" type="AudioStreamPlayer3D" parent="." groups=["AudioPlayer"]]
 script = ExtResource("5_c4fqo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

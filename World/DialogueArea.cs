@@ -9,14 +9,10 @@ public partial class DialogueArea : Area3D
 
   private bool _active;
 
-  private DialogueArea()
-  {
-    EventBus.Ready += node
-      => { if (node is DialogueBox dialogueBox) _dialogueBox = dialogueBox; };
-  }
-
   public override void _Ready()
   {
+    _dialogueBox = (DialogueBox)GetTree().GetFirstNodeInGroup("DialogueBox");
+
     BodyEntered += body => { if (body is Amogus) _active = true; };
     BodyExited += body => { if (body is Amogus) _active = false; };
   }

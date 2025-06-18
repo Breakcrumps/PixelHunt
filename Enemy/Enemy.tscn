@@ -1,29 +1,51 @@
-[gd_scene load_steps=5 format=3 uid="uid://cu0iyt20pk40w"]
+[gd_scene load_steps=9 format=3 uid="uid://cu0iyt20pk40w"]
 
 [ext_resource type="Script" uid="uid://cbp87gphvl7u3" path="res://Enemy/Enemy.cs" id="1_3o4wt"]
-[ext_resource type="PackedScene" uid="uid://c7oe2lbgklgf7" path="res://Player/Mine.tscn" id="2_epr5s"]
 [ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Player/Composites/Animator.cs" id="3_vonkd"]
+[ext_resource type="Script" uid="uid://c7whf6p3ya2sc" path="res://Enemy/StateMachine.cs" id="4_fkela"]
+[ext_resource type="PackedScene" uid="uid://vchx108v0okk" path="res://Enemy/EnemyModel.tscn" id="4_vso2s"]
+[ext_resource type="Script" uid="uid://dkknl66n7636l" path="res://Types/States/IdleState.cs" id="5_jd4ap"]
+[ext_resource type="Script" uid="uid://bl0mb3mpwfrfn" path="res://Types/States/FollowState.cs" id="7_jd4ap"]
+[ext_resource type="Script" uid="uid://dn7r3or7ikdxl" path="res://Types/States/PushbackState.cs" id="7_uxjip"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_epr5s"]
 size = Vector3(1, 1.85986, 0.448975)
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("_body", "_animator")]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("_body", "_bodyContainer", "_animator")]
 collision_layer = 4
 collision_mask = 23
 script = ExtResource("1_3o4wt")
 _body = NodePath("CollisionShape3D")
+_bodyContainer = NodePath("CollisionShape3D")
 _animator = NodePath("Component/Animator")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.929932, -0.0140381)
 shape = SubResource("BoxShape3D_epr5s")
 
-[node name="Mine" parent="CollisionShape3D" instance=ExtResource("2_epr5s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.929932, 0.0140381)
+[node name="EnemyModel" parent="CollisionShape3D" instance=ExtResource("4_vso2s")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.929932, 0.0140381)
 
 [node name="Component" type="Node" parent="."]
 
 [node name="Animator" type="Node" parent="Component" node_paths=PackedStringArray("_mine")]
 script = ExtResource("3_vonkd")
-_mine = NodePath("../../CollisionShape3D/Mine")
+_mine = NodePath("../../CollisionShape3D/EnemyModel")
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
+
+[node name="StateMachine" type="Node" parent="Component" node_paths=PackedStringArray("_initialState")]
+script = ExtResource("4_fkela")
+_initialState = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy")]
+script = ExtResource("5_jd4ap")
+_enemy = NodePath("../../..")
+metadata/_custom_type_script = "uid://dkknl66n7636l"
+
+[node name="FollowState" type="Node" parent="Component/StateMachine"]
+script = ExtResource("7_jd4ap")
+metadata/_custom_type_script = "uid://bl0mb3mpwfrfn"
+
+[node name="PushbackState" type="Node" parent="Component/StateMachine"]
+script = ExtResource("7_uxjip")
+metadata/_custom_type_script = "uid://dn7r3or7ikdxl"

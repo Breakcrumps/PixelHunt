@@ -2,17 +2,11 @@ using Godot;
 
 public partial class EnvLabel : Label
 {
-  private EnvLabel()
+  public void UpdateDisplay()
   {
-    EventBus.Ready += node =>
-    {
-      if (node is SceneEnvironment env)
-        UpdateDisplay(env.Environment);
-    };
-  }
+    SceneEnvironment env = (SceneEnvironment)GetTree().GetFirstNodeInGroup("SceneEnv");
+    Environment envResource = env.Environment;
 
-  public void UpdateDisplay(Environment envResource)
-  {
     string text = envResource.ResourcePath
       .Split('/')[^1]
       .Split('.')[0];

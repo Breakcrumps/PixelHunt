@@ -2,12 +2,10 @@ using Godot;
 
 public partial class ZFarLabel : Label
 {
-  private ZFarLabel()
+  public override void _Ready()
   {
-    EventBus.Ready += node =>
-    {
-      if (node is CharacterCamera characterCamera)
-        Text = $"{characterCamera.Far}";
-    };
+    Camera3D characterCamera = (Camera3D)GetTree().GetFirstNodeInGroup("CharacterCamera");
+
+    Text = $"{characterCamera.Far}";
   }
 }

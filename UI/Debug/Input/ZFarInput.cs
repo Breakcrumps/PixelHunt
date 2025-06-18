@@ -2,21 +2,14 @@ using Godot;
 
 public partial class ZFarInput : LineEdit
 {
-  private CharacterCamera? _characterCamera;
+  private Camera3D? _characterCamera;
   
   [Export] private ZFarLabel? _zFarLabel;
 
-  private ZFarInput()
-  {
-    EventBus.Ready += node =>
-    {
-      if (node is CharacterCamera characterCamera)
-        _characterCamera = characterCamera;
-    };
-  }
-
   public override void _Ready()
   {
+    _characterCamera = (Camera3D)GetTree().GetFirstNodeInGroup("CharacterCamera");
+
     TextSubmitted += ChangeZFar;
   }
 

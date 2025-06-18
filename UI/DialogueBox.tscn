@@ -11,7 +11,7 @@ Label/font_sizes/font_size = 25
 RichTextLabel/constants/outline_size = 4
 RichTextLabel/font_sizes/normal_font_size = 18
 
-[node name="DialogueBox" type="Control" node_paths=PackedStringArray("_nameBox", "_textBox", "_choiceContainer", "_timer")]
+[node name="DialogueBox" type="Control" node_paths=PackedStringArray("_nameBox", "_textBox", "_choiceContainer", "_timer") groups=["DialogueBox"]]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15

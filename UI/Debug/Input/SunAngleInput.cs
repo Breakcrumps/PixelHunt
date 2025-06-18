@@ -4,17 +4,10 @@ public partial class SunAngleInput : LineEdit
 {
   private Sun? _sun;
 
-  private SunAngleInput()
-  {
-    EventBus.Ready += node =>
-    {
-      if (node is Sun sun)
-        _sun = sun;
-    };
-  }
-
   public override void _Ready()
   {
+    _sun = (Sun)GetTree().GetFirstNodeInGroup("Sun");
+
     TextSubmitted += ChangeSunAngle;
   }
 

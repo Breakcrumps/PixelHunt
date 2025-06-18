@@ -23,23 +23,14 @@ public partial class DialogueBox : Control
 
   private List<int> _waitIndices = [];
 
-  private DialogueBox()
-  {
-    EventBus.Ready += node =>
-    {
-      if (node is AudioPlayer audioPlayer)
-        _audioPlayer = audioPlayer;
-    };
-  }
-
   public override void _Ready()
   {
+    _audioPlayer = (AudioPlayer)GetTree().GetFirstNodeInGroup("AudioPlayer");
+
     _timer!.WaitTime = 1f / _cps;
     _timer.Timeout += NextSymbol;
 
     Hide();
-
-    EventBus.NotifyReady(this);
   }
 
   public override void _Input(InputEvent @event)

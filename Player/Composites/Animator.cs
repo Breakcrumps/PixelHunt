@@ -9,13 +9,15 @@ public partial class Animator : Node
   [Export] private Mine? _mine;
 
   [ExportGroup("Parameters")]
+  [Export] private bool _adaptiveSpeed;
   [Export] private float _fastBlendSpeed = 15f;
   [Export] private float _slowBlendSpeed = 7f;
 
   private float[] _animValues = new float[Enum.GetNames<Anim>().Length];
 
+
   public Anim CurrentAnim { private get; set; } = Anim.Idle;
-  public float MovingSpeed { private get; set; }
+  public float MovingSpeed { private get; set; } = 1f;
 
   public override void _PhysicsProcess(double delta)
   {
@@ -46,11 +48,17 @@ public partial class Animator : Node
   private void UpdateTree()
   {
     for (int i = 0; i < _animValues.Length; i++)
-      _mine!.AnimationTree!.Set($"parameters/{Enum.GetName(typeof(Anim), i)}/blend_amount", _animValues[i]);
+    {
+      string? parameterName = Enum.GetName(typeof(Anim), i);
+      _mine!.AnimationTree!.Set($"parameters/{parameterName}/blend_amount", _animValues[i]);
+    }
   }
 
   private void HandleAnimationSpeed()
   {
+    if (!_adaptiveSpeed)
+      return;
+
     if (CurrentAnim == Anim.Walk)
       SetAnimationSpeed(MovingSpeed / 4f);
     else if (CurrentAnim == Anim.Jog)

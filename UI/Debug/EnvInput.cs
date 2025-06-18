@@ -7,17 +7,10 @@ public partial class EnvInput : LineEdit
 
   [Export] private EnvLabel? _envLabel;
 
-  private EnvInput()
-  {
-    EventBus.Ready += node =>
-    {
-      if (node is SceneEnvironment sceneEnv)
-        _sceneEnv = sceneEnv;
-    };
-  }
-
   public override void _Ready()
   {
+    _sceneEnv = (SceneEnvironment)GetTree().GetFirstNodeInGroup("SceneEnv");
+
     TextSubmitted += ChangeEnvironment;
   }
 
@@ -46,6 +39,6 @@ public partial class EnvInput : LineEdit
       return;
 
     _sceneEnv!.Environment = ResourceLoader.Load<Environment>(filepath);
-    _envLabel?.UpdateDisplay(_sceneEnv.Environment);
+    _envLabel?.UpdateDisplay();
   }
 }
