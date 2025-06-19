@@ -13,8 +13,8 @@ public partial class DialogueArea : Area3D
   {
     _dialogueBox = (DialogueBox)GetTree().GetFirstNodeInGroup("DialogueBox");
 
-    BodyEntered += body => { if (body is Amogus) _active = true; };
-    BodyExited += body => { if (body is Amogus) _active = false; };
+    BodyEntered += body => { if (body is Player) _active = true; };
+    BodyExited += body => { if (body is Player) _active = false; };
   }
 
   public override void _ShortcutInput(InputEvent @event)

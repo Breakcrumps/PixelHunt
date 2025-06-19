@@ -2,12 +2,15 @@ using System;
 using Godot;
 
 [GlobalClass]
-public partial class IdleState : State
+public partial class Idle : State
 {
   [Export] private Enemy? _enemy;
+  [Export] private StateMachine? _stateMachine;
 
   [ExportGroup("Parameters")]
   [Export] private float _wanderRadius = 10f;
+
+  private Player? _player;
 
   private readonly Random _random = new();
 
@@ -32,6 +35,8 @@ public partial class IdleState : State
 
   public override void Enter()
   {
+    _player = (Player)GetTree().GetFirstNodeInGroup("Player");
+
     if (_enemy is null)
       return;
 
@@ -39,8 +44,6 @@ public partial class IdleState : State
 
     RandomiseWander();
   }
-
-  public override void Exit() { }
 
   public override void Process(double delta)
   {
@@ -60,6 +63,14 @@ public partial class IdleState : State
     _enemy.Velocity = new(horizontalVelocity.X, 0f, horizontalVelocity.Y);
 
     _enemy.AlignBody(delta);
+
+    Vector3 diffVector = _player!.GlobalPosition - _enemy.GlobalPosition;
+    Vector2 direction = new(diffVector.X, diffVector.Z);
+
+    if (direction.Length() < 10)
+    {
+      _stateMachine?.Transition("Follow");
+    }
   }
 
   private float RandomDirection() => _random.NextSingle() * 2 - 1;

@@ -2,30 +2,34 @@ using Godot;
 
 public partial class Enemy : Character
 {
-  private Amogus? _playerCharacter;
-  private AudioPlayer? _audioPlayer;
+  private Player? _playerCharacter;
+  // private AudioPlayer? _audioPlayer;
 
   [Export] private Node3D? _body;
   [Export] private CollisionShape3D? _bodyContainer;
   [Export] private Animator? _animator;
+  [Export] private StateMachine? _stateMachine;
 
   [ExportGroup("Parameters")]
   [Export] public int Health { get; set; } = 100;
   [Export] public float Speed { get; private set; } = .3f;
   [Export] private float _turnSpeed = 10f;
 
-  private float _pushback;
-  private bool _inPushback;
-  private Vector3 _pushbackDirection;
-
   public override void _Ready()
   {
-    _playerCharacter = (Amogus)GetTree().GetFirstNodeInGroup("Player");
-    _audioPlayer = (AudioPlayer)GetTree().GetFirstNodeInGroup("AudioPlayer");
+    _playerCharacter = (Player)GetTree().GetFirstNodeInGroup("Player");
+    // _audioPlayer = (AudioPlayer)GetTree().GetFirstNodeInGroup("AudioPlayer");
+  }
+
+  public override void _Process(double delta)
+  {
+    _stateMachine?.Process(delta);
   }
 
   public override void _PhysicsProcess(double delta)
   {
+    _stateMachine?.PhysicsProcess(delta);
+
     ApplyGravity();
 
     MoveAndSlide();
@@ -33,35 +37,24 @@ public partial class Enemy : Character
     Animate();
   }
 
-  private void HandlePushback()
-  {
-    Velocity *= .9f;
-
-    if (Mathf.Abs(Velocity.X) < .01f && Mathf.Abs(Velocity.Z) < .01f)
-      _inPushback = false;
-  }
-
-  private void Move(double delta)
-  {
-    Vector3 spatialDirection = _playerCharacter!.GlobalPosition - GlobalPosition;
-
-    Velocity = spatialDirection.Normalized() * Speed;
-
-    AlignBody(delta);
-  }
-
-  public void AlignBody(double delta)
+  public void AlignBody(double delta, bool inverse = false)
   {
     Vector2 horizontalVelocity = new(Velocity.X, Velocity.Z);
 
     if (horizontalVelocity == Vector2.Zero)
       return;
 
+    Vector2 refVector = (
+      inverse
+      ? new Vector2(0, 1)
+      : new Vector2(0, -1)
+    );
+
     _bodyContainer!.Rotation = _bodyContainer.Rotation with
     {
       Y = Mathf.LerpAngle(
         _bodyContainer.Rotation.Y,
-        horizontalVelocity.AngleTo(new Vector2(0, -1)),
+        horizontalVelocity.AngleTo(refVector),
         _turnSpeed * (float)delta
       )
     };
@@ -82,15 +75,15 @@ public partial class Enemy : Character
     if (Flags.Debug)
       GD.Print($"{Name} was hit for {attack.Power}HP, {Health}HP left.");
 
-    _audioPlayer?.PlaySound("amogus");
+    // _audioPlayer?.PlaySound("amogus");
 
-    _pushbackDirection = ((GlobalPosition - attackerPos) with { Y = 0f }).Normalized();
+    Vector3 pushbackDirection = ((GlobalPosition - attackerPos) with { Y = 0f }).Normalized();
+    
     float _pushback = attack.Pushback;
 
-    Velocity = _pushbackDirection * _pushback;
-    MoveAndSlide();
+    Velocity = pushbackDirection * _pushback;
 
-    _inPushback = true;
+    _stateMachine?.Transition("Pushback");
 
     if (Health == 0)
       QueueFree();

@@ -1,15 +1,12 @@
 using Godot;
-using System;
 
 public abstract partial class State : Node
 {
-  public event Action<string>? Transition;
+  public virtual void Enter() { }
 
-  public abstract void Enter();
+  public virtual void Exit() { }
 
-  public abstract void Exit();
+  public virtual void Process(double delta) { }
 
-  public abstract void Process(double delta);
-
-  public abstract void PhysicsProcess(double delta);
+  public virtual void PhysicsProcess(double delta) { }
 }

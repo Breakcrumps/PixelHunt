@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dof2sgvhypbee"]
 
-[ext_resource type="Script" uid="uid://jmfdamxd504" path="res://Player/Amogus.cs" id="1_h202v"]
+[ext_resource type="Script" uid="uid://jmfdamxd504" path="res://Player/Player.cs" id="1_s1rgi"]
 [ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Player/Composites/Movement.cs" id="4_cvk4d"]
 [ext_resource type="Script" uid="uid://b47uacnwv7l18" path="res://World/AudioPlayer.cs" id="5_c4fqo"]
 [ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Player/Composites/CameraController.cs" id="5_lel00"]
@@ -54,9 +54,9 @@ _data = {
 &"RESET": SubResource("Animation_t7bpg")
 }
 
-[node name="Amogus" type="CharacterBody3D" node_paths=PackedStringArray("_movement", "_cameraController", "_animator") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_movement", "_cameraController", "_animator") groups=["Player"]]
 collision_mask = 28
-script = ExtResource("1_h202v")
+script = ExtResource("1_s1rgi")
 _movement = NodePath("Composites/Movement")
 _cameraController = NodePath("Composites/CameraController")
 _animator = NodePath("Composites/Animator")

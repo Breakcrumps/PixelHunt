@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Amogus : Character
+public partial class Player : Character
 {
   [Export] private Movement? _movement;
   [Export] private CameraController? _cameraController;

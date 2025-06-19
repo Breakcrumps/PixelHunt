@@ -15,9 +15,8 @@ public partial class StateMachine : Node
     {
       if (child is not State state)
         continue;
-
+      
       _states.Add(child.Name, state);
-      state.Transition += Transition;
     }
 
     if (_initialState is null)
@@ -27,17 +26,17 @@ public partial class StateMachine : Node
     _currentState = _initialState;
   }
 
-  public override void _Process(double delta)
+  public void Process(double delta)
   {
     _currentState?.Process(delta);
   }
 
-  public override void _PhysicsProcess(double delta)
+  public void PhysicsProcess(double delta)
   {
     _currentState?.PhysicsProcess(delta);
   }
 
-  private void Transition(string nextStateName)
+  public void Transition(string nextStateName)
   {
     State newState = _states[nextStateName];
 
@@ -47,5 +46,6 @@ public partial class StateMachine : Node
     _currentState?.Exit();
 
     newState.Enter();
+    _currentState = newState;
   }
 }
