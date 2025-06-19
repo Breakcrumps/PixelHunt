@@ -2,13 +2,15 @@ using System;
 using Godot;
 
 [GlobalClass]
-public partial class Idle : State
+public partial class IdleState : State
 {
   [Export] private Enemy? _enemy;
+  [Export] private Animator? _animator;
   [Export] private StateMachine? _stateMachine;
 
   [ExportGroup("Parameters")]
   [Export] private float _wanderRadius = 10f;
+  [Export] private float _wanderSpeed;
 
   private Player? _player;
 
@@ -26,11 +28,27 @@ public partial class Idle : State
     Vector2 diffVector = _initialPos - currentPos;
 
     if (diffVector.Length() > _wanderRadius)
+    {
       _moveDirection = diffVector.Normalized();
-    else
-      _moveDirection = new Vector2(RandomDirection(), RandomDirection()).Normalized();
+      _wanderTime = RandomTime();
+      return;
+    }
 
-    _wanderTime = RandomTime();
+    _moveDirection = new Vector2(RandomDirection(), RandomDirection()).Normalized();
+
+    if (_animator is null)
+      return;
+      
+    if (_moveDirection == Vector2.Zero)
+    {
+      _animator.CurrentAnim = Anim.Idle1;
+      _wanderTime = _animator.Mine!.AnimationPlayer!.GetAnimation("Idle1").Length;
+    }
+    else
+    {
+      _animator.CurrentAnim = Anim.Walk;
+      _wanderTime = RandomTime();
+    }
   }
 
   public override void Enter()
@@ -58,7 +76,7 @@ public partial class Idle : State
     if (_enemy is null)
       return;
 
-    Vector2 horizontalVelocity = _moveDirection * _enemy.Speed;
+    Vector2 horizontalVelocity = _moveDirection * _wanderSpeed;
 
     _enemy.Velocity = new(horizontalVelocity.X, 0f, horizontalVelocity.Y);
 

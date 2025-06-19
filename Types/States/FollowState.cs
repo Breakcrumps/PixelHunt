@@ -1,13 +1,14 @@
 using Godot;
 
 [GlobalClass]
-public partial class Follow : State
+public partial class FollowState : State
 {
   [Export] Enemy? _enemy;
+  [Export] private Animator? _animator;
   [Export] private StateMachine? _stateMachine;
 
   [ExportGroup("Parameters")]
-  [Export] private float _chaseSpeed = .3f;
+  [Export] private float _chaseSpeed = .4f;
 
   private Player? _player;
 
@@ -39,6 +40,9 @@ public partial class Follow : State
         X = velocity.X,
         Z = velocity.Y
       };
+
+      if (_animator is not null)
+        _animator.CurrentAnim = Anim.Walk;
     }
     else
     {
@@ -47,6 +51,9 @@ public partial class Follow : State
         X = 0f,
         Z = 0f
       };
+
+      if (_animator is not null)
+        _animator.CurrentAnim = Anim.Idle;
     }
 
     _enemy.AlignBody(delta);

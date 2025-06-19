@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class Pushback : State
+public partial class PushbackState : State
 {
   [Export] private Enemy? _enemy;
   [Export] private StateMachine? _stateMachine;

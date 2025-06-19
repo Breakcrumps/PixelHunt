@@ -3,6 +3,5 @@
     <TargetFramework>net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <Nullable>Enable</Nullable>
-    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 </Project>

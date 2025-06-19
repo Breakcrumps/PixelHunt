@@ -4,9 +4,9 @@
 [ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Player/Composites/Animator.cs" id="3_vonkd"]
 [ext_resource type="Script" uid="uid://c7whf6p3ya2sc" path="res://Enemy/StateMachine.cs" id="4_fkela"]
 [ext_resource type="PackedScene" uid="uid://vchx108v0okk" path="res://Enemy/EnemyModel.tscn" id="4_vso2s"]
-[ext_resource type="Script" uid="uid://buajdrmopxhtp" path="res://Types/States/Idle.cs" id="5_jd4ap"]
-[ext_resource type="Script" uid="uid://bxafdjepe4bc" path="res://Types/States/Follow.cs" id="6_1ypri"]
-[ext_resource type="Script" uid="uid://ci3sv6w7xvf0w" path="res://Types/States/Pushback.cs" id="7_jd4ap"]
+[ext_resource type="Script" uid="uid://dkknl66n7636l" path="res://Types/States/IdleState.cs" id="5_jd4ap"]
+[ext_resource type="Script" uid="uid://bl0mb3mpwfrfn" path="res://Types/States/FollowState.cs" id="7_jd4ap"]
+[ext_resource type="Script" uid="uid://dn7r3or7ikdxl" path="res://Types/States/PushbackState.cs" id="7_uxjip"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_epr5s"]
 size = Vector3(1, 1.85986, 0.448975)
@@ -29,29 +29,31 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.
 
 [node name="Component" type="Node" parent="."]
 
-[node name="Animator" type="Node" parent="Component" node_paths=PackedStringArray("_mine")]
+[node name="Animator" type="Node" parent="Component" node_paths=PackedStringArray("Mine")]
 script = ExtResource("3_vonkd")
-_mine = NodePath("../../CollisionShape3D/EnemyModel")
+Mine = NodePath("../../CollisionShape3D/EnemyModel")
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
 [node name="StateMachine" type="Node" parent="Component" node_paths=PackedStringArray("_initialState")]
 script = ExtResource("4_fkela")
 _initialState = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy", "_stateMachine")]
+[node name="Idle" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy", "_animator", "_stateMachine")]
 script = ExtResource("5_jd4ap")
 _enemy = NodePath("../../..")
+_animator = NodePath("../../Animator")
 _stateMachine = NodePath("..")
 metadata/_custom_type_script = "uid://dkknl66n7636l"
 
-[node name="Follow" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy", "_stateMachine")]
-script = ExtResource("6_1ypri")
+[node name="Follow" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy", "_animator", "_stateMachine")]
+script = ExtResource("7_jd4ap")
 _enemy = NodePath("../../..")
+_animator = NodePath("../../Animator")
 _stateMachine = NodePath("..")
 metadata/_custom_type_script = "uid://bl0mb3mpwfrfn"
 
 [node name="Pushback" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy", "_stateMachine")]
-script = ExtResource("7_jd4ap")
+script = ExtResource("7_uxjip")
 _enemy = NodePath("../../..")
 _stateMachine = NodePath("..")
 metadata/_custom_type_script = "uid://dn7r3or7ikdxl"

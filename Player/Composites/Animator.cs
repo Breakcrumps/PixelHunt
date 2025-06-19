@@ -1,12 +1,12 @@
 using System;
 using Godot;
 
-public enum Anim { Idle, Walk, Jog, Run, Hover, Rise, Fall }
+public enum Anim { Idle, Walk, Jog, Run, Hover, Rise, Fall, Idle1 }
 
 [GlobalClass]
 public partial class Animator : Node
 {
-  [Export] private Mine? _mine;
+  [Export] public Mine? Mine { get; private set; }
 
   [ExportGroup("Parameters")]
   [Export] private bool _adaptiveSpeed;
@@ -14,7 +14,6 @@ public partial class Animator : Node
   [Export] private float _slowBlendSpeed = 7f;
 
   private float[] _animValues = new float[Enum.GetNames<Anim>().Length];
-
 
   public Anim CurrentAnim { private get; set; } = Anim.Idle;
   public float MovingSpeed { private get; set; } = 1f;
@@ -50,7 +49,7 @@ public partial class Animator : Node
     for (int i = 0; i < _animValues.Length; i++)
     {
       string? parameterName = Enum.GetName(typeof(Anim), i);
-      _mine!.AnimationTree!.Set($"parameters/{parameterName}/blend_amount", _animValues[i]);
+      Mine!.AnimationTree!.Set($"parameters/{parameterName}/blend_amount", _animValues[i]);
     }
   }
 
@@ -69,6 +68,6 @@ public partial class Animator : Node
 
   private void SetAnimationSpeed(float speed)
   {
-    _mine!.AnimationTree!.Set("parameters/Speed/scale", speed);
+    Mine!.AnimationTree!.Set("parameters/Speed/scale", speed);
   }
 }

@@ -12,7 +12,6 @@ public partial class Enemy : Character
 
   [ExportGroup("Parameters")]
   [Export] public int Health { get; set; } = 100;
-  [Export] public float Speed { get; private set; } = .3f;
   [Export] private float _turnSpeed = 10f;
 
   public override void _Ready()
@@ -33,8 +32,6 @@ public partial class Enemy : Character
     ApplyGravity();
 
     MoveAndSlide();
-
-    Animate();
   }
 
   public void AlignBody(double delta, bool inverse = false)
@@ -78,23 +75,12 @@ public partial class Enemy : Character
     // _audioPlayer?.PlaySound("amogus");
 
     Vector3 pushbackDirection = ((GlobalPosition - attackerPos) with { Y = 0f }).Normalized();
-    
+
     Velocity = pushbackDirection * attack.Pushback;
 
     _stateMachine?.Transition("Pushback");
 
     if (Health == 0)
       QueueFree();
-  }
-
-  private void Animate()
-  {
-    Vector2 horizontalVelocity = new(Velocity.X, Velocity.Z);
-
-    _animator!.CurrentAnim = (
-      !IsOnFloor() ? Anim.Fall
-      : horizontalVelocity == Vector2.Zero
-      ? Anim.Idle : Anim.Walk
-    );
   }
 }

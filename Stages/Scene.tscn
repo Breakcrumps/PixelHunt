@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://djwr7bjxuxdfk"]
 
 [ext_resource type="PackedScene" uid="uid://dof2sgvhypbee" path="res://Player/Player.tscn" id="1_o8g73"]
-[ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Scenes/Scene.cs" id="1_v3fvj"]
+[ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Stages/Scene.cs" id="1_v3fvj"]
 [ext_resource type="PackedScene" uid="uid://dx31uyob3yo44" path="res://UI/UI.tscn" id="2_v3fvj"]
-[ext_resource type="Script" uid="uid://cdsutjft0pyga" path="res://Scenes/SceneEnvironment.cs" id="7_g6k5w"]
+[ext_resource type="Script" uid="uid://cdsutjft0pyga" path="res://Stages/SceneEnvironment.cs" id="7_g6k5w"]
 [ext_resource type="Script" uid="uid://b240q6ecqc53s" path="res://World/Sun.cs" id="8_g6k5w"]
 [ext_resource type="PackedScene" uid="uid://birh8wqa6levw" path="res://Map/Map.tscn" id="9_g6k5w"]
 [ext_resource type="PackedScene" uid="uid://8luqb703pkc2" path="res://Map/KillBox.tscn" id="9_tn73o"]
