@@ -33,7 +33,7 @@ public partial class FollowState : State
 
     if (direction.Length() > 2f)
     {
-      Vector2 velocity = direction.Normalized() * _chaseSpeed;
+      Vector2 velocity = direction.Normalized() * _animator!.Mine!.MovementAnimation!.Speed;
 
       _enemy.Velocity = _enemy.Velocity with
       {
@@ -42,7 +42,10 @@ public partial class FollowState : State
       };
 
       if (_animator is not null)
+      {
         _animator.CurrentAnim = Anim.Walk;
+        _animator.PlayMovementAnimation("Walk");
+      }
     }
     else
     {

@@ -17,8 +17,6 @@ public partial class Player : Character
   {
     Vector2 horizontalVelocity = new(Velocity.X, Velocity.Z);
 
-    _animator!.MovingSpeed = horizontalVelocity.Length();
-
     _animator!.CurrentAnim = (
       !IsOnFloor()
       ? Velocity.Y == 0 ? Anim.Hover

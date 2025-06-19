@@ -102,7 +102,6 @@ metadata/_custom_type_script = "uid://yspitpsmijxs"
 [node name="Animator" type="Node" parent="Composites" node_paths=PackedStringArray("Mine")]
 script = ExtResource("5_rk32f")
 Mine = NodePath("../../CollisionShape3D/Mine")
-_adaptiveSpeed = true
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
 [node name="AttackManager" type="Node" parent="Composites" node_paths=PackedStringArray("_animPlayer")]

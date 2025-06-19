@@ -47,6 +47,7 @@ public partial class IdleState : State
     else
     {
       _animator.CurrentAnim = Anim.Walk;
+      _animator.PlayMovementAnimation("Walk");
       _wanderTime = RandomTime();
     }
   }

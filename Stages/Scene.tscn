@@ -1,32 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://djwr7bjxuxdfk"]
+[gd_scene load_steps=10 format=3 uid="uid://djwr7bjxuxdfk"]
 
 [ext_resource type="PackedScene" uid="uid://dof2sgvhypbee" path="res://Player/Player.tscn" id="1_o8g73"]
 [ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Stages/Scene.cs" id="1_v3fvj"]
 [ext_resource type="PackedScene" uid="uid://dx31uyob3yo44" path="res://UI/UI.tscn" id="2_v3fvj"]
+[ext_resource type="Environment" uid="uid://b2nly8cg3nysy" path="res://Resources/Environment/SynthWave.tres" id="4_ps3kg"]
 [ext_resource type="Script" uid="uid://cdsutjft0pyga" path="res://Stages/SceneEnvironment.cs" id="7_g6k5w"]
 [ext_resource type="Script" uid="uid://b240q6ecqc53s" path="res://World/Sun.cs" id="8_g6k5w"]
 [ext_resource type="PackedScene" uid="uid://birh8wqa6levw" path="res://Map/Map.tscn" id="9_g6k5w"]
 [ext_resource type="PackedScene" uid="uid://8luqb703pkc2" path="res://Map/KillBox.tscn" id="9_tn73o"]
 [ext_resource type="PackedScene" uid="uid://cu0iyt20pk40w" path="res://Enemy/Enemy.tscn" id="10_tn73o"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s7xl2"]
-sky_top_color = Color(0.473184, 0.21151, 0.550894, 1)
-sky_horizon_color = Color(0.641778, 0.507579, 0, 1)
-sky_curve = 0.135188
-ground_bottom_color = Color(0.289173, 0.0876214, 0.205884, 1)
-ground_horizon_color = Color(0.789232, 0.62663, 0.344167, 1)
-
-[sub_resource type="Sky" id="Sky_g6k5w"]
-sky_material = SubResource("ProceduralSkyMaterial_s7xl2")
-
-[sub_resource type="Environment" id="Environment_tn73o"]
-background_mode = 2
-sky = SubResource("Sky_g6k5w")
-ambient_light_source = 3
-ambient_light_color = Color(0.215858, 0.11765, 0.237505, 1)
-ambient_light_sky_contribution = 0.0
-fog_light_color = Color(0.545156, 0.355002, 0.59065, 1)
-fog_sky_affect = 0.074
 
 [node name="Scene" type="Node3D"]
 script = ExtResource("1_v3fvj")
@@ -36,11 +18,11 @@ script = ExtResource("1_v3fvj")
 [node name="Player" parent="." instance=ExtResource("1_o8g73")]
 
 [node name="SceneEnvironment" type="WorldEnvironment" parent="." groups=["SceneEnv"]]
-environment = SubResource("Environment_tn73o")
+environment = ExtResource("4_ps3kg")
 script = ExtResource("7_g6k5w")
 
 [node name="Sun" type="DirectionalLight3D" parent="." groups=["Sun"]]
-transform = Transform3D(0.866025, -0.469846, -0.17101, 0, -0.34202, 0.939693, -0.5, -0.813797, -0.296198, 0, 0, 0)
+transform = Transform3D(0.866025, -0.469846, 0.17101, 2.99003e-08, 0.34202, 0.939693, -0.5, -0.813797, 0.296198, 0, 0, 0)
 light_color = Color(0.999713, 0.967672, 0.890212, 1)
 shadow_enabled = true
 script = ExtResource("8_g6k5w")
