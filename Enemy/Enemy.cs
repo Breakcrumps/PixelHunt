@@ -79,9 +79,7 @@ public partial class Enemy : Character
 
     Vector3 pushbackDirection = ((GlobalPosition - attackerPos) with { Y = 0f }).Normalized();
     
-    float _pushback = attack.Pushback;
-
-    Velocity = pushbackDirection * _pushback;
+    Velocity = pushbackDirection * attack.Pushback;
 
     _stateMachine?.Transition("Pushback");
 
