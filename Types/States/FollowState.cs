@@ -27,36 +27,28 @@ public partial class FollowState : State
 
     if (direction.Length() > 10f)
     {
-      _stateMachine?.Transition("Idle");
+      _stateMachine?.Transition("IdleState");
       return;
     }
 
-    if (direction.Length() > 2f)
+    if (direction.Length() < 2f)
     {
-      Vector2 velocity = direction.Normalized() * _animator!.Mine!.MovementAnimation!.Speed;
-
-      _enemy.Velocity = _enemy.Velocity with
-      {
-        X = velocity.X,
-        Z = velocity.Y
-      };
-
-      if (_animator is not null)
-      {
-        _animator.CurrentAnim = Anim.Walk;
-        _animator.PlayMovementAnimation("Walk");
-      }
+      _stateMachine?.Transition("AttackState");
+      return;
     }
-    else
-    {
-      _enemy.Velocity = _enemy.Velocity with
-      {
-        X = 0f,
-        Z = 0f
-      };
 
-      if (_animator is not null)
-        _animator.CurrentAnim = Anim.Idle;
+    Vector2 velocity = direction.Normalized() * _animator!.Mine!.MovementAnimation!.Speed;
+
+    _enemy.Velocity = _enemy.Velocity with
+    {
+      X = velocity.X,
+      Z = velocity.Y
+    };
+
+    if (_animator is not null)
+    {
+      _animator.CurrentAnim = Anim.Walk;
+      _animator.PlayMovementAnimation("Walk");
     }
 
     _enemy.AlignBody(delta);

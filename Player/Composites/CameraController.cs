@@ -44,11 +44,27 @@ public partial class CameraController : Node
   {
     if (Input.IsActionJustReleased("WheelUp"))
     {
-      _cameraSpring!.SpringLength = Mathf.Lerp(_cameraSpring.SpringLength, _cameraSpring.SpringLength - 1f, _zoomSpeed * (float)delta);
+      _cameraSpring!.SpringLength = Mathf.Clamp(
+          Mathf.Lerp(
+            _cameraSpring.SpringLength,
+            _cameraSpring.SpringLength - 1f,
+            _zoomSpeed * (float)delta
+          ),
+          0f,
+          10f
+      );
     }
     else if (Input.IsActionJustReleased("WheelDown"))
     {
-      _cameraSpring!.SpringLength = Mathf.Lerp(_cameraSpring.SpringLength, _cameraSpring.SpringLength + 1f, _zoomSpeed * (float)delta);
+      _cameraSpring!.SpringLength = Mathf.Clamp(
+          Mathf.Lerp(
+            _cameraSpring.SpringLength,
+            _cameraSpring.SpringLength + 1f,
+            _zoomSpeed * (float)delta
+          ),
+          0f,
+          10f
+      );
     }
   }
 

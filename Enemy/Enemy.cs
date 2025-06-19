@@ -78,7 +78,7 @@ public partial class Enemy : Character
 
     Velocity = pushbackDirection * attack.Pushback;
 
-    _stateMachine?.Transition("Pushback");
+    _stateMachine?.Transition("PushbackState");
 
     if (Health == 0)
       QueueFree();

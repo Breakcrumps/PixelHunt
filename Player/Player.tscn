@@ -9,7 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://c7oe2lbgklgf7" path="res://Player/Mine.tscn" id="7_gnlu4"]
 [ext_resource type="Script" uid="uid://cybgyr37hht0y" path="res://Player/Children/AttackArea.cs" id="8_c3qhh"]
 
-[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_c4fqo"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_s1rgi"]
+radius = 0.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rk32f"]
 size = Vector3(0.595322, 1.86414, 0.27771)
@@ -67,7 +68,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78629, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
 collision_mask = 16
-shape = SubResource("SeparationRayShape3D_c4fqo")
+shape = SubResource("SphereShape3D_s1rgi")
 spring_length = 2.5
 
 [node name="CharacterCamera" type="Camera3D" parent="CameraPivot/SpringArm3D" groups=["CharacterCamera"]]

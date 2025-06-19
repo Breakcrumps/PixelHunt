@@ -42,6 +42,7 @@ public partial class IdleState : State
     if (_moveDirection == Vector2.Zero)
     {
       _animator.CurrentAnim = Anim.Idle1;
+      _animator.PlayMovementAnimation("Idle");
       _wanderTime = _animator.Mine!.AnimationPlayer!.GetAnimation("Idle1").Length;
     }
     else
@@ -88,7 +89,7 @@ public partial class IdleState : State
 
     if (direction.Length() < 10)
     {
-      _stateMachine?.Transition("Follow");
+      _stateMachine?.Transition("FollowState");
     }
   }
 

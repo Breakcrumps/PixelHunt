@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cu0iyt20pk40w"]
+[gd_scene load_steps=10 format=3 uid="uid://cu0iyt20pk40w"]
 
 [ext_resource type="Script" uid="uid://cbp87gphvl7u3" path="res://Enemy/Enemy.cs" id="1_3o4wt"]
 [ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Player/Composites/Animator.cs" id="3_vonkd"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dkknl66n7636l" path="res://Types/States/IdleState.cs" id="5_jd4ap"]
 [ext_resource type="Script" uid="uid://bl0mb3mpwfrfn" path="res://Types/States/FollowState.cs" id="7_jd4ap"]
 [ext_resource type="Script" uid="uid://dn7r3or7ikdxl" path="res://Types/States/PushbackState.cs" id="7_uxjip"]
+[ext_resource type="Script" uid="uid://dq6eqfl1pnekr" path="res://Types/States/AttackState.cs" id="8_1ypri"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_epr5s"]
 size = Vector3(1, 1.85986, 0.448975)
@@ -36,24 +37,28 @@ metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
 [node name="StateMachine" type="Node" parent="Component" node_paths=PackedStringArray("_initialState")]
 script = ExtResource("4_fkela")
-_initialState = NodePath("Idle")
+_initialState = NodePath("IdleState")
 
-[node name="Idle" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy", "_animator", "_stateMachine")]
+[node name="IdleState" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy", "_animator", "_stateMachine")]
 script = ExtResource("5_jd4ap")
 _enemy = NodePath("../../..")
 _animator = NodePath("../../Animator")
 _stateMachine = NodePath("..")
 metadata/_custom_type_script = "uid://dkknl66n7636l"
 
-[node name="Follow" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy", "_animator", "_stateMachine")]
+[node name="FollowState" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy", "_animator", "_stateMachine")]
 script = ExtResource("7_jd4ap")
 _enemy = NodePath("../../..")
 _animator = NodePath("../../Animator")
 _stateMachine = NodePath("..")
 metadata/_custom_type_script = "uid://bl0mb3mpwfrfn"
 
-[node name="Pushback" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy", "_stateMachine")]
+[node name="PushbackState" type="Node" parent="Component/StateMachine" node_paths=PackedStringArray("_enemy", "_stateMachine")]
 script = ExtResource("7_uxjip")
 _enemy = NodePath("../../..")
 _stateMachine = NodePath("..")
 metadata/_custom_type_script = "uid://dn7r3or7ikdxl"
+
+[node name="AttackState" type="Node" parent="Component/StateMachine"]
+script = ExtResource("8_1ypri")
+metadata/_custom_type_script = "uid://dq6eqfl1pnekr"

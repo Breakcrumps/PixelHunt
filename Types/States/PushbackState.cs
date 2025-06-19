@@ -18,6 +18,6 @@ public partial class PushbackState : State
     _enemy.AlignBody(delta, inverse: true);
 
     if (Mathf.Abs(_enemy.Velocity.X) < .01f && Mathf.Abs(_enemy.Velocity.Z) < .01f)
-      _stateMachine?.Transition("Idle");
+      _stateMachine?.Transition("IdleState");
   }
 }

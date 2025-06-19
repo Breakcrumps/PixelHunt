@@ -1,9 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://vchx108v0okk"]
+[gd_scene load_steps=9 format=3 uid="uid://vchx108v0okk"]
 
 [ext_resource type="PackedScene" uid="uid://bor1ekmd5bk67" path="res://Import/Enemy.glb" id="1_2cvju"]
 [ext_resource type="PackedScene" uid="uid://b4hetf32vqftm" path="res://Player/Children/ModelTree.tscn" id="2_4m7de"]
 [ext_resource type="Script" uid="uid://c6b362jfss7ba" path="res://Player/Children/Mine.cs" id="2_tmvn0"]
 [ext_resource type="Script" uid="uid://8oudcmpr67wi" path="res://Enemy/MovementAnimation.cs" id="3_tmvn0"]
+
+[sub_resource type="Animation" id="Animation_tmvn0"]
+resource_name = "Idle"
+length = 0.0333367
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovementAnimation:Speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_yekn0"]
 length = 0.001
@@ -39,6 +55,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tmvn0"]
 _data = {
+&"Idle": SubResource("Animation_tmvn0"),
 &"RESET": SubResource("Animation_yekn0"),
 &"Walk": SubResource("Animation_4m7de")
 }
