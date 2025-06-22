@@ -5,32 +5,30 @@ using Godot;
 [GlobalClass]
 public partial class Animator : Node
 {
-  [Export] public Model? Model { get; private set; }
+  [Export] private AnimationPlayer? _animPlayer;
+  [Export] private AnimationHelper? _animHelper;
 
   public void PlayAnimation(string animName, double blendTime = .15)
   {
-    if (Model is null)
+    if (_animPlayer is null)
       return;
 
-    if (Model.AnimationPlayer!.CurrentAnimation == animName)
+    if (_animPlayer.CurrentAnimation == animName)
       return;
 
-    Model.AnimationPlayer?.Play(animName, blendTime);
+    _animPlayer.Play(animName, blendTime);
 
     HandleHelperAnim(animName);
   }
 
   private void HandleHelperAnim(string animName)
   {
-    if (Model is null)
+    if (_animHelper is null)
       return;
 
-    if (Model.AnimationHelper is null)
-      return;
+    _animHelper.Stop();
 
-    Model.AnimationHelper.Stop();
-
-    if (Model.AnimationHelper.GetAnimationList().Contains(animName))
-      Model?.AnimationHelper?.Play(animName);
+    if (_animHelper.GetAnimationList().Contains(animName))
+      _animHelper.Play(animName);
   }
 }

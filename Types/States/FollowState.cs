@@ -7,6 +7,7 @@ public partial class FollowState : State
   [Export] private Animator? _animator;
   [Export] private StateMachine? _stateMachine;
   [Export] private VisionCone? _visionArea;
+  [Export] private AnimationHelper? _animHelper;
 
   [ExportGroup("Parameters")]
   [Export] private float _chaseSpeed = .4f;
@@ -34,7 +35,7 @@ public partial class FollowState : State
       return;
     }
 
-    Vector2 velocity = direction.Normalized() * _animator!.Model!.AnimationHelper!.Speed;
+    Vector2 velocity = direction.Normalized() * _animHelper!.Speed;
 
     _enemy.Velocity = _enemy.Velocity with
     {

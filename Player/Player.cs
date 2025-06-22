@@ -2,7 +2,6 @@ using Godot;
 
 public partial class Player : Character
 {
-  [Export] private Model? _model;
   [Export] private Movement? _movement;
   [Export] private CameraController? _cameraController;
   [Export] private Animator? _animator;

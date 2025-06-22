@@ -4,10 +4,11 @@ using Godot;
 [GlobalClass]
 public partial class IdleState : State
 {
-  [Export] public Model? _model;
   [Export] private Enemy? _enemy;
   [Export] private Animator? _animator;
   [Export] private StateMachine? _stateMachine;
+  [Export] private AnimationPlayer? _animPlayer;
+  [Export] private AnimationHelper? _animHelper;
 
   [ExportGroup("Parameters")]
   [Export] private float _wanderRadius = 10f;
@@ -40,7 +41,7 @@ public partial class IdleState : State
     if (_moveDirection == Vector2.Zero)
     {
       _animator.PlayAnimation("Idle");
-      _wanderTime = _animator.Model!.AnimationPlayer!.GetAnimation("Idle1").Length;
+      _wanderTime = _animPlayer!.GetAnimation("Idle1").Length;
     }
     else
     {
@@ -72,7 +73,7 @@ public partial class IdleState : State
     if (_enemy is null)
       return;
 
-    Vector2 horizontalVelocity = _moveDirection * _model!.AnimationHelper!.Speed;
+    Vector2 horizontalVelocity = _moveDirection * _animHelper!.Speed;
 
     _enemy.Velocity = new(horizontalVelocity.X, 0f, horizontalVelocity.Y);
 

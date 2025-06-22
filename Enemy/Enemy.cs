@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Enemy : Character
 {
-  [Export] private CollisionShape3D? _bodyContainer;
+  [Export] private Node3D? _armature;
   [Export] private Animator? _animator;
   [Export] private StateMachine? _stateMachine;
 
@@ -29,14 +29,14 @@ public partial class Enemy : Character
 
     Vector2 refVector = (
       inverse
-      ? new Vector2(0, 1)
-      : new Vector2(0, -1)
+      ? new Vector2(0, -1)
+      : new Vector2(0, 1)
     );
 
-    _bodyContainer!.Rotation = _bodyContainer.Rotation with
+    _armature!.Rotation = _armature.Rotation with
     {
       Y = Mathf.LerpAngle(
-        _bodyContainer.Rotation.Y,
+        _armature.Rotation.Y,
         horizontalVelocity.AngleTo(refVector),
         10f * (float)delta
       )

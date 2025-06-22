@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/Enemy.glb-8c2805d168f389b6458eb171eec7c4b8.sc
 
 [params]
 
-nodes/root_type=""
+nodes/root_type="CharacterBody3D"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

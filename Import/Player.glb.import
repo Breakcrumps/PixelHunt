@@ -4,16 +4,16 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ubakxne6vmax"
-path="res://.godot/imported/Mine.glb-c32f6c914583c4ee5b967dc5e64ce8ce.scn"
+path="res://.godot/imported/Player.glb-fbcc5298038e0ad92aa6fe8a29034f5e.scn"
 
 [deps]
 
-source_file="res://Import/Mine.glb"
-dest_files=["res://.godot/imported/Mine.glb-c32f6c914583c4ee5b967dc5e64ce8ce.scn"]
+source_file="res://Import/Player.glb"
+dest_files=["res://.godot/imported/Player.glb-fbcc5298038e0ad92aa6fe8a29034f5e.scn"]
 
 [params]
 
-nodes/root_type=""
+nodes/root_type="CharacterBody3D"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

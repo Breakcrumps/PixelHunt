@@ -1,87 +1,67 @@
-[gd_scene load_steps=15 format=3 uid="uid://dof2sgvhypbee"]
+[gd_scene load_steps=9 format=3 uid="uid://dof2sgvhypbee"]
 
+[ext_resource type="PackedScene" uid="uid://ubakxne6vmax" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://jmfdamxd504" path="res://Player/Player.cs" id="1_s1rgi"]
 [ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Player/Composites/Movement.cs" id="4_cvk4d"]
 [ext_resource type="Script" uid="uid://b47uacnwv7l18" path="res://World/AudioPlayer.cs" id="5_c4fqo"]
 [ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Player/Composites/CameraController.cs" id="5_lel00"]
 [ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Player/Composites/Animator.cs" id="5_rk32f"]
-[ext_resource type="Script" uid="uid://1hhi0untthbc" path="res://Player/Composites/AttackManager.cs" id="6_j8i50"]
-[ext_resource type="PackedScene" uid="uid://c7oe2lbgklgf7" path="res://Player/Model.tscn" id="7_gnlu4"]
-[ext_resource type="Script" uid="uid://cybgyr37hht0y" path="res://Player/Children/AttackArea.cs" id="8_c3qhh"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_s1rgi"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_vlldt"]
 radius = 0.1
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rk32f"]
-size = Vector3(0.595322, 1.86414, 0.27771)
+[sub_resource type="BoxShape3D" id="BoxShape3D_s1rgi"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gnlu4"]
-size = Vector3(1, 1.87354, 0.663818)
-
-[sub_resource type="Animation" id="Animation_j8i50"]
-resource_name = "Attack"
-length = 0.600003
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BodyContainer/AttackArea/CollisionShape3D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.433333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-
-[sub_resource type="Animation" id="Animation_t7bpg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BodyContainer/AttackArea/CollisionShape3D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_owcl8"]
-_data = {
-&"Attack": SubResource("Animation_j8i50"),
-&"RESET": SubResource("Animation_t7bpg")
-}
-
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_model", "_movement", "_cameraController", "_animator") groups=["Player"]]
+[node name="Player" node_paths=PackedStringArray("_movement", "_cameraController", "_animator") instance=ExtResource("1_6ysni")]
 collision_mask = 28
 script = ExtResource("1_s1rgi")
-_model = NodePath("BodyContainer/Mine")
 _movement = NodePath("Composites/Movement")
 _cameraController = NodePath("Composites/CameraController")
 _animator = NodePath("Composites/Animator")
 
-[node name="CameraPivot" type="Node3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="." index="0"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78629, 0)
 
-[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" index="0"]
 collision_mask = 16
-shape = SubResource("SphereShape3D_s1rgi")
+shape = SubResource("SphereShape3D_vlldt")
 spring_length = 2.5
 
-[node name="CharacterCamera" type="Camera3D" parent="CameraPivot/SpringArm3D" groups=["CharacterCamera"]]
+[node name="CharacterCamera" type="Camera3D" parent="CameraPivot/SpringArm3D" index="0" groups=["CharacterCamera"]]
 
-[node name="Composites" type="Node" parent="."]
+[node name="Armature" parent="." index="1"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="Movement" type="Node" parent="Composites" node_paths=PackedStringArray("_player", "_cameraPivot", "_collision", "_bodyContainer")]
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/rotation = Quaternion(-0.0242767, 0, 0, 0.999705)
+bones/1/rotation = Quaternion(0.0967823, 1.1865e-07, 1.15374e-08, 0.995306)
+bones/2/rotation = Quaternion(-0.0232932, 0.00487532, 0.90199, -0.4311)
+bones/3/rotation = Quaternion(0.0216839, -0.00419523, -0.0516271, 0.998422)
+bones/4/rotation = Quaternion(0.00136296, 0.0103753, 0.0992361, 0.995009)
+bones/5/rotation = Quaternion(-0.0319621, -0.0796908, 0.996303, 0.00301356)
+bones/6/rotation = Quaternion(-0.0030646, 0.000181367, -0.000545098, 0.999995)
+bones/7/rotation = Quaternion(0.216115, -0.0341773, 0.0114286, 0.975703)
+bones/8/rotation = Quaternion(0.0205574, 0.00499769, 0.924559, 0.380452)
+bones/9/rotation = Quaternion(0.0216839, 0.00419524, 0.0516271, 0.998422)
+bones/10/rotation = Quaternion(0.00136248, -0.0106963, -0.102306, 0.994695)
+bones/11/rotation = Quaternion(0.0335736, 0.244362, 0.968222, 0.0413118)
+bones/12/rotation = Quaternion(-0.544216, -0.000151152, 0.0967996, 0.833342)
+bones/13/rotation = Quaternion(0.52244, 0.0227716, -0.0487001, 0.850979)
+bones/14/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
+bones/15/position = Vector3(0.0977423, 0.00991662, -0.113024)
+bones/15/rotation = Quaternion(0.00174525, 0.944191, -0.329355, -0.00500325)
+bones/17/position = Vector3(-0.0977423, 0.202676, -0.0685411)
+bones/17/rotation = Quaternion(-0.00215042, 0.913938, -0.405819, 0.00484294)
+
+[node name="Composites" type="Node" parent="." index="3"]
+
+[node name="Movement" type="Node" parent="Composites" index="0" node_paths=PackedStringArray("_character", "_cameraPivot", "_collision", "_armature")]
 script = ExtResource("4_cvk4d")
-_player = NodePath("../..")
+_character = NodePath("../..")
 _cameraPivot = NodePath("../../CameraPivot")
-_collision = NodePath("../../BodyContainer")
-_bodyContainer = NodePath("../../BodyContainer")
+_collision = NodePath("../../Legs")
+_armature = NodePath("../../Armature")
 _walkSpeed = 10.0
 _runSpeed = 20.0
 _slowWalkSpeed = 5.0
@@ -92,7 +72,7 @@ _debugRunSpeed = 100.0
 _hoverVelocity = 50.0
 metadata/_custom_type_script = "uid://dyk3bbbwwp4fn"
 
-[node name="CameraController" type="Node" parent="Composites" node_paths=PackedStringArray("_cameraSpring", "_cameraPivot", "_character")]
+[node name="CameraController" type="Node" parent="Composites" index="1" node_paths=PackedStringArray("_cameraSpring", "_cameraPivot", "_character")]
 script = ExtResource("5_lel00")
 _cameraSpring = NodePath("../../CameraPivot/SpringArm3D")
 _cameraPivot = NodePath("../../CameraPivot")
@@ -101,39 +81,14 @@ _tiltLimit = 60.0
 _zoomSpeed = 20.0
 metadata/_custom_type_script = "uid://yspitpsmijxs"
 
-[node name="Animator" type="Node" parent="Composites" node_paths=PackedStringArray("Model")]
+[node name="Animator" type="Node" parent="Composites" index="2" node_paths=PackedStringArray("_animPlayer")]
 script = ExtResource("5_rk32f")
-Model = NodePath("../../BodyContainer/Mine")
+_animPlayer = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
-[node name="AttackManager" type="Node" parent="Composites" node_paths=PackedStringArray("_animPlayer")]
-script = ExtResource("6_j8i50")
-_animPlayer = NodePath("../../AnimationPlayer")
-metadata/_custom_type_script = "uid://1hhi0untthbc"
-
-[node name="AudioPlayer" type="AudioStreamPlayer3D" parent="." groups=["AudioPlayer"]]
+[node name="AudioPlayer" type="AudioStreamPlayer3D" parent="." index="4" groups=["AudioPlayer"]]
 script = ExtResource("5_c4fqo")
 
-[node name="BodyContainer" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00240344, 0.932067, 0.00714123)
-shape = SubResource("BoxShape3D_rk32f")
-
-[node name="Mine" parent="BodyContainer" instance=ExtResource("7_gnlu4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00240344, -0.932067, -0.00714123)
-
-[node name="AttackArea" type="Area3D" parent="BodyContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00240344, -0.932067, -0.00714123)
-collision_layer = 2
-collision_mask = 4
-script = ExtResource("8_c3qhh")
-_attackPushback = 10.0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyContainer/AttackArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985107, -0.463745)
-shape = SubResource("BoxShape3D_gnlu4")
-disabled = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_owcl8")
-}
+[node name="Legs" type="CollisionShape3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_s1rgi")
