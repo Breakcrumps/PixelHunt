@@ -3,10 +3,10 @@ using Godot;
 [GlobalClass]
 public partial class Movement : Node
 {
-  [Export] private CharacterBody3D? _character;
+  [Export] private Player? _player;
   [Export] private Node3D? _cameraPivot;
   [Export] private CollisionShape3D? _collision;
-  [Export] private Node3D? _body;
+  [Export] private CollisionShape3D? _bodyContainer;
 
   [ExportGroup("Parameters")]
   [Export] private float _walkSpeed = 20f;
@@ -27,7 +27,7 @@ public partial class Movement : Node
 
   public void Move(double delta)
   {
-    if (_character!.IsOnFloor())
+    if (_player!.IsOnFloor())
       _doubleJumps = 1;
 
     Vector2 groundVelocity = _isInDebugMode ? DebugGroundVelocity() : GroundVelocity();
@@ -37,7 +37,7 @@ public partial class Movement : Node
 
     AlignBody(delta);
 
-    _character.MoveAndSlide();
+    _player.MoveAndSlide();
   }
 
   public override void _UnhandledInput(InputEvent @event)
@@ -52,11 +52,11 @@ public partial class Movement : Node
 
   private float VerticalVelocity()
   {
-    float yVelocity = _character!.IsOnFloor() ? 0f : _character.Velocity.Y - _g;
+    float yVelocity = _player!.IsOnFloor() ? 0f : _player.Velocity.Y - _g;
 
     if (Input.IsActionJustPressed("Jump"))
     {
-      if (_character.IsOnFloor())
+      if (_player.IsOnFloor())
       {
         yVelocity = _jumpVelocity;
       }
@@ -121,22 +121,22 @@ public partial class Movement : Node
 
   private void ApplyVelocity(Vector2 groundVelocity, float verticalVelocity)
   {
-    _character!.Velocity = new(groundVelocity.X, verticalVelocity, groundVelocity.Y);
+    _player!.Velocity = new(groundVelocity.X, verticalVelocity, groundVelocity.Y);
 
-    _character.Velocity = _character.Velocity.Rotated(Vector3.Up, _cameraPivot!.Rotation.Y);
+    _player.Velocity = _player.Velocity.Rotated(Vector3.Up, _cameraPivot!.Rotation.Y);
   }
 
   private void AlignBody(double delta)
   {
-    Vector2 horizontalVelocity = new(_character!.Velocity.X, _character.Velocity.Z);
+    Vector2 horizontalVelocity = new(_player!.Velocity.X, _player.Velocity.Z);
 
     if (horizontalVelocity == Vector2.Zero)
       return;
 
-    _body!.Rotation = _body.Rotation with
+    _bodyContainer!.Rotation = _bodyContainer.Rotation with
     {
       Y = Mathf.LerpAngle(
-        _body.Rotation.Y,
+        _bodyContainer.Rotation.Y,
         horizontalVelocity.AngleTo(new Vector2(0, -1)),
         _turnSpeed * (float)delta
       )

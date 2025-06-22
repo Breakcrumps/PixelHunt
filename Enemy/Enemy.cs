@@ -2,23 +2,9 @@ using Godot;
 
 public partial class Enemy : Character
 {
-  private Player? _playerCharacter;
-  // private AudioPlayer? _audioPlayer;
-
-  [Export] private Node3D? _body;
   [Export] private CollisionShape3D? _bodyContainer;
   [Export] private Animator? _animator;
   [Export] private StateMachine? _stateMachine;
-
-  [ExportGroup("Parameters")]
-  [Export] public int Health { get; set; } = 100;
-  [Export] private float _turnSpeed = 10f;
-
-  public override void _Ready()
-  {
-    _playerCharacter = (Player)GetTree().GetFirstNodeInGroup("Player");
-    // _audioPlayer = (AudioPlayer)GetTree().GetFirstNodeInGroup("AudioPlayer");
-  }
 
   public override void _Process(double delta)
   {
@@ -52,7 +38,7 @@ public partial class Enemy : Character
       Y = Mathf.LerpAngle(
         _bodyContainer.Rotation.Y,
         horizontalVelocity.AngleTo(refVector),
-        _turnSpeed * (float)delta
+        10f * (float)delta
       )
     };
   }
@@ -65,14 +51,9 @@ public partial class Enemy : Character
     Velocity = Velocity with { Y = -10f };
   }
 
-  public void ProcessHit(Attack attack, Vector3 attackerPos)
+  public override void ProcessHit(Attack attack, Vector3 attackerPos)
   {
-    Health -= attack.Power;
-
-    if (Flags.Debug)
-      GD.Print($"{Name} was hit for {attack.Power}HP, {Health}HP left.");
-
-    // _audioPlayer?.PlaySound("amogus");
+    Health -= attack.Damage;
 
     Vector3 pushbackDirection = ((GlobalPosition - attackerPos) with { Y = 0f }).Normalized();
 

@@ -4,15 +4,13 @@ using Godot;
 [GlobalClass]
 public partial class IdleState : State
 {
+  [Export] public Model? _model;
   [Export] private Enemy? _enemy;
   [Export] private Animator? _animator;
   [Export] private StateMachine? _stateMachine;
 
   [ExportGroup("Parameters")]
   [Export] private float _wanderRadius = 10f;
-  [Export] private float _wanderSpeed;
-
-  private Player? _player;
 
   private readonly Random _random = new();
 
@@ -41,22 +39,18 @@ public partial class IdleState : State
       
     if (_moveDirection == Vector2.Zero)
     {
-      _animator.CurrentAnim = Anim.Idle1;
-      _animator.PlayMovementAnimation("Idle");
-      _wanderTime = _animator.Mine!.AnimationPlayer!.GetAnimation("Idle1").Length;
+      _animator.PlayAnimation("Idle");
+      _wanderTime = _animator.Model!.AnimationPlayer!.GetAnimation("Idle1").Length;
     }
     else
     {
-      _animator.CurrentAnim = Anim.Walk;
-      _animator.PlayMovementAnimation("Walk");
+      _animator.PlayAnimation("Walk");
       _wanderTime = RandomTime();
     }
   }
 
   public override void Enter()
   {
-    _player = (Player)GetTree().GetFirstNodeInGroup("Player");
-
     if (_enemy is null)
       return;
 
@@ -78,19 +72,11 @@ public partial class IdleState : State
     if (_enemy is null)
       return;
 
-    Vector2 horizontalVelocity = _moveDirection * _wanderSpeed;
+    Vector2 horizontalVelocity = _moveDirection * _model!.AnimationHelper!.Speed;
 
     _enemy.Velocity = new(horizontalVelocity.X, 0f, horizontalVelocity.Y);
 
     _enemy.AlignBody(delta);
-
-    Vector3 diffVector = _player!.GlobalPosition - _enemy.GlobalPosition;
-    Vector2 direction = new(diffVector.X, diffVector.Z);
-
-    if (direction.Length() < 10)
-    {
-      _stateMachine?.Transition("FollowState");
-    }
   }
 
   private float RandomDirection() => _random.NextSingle() * 2 - 1;

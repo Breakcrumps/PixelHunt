@@ -1,4 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4hetf32vqftm"]
+[gd_scene load_steps=16 format=3 uid="uid://b4hetf32vqftm"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_fl4oi"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s1cpi"]
+animation = &"Attack"
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0o3si"]
 
@@ -31,6 +36,10 @@ animation = &"Rise"
 animation = &"Walk"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xglkt"]
+nodes/Attack/node = SubResource("AnimationNodeBlend2_fl4oi")
+nodes/Attack/position = Vector2(60, 160)
+nodes/AttackAnim/node = SubResource("AnimationNodeAnimation_s1cpi")
+nodes/AttackAnim/position = Vector2(-47.916, 445.885)
 nodes/Fall/node = SubResource("AnimationNodeBlend2_0o3si")
 nodes/Fall/position = Vector2(280, 120)
 nodes/FallAnim/node = SubResource("AnimationNodeAnimation_3lmce")
@@ -61,6 +70,7 @@ node_connections = [&"Fall", 0, &"Walk", &"Fall", 1, &"FallAnim", &"Hover", 0, &
 [node name="MineTree" type="AnimationTree"]
 tree_root = SubResource("AnimationNodeBlendTree_xglkt")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Attack/blend_amount = 0.0
 parameters/Fall/blend_amount = false
 parameters/Hover/blend_amount = false
 parameters/Jog/blend_amount = false

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Player/Composites/CameraController.cs" id="5_lel00"]
 [ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Player/Composites/Animator.cs" id="5_rk32f"]
 [ext_resource type="Script" uid="uid://1hhi0untthbc" path="res://Player/Composites/AttackManager.cs" id="6_j8i50"]
-[ext_resource type="PackedScene" uid="uid://c7oe2lbgklgf7" path="res://Player/Mine.tscn" id="7_gnlu4"]
+[ext_resource type="PackedScene" uid="uid://c7oe2lbgklgf7" path="res://Player/Model.tscn" id="7_gnlu4"]
 [ext_resource type="Script" uid="uid://cybgyr37hht0y" path="res://Player/Children/AttackArea.cs" id="8_c3qhh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_s1rgi"]
@@ -24,7 +24,7 @@ length = 0.600003
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D/AttackArea/CollisionShape3D:disabled")
+tracks/0/path = NodePath("BodyContainer/AttackArea/CollisionShape3D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -39,7 +39,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D/AttackArea/CollisionShape3D:disabled")
+tracks/0/path = NodePath("BodyContainer/AttackArea/CollisionShape3D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -55,9 +55,10 @@ _data = {
 &"RESET": SubResource("Animation_t7bpg")
 }
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_movement", "_cameraController", "_animator") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_model", "_movement", "_cameraController", "_animator") groups=["Player"]]
 collision_mask = 28
 script = ExtResource("1_s1rgi")
+_model = NodePath("BodyContainer/Mine")
 _movement = NodePath("Composites/Movement")
 _cameraController = NodePath("Composites/CameraController")
 _animator = NodePath("Composites/Animator")
@@ -75,12 +76,12 @@ spring_length = 2.5
 
 [node name="Composites" type="Node" parent="."]
 
-[node name="Movement" type="Node" parent="Composites" node_paths=PackedStringArray("_character", "_cameraPivot", "_collision", "_body")]
+[node name="Movement" type="Node" parent="Composites" node_paths=PackedStringArray("_player", "_cameraPivot", "_collision", "_bodyContainer")]
 script = ExtResource("4_cvk4d")
-_character = NodePath("../..")
+_player = NodePath("../..")
 _cameraPivot = NodePath("../../CameraPivot")
-_collision = NodePath("../../CollisionShape3D")
-_body = NodePath("../../CollisionShape3D")
+_collision = NodePath("../../BodyContainer")
+_bodyContainer = NodePath("../../BodyContainer")
 _walkSpeed = 10.0
 _runSpeed = 20.0
 _slowWalkSpeed = 5.0
@@ -100,9 +101,9 @@ _tiltLimit = 60.0
 _zoomSpeed = 20.0
 metadata/_custom_type_script = "uid://yspitpsmijxs"
 
-[node name="Animator" type="Node" parent="Composites" node_paths=PackedStringArray("Mine")]
+[node name="Animator" type="Node" parent="Composites" node_paths=PackedStringArray("Model")]
 script = ExtResource("5_rk32f")
-Mine = NodePath("../../CollisionShape3D/Mine")
+Model = NodePath("../../BodyContainer/Mine")
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
 [node name="AttackManager" type="Node" parent="Composites" node_paths=PackedStringArray("_animPlayer")]
@@ -113,22 +114,21 @@ metadata/_custom_type_script = "uid://1hhi0untthbc"
 [node name="AudioPlayer" type="AudioStreamPlayer3D" parent="." groups=["AudioPlayer"]]
 script = ExtResource("5_c4fqo")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="BodyContainer" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00240344, 0.932067, 0.00714123)
 shape = SubResource("BoxShape3D_rk32f")
 
-[node name="Mine" parent="CollisionShape3D" instance=ExtResource("7_gnlu4")]
+[node name="Mine" parent="BodyContainer" instance=ExtResource("7_gnlu4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00240344, -0.932067, -0.00714123)
 
-[node name="AttackArea" type="Area3D" parent="CollisionShape3D" node_paths=PackedStringArray("_attackCollision")]
+[node name="AttackArea" type="Area3D" parent="BodyContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00240344, -0.932067, -0.00714123)
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("8_c3qhh")
-_attackCollision = NodePath("CollisionShape3D")
 _attackPushback = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionShape3D/AttackArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyContainer/AttackArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985107, -0.463745)
 shape = SubResource("BoxShape3D_gnlu4")
 disabled = true
