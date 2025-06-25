@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://djwr7bjxuxdfk"]
 
-[ext_resource type="PackedScene" uid="uid://dof2sgvhypbee" path="res://Player/Player.tscn" id="1_o8g73"]
+[ext_resource type="PackedScene" uid="uid://cj7r5g45xbyij" path="res://Player/Player.tscn" id="1_o8g73"]
 [ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Stages/Scene.cs" id="1_v3fvj"]
 [ext_resource type="PackedScene" uid="uid://dx31uyob3yo44" path="res://UI/UI.tscn" id="2_v3fvj"]
 [ext_resource type="Environment" uid="uid://b2nly8cg3nysy" path="res://Resources/Environment/SynthWave.tres" id="4_ps3kg"]
@@ -12,8 +12,6 @@
 
 [node name="Scene" type="Node3D"]
 script = ExtResource("1_v3fvj")
-
-[node name="Player" parent="." instance=ExtResource("1_o8g73")]
 
 [node name="SceneEnvironment" type="WorldEnvironment" parent="." groups=["SceneEnv"]]
 environment = ExtResource("4_ps3kg")
@@ -34,3 +32,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.419071, 1.89406, -2.82092)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
 
 [node name="UI" parent="." instance=ExtResource("2_v3fvj")]
+
+[node name="Player" parent="." instance=ExtResource("1_o8g73")]
