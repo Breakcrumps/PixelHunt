@@ -4,6 +4,7 @@ using Godot;
 [GlobalClass]
 public partial class IdleState : State
 {
+  [Export] bool _canWander = true;
   [Export] private Enemy? _enemy;
   [Export] private Animator? _animator;
   [Export] private EnemyStateMachine? _stateMachine;
@@ -70,8 +71,11 @@ public partial class IdleState : State
 
   public override void PhysicsProcess(double delta)
   {
-    if (_enemy is null)
+    if (!_canWander)
       return;
+
+    if (_enemy is null)
+        return;
 
     Vector2 horizontalVelocity = _moveDirection * _animHelper!.Speed;
 

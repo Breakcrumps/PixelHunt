@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=15 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://jmfdamxd504" path="res://Player/Player.cs" id="2_s1rgi"]
@@ -10,10 +10,47 @@
 [ext_resource type="Script" uid="uid://blrscmul5u4le" path="res://Player/Strategies/MoveStrategies/PushbackMoveStrategy.cs" id="9_j23h2"]
 [ext_resource type="Script" uid="uid://c3m2h1vrf6242" path="res://Player/Strategies/MoveStrategies/DebugMoveStrategy.cs" id="10_0j2ni"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_0j2ni"]
+size = Vector3(1, 1.88367, 1)
+
+[sub_resource type="Animation" id="Animation_j23h2"]
+resource_name = "Pushback"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationHelper:Speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [30.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_0j2ni"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationHelper:Speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v0k0e"]
+_data = {
+&"Pushback": SubResource("Animation_j23h2"),
+&"RESET": SubResource("Animation_0j2ni")
+}
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_j23h2"]
 radius = 0.01
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_0j2ni"]
 
 [node name="Player" node_paths=PackedStringArray("_cameraController", "_animator", "_moveStateMachine") instance=ExtResource("1_6ysni")]
 collision_mask = 28
@@ -22,7 +59,21 @@ _cameraController = NodePath("Composites/CameraController")
 _animator = NodePath("Composites/Animator")
 _moveStateMachine = NodePath("MoveStateMachine")
 
-[node name="CameraPivot" type="Node3D" parent="." index="0"]
+[node name="Armature" parent="." index="0"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Legs" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.941833, 0)
+shape = SubResource("BoxShape3D_0j2ni")
+
+[node name="AnimationHelper" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+&"": SubResource("AnimationLibrary_v0k0e")
+}
+script = ExtResource("3_vlldt")
+metadata/_custom_type_script = "uid://u188e4bpypab"
+
+[node name="CameraPivot" type="Node3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75084, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" index="0"]
@@ -32,68 +83,7 @@ spring_length = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" index="0"]
 
-[node name="Skeleton3D" parent="." index="1"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-bones/1/rotation = Quaternion(-0.0242767, 0, 0, 0.999705)
-bones/2/rotation = Quaternion(0.0967823, 1.1865e-07, 1.15374e-08, 0.995306)
-bones/3/rotation = Quaternion(-0.00663301, 0.00536627, 0.99241, -0.122674)
-bones/4/rotation = Quaternion(0.0216839, -0.00419523, -0.0516271, 0.998422)
-bones/5/rotation = Quaternion(0.00137121, -0.000836752, -0.00800315, 0.999967)
-bones/6/rotation = Quaternion(-0.0345084, -0.0294634, 0.998969, 0.00143931)
-bones/7/rotation = Quaternion(-0.00308097, 0.000181374, -0.000548012, 0.999995)
-bones/8/rotation = Quaternion(0.573508, -0.0279999, 0.0206263, 0.818461)
-bones/9/rotation = Quaternion(0.00663301, 0.00536627, 0.99241, 0.122674)
-bones/10/rotation = Quaternion(0.0216839, 0.00419523, 0.0516271, 0.998422)
-bones/11/rotation = Quaternion(0.00137121, 0.000836752, 0.00800315, 0.999967)
-bones/12/rotation = Quaternion(0.0336136, 0.213107, 0.975718, 0.0378101)
-bones/13/rotation = Quaternion(-0.506628, -0.00015551, 0.0901139, 0.857442)
-bones/14/rotation = Quaternion(0.476885, 0.0250747, -0.0455975, 0.877424)
-bones/15/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
-bones/16/position = Vector3(0.0977423, -0.0516856, -0.0271773)
-bones/16/rotation = Quaternion(0.00372321, 0.711538, -0.702628, -0.00377042)
-bones/17/rotation = Quaternion(0.00319472, 0.7071, 0.7071, 0.00319472)
-bones/18/position = Vector3(-0.0977423, 0.184516, -0.0806039)
-bones/18/rotation = Quaternion(-0.00195444, 0.929481, -0.368833, 0.0049253)
-
-[node name="AnimationHelper" type="AnimationPlayer" parent="." index="3"]
-script = ExtResource("3_vlldt")
-metadata/_custom_type_script = "uid://u188e4bpypab"
-
-[node name="Legs" type="CollisionShape3D" parent="." index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("BoxShape3D_0j2ni")
-
-[node name="MoveStateMachine" type="Node" parent="." index="5" node_paths=PackedStringArray("_player", "_animHelper")]
-script = ExtResource("8_0j2ni")
-_player = NodePath("..")
-_animHelper = NodePath("../AnimationHelper")
-metadata/_custom_type_script = "uid://cy02vpvcdixrx"
-
-[node name="DebugMoveStrategy" type="Node" parent="MoveStateMachine" index="0" node_paths=PackedStringArray("_character", "_cameraPivot", "_collision")]
-script = ExtResource("10_0j2ni")
-_character = NodePath("../..")
-_cameraPivot = NodePath("../../CameraPivot")
-_collision = NodePath("../../Legs")
-metadata/_custom_type_script = "uid://c3m2h1vrf6242"
-
-[node name="FreeMoveStrategy" type="Node" parent="MoveStateMachine" index="1" node_paths=PackedStringArray("_character", "_cameraPivot", "_armature", "_animator", "_moveStateMachine")]
-script = ExtResource("8_s1rgi")
-_character = NodePath("../..")
-_cameraPivot = NodePath("../../CameraPivot")
-_armature = NodePath("../../Skeleton3D")
-_animator = NodePath("../../Composites/Animator")
-_moveStateMachine = NodePath("..")
-_g = 8.0
-metadata/_custom_type_script = "uid://dyk3bbbwwp4fn"
-
-[node name="PushbackMoveStrategy" type="Node" parent="MoveStateMachine" index="2" node_paths=PackedStringArray("_character", "_animator", "_animHelper")]
-script = ExtResource("9_j23h2")
-_character = NodePath("../..")
-_animator = NodePath("../../Composites/Animator")
-_animHelper = NodePath("../../AnimationHelper")
-metadata/_custom_type_script = "uid://blrscmul5u4le"
-
-[node name="Composites" type="Node" parent="." index="6"]
+[node name="Composites" type="Node" parent="." index="5"]
 
 [node name="CameraController" type="Node" parent="Composites" index="0" node_paths=PackedStringArray("_cameraSpring", "_cameraPivot", "_character")]
 script = ExtResource("5_lel00")
@@ -107,3 +97,37 @@ script = ExtResource("5_rk32f")
 _animPlayer = NodePath("../../AnimationPlayer")
 _animHelper = NodePath("../../AnimationHelper")
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
+
+[node name="MoveStateMachine" type="Node" parent="." index="6" node_paths=PackedStringArray("_player", "_animHelper")]
+script = ExtResource("8_0j2ni")
+_player = NodePath("..")
+_animHelper = NodePath("../AnimationHelper")
+metadata/_custom_type_script = "uid://cy02vpvcdixrx"
+
+[node name="DebugMoveStrategy" type="Node" parent="MoveStateMachine" index="0" node_paths=PackedStringArray("_character", "_cameraPivot", "_collision", "_moveStateMachine")]
+script = ExtResource("10_0j2ni")
+_character = NodePath("../..")
+_cameraPivot = NodePath("../../CameraPivot")
+_collision = NodePath("../../Legs")
+_moveStateMachine = NodePath("..")
+_debugWalkSpeed = 40.0
+_debugRunSpeed = 60.0
+_hoverVelocity = 40.0
+metadata/_custom_type_script = "uid://c3m2h1vrf6242"
+
+[node name="FreeMoveStrategy" type="Node" parent="MoveStateMachine" index="1" node_paths=PackedStringArray("_character", "_cameraPivot", "_armature", "_animator", "_moveStateMachine")]
+script = ExtResource("8_s1rgi")
+_character = NodePath("../..")
+_cameraPivot = NodePath("../../CameraPivot")
+_armature = NodePath("../../Armature")
+_animator = NodePath("../../Composites/Animator")
+_moveStateMachine = NodePath("..")
+_g = 8.0
+metadata/_custom_type_script = "uid://dyk3bbbwwp4fn"
+
+[node name="PushbackMoveStrategy" type="Node" parent="MoveStateMachine" index="2" node_paths=PackedStringArray("_character", "_animator", "_animHelper")]
+script = ExtResource("9_j23h2")
+_character = NodePath("../..")
+_animator = NodePath("../../Composites/Animator")
+_animHelper = NodePath("../../AnimationHelper")
+metadata/_custom_type_script = "uid://blrscmul5u4le"

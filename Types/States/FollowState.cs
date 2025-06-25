@@ -7,12 +7,16 @@ public partial class FollowState : State
   [Export] private Animator? _animator;
   [Export] private EnemyStateMachine? _stateMachine;
   [Export] private VisionCone? _visionArea;
+  [Export] private SoundArea? _soundArea;
   [Export] private AnimationHelper? _animHelper;
 
-  [ExportGroup("Parameters")]
-  [Export] private float _chaseSpeed = .4f;
-
   public Player? Player { private get; set; }
+
+  public override void Enter()
+  {
+    _visionArea?.DisableSearch();
+    _soundArea?.DisableSearch();
+  }
 
   public override void PhysicsProcess(double delta)
   {
@@ -28,7 +32,7 @@ public partial class FollowState : State
       return;
     }
 
-    if (direction.Length() > 20f)
+    if (direction.Length() > 30f)
     {
       _stateMachine?.Transition("IdleState");
       _visionArea?.EnableSearch();
@@ -46,5 +50,11 @@ public partial class FollowState : State
     _animator?.PlayAnimation("Walk");
 
     _enemy.AlignBody(delta);
+  }
+
+  public override void Exit()
+  {
+    _visionArea?.EnableSearch();
+    _soundArea?.EnableSearch();   
   }
 }

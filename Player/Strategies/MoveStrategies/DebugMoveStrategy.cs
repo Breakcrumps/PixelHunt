@@ -6,6 +6,8 @@ public partial class DebugMoveStrategy : State
   [Export] private Player? _character;
   [Export] private Node3D? _cameraPivot;
   [Export] private CollisionShape3D? _collision;
+  [Export] private MoveStateMachine? _moveStateMachine;
+
 
   [ExportGroup("Parameters")]
   [Export] private float _debugWalkSpeed = 5000f;
@@ -24,6 +26,14 @@ public partial class DebugMoveStrategy : State
     float verticalVelocity = VerticalVelocity();
 
     ApplyVelocity(groundVelocity, verticalVelocity);
+  }
+
+  public override void UnhandledInput(InputEvent @event)
+  {
+    if (!@event.IsActionPressed("Debug"))
+      return;
+
+    _moveStateMachine?.Transition("FreeMoveStrategy");
   }
 
   public override void Exit()
