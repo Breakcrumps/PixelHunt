@@ -1,5 +1,6 @@
 using Godot;
 
+[GlobalClass]
 public partial class SceneEnvironment : WorldEnvironment
 {
   private void ChangeEnvironment(string envName)

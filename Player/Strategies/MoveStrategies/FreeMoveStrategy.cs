@@ -1,50 +1,42 @@
 using Godot;
 
 [GlobalClass]
-public partial class Movement : Node
+public partial class FreeMoveStrategy : State
 {
   [Export] private Player? _character;
   [Export] private Node3D? _cameraPivot;
-  [Export] private CollisionShape3D? _collision;
   [Export] private Node3D? _armature;
+  [Export] private Animator? _animator;
+  [Export] private MoveStateMachine? _moveStateMachine;
+
 
   [ExportGroup("Parameters")]
-  [Export] private float _walkSpeed = 20f;
-  [Export] private float _runSpeed = 30f;
-  [Export] private float _slowWalkSpeed = 10f;
+  [Export] private float _runSpeed = 10f;
+  [Export] private float _walkSpeed = 2f;
   [Export] private float _turnSpeed = 10f;
   [Export] private float _jumpVelocity = 100f;
   [Export] private float _g = 9.8f;
 
-  [ExportGroup("Debug")]
-  [Export] private float _debugWalkSpeed = 5000f;
-  [Export] private float _debugRunSpeed = 10_000f;
-  [Export] private float _hoverVelocity = 1000f;
-
-  public bool SlowWalk { get; private set; }
-  private bool _isInDebugMode;
+  private bool _slowWalk;
   private int _doubleJumps;
 
-  public void Move(double delta)
+  public override void PhysicsProcess(double delta)
   {
     if (_character!.IsOnFloor())
       _doubleJumps = 1;
 
-    Vector2 groundVelocity = _isInDebugMode ? DebugGroundVelocity() : GroundVelocity();
-    float verticalVelocity = _isInDebugMode ? DebugVerticalVelocity() : VerticalVelocity();
+    Vector2 groundVelocity = GroundVelocity();
+    float verticalVelocity = VerticalVelocity();
 
     ApplyVelocity(groundVelocity, verticalVelocity);
 
     AlignBody(delta);
 
-    _character.MoveAndSlide();
+    AnimateMovement();
   }
 
-  public override void _UnhandledInput(InputEvent @event)
+  public override void UnhandledInput(InputEvent @event)
   {
-    if (GetTree().Paused)
-      return;
-
     HandleSlowWalk(@event);
 
     HandleDebug(@event);
@@ -70,16 +62,12 @@ public partial class Movement : Node
     return yVelocity;
   }
 
-  private float DebugVerticalVelocity() => Input.GetAxis("Dip", "Jump") * _hoverVelocity;
-
   private Vector2 GroundVelocity()
   {
     float speed = (
-      SlowWalk
-      ? _slowWalkSpeed
-      : Input.IsActionPressed("Run")
-      ? _runSpeed
-      : _walkSpeed
+      _slowWalk
+      ? _walkSpeed
+      : _runSpeed
     );
 
     float xDirection = Input.GetAxis("Left", "Right");
@@ -90,24 +78,13 @@ public partial class Movement : Node
     return direction.Normalized() * speed;
   }
 
-  private Vector2 DebugGroundVelocity()
-  {
-    float speed = Input.IsActionPressed("Run") ? _debugRunSpeed : _debugWalkSpeed;
-
-    float xDirection = Input.GetAxis("Left", "Right");
-    float yDirection = -Input.GetAxis("Down", "Up");
-
-    Vector2 direction = new(xDirection, yDirection);
-
-    return direction.Normalized() * speed;
-  }
 
   private void HandleSlowWalk(InputEvent @event)
   {
     if (!@event.IsActionReleased("SlowWalk"))
       return;
 
-    SlowWalk = !SlowWalk;
+    _slowWalk = !_slowWalk;
   }
 
   private void HandleDebug(InputEvent @event)
@@ -115,8 +92,7 @@ public partial class Movement : Node
     if (!@event.IsActionPressed("Debug"))
       return;
 
-    _isInDebugMode = !_isInDebugMode;
-    _collision!.Disabled = _isInDebugMode;
+    _moveStateMachine?.Transition("DebugMoveStrategy");
   }
 
   private void ApplyVelocity(Vector2 groundVelocity, float verticalVelocity)
@@ -141,5 +117,30 @@ public partial class Movement : Node
         _turnSpeed * (float)delta
       )
     };
+  }
+  
+  public void AnimateMovement()
+  {
+    if (_character is null)
+      return;
+
+    Vector2 horizontalVelocity = new(_character.Velocity.X, _character.Velocity.Z);
+
+    string animation = (
+      !_character.IsOnFloor()
+      ? _character.Velocity.Y == 0 ? "Hover"
+      : _character.Velocity.Y > 0 ? "Rise" : "Fall"
+      : horizontalVelocity != Vector2.Zero
+      ? _slowWalk ? "Walk" : "Jog"
+      : "Idle"
+    );
+
+    double blendTime = (
+      animation == "Fall"
+      ? .21
+      : .15
+    );
+
+    _animator?.PlayAnimation(animation, blendTime);
   }
 }

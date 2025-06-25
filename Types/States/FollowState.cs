@@ -5,7 +5,7 @@ public partial class FollowState : State
 {
   [Export] Enemy? _enemy;
   [Export] private Animator? _animator;
-  [Export] private StateMachine? _stateMachine;
+  [Export] private EnemyStateMachine? _stateMachine;
   [Export] private VisionCone? _visionArea;
   [Export] private AnimationHelper? _animHelper;
 

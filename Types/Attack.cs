@@ -1,4 +1,4 @@
 public record Attack(
   int Damage,
-  float Pushback
+  bool Pushback
 );

@@ -7,7 +7,7 @@ public partial class AttackArea : Area3D
 
   [ExportGroup("Parameters")]
   [Export] private int _attackPower = 10;
-  [Export] private float _attackPushback;
+  [Export] private bool _pushback;
 
   public override void _Ready()
   {
@@ -19,7 +19,7 @@ public partial class AttackArea : Area3D
     if (node is not Character character)
       return;
 
-    Attack attack = new(_attackPower, _attackPushback);
+    Attack attack = new(_attackPower, _pushback);
 
     character.ProcessHit(attack, GlobalPosition);
 

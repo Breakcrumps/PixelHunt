@@ -5,7 +5,7 @@ public partial class AttackState : State
 {
   [Export] private AnimationPlayer? _animPlayer;
   [Export] private Enemy? _enemy;
-  [Export] private StateMachine? _stateMachine;
+  [Export] private EnemyStateMachine? _stateMachine;
   [Export] private Animator? _animator;
 
   public override void _Ready()

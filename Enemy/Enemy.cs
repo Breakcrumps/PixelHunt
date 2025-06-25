@@ -1,10 +1,11 @@
 using Godot;
 
+[GlobalClass]
 public partial class Enemy : Character
 {
   [Export] private Node3D? _armature;
-  [Export] private Animator? _animator;
-  [Export] private StateMachine? _stateMachine;
+  [Export] private EnemyStateMachine? _stateMachine;
+  [Export] private PushbackState? _pushbackState;
 
   public override void _Process(double delta)
   {
@@ -57,7 +58,7 @@ public partial class Enemy : Character
 
     Vector3 pushbackDirection = ((GlobalPosition - attackerPos) with { Y = 0f }).Normalized();
 
-    Velocity = pushbackDirection * attack.Pushback;
+    _pushbackState!.PushbackDirection = pushbackDirection;
 
     _stateMachine?.Transition("PushbackState");
 

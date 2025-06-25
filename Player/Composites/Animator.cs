@@ -16,7 +16,8 @@ public partial class Animator : Node
     if (_animPlayer.CurrentAnimation == animName)
       return;
 
-    _animPlayer.Play(animName, blendTime);
+    if (_animPlayer.HasAnimation(animName))
+      _animPlayer.Play(animName, blendTime);
 
     HandleHelperAnim(animName);
   }

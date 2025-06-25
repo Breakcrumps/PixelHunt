@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
+[GlobalClass]
 public partial class ChoiceContainer : Control
 {
   private List<Control> _optionContainers = [];

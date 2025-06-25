@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
+[GlobalClass]
 public partial class DialogueBox : Control
 {
   private AudioPlayer? _audioPlayer;
-  
+
   [Export] private RichTextLabel? _nameBox;
   [Export] private RichTextLabel? _textBox;
   [Export] private ChoiceContainer? _choiceContainer;
@@ -210,7 +211,7 @@ public partial class DialogueBox : Control
 
     else if (_choiceLines.Count == 0)
       ShowLine(_lines);
-      
+
     else
       ShowLine(_choiceLines);
   }

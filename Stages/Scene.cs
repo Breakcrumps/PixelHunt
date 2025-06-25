@@ -1,5 +1,6 @@
 using Godot;
 
+[GlobalClass]
 public partial class Scene : Node3D
 {
   public override void _Ready()

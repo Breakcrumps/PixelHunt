@@ -1,39 +1,17 @@
 using Godot;
 
+[GlobalClass]
 public partial class Player : Character
 {
-  [Export] private Movement? _movement;
   [Export] private CameraController? _cameraController;
   [Export] private Animator? _animator;
-
+  [Export] private MoveStateMachine? _moveStateMachine;
 
   public override void _PhysicsProcess(double delta)
   {
-    _movement!.Move(delta);
+    _moveStateMachine?.PhysicsProcess(delta);
 
-    AnimateMovement();
-  }
-
-  private void AnimateMovement()
-  {
-    Vector2 horizontalVelocity = new(Velocity.X, Velocity.Z);
-
-    string animation = (
-      !IsOnFloor()
-      ? Velocity.Y == 0 ? "Hover"
-      : Velocity.Y > 0 ? "Rise" : "Fall"
-      : horizontalVelocity != Vector2.Zero
-      ? horizontalVelocity.Length() > 7f ? "Jog" : "Walk"
-      : "Idle"
-    );
-
-    double blendTime = (
-      animation == "Fall"
-      ? .21
-      : .15
-    );
-
-    _animator?.PlayAnimation(animation, blendTime);
+    MoveAndSlide();
   }
 
   public override void ProcessHit(Attack attack, Vector3 attackerPos)
@@ -42,6 +20,8 @@ public partial class Player : Character
 
     if (Flags.Debug)
       GD.Print($"Player was hit for {attack.Damage}HP, {Health}HP left.");
+
+    _moveStateMachine?.HandlePushback(attackerPos);
 
     if (Health <= 0)
       Die();

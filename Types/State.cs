@@ -9,4 +9,6 @@ public abstract partial class State : Node
   public virtual void Process(double delta) { }
 
   public virtual void PhysicsProcess(double delta) { }
+
+  public virtual void UnhandledInput(InputEvent @event) { }
 }

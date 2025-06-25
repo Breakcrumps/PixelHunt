@@ -1,8 +1,9 @@
 using Godot;
 
+[GlobalClass]
 public partial class VisionCone : Area3D
 {
-  [Export] private StateMachine? _stateMachine;
+  [Export] private EnemyStateMachine? _stateMachine;
 
   [Export] private FollowState? _followState;
 

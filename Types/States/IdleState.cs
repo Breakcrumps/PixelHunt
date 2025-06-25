@@ -6,7 +6,7 @@ public partial class IdleState : State
 {
   [Export] private Enemy? _enemy;
   [Export] private Animator? _animator;
-  [Export] private StateMachine? _stateMachine;
+  [Export] private EnemyStateMachine? _stateMachine;
   [Export] private AnimationPlayer? _animPlayer;
   [Export] private AnimationHelper? _animHelper;
 
