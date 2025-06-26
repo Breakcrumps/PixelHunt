@@ -127,7 +127,7 @@ public partial class FreeMoveStrategy : State
       ? _character.Velocity.Y == 0 ? "Hover"
       : _character.Velocity.Y > 0 ? "Rise" : "Fall"
       : horizontalVelocity != Vector2.Zero
-      ? _slowWalk ? "Walk" : "Jog"
+      ? _slowWalk ? "Walk" : "Run"
       : "Idle"
     );
 
