@@ -16,6 +16,10 @@ public partial class FollowState : State
   {
     _visionArea?.DisableSearch();
     _soundArea?.DisableSearch();
+
+    Player player = (Player)GetTree().GetFirstNodeInGroup("Player");
+
+    player.Unsheathe();
   }
 
   public override void PhysicsProcess(double delta)
@@ -50,11 +54,5 @@ public partial class FollowState : State
     _animator?.PlayAnimation("Walk");
 
     _enemy.AlignBody(delta);
-  }
-
-  public override void Exit()
-  {
-    _visionArea?.EnableSearch();
-    _soundArea?.EnableSearch();   
   }
 }

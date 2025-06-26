@@ -10,7 +10,7 @@ public partial class MoveStateMachine : StateMachine
   {
     FillStates();
 
-    _currentState = _states["FreeMoveStrategy"];
+    Transition("FreeMoveStrategy");
   }
 
   public override void PhysicsProcess(double delta)
@@ -37,18 +37,5 @@ public partial class MoveStateMachine : StateMachine
     pushbackMoveStrategy.Enter();
 
     _currentState = pushbackMoveStrategy;
-
-    if (_animHelper is not null)
-      _animHelper.AnimationFinished += DisablePushback;
-  }
-
-  public void DisablePushback(StringName animName)
-  {
-    if (animName != "Pushback")
-      return;
-
-    _currentState = _states["FreeMoveStrategy"];
-
-    _animHelper!.AnimationFinished -= DisablePushback;
   }
 }

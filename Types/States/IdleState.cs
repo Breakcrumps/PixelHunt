@@ -10,6 +10,8 @@ public partial class IdleState : State
   [Export] private EnemyStateMachine? _stateMachine;
   [Export] private AnimationPlayer? _animPlayer;
   [Export] private AnimationHelper? _animHelper;
+  [Export] private VisionCone? _visionArea;
+  [Export] private SoundArea? _soundArea;
 
   [ExportGroup("Parameters")]
   [Export] private float _wanderRadius = 10f;
@@ -53,6 +55,9 @@ public partial class IdleState : State
 
   public override void Enter()
   {
+    _visionArea?.EnableSearch();
+    _soundArea?.EnableSearch();
+
     if (_enemy is null)
       return;
 

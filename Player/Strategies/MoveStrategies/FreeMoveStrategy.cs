@@ -7,12 +7,11 @@ public partial class FreeMoveStrategy : State
   [Export] private Node3D? _cameraPivot;
   [Export] private Node3D? _armature;
   [Export] private Animator? _animator;
+  [Export] private AnimationHelper? _animHelper;
   [Export] private MoveStateMachine? _moveStateMachine;
 
 
   [ExportGroup("Parameters")]
-  [Export] private float _runSpeed = 10f;
-  [Export] private float _walkSpeed = 2f;
   [Export] private float _turnSpeed = 10f;
   [Export] private float _jumpVelocity = 100f;
   [Export] private float _g = 9.8f;
@@ -64,18 +63,15 @@ public partial class FreeMoveStrategy : State
 
   private Vector2 GroundVelocity()
   {
-    float speed = (
-      _slowWalk
-      ? _walkSpeed
-      : _runSpeed
-    );
+    if (_animHelper is null)
+      return Vector2.Zero;
 
     float xDirection = Input.GetAxis("Left", "Right");
     float yDirection = -Input.GetAxis("Down", "Up");
 
     Vector2 direction = new(xDirection, yDirection);
 
-    return direction.Normalized() * speed;
+    return direction.Normalized() * _animHelper.Speed;
   }
 
 

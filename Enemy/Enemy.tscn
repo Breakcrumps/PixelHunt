@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cu0iyt20pk40w"]
+[gd_scene load_steps=23 format=3 uid="uid://cu0iyt20pk40w"]
 
 [ext_resource type="Script" uid="uid://cbp87gphvl7u3" path="res://Enemy/Enemy.cs" id="1_3o4wt"]
 [ext_resource type="PackedScene" uid="uid://bor1ekmd5bk67" path="res://Import/Enemy.glb" id="1_uxjip"]
@@ -21,7 +21,7 @@ size = Vector3(2.74097, 2.77255, 3.39618)
 
 [sub_resource type="Animation" id="Animation_3m35v"]
 resource_name = "Attack"
-length = 2.66667
+length = 3.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -33,6 +33,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyStateMachine")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["FollowState"],
+"method": &"Transition"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_tmvn0"]
@@ -49,6 +63,24 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_yqk80"]
+resource_name = "Pushback"
+length = 0.500003
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyStateMachine")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["IdleState"],
+"method": &"Transition"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_yekn0"]
@@ -99,6 +131,7 @@ tracks/0/keys = {
 _data = {
 &"Attack": SubResource("Animation_3m35v"),
 &"Idle": SubResource("Animation_tmvn0"),
+&"Pushback": SubResource("Animation_yqk80"),
 &"RESET": SubResource("Animation_yekn0"),
 &"Walk": SubResource("Animation_4m7de")
 }
@@ -140,6 +173,7 @@ bones/13/rotation = Quaternion(0.916625, 0.0101517, -0.00207299, 0.399613)
 bones/14/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
 bones/15/position = Vector3(0.226909, 0.0804559, 0.245408)
 bones/15/rotation = Quaternion(0.00374689, 0.707097, -0.707097, -0.00374689)
+bones/16/rotation = Quaternion(0.00319472, 0.7071, 0.7071, 0.00319472)
 bones/17/position = Vector3(-0.162451, 0.0910731, -0.438505)
 bones/17/rotation = Quaternion(-0.00374689, 0.707097, -0.707097, 0.00374689)
 
@@ -197,7 +231,6 @@ _initialState = NodePath("IdleState")
 
 [node name="IdleState" type="Node" parent="EnemyStateMachine" index="0" node_paths=PackedStringArray("_enemy", "_animator", "_stateMachine", "_animPlayer", "_animHelper")]
 script = ExtResource("5_jd4ap")
-_canWander = false
 _enemy = NodePath("../..")
 _animator = NodePath("../../Composites/Animator")
 _stateMachine = NodePath("..")
@@ -223,11 +256,9 @@ _animator = NodePath("../../Composites/Animator")
 _animHelper = NodePath("../../AnimationHelper")
 metadata/_custom_type_script = "uid://dn7r3or7ikdxl"
 
-[node name="AttackState" type="Node" parent="EnemyStateMachine" index="3" node_paths=PackedStringArray("_animPlayer", "_enemy", "_stateMachine", "_animator")]
+[node name="AttackState" type="Node" parent="EnemyStateMachine" index="3" node_paths=PackedStringArray("_enemy", "_animator")]
 script = ExtResource("8_1ypri")
-_animPlayer = NodePath("../../AnimationPlayer")
 _enemy = NodePath("../..")
-_stateMachine = NodePath("..")
 _animator = NodePath("../../Composites/Animator")
 metadata/_custom_type_script = "uid://dq6eqfl1pnekr"
 

@@ -26,4 +26,12 @@ public partial class Player : Character
     if (Health <= 0)
       Die();
   }
+
+  public void Unsheathe()
+  {
+    _animator?.PlayAnimation("Unsheathe");
+
+    if (_animator is not null)
+      _animator.AnimPrefix = "Unsheathed";
+  }
 }

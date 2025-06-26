@@ -20,21 +20,6 @@ public partial class PushbackState : State
       return;
 
     _enemy.Velocity = PushbackDirection * _animHelper.Speed;
-
-    _animHelper.AnimationFinished += DisablePushback;
-  }
-
-  private void DisablePushback(StringName animName)
-  {
-    if (_stateMachine is null)
-      return;
-
-    if (animName != "Pushback")
-      return;
-
-    _animHelper!.AnimationFinished -= DisablePushback;
-
-    _stateMachine.Transition("IdleState");
   }
 
   public override void PhysicsProcess(double delta)
