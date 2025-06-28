@@ -219,10 +219,11 @@ shape = SubResource("BoxShape3D_2cvju")
 
 [node name="Composites" type="Node" parent="." index="4"]
 
-[node name="Animator" type="Node" parent="Composites" index="0" node_paths=PackedStringArray("_animPlayer", "_animHelper")]
+[node name="Animator" type="Node" parent="Composites" index="0" node_paths=PackedStringArray("_animPlayer", "_animHelper", "_character")]
 script = ExtResource("3_vonkd")
 _animPlayer = NodePath("../../AnimationPlayer")
 _animHelper = NodePath("../../AnimationHelper")
+_character = NodePath("../..")
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
 [node name="EnemyStateMachine" type="Node" parent="." index="5" node_paths=PackedStringArray("_initialState")]

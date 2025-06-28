@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=20 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://jmfdamxd504" path="res://Player/Player.cs" id="2_s1rgi"]
@@ -56,6 +56,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Composites/Animator:CanProcessRequests")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_p7tob"]
 resource_name = "Run"
@@ -70,7 +82,35 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [10.0]
+"values": [15.0]
+}
+
+[sub_resource type="Animation" id="Animation_3mea3"]
+resource_name = "RunUnsheathe"
+length = 0.533337
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationHelper:Speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [15.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Composites/Animator:CanProcessRequests")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.533333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_5wa8t"]
@@ -87,6 +127,32 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 10.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Composites/Animator:CanProcessRequests")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.13333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Composites/Animator")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.13333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"DEBUG_NotifyRequestOpen"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_v0k0e"]
@@ -139,6 +205,7 @@ _data = {
 &"Pushback": SubResource("Animation_j23h2"),
 &"RESET": SubResource("Animation_0j2ni"),
 &"Run": SubResource("Animation_p7tob"),
+&"RunUnsheathe": SubResource("Animation_3mea3"),
 &"Unsheathe": SubResource("Animation_5wa8t"),
 &"UnsheathedPushback": SubResource("Animation_v0k0e"),
 &"Walk": SubResource("Animation_dm7nj")
@@ -156,6 +223,32 @@ _moveStateMachine = NodePath("MoveStateMachine")
 
 [node name="Armature" parent="." index="0"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(0.00659242, 1.19207e-07, 7.85878e-10, 0.999978)
+bones/2/rotation = Quaternion(0.41644, -1.56996e-09, 1.0258e-07, 0.909163)
+bones/3/position = Vector3(0.197641, 0.289903, -0.0410065)
+bones/3/rotation = Quaternion(-0.0360466, 0.00404518, 0.550063, -0.834335)
+bones/4/rotation = Quaternion(0.0216839, -0.00419523, -0.051627, 0.998422)
+bones/5/rotation = Quaternion(0.00137122, -0.000836744, -0.00800311, 0.999967)
+bones/6/position = Vector3(-0.197641, 0.289903, -0.0410066)
+bones/6/rotation = Quaternion(0.0372383, 0.00358677, 0.506817, 0.861242)
+bones/7/rotation = Quaternion(0.0216839, 0.00419523, 0.051627, 0.998422)
+bones/8/rotation = Quaternion(0.00137122, 0.000836735, 0.00800312, 0.999967)
+bones/9/position = Vector3(0.442254, 0.625256, -0.120524)
+bones/9/rotation = Quaternion(0.00874754, -0.0191504, 0.929402, 0.368469)
+bones/10/rotation = Quaternion(-0.0338093, 0.212743, 0.975828, -0.0368382)
+bones/11/rotation = Quaternion(-0.494728, 0.000156734, -0.0879973, 0.864581)
+bones/12/rotation = Quaternion(0.775016, -0.00448574, 0.0475859, 0.630131)
+bones/13/rotation = Quaternion(0.0331228, 0.412702, 0.9077, 0.0682675)
+bones/14/rotation = Quaternion(-0.803898, -0.000104692, 0.142989, 0.577323)
+bones/15/rotation = Quaternion(0.889919, -0.0154837, -0.0661117, 0.451037)
+bones/16/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
+bones/17/position = Vector3(0.0977423, 0.177566, -0.0661022)
+bones/17/rotation = Quaternion(0.00374689, 0.707097, -0.707097, -0.00374689)
+bones/18/rotation = Quaternion(0.00319472, 0.7071, 0.7071, 0.00319472)
+bones/19/position = Vector3(-0.0977423, 0.407787, -0.0751305)
+bones/19/rotation = Quaternion(-0.00374689, 0.707097, -0.707097, 0.00374689)
 
 [node name="Legs" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.941833, 0)
@@ -188,10 +281,11 @@ _character = NodePath("../..")
 _zoomSpeed = 10.0
 metadata/_custom_type_script = "uid://yspitpsmijxs"
 
-[node name="Animator" type="Node" parent="Composites" index="1" node_paths=PackedStringArray("_animPlayer", "_animHelper")]
+[node name="Animator" type="Node" parent="Composites" index="1" node_paths=PackedStringArray("_animPlayer", "_animHelper", "_character")]
 script = ExtResource("5_rk32f")
 _animPlayer = NodePath("../../AnimationPlayer")
 _animHelper = NodePath("../../AnimationHelper")
+_character = NodePath("../..")
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
 [node name="MoveStateMachine" type="Node" parent="." index="6" node_paths=PackedStringArray("_player", "_animHelper")]

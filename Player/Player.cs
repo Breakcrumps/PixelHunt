@@ -29,7 +29,7 @@ public partial class Player : Character
 
   public void Unsheathe()
   {
-    _animator?.PlayAnimation("Unsheathe");
+    _animator?.Unsheathe();
 
     if (_animator is not null)
       _animator.AnimPrefix = "Unsheathed";

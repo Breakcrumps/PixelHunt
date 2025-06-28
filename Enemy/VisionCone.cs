@@ -3,12 +3,11 @@ using Godot;
 [GlobalClass]
 public partial class VisionCone : Area3D
 {
+  [Export] private bool _canSee = true;
+
   [Export] private EnemyStateMachine? _stateMachine;
-
   [Export] private FollowState? _followState;
-
   [Export] private CollisionShape3D? _vision;
-
   [Export] private RayCast3D? _rayCast;
 
   private Player? _player;
@@ -46,6 +45,9 @@ public partial class VisionCone : Area3D
 
   public override void _PhysicsProcess(double delta)
   {
+    if (!_canSee)
+      return;
+
     if (!_playerInSight)
       return;
 

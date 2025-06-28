@@ -131,12 +131,6 @@ public partial class FreeMoveStrategy : State
       : "Idle"
     );
 
-    double blendTime = (
-      animation == "Fall"
-      ? .21
-      : .15
-    );
-
-    _animator?.PlayAnimation(animation, blendTime);
+    _animator?.PlayAnimation(animation);
   }
 }
