@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class Enemy : Character
+internal partial class Enemy : Character
 {
   [Export] private Node3D? _armature;
   [Export] private EnemyStateMachine? _stateMachine;
@@ -21,7 +21,7 @@ public partial class Enemy : Character
     MoveAndSlide();
   }
 
-  public void AlignBody(double delta, bool inverse = false)
+  internal void AlignBody(double delta, bool inverse = false)
   {
     Vector2 horizontalVelocity = new(Velocity.X, Velocity.Z);
 
@@ -52,7 +52,7 @@ public partial class Enemy : Character
     Velocity = Velocity with { Y = -10f };
   }
 
-  public override void ProcessHit(Attack attack, Vector3 attackerPos)
+  internal override void ProcessHit(Attack attack, Vector3 attackerPos)
   {
     Health -= attack.Damage;
 

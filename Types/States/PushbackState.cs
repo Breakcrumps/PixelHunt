@@ -1,18 +1,18 @@
 using Godot;
 
 [GlobalClass]
-public partial class PushbackState : State
+internal partial class PushbackState : State
 {
   [Export] private Enemy? _enemy;
   [Export] private EnemyStateMachine? _stateMachine;
   [Export] private Animator? _animator;
   [Export] private AnimationHelper? _animHelper;
 
-  public Vector3 PushbackDirection { private get; set; }
+  internal Vector3 PushbackDirection { private get; set; }
 
   private Player? _player;
 
-  public override void Enter()
+  internal override void Enter()
   {
     _animator?.PlayAnimation("Pushback");
 
@@ -22,7 +22,7 @@ public partial class PushbackState : State
     _enemy.Velocity = PushbackDirection * _animHelper.Speed;
   }
 
-  public override void PhysicsProcess(double delta)
+  internal override void PhysicsProcess(double delta)
   {
     if (_enemy is null)
       return;

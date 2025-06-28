@@ -1,8 +1,8 @@
 using Godot;
 
-public partial class EnvLabel : Label
+internal partial class EnvLabel : Label
 {
-  public void UpdateDisplay()
+  internal void UpdateDisplay()
   {
     SceneEnvironment env = (SceneEnvironment)GetTree().GetFirstNodeInGroup("SceneEnv");
     Environment envResource = env.Environment;

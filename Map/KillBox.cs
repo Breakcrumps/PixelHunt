@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class KillBox : Area3D
+internal partial class KillBox : Area3D
 {
   public override void _Ready()
   {

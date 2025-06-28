@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-public record Replica(
+internal record Replica(
   string Who = "",
   string Line = "",
   List<string>? Conditions = null,
@@ -30,5 +30,5 @@ public record Replica(
     return $"{stringBuilder}";
   }
 
-  public string RawLine => string.Join("", Line.Split('|'));
+  internal string RawLine => string.Join("", Line.Split('|'));
 }

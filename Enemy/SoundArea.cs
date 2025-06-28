@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class SoundArea : Area3D
+internal partial class SoundArea : Area3D
 {
   [Export] private StateMachine? _stateMachine;
 
@@ -26,12 +26,12 @@ public partial class SoundArea : Area3D
     _followState!.Player = player;
   }
 
-  public void DisableSearch()
+  internal void DisableSearch()
   {
     _soundCollision!.Disabled = true;
   }
 
-  public void EnableSearch()
+  internal void EnableSearch()
   {
     _soundCollision!.Disabled = false;
   }

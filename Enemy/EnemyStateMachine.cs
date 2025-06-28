@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class EnemyStateMachine : StateMachine
+internal partial class EnemyStateMachine : StateMachine
 {
   [Export] private State? _initialState;
 
@@ -16,12 +16,12 @@ public partial class EnemyStateMachine : StateMachine
     _currentState = _initialState;
   }
 
-  public override void Process(double delta)
+  internal override void Process(double delta)
   {
     _currentState?.Process(delta);
   }
 
-  public override void PhysicsProcess(double delta)
+  internal override void PhysicsProcess(double delta)
   {
     _currentState?.PhysicsProcess(delta);
   }

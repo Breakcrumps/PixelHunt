@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class CameraController : Node
+internal partial class CameraController : Node
 {
   [Export] private SpringArm3D? _cameraSpring;
   [Export] private Node3D? _cameraPivot;

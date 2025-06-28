@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class ZFarInput : LineEdit
+internal partial class ZFarInput : LineEdit
 {
   private Camera3D? _characterCamera;
   

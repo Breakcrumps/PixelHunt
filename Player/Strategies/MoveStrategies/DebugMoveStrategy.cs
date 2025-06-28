@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class DebugMoveStrategy : State
+internal partial class DebugMoveStrategy : State
 {
   [Export] private Player? _character;
   [Export] private Node3D? _cameraPivot;
@@ -14,13 +14,13 @@ public partial class DebugMoveStrategy : State
   [Export] private float _debugRunSpeed = 10_000f;
   [Export] private float _hoverVelocity = 1000f;
 
-  public override void Enter()
+  internal override void Enter()
   {
     if (_collision is not null)
       _collision.Disabled = true;
   }
 
-  public override void PhysicsProcess(double delta)
+  internal override void PhysicsProcess(double delta)
   {
     Vector2 groundVelocity = GroundVelocity();
     float verticalVelocity = VerticalVelocity();
@@ -28,7 +28,7 @@ public partial class DebugMoveStrategy : State
     ApplyVelocity(groundVelocity, verticalVelocity);
   }
 
-  public override void UnhandledInput(InputEvent @event)
+  internal override void UnhandledInput(InputEvent @event)
   {
     if (!@event.IsActionPressed("Debug"))
       return;
@@ -36,7 +36,7 @@ public partial class DebugMoveStrategy : State
     _moveStateMachine?.Transition("FreeMoveStrategy");
   }
 
-  public override void Exit()
+  internal override void Exit()
   {
     if (_collision is not null)
       _collision.Disabled = false;

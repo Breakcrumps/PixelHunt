@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class WriteFlags : Button
+internal partial class WriteFlags : Button
 {
   public override void _Ready()
   {

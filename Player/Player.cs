@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class Player : Character
+internal partial class Player : Character
 {
   [Export] private CameraController? _cameraController;
   [Export] private Animator? _animator;
@@ -14,7 +14,7 @@ public partial class Player : Character
     MoveAndSlide();
   }
 
-  public override void ProcessHit(Attack attack, Vector3 attackerPos)
+  internal override void ProcessHit(Attack attack, Vector3 attackerPos)
   {
     Health -= attack.Damage;
 
@@ -27,7 +27,7 @@ public partial class Player : Character
       Die();
   }
 
-  public void Unsheathe()
+  internal void Unsheathe()
   {
     _animator?.Unsheathe();
 

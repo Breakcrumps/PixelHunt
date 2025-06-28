@@ -1,14 +1,14 @@
 using Godot;
 
-public abstract partial class State : Node
+internal abstract partial class State : Node
 {
-  public virtual void Enter() { }
+  internal virtual void Enter() { }
 
-  public virtual void Exit() { }
+  internal virtual void Exit() { }
 
-  public virtual void Process(double delta) { }
+  internal virtual void Process(double delta) { }
 
-  public virtual void PhysicsProcess(double delta) { }
+  internal virtual void PhysicsProcess(double delta) { }
 
-  public virtual void UnhandledInput(InputEvent @event) { }
+  internal virtual void UnhandledInput(InputEvent @event) { }
 }

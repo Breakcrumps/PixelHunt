@@ -1,4 +1,4 @@
-public static class Flags
+internal static class Flags
 {
-  public static bool Debug => false;
+  internal static bool Debug => false;
 }

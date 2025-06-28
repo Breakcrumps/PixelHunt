@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class PhysFpsInput : LineEdit
+internal partial class PhysFpsInput : LineEdit
 {
   [Export] private Label? _physFpsLabel;
 

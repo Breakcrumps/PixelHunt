@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class FreeMoveStrategy : State
+internal partial class FreeMoveStrategy : State
 {
   [Export] private Player? _character;
   [Export] private Node3D? _cameraPivot;
@@ -19,7 +19,7 @@ public partial class FreeMoveStrategy : State
   private bool _slowWalk;
   private int _doubleJumps;
 
-  public override void PhysicsProcess(double delta)
+  internal override void PhysicsProcess(double delta)
   {
     if (_character!.IsOnFloor())
       _doubleJumps = 1;
@@ -34,7 +34,7 @@ public partial class FreeMoveStrategy : State
     AnimateMovement();
   }
 
-  public override void UnhandledInput(InputEvent @event)
+  internal override void UnhandledInput(InputEvent @event)
   {
     HandleSlowWalk(@event);
 
@@ -115,7 +115,7 @@ public partial class FreeMoveStrategy : State
     };
   }
   
-  public void AnimateMovement()
+  internal void AnimateMovement()
   {
     if (_character is null)
       return;

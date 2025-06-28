@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class UI : Control
+internal partial class UI : Control
 {
   public override void _Ready()
   {

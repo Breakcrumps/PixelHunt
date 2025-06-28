@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class FpsInput : LineEdit
+internal partial class FpsInput : LineEdit
 {
   public override void _Ready()
   {

@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class VisionCone : Area3D
+internal partial class VisionCone : Area3D
 {
   [Export] private bool _canSee = true;
 
@@ -66,13 +66,13 @@ public partial class VisionCone : Area3D
     _followState!.Player = _player;
   }
 
-  public void DisableSearch()
+  internal void DisableSearch()
   {
     _vision!.Disabled = true;
     _playerInSight = false;
   }
 
-  public void EnableSearch()
+  internal void EnableSearch()
   {
     _vision!.Disabled = false;
   }

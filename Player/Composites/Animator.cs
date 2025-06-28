@@ -3,16 +3,16 @@ using System.Linq;
 using Godot;
 
 [GlobalClass]
-public partial class Animator : Node
+internal partial class Animator : Node
 {
-  [Export] public bool CanProcessRequests { private get; set; } = true;
+  [Export] internal bool CanProcessRequests { private get; set; } = true;
 
   [Export] private AnimationPlayer? _animPlayer;
   [Export] private AnimationHelper? _animHelper;
 
   [Export] private Character? _character;
 
-  public string AnimPrefix { private get; set; } = "";
+  internal string AnimPrefix { private get; set; } = "";
 
   private Vector2 _horizontalVelocity;
 
@@ -24,7 +24,7 @@ public partial class Animator : Node
       DEBUG_DumpBlendTimes();
   }
   
-  public void PlayAnimation(
+  internal void PlayAnimation(
     string animName,
     double startPos = .0,
     bool bypass = false
@@ -76,7 +76,7 @@ public partial class Animator : Node
     _animHelper.Play(animName);
   }
 
-  public void StopAnimation()
+  internal void StopAnimation()
   {
     if (!CanProcessRequests)
       return;
@@ -97,7 +97,7 @@ public partial class Animator : Node
       ContinueUnsheathe();
   }
 
-  public void Unsheathe()
+  internal void Unsheathe()
   {
     if (_character is null)
       return;
@@ -142,11 +142,11 @@ public partial class Animator : Node
     return blendTime;
   }
 
-  public void DEBUG_NotifyRequestClose()
+  internal void DEBUG_NotifyRequestClose()
   {
     GD.Print($"Request closed on {_character!.Name}'s Animator.");
   }
-  public void DEBUG_NotifyRequestOpen()
+  internal void DEBUG_NotifyRequestOpen()
   {
     GD.Print($"Request opened on {_character!.Name}'s Animator.");
   }

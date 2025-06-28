@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class ZFarLabel : Label
+internal partial class ZFarLabel : Label
 {
   public override void _Ready()
   {

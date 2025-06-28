@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class DialogueArea : Area3D
+internal partial class DialogueArea : Area3D
 {
   private DialogueBox? _dialogueBox;
   

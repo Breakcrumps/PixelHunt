@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class FpsLabel : Label
+internal partial class FpsLabel : Label
 {
   public override void _Process(double delta)
   {

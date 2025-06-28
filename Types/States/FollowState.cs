@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class FollowState : State
+internal partial class FollowState : State
 {
   [Export] Enemy? _enemy;
   [Export] private Animator? _animator;
@@ -10,9 +10,9 @@ public partial class FollowState : State
   [Export] private SoundArea? _soundArea;
   [Export] private AnimationHelper? _animHelper;
 
-  public Player? Player { private get; set; }
+  internal Player? Player { private get; set; }
 
-  public override void Enter()
+  internal override void Enter()
   {
     _visionArea?.DisableSearch();
     _soundArea?.DisableSearch();
@@ -22,7 +22,7 @@ public partial class FollowState : State
     player.Unsheathe();
   }
 
-  public override void PhysicsProcess(double delta)
+  internal override void PhysicsProcess(double delta)
   {
     if (_enemy is null)
       return;

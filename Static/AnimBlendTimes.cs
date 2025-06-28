@@ -4,9 +4,9 @@ using BlendTimes =
     System.Collections.Generic.Dictionary<string, double>
   >;
 
-public static class AnimBlendTimes
+internal static class AnimBlendTimes
 {
-  public static double DefaultBlendTime => .15;
+  internal static double DefaultBlendTime => .15;
 
   private static readonly BlendTimes _playerBlendTimes = new()
   {
@@ -29,7 +29,7 @@ public static class AnimBlendTimes
     }
   };
 
-  public static BlendTimes GetBlendTimes(Character character) => character switch
+  internal static BlendTimes GetBlendTimes(Character character) => character switch
   {
     Player => _playerBlendTimes,
     Enemy => _enemyBlendTimes,

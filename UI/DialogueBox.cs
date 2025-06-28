@@ -3,7 +3,7 @@ using System.Linq;
 using Godot;
 
 [GlobalClass]
-public partial class DialogueBox : Control
+internal partial class DialogueBox : Control
 {
   private AudioPlayer? _audioPlayer;
 
@@ -105,7 +105,7 @@ public partial class DialogueBox : Control
     ShowLine(_choiceLines);
   }
 
-  public void InitDialogue(string source)
+  internal void InitDialogue(string source)
   {
     _lines = [.. DialogueManager.Dialogue[source]];
 

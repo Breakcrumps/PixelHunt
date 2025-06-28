@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class MoveStateMachine : StateMachine
+internal partial class MoveStateMachine : StateMachine
 {
   [Export] private Player? _player;
   [Export] private AnimationHelper? _animHelper;
@@ -13,7 +13,7 @@ public partial class MoveStateMachine : StateMachine
     Transition("FreeMoveStrategy");
   }
 
-  public override void PhysicsProcess(double delta)
+  internal override void PhysicsProcess(double delta)
   {
     _currentState?.PhysicsProcess(delta);
   }
@@ -23,7 +23,7 @@ public partial class MoveStateMachine : StateMachine
     _currentState?.UnhandledInput(@event);
   }
 
-  public void HandlePushback(Vector3 attackerPos)
+  internal void HandlePushback(Vector3 attackerPos)
   {
     PushbackMoveStrategy pushbackMoveStrategy = (PushbackMoveStrategy)_states["PushbackMoveStrategy"];
     

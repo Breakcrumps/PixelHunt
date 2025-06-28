@@ -3,7 +3,7 @@ using System.Linq;
 using Godot;
 
 [GlobalClass]
-public partial class ChoiceContainer : Control
+internal partial class ChoiceContainer : Control
 {
   private List<Control> _optionContainers = [];
 
@@ -14,7 +14,7 @@ public partial class ChoiceContainer : Control
     _optionContainers.ForEach(x => x.Visible = false);
   }
 
-  public void ShowChoices(List<string> optionSummaries)
+  internal void ShowChoices(List<string> optionSummaries)
   {
     for (int i = 0; i < optionSummaries.Count; i++)
     {
@@ -23,7 +23,7 @@ public partial class ChoiceContainer : Control
     }
   }
 
-  public void HideChoices()
+  internal void HideChoices()
   {
     _optionContainers.ForEach(x => x.Visible = false);
   }

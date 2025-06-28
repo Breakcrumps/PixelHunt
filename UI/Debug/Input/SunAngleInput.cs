@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class SunAngleInput : LineEdit
+internal partial class SunAngleInput : LineEdit
 {
   private Sun? _sun;
 

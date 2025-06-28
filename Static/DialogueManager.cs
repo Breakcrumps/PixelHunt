@@ -3,14 +3,14 @@ using System.IO;
 using System.Text.Json;
 using Godot;
 
-public static class DialogueManager
+internal static class DialogueManager
 {
-  public static string Scene { private get; set; } = "";
+  internal static string Scene { private get; set; } = "";
 
-  public static Dictionary<string, List<Replica>> Dialogue { get; private set; } = [];
-  public static Dictionary<string, Dictionary<string, List<Replica>>> Choices { get; private set; } = [];
+  internal static Dictionary<string, List<Replica>> Dialogue { get; private set; } = [];
+  internal static Dictionary<string, Dictionary<string, List<Replica>>> Choices { get; private set; } = [];
 
-  public static Dictionary<string, bool> Flags { get; set; } = [];
+  internal static Dictionary<string, bool> Flags { get; set; } = [];
 
   static DialogueManager()
   {
@@ -19,28 +19,28 @@ public static class DialogueManager
     LoadFlags();
   }
 
-  public static void LoadFlags()
+  internal static void LoadFlags()
   {
     string flagJson = File.ReadAllText(@"Saves\Flags.json");
 
     Flags = JsonSerializer.Deserialize<Dictionary<string, bool>>(flagJson)!;
   }
 
-  public static void WriteFlags()
+  internal static void WriteFlags()
   {
     string flagJson = JsonSerializer.Serialize(Flags);
 
     File.WriteAllText(@"Saves\Flags.json", flagJson);
   }
 
-  public static void ResetFlags()
+  internal static void ResetFlags()
   {
     string defaultFlagJson = File.ReadAllText(@"Saves\Default\Flags.json");
 
     File.WriteAllText(@"Saves\Flags.json", defaultFlagJson);
   }
 
-  public static void UpdateDialogueCache(string sceneName)
+  internal static void UpdateDialogueCache(string sceneName)
   {
     string dialogueJson = File.ReadAllText(@$"Dialogue\{sceneName}.json");
     string choicesJson = File.ReadAllText(@$"Choices\{sceneName}.json");
@@ -49,7 +49,7 @@ public static class DialogueManager
     Choices = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, List<Replica>>>>(choicesJson) ?? [];
   }
 
-  public static void DumpDialogueCache()
+  internal static void DumpDialogueCache()
   {
     GD.Print("---DIALOGUE DUMP---");
 
@@ -62,7 +62,7 @@ public static class DialogueManager
     GD.Print("\n");
   }
 
-  public static void DumpChoiceCache()
+  internal static void DumpChoiceCache()
   {
     GD.Print("---CHOICES DUMP---");
 
@@ -80,7 +80,7 @@ public static class DialogueManager
     GD.Print("\n");
   }
 
-  public static void DumpFlags()
+  internal static void DumpFlags()
   {
     foreach (var (name, value) in Flags)
     {

@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class Scene : Node3D
+internal partial class Scene : Node3D
 {
   public override void _Ready()
   {

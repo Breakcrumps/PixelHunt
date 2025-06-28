@@ -1,14 +1,14 @@
 using Godot;
 
 [GlobalClass]
-public partial class AudioPlayer : AudioStreamPlayer3D
+internal partial class AudioPlayer : AudioStreamPlayer3D
 {
   public override void _Ready()
   {
     ProcessMode = ProcessModeEnum.Always;
   }
 
-  public void PlaySound(string filename)
+  internal void PlaySound(string filename)
   {
     string filepath = $@"Sounds\{filename}.mp3";
 

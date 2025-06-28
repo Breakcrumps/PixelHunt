@@ -1,7 +1,7 @@
 using System.IO;
 using Godot;
 
-public partial class EnvInput : LineEdit
+internal partial class EnvInput : LineEdit
 {
   private SceneEnvironment? _sceneEnv;
 

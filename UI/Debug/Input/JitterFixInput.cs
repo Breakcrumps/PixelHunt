@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class JitterFixInput : LineEdit
+internal partial class JitterFixInput : LineEdit
 {
   [Export] private Label? _jitterFixLabel;
 

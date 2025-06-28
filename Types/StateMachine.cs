@@ -1,12 +1,12 @@
 using Godot;
 using System.Collections.Generic;
 
-public abstract partial class StateMachine : Node
+internal abstract partial class StateMachine : Node
 {
   protected readonly Dictionary<string, State> _states = [];
   protected State? _currentState;
 
-  protected void FillStates()
+  private protected void FillStates()
   {
     foreach (Node child in GetChildren())
     {
@@ -15,11 +15,11 @@ public abstract partial class StateMachine : Node
     }
   }
 
-  public virtual void Process(double delta) { }
+  internal virtual void Process(double delta) { }
 
-  public virtual void PhysicsProcess(double delta) { }
+  internal virtual void PhysicsProcess(double delta) { }
 
-  public void Transition(string nextStateName)
+  internal void Transition(string nextStateName)
   {
     State newState = _states[nextStateName];
 

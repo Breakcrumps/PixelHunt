@@ -2,7 +2,7 @@ using System;
 using Godot;
 
 [GlobalClass]
-public partial class IdleState : State
+internal partial class IdleState : State
 {
   [Export] bool _canWander = true;
   [Export] private Enemy? _enemy;
@@ -53,7 +53,7 @@ public partial class IdleState : State
     }
   }
 
-  public override void Enter()
+  internal override void Enter()
   {
     _visionArea?.EnableSearch();
     _soundArea?.EnableSearch();
@@ -66,7 +66,7 @@ public partial class IdleState : State
     RandomiseWander();
   }
 
-  public override void Process(double delta)
+  internal override void Process(double delta)
   {
     if (_wanderTime > 0)
       _wanderTime -= (float)delta;
@@ -74,7 +74,7 @@ public partial class IdleState : State
       RandomiseWander();
   }
 
-  public override void PhysicsProcess(double delta)
+  internal override void PhysicsProcess(double delta)
   {
     if (!_canWander)
       return;

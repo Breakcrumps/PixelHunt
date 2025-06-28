@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class AttackArea : Area3D
+internal partial class AttackArea : Area3D
 {
   [Export] private CollisionShape3D? _collision;
 

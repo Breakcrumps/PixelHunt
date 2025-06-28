@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class ResetFlags : Button
+internal partial class ResetFlags : Button
 {
   public override void _Ready()
   {
