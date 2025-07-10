@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-internal partial class SceneEnvironment : WorldEnvironment
+internal sealed partial class SceneEnvironment : WorldEnvironment
 {
   private void ChangeEnvironment(string envName)
   {

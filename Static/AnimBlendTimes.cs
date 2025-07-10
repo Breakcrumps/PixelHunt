@@ -1,3 +1,8 @@
+using System.Collections.Generic;
+using GameSrc.Parents;
+using GameSrc.Player;
+using GameSrc.Enemy;
+
 using BlendTimes =
   System.Collections.Generic.Dictionary<
     string,
@@ -8,22 +13,26 @@ internal static class AnimBlendTimes
 {
   internal static double DefaultBlendTime => .15;
 
-  private static readonly BlendTimes _playerBlendTimes = new()
+  private static readonly BlendTimes PlayerBlendTimes = new()
   {
-    ["*"] = new()
+    ["*"] = new Dictionary<string, double>
     {
       ["*"] = .15,
       ["Fall"] = .21
     },
-    ["Unsheathe"] = new()
+    ["Unsheathe"] = new Dictionary<string, double>
     {
       ["UnsheathedIdle"] = .0
+    },
+    ["RunUnsheathe"] = new Dictionary<string, double>
+    {
+      ["UnsheathedRun"] = .0
     }
   };
 
-  private static readonly BlendTimes _enemyBlendTimes = new()
+  private static readonly BlendTimes EnemyBlendTimes = new()
   {
-    ["*"] = new()
+    ["*"] = new Dictionary<string, double>
     {
       ["*"] = .2
     }
@@ -31,8 +40,8 @@ internal static class AnimBlendTimes
 
   internal static BlendTimes GetBlendTimes(Character character) => character switch
   {
-    Player => _playerBlendTimes,
-    Enemy => _enemyBlendTimes,
+    PlayerChar => PlayerBlendTimes,
+    EnemyChar => EnemyBlendTimes,
     _ => []
   };
 }

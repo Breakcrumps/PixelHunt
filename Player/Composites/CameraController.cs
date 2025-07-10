@@ -1,7 +1,9 @@
 using Godot;
 
+namespace GameSrc.Player.Composites;
+
 [GlobalClass]
-internal partial class CameraController : Node
+internal sealed partial class CameraController : Node
 {
   [Export] private SpringArm3D? _cameraSpring;
   [Export] private Node3D? _cameraPivot;
@@ -34,7 +36,7 @@ internal partial class CameraController : Node
     Vector3 newRotation = _cameraPivot!.Rotation;
 
     newRotation.X -= motion.Y * _mouseSensitivity;
-    newRotation.X = Mathf.Clamp(newRotation.X, -_tiltLimit, _tiltLimit);
+    newRotation.X = Mathf.Clamp(newRotation.X, min: -_tiltLimit, max: _tiltLimit);
     newRotation.Y -= motion.X * _mouseSensitivity;
 
     _cameraPivot.Rotation = newRotation;
@@ -46,24 +48,24 @@ internal partial class CameraController : Node
     {
       _cameraSpring!.SpringLength = Mathf.Clamp(
           Mathf.Lerp(
-            _cameraSpring.SpringLength,
-            _cameraSpring.SpringLength - 1f,
-            _zoomSpeed * (float)delta
+            from: _cameraSpring.SpringLength,
+            to: _cameraSpring.SpringLength - 1f,
+            weight: _zoomSpeed * (float)delta
           ),
-          0f,
-          10f
+          min: 0f,
+          max: 10f
       );
     }
     else if (Input.IsActionJustReleased("WheelDown"))
     {
       _cameraSpring!.SpringLength = Mathf.Clamp(
           Mathf.Lerp(
-            _cameraSpring.SpringLength,
-            _cameraSpring.SpringLength + 1f,
-            _zoomSpeed * (float)delta
+            from: _cameraSpring.SpringLength,
+            to: _cameraSpring.SpringLength + 1f,
+            weight: _zoomSpeed * (float)delta
           ),
-          0f,
-          10f
+          min: 0f,
+          max: 10f
       );
     }
   }
@@ -76,7 +78,7 @@ internal partial class CameraController : Node
     Vector3 newRotation = _cameraPivot!.Rotation;
 
     newRotation.X += yDirection * .1f;
-    newRotation.X = Mathf.Clamp(newRotation.X, -_tiltLimit, _tiltLimit);
+    newRotation.X = Mathf.Clamp(newRotation.X, min: -_tiltLimit, max: _tiltLimit);
     newRotation.Y -= xDirection * .1f;
 
     _cameraPivot.Rotation = newRotation;

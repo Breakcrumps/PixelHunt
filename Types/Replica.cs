@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-internal record Replica(
+internal sealed record Replica(
   string Who = "",
   string Line = "",
   List<string>? Conditions = null,

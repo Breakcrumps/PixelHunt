@@ -1,14 +1,14 @@
 [gd_scene load_steps=20 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
-[ext_resource type="Script" uid="uid://jmfdamxd504" path="res://Player/Player.cs" id="2_s1rgi"]
-[ext_resource type="Script" uid="uid://u188e4bpypab" path="res://Enemy/AnimationHelper.cs" id="3_vlldt"]
+[ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Player/PlayerChar.cs" id="2_s1rgi"]
+[ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Utils/AnimationHelper.cs" id="3_vlldt"]
 [ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Player/Composites/CameraController.cs" id="5_lel00"]
-[ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Player/Composites/Animator.cs" id="5_rk32f"]
+[ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Utils/Animator.cs" id="5_rk32f"]
 [ext_resource type="Script" uid="uid://cy02vpvcdixrx" path="res://Player/Composites/MoveStateMachine.cs" id="8_0j2ni"]
-[ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Player/Strategies/MoveStrategies/FreeMoveStrategy.cs" id="8_s1rgi"]
-[ext_resource type="Script" uid="uid://blrscmul5u4le" path="res://Player/Strategies/MoveStrategies/PushbackMoveStrategy.cs" id="9_j23h2"]
-[ext_resource type="Script" uid="uid://c3m2h1vrf6242" path="res://Player/Strategies/MoveStrategies/DebugMoveStrategy.cs" id="10_0j2ni"]
+[ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Player/MoveStrategies/FreeMoveStrategy.cs" id="8_s1rgi"]
+[ext_resource type="Script" uid="uid://blrscmul5u4le" path="res://Player/MoveStrategies/PushbackMoveStrategy.cs" id="9_j23h2"]
+[ext_resource type="Script" uid="uid://c3m2h1vrf6242" path="res://Player/MoveStrategies/DebugMoveStrategy.cs" id="10_0j2ni"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0j2ni"]
 size = Vector3(1, 1.88367, 1)
@@ -225,29 +225,27 @@ _moveStateMachine = NodePath("MoveStateMachine")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Armature" index="0"]
-bones/1/rotation = Quaternion(0.00659242, 1.19207e-07, 7.85878e-10, 0.999978)
-bones/2/rotation = Quaternion(0.41644, -1.56996e-09, 1.0258e-07, 0.909163)
+bones/1/rotation = Quaternion(-0.00770796, -0.0222662, 0.0168539, 0.99958)
+bones/2/rotation = Quaternion(0.108126, 0.0204598, -0.0190063, 0.993745)
 bones/3/position = Vector3(0.197641, 0.289903, -0.0410065)
-bones/3/rotation = Quaternion(-0.0360466, 0.00404518, 0.550063, -0.834335)
+bones/3/rotation = Quaternion(-0.00628256, 0.0082016, 0.992391, -0.122692)
 bones/4/rotation = Quaternion(0.0216839, -0.00419523, -0.051627, 0.998422)
-bones/5/rotation = Quaternion(0.00137122, -0.000836744, -0.00800311, 0.999967)
+bones/5/rotation = Quaternion(0.00137122, -0.000836742, -0.00800313, 0.999967)
 bones/6/position = Vector3(-0.197641, 0.289903, -0.0410066)
-bones/6/rotation = Quaternion(0.0372383, 0.00358677, 0.506817, 0.861242)
+bones/6/rotation = Quaternion(0.00628227, 0.00820159, 0.992391, 0.122692)
 bones/7/rotation = Quaternion(0.0216839, 0.00419523, 0.051627, 0.998422)
-bones/8/rotation = Quaternion(0.00137122, 0.000836735, 0.00800312, 0.999967)
+bones/8/rotation = Quaternion(0.00137122, 0.000836734, 0.00800314, 0.999967)
 bones/9/position = Vector3(0.442254, 0.625256, -0.120524)
 bones/9/rotation = Quaternion(0.00874754, -0.0191504, 0.929402, 0.368469)
-bones/10/rotation = Quaternion(-0.0338093, 0.212743, 0.975828, -0.0368382)
-bones/11/rotation = Quaternion(-0.494728, 0.000156734, -0.0879973, 0.864581)
-bones/12/rotation = Quaternion(0.775016, -0.00448574, 0.0475859, 0.630131)
-bones/13/rotation = Quaternion(0.0331228, 0.412702, 0.9077, 0.0682675)
-bones/14/rotation = Quaternion(-0.803898, -0.000104692, 0.142989, 0.577323)
-bones/15/rotation = Quaternion(0.889919, -0.0154837, -0.0661117, 0.451037)
+bones/10/rotation = Quaternion(-0.0343818, -0.0084567, 0.999371, -0.00217607)
+bones/11/rotation = Quaternion(-0.0545085, 0.000181018, -0.00969544, 0.998466)
+bones/12/rotation = Quaternion(0.60045, -0.0255379, 0.0235835, 0.798906)
+bones/13/rotation = Quaternion(0.0343818, -0.0084567, 0.999371, 0.00217607)
+bones/14/rotation = Quaternion(-0.0545085, -0.00018102, 0.00969544, 0.998466)
+bones/15/rotation = Quaternion(0.60045, 0.0255379, -0.0235835, 0.798906)
 bones/16/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
-bones/17/position = Vector3(0.0977423, 0.177566, -0.0661022)
 bones/17/rotation = Quaternion(0.00374689, 0.707097, -0.707097, -0.00374689)
 bones/18/rotation = Quaternion(0.00319472, 0.7071, 0.7071, 0.00319472)
-bones/19/position = Vector3(-0.0977423, 0.407787, -0.0751305)
 bones/19/rotation = Quaternion(-0.00374689, 0.707097, -0.707097, 0.00374689)
 
 [node name="Legs" type="CollisionShape3D" parent="." index="1"]
@@ -259,7 +257,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_v0k0e")
 }
 script = ExtResource("3_vlldt")
-metadata/_custom_type_script = "uid://u188e4bpypab"
 
 [node name="CameraPivot" type="Node3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75084, 0)
@@ -288,15 +285,14 @@ _animHelper = NodePath("../../AnimationHelper")
 _character = NodePath("../..")
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
-[node name="MoveStateMachine" type="Node" parent="." index="6" node_paths=PackedStringArray("_player", "_animHelper")]
+[node name="MoveStateMachine" type="Node" parent="." index="6" node_paths=PackedStringArray("_animHelper")]
 script = ExtResource("8_0j2ni")
-_player = NodePath("..")
 _animHelper = NodePath("../AnimationHelper")
 metadata/_custom_type_script = "uid://cy02vpvcdixrx"
 
-[node name="DebugMoveStrategy" type="Node" parent="MoveStateMachine" index="0" node_paths=PackedStringArray("_character", "_cameraPivot", "_collision", "_moveStateMachine")]
+[node name="DebugMoveStrategy" type="Node" parent="MoveStateMachine" index="0" node_paths=PackedStringArray("_playerChar", "_cameraPivot", "_collision", "_moveStateMachine")]
 script = ExtResource("10_0j2ni")
-_character = NodePath("../..")
+_playerChar = NodePath("../..")
 _cameraPivot = NodePath("../../CameraPivot")
 _collision = NodePath("../../Legs")
 _moveStateMachine = NodePath("..")
@@ -305,9 +301,9 @@ _debugRunSpeed = 60.0
 _hoverVelocity = 40.0
 metadata/_custom_type_script = "uid://c3m2h1vrf6242"
 
-[node name="FreeMoveStrategy" type="Node" parent="MoveStateMachine" index="1" node_paths=PackedStringArray("_character", "_cameraPivot", "_armature", "_animator", "_animHelper", "_moveStateMachine")]
+[node name="FreeMoveStrategy" type="Node" parent="MoveStateMachine" index="1" node_paths=PackedStringArray("_playerChar", "_cameraPivot", "_armature", "_animator", "_animHelper", "_moveStateMachine")]
 script = ExtResource("8_s1rgi")
-_character = NodePath("../..")
+_playerChar = NodePath("../..")
 _cameraPivot = NodePath("../../CameraPivot")
 _armature = NodePath("../../Armature")
 _animator = NodePath("../../Composites/Animator")
@@ -316,9 +312,9 @@ _moveStateMachine = NodePath("..")
 _g = 8.0
 metadata/_custom_type_script = "uid://dyk3bbbwwp4fn"
 
-[node name="PushbackMoveStrategy" type="Node" parent="MoveStateMachine" index="2" node_paths=PackedStringArray("_character", "_animator", "_animHelper")]
+[node name="PushbackMoveStrategy" type="Node" parent="MoveStateMachine" index="2" node_paths=PackedStringArray("_playerChar", "_animator", "_animHelper")]
 script = ExtResource("9_j23h2")
-_character = NodePath("../..")
+_playerChar = NodePath("../..")
 _animator = NodePath("../../Composites/Animator")
 _animHelper = NodePath("../../AnimationHelper")
 metadata/_custom_type_script = "uid://blrscmul5u4le"

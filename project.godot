@@ -10,14 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Arse"
+config/name="PixelHunt"
 run/main_scene="uid://djwr7bjxuxdfk"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="Arse"
+project/assembly_name="GameSrc"
 
 [input]
 

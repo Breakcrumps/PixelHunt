@@ -1,6 +1,6 @@
 using Godot;
 
-internal partial class Light : StaticBody3D
+internal sealed partial class Light : StaticBody3D
 {
   [Export] private float _lightEnergy = 1f;
   [Export] private float _radius = 5f;

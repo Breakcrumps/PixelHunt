@@ -1,4 +1,4 @@
-internal record Attack(
+internal record struct Attack(
   int Damage,
   bool Pushback
 );

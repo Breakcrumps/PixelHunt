@@ -1,9 +1,13 @@
 using Godot;
+using GameSrc.Parents;
+using GameSrc.Player.MoveStrategies;
+
+namespace GameSrc.Player.Composites;
 
 [GlobalClass]
-internal partial class MoveStateMachine : StateMachine
+internal sealed partial class MoveStateMachine : StateMachine
 {
-  [Export] private Player? _player;
+  [Export] private PlayerChar? _playerChar;
   [Export] private AnimationHelper? _animHelper;
 
   public override void _Ready()
@@ -15,27 +19,27 @@ internal partial class MoveStateMachine : StateMachine
 
   internal override void PhysicsProcess(double delta)
   {
-    _currentState?.PhysicsProcess(delta);
+    CurrentState?.PhysicsProcess(delta);
   }
 
   public override void _UnhandledInput(InputEvent @event)
   {
-    _currentState?.UnhandledInput(@event);
+    CurrentState?.UnhandledInput(@event);
   }
 
   internal void HandlePushback(Vector3 attackerPos)
   {
-    PushbackMoveStrategy pushbackMoveStrategy = (PushbackMoveStrategy)_states["PushbackMoveStrategy"];
-    
+    PushbackMoveStrategy pushbackMoveStrategy = (PushbackMoveStrategy)States["PushbackMoveStrategy"];
+
     if (pushbackMoveStrategy is null)
       return;
 
-    Vector3 pushbackDirection = (_player!.GlobalPosition - attackerPos) with { Y = 0f };
+    Vector3 pushbackDirection = (_playerChar!.GlobalPosition - attackerPos) with { Y = 0f };
 
     pushbackMoveStrategy.PushbackDirection = pushbackDirection.Normalized();
 
     pushbackMoveStrategy.Enter();
 
-    _currentState = pushbackMoveStrategy;
+    CurrentState = pushbackMoveStrategy;
   }
 }

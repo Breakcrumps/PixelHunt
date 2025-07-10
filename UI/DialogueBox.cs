@@ -53,23 +53,23 @@ internal partial class DialogueBox : Control
     if (_waiting)
     {
       _waiting = false;
-      _timer!.Start();
+      _timer?.Start();
     }
 
-    else if (_textBox!.VisibleRatio != 1f)
+    else if (_textBox!.VisibleRatio.IsRoughly(1f))
     {
       if (_waitIndices.Count == 0)
       {
         _textBox.VisibleRatio = 1f;
-        _timer!.Stop();
       }
       else
       {
         _textBox.VisibleRatio = (float)_waitIndices[0] / _textBox.Text.Length;
         _waiting = true;
         _waitIndices.RemoveAt(0);
-        _timer!.Stop();
       }
+
+      _timer?.Stop();
     }
 
     else
@@ -120,7 +120,7 @@ internal partial class DialogueBox : Control
 
   private void InitChoice(string label)
   {
-    _pendingOptions = new(DialogueManager.Choices[label]);
+    _pendingOptions = new Dictionary<string, List<Replica>>(DialogueManager.Choices[label]);
 
     List<string> optionSummaries = [.. _pendingOptions.Select(x => x.Key).Where(x => x != "")];
 
@@ -149,13 +149,10 @@ internal partial class DialogueBox : Control
 
     if (next.Conditions is not null)
     {
-      foreach (string conditionName in next.Conditions)
+      if (next.Conditions.Any(conditionName => !DialogueManager.Flags[conditionName]))
       {
-        if (!DialogueManager.Flags[conditionName])
-        {
-          NextLine();
-          return;
-        }
+        NextLine();
+        return;
       }
     }
 
@@ -200,7 +197,7 @@ internal partial class DialogueBox : Control
 
     _textBox.VisibleRatio += 1f / _textBox.Text.Length;
 
-    if (_textBox.VisibleRatio == 1f)
+    if (_textBox.VisibleRatio.IsRoughly(1f))
       _timer!.Stop();
   }
 

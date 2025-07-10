@@ -10,7 +10,7 @@ internal static class DialogueManager
   internal static Dictionary<string, List<Replica>> Dialogue { get; private set; } = [];
   internal static Dictionary<string, Dictionary<string, List<Replica>>> Choices { get; private set; } = [];
 
-  internal static Dictionary<string, bool> Flags { get; set; } = [];
+  internal static Dictionary<string, bool> Flags { get; private set; } = [];
 
   static DialogueManager()
   {
@@ -43,7 +43,7 @@ internal static class DialogueManager
   internal static void UpdateDialogueCache(string sceneName)
   {
     string dialogueJson = File.ReadAllText(@$"Dialogue\{sceneName}.json");
-    string choicesJson = File.ReadAllText(@$"Choices\{sceneName}.json");
+    string choicesJson = File.ReadAllText(@$"Dialogue\Choices\{sceneName}.json");
 
     Dialogue = JsonSerializer.Deserialize<Dictionary<string, List<Replica>>>(dialogueJson) ?? [];
     Choices = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, List<Replica>>>>(choicesJson) ?? [];

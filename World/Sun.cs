@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-internal partial class Sun : DirectionalLight3D
+internal sealed partial class Sun : DirectionalLight3D
 {
   public override void _Ready()
   {

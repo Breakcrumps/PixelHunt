@@ -6,8 +6,8 @@
 [ext_resource type="Environment" uid="uid://b2nly8cg3nysy" path="res://Resources/Environment/SynthWave.tres" id="4_ps3kg"]
 [ext_resource type="Script" uid="uid://cdsutjft0pyga" path="res://Stages/SceneEnvironment.cs" id="7_g6k5w"]
 [ext_resource type="Script" uid="uid://b240q6ecqc53s" path="res://World/Sun.cs" id="8_g6k5w"]
-[ext_resource type="PackedScene" uid="uid://birh8wqa6levw" path="res://Map/Map.tscn" id="9_g6k5w"]
-[ext_resource type="PackedScene" uid="uid://8luqb703pkc2" path="res://Map/KillBox.tscn" id="9_tn73o"]
+[ext_resource type="PackedScene" uid="uid://birh8wqa6levw" path="res://Stages/Maps/Map.tscn" id="9_g6k5w"]
+[ext_resource type="PackedScene" uid="uid://8luqb703pkc2" path="res://World/KillBox.tscn" id="9_tn73o"]
 [ext_resource type="PackedScene" uid="uid://cu0iyt20pk40w" path="res://Enemy/Enemy.tscn" id="10_tn73o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ps3kg"]
@@ -35,6 +35,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.419071, 1.89406, -5.89816)
 
 [node name="KillBox" parent="." instance=ExtResource("9_tn73o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
+script = null
 
 [node name="UI" parent="." instance=ExtResource("2_v3fvj")]
 
