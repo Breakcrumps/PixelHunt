@@ -4,3 +4,4 @@
 - [x] Reset animations after play in tree. [REDACTED] FUCK ANIMATION TREES!
 - [ ] Slow down RunUnsheathe.
 - [x] Check if the sword spin has to do with blend. [REDACTED] It does.
+- [ ] Use sealed keyword, I suppose?
