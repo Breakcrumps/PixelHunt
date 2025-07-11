@@ -1,6 +1,9 @@
 using Godot;
 using GameSrc.Parents;
 using GameSrc.Player.Composites;
+using GameSrc.Types;
+using GameSrc.Static;
+using GameSrc.Animation;
 
 namespace GameSrc.Player;
 
@@ -8,7 +11,7 @@ namespace GameSrc.Player;
 internal sealed partial class PlayerChar : Character
 {
   [Export] private CameraController? _cameraController;
-  [Export] private Animator? _animator;
+  [Export] private PlayerAnimator? _animator;
   [Export] private MoveStateMachine? _moveStateMachine;
 
   public override void _PhysicsProcess(double delta)
@@ -29,13 +32,5 @@ internal sealed partial class PlayerChar : Character
 
     if (Health <= 0)
       Die();
-  }
-
-  internal void Unsheathe()
-  {
-    _animator?.Unsheathe();
-
-    if (_animator is not null)
-      _animator.AnimPrefix = "Unsheathed";
   }
 }

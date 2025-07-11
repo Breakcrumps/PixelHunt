@@ -2,6 +2,7 @@ using Godot;
 using GameSrc.Enemy.Composites;
 using GameSrc.Parents;
 using GameSrc.Player;
+using GameSrc.Animation;
 
 namespace GameSrc.Enemy.States;
 

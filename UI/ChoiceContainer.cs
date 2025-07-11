@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
+namespace GameSrc.UI;
+
 [GlobalClass]
 internal partial class ChoiceContainer : Control
 {

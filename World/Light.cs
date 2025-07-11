@@ -1,5 +1,7 @@
 using Godot;
 
+namespace GameSrc.World;
+
 internal sealed partial class Light : StaticBody3D
 {
   [Export] private float _lightEnergy = 1f;

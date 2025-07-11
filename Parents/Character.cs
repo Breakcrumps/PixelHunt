@@ -1,3 +1,4 @@
+using GameSrc.Types;
 using Godot;
 
 namespace GameSrc.Parents;

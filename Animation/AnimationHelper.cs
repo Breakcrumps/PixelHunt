@@ -1,5 +1,7 @@
 using Godot;
 
+namespace GameSrc.Animation;
+
 [GlobalClass]
 internal sealed partial class AnimationHelper : AnimationPlayer
 {

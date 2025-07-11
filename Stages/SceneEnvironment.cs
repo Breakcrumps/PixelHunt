@@ -1,5 +1,7 @@
 using Godot;
 
+namespace GameSrc.Stages;
+
 [GlobalClass]
 internal sealed partial class SceneEnvironment : WorldEnvironment
 {

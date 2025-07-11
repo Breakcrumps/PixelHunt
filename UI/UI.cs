@@ -1,6 +1,8 @@
 using Godot;
 
-internal partial class UI : Control
+namespace GameSrc.UI;
+
+internal partial class Ui : Control
 {
   public override void _Ready()
   {

@@ -1,5 +1,6 @@
 using Godot;
 using GameSrc.Parents;
+using GameSrc.Animation;
 
 namespace GameSrc.Enemy.States;
 

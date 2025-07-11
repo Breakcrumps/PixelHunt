@@ -1,3 +1,4 @@
+using GameSrc.World;
 using Godot;
 
 internal partial class SunAngleInput : LineEdit

@@ -1,6 +1,8 @@
 using Godot;
 using GameSrc.Parents;
 
+namespace GameSrc.World;
+
 [GlobalClass]
 internal sealed partial class KillBox : Area3D
 {

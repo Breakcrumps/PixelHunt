@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bor1ekmd5bk67" path="res://Import/Enemy.glb" id="1_2cvju"]
 [ext_resource type="Script" uid="uid://cyhogxfgw8ocx" path="res://Enemy/Composites/VisionCone.cs" id="3_4m7de"]
-[ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Utils/AnimationHelper.cs" id="3_tmvn0"]
-[ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Utils/Animator.cs" id="4_tmvn0"]
+[ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Animation/AnimationHelper.cs" id="3_tmvn0"]
+[ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Animation/Animator.cs" id="4_tmvn0"]
 [ext_resource type="Script" uid="uid://dgrjggavbt4ny" path="res://Enemy/Composites/EnemyStateMachine.cs" id="5_v1k04"]
 [ext_resource type="Script" uid="uid://dkknl66n7636l" path="res://Enemy/States/IdleState.cs" id="6_l8175"]
 [ext_resource type="Script" uid="uid://bl0mb3mpwfrfn" path="res://Enemy/States/FollowState.cs" id="7_hfwik"]

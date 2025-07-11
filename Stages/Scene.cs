@@ -1,4 +1,7 @@
+using GameSrc.Static;
 using Godot;
+
+namespace GameSrc.Stages;
 
 [GlobalClass]
 internal sealed partial class Scene : Node3D

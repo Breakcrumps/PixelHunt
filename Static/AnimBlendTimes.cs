@@ -3,10 +3,12 @@ using GameSrc.Parents;
 using GameSrc.Player;
 using GameSrc.Enemy;
 
+namespace GameSrc.Static;
+
 using BlendTimes =
-  System.Collections.Generic.Dictionary<
+  Dictionary<
     string,
-    System.Collections.Generic.Dictionary<string, double>
+    Dictionary<string, double>
   >;
 
 internal static class AnimBlendTimes

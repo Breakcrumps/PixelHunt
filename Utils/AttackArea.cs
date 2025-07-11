@@ -1,5 +1,8 @@
 using Godot;
 using GameSrc.Parents;
+using GameSrc.Types;
+
+namespace GameSrc.Utils;
 
 [GlobalClass]
 internal sealed partial class AttackArea : Area3D

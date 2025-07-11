@@ -1,6 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using GameSrc.Static;
+using GameSrc.Types;
+using GameSrc.Utils;
 using Godot;
+
+namespace GameSrc.UI;
 
 [GlobalClass]
 internal partial class DialogueBox : Control
@@ -56,7 +61,7 @@ internal partial class DialogueBox : Control
       _timer?.Start();
     }
 
-    else if (_textBox!.VisibleRatio.IsRoughly(1f))
+    else if (!_textBox!.VisibleRatio.IsRoughly(1f))
     {
       if (_waitIndices.Count == 0)
       {

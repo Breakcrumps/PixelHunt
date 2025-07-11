@@ -1,5 +1,7 @@
 using Godot;
 
+namespace GameSrc.Utils;
+
 [GlobalClass]
 internal sealed partial class AudioPlayer : AudioStreamPlayer3D
 {

@@ -1,3 +1,4 @@
+using GameSrc.Stages;
 using Godot;
 
 internal partial class EnvLabel : Label

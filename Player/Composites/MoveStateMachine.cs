@@ -1,6 +1,7 @@
 using Godot;
 using GameSrc.Parents;
 using GameSrc.Player.MoveStrategies;
+using GameSrc.Animation;
 
 namespace GameSrc.Player.Composites;
 

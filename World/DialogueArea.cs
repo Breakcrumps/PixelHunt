@@ -1,5 +1,8 @@
 using Godot;
 using GameSrc.Player;
+using GameSrc.UI;
+
+namespace GameSrc.World;
 
 [GlobalClass]
 internal sealed partial class DialogueArea : Area3D

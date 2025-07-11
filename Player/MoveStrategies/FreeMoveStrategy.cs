@@ -1,6 +1,7 @@
 using Godot;
 using GameSrc.Parents;
 using GameSrc.Player.Composites;
+using GameSrc.Animation;
 
 namespace GameSrc.Player.MoveStrategies;
 
@@ -10,7 +11,7 @@ internal sealed partial class FreeMoveStrategy : State
   [Export] private PlayerChar? _playerChar;
   [Export] private Node3D? _cameraPivot;
   [Export] private Node3D? _armature;
-  [Export] private Animator? _animator;
+  [Export] private PlayerAnimator? _animator;
   [Export] private AnimationHelper? _animHelper;
   [Export] private MoveStateMachine? _moveStateMachine;
 
@@ -102,7 +103,7 @@ internal sealed partial class FreeMoveStrategy : State
     if (!@event.IsActionPressed("Interact"))
       return;
     
-    _animator?.Unsheathe();
+    _animator?.FlipUnsheathe();
   }
 
   private void ApplyVelocity(Vector2 groundVelocity, float verticalVelocity)

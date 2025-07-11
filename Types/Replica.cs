@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+namespace GameSrc.Types;
+
 internal sealed record Replica(
   string Who = "",
   string Line = "",

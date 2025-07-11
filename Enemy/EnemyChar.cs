@@ -2,6 +2,7 @@ using Godot;
 using GameSrc.Enemy.States;
 using GameSrc.Enemy.Composites;
 using GameSrc.Parents;
+using GameSrc.Types;
 
 namespace GameSrc.Enemy;
 
@@ -61,9 +62,9 @@ internal sealed partial class EnemyChar : Character
   {
     Health -= attack.Damage;
 
-    Vector3 pushbackDirection = ((GlobalPosition - attackerPos) with { Y = 0f }).Normalized();
+    Vector3 pushbackDirection = (GlobalPosition - attackerPos) with { Y = 0f };
 
-    _pushbackState!.PushbackDirection = pushbackDirection;
+    _pushbackState!.PushbackDirection = pushbackDirection.Normalized();
 
     _stateMachine?.Transition("PushbackState");
 

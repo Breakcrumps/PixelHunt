@@ -1,3 +1,4 @@
+using GameSrc.Static;
 using Godot;
 
 internal partial class WriteFlags : Button

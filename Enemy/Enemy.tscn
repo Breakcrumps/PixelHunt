@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cbp87gphvl7u3" path="res://Enemy/EnemyChar.cs" id="1_3o4wt"]
 [ext_resource type="PackedScene" uid="uid://bor1ekmd5bk67" path="res://Import/Enemy.glb" id="1_uxjip"]
-[ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Utils/AnimationHelper.cs" id="2_kvarv"]
+[ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Animation/AnimationHelper.cs" id="2_kvarv"]
 [ext_resource type="Script" uid="uid://cyhogxfgw8ocx" path="res://Enemy/Composites/VisionCone.cs" id="3_uxjip"]
-[ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Utils/Animator.cs" id="3_vonkd"]
+[ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Animation/Animator.cs" id="3_vonkd"]
 [ext_resource type="Script" uid="uid://dkknl66n7636l" path="res://Enemy/States/IdleState.cs" id="5_jd4ap"]
 [ext_resource type="Script" uid="uid://dgrjggavbt4ny" path="res://Enemy/Composites/EnemyStateMachine.cs" id="7_52jmu"]
 [ext_resource type="Script" uid="uid://bl0mb3mpwfrfn" path="res://Enemy/States/FollowState.cs" id="7_jd4ap"]
@@ -219,11 +219,9 @@ shape = SubResource("BoxShape3D_2cvju")
 
 [node name="Composites" type="Node" parent="." index="4"]
 
-[node name="Animator" type="Node" parent="Composites" index="0" node_paths=PackedStringArray("_animPlayer", "_animHelper", "_character")]
+[node name="Animator" type="Node" parent="Composites" index="0" node_paths=PackedStringArray("_animHelper")]
 script = ExtResource("3_vonkd")
-_animPlayer = NodePath("../../AnimationPlayer")
 _animHelper = NodePath("../../AnimationHelper")
-_character = NodePath("../..")
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
 [node name="EnemyStateMachine" type="Node" parent="." index="5" node_paths=PackedStringArray("_initialState")]

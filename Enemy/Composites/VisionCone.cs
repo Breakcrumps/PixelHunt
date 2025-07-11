@@ -1,6 +1,7 @@
 using Godot;
 using GameSrc.Enemy.States;
 using GameSrc.Player;
+using GameSrc.Static;
 
 namespace GameSrc.Enemy.Composites;
 

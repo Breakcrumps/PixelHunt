@@ -1,14 +1,21 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using GameSrc.Types;
 using Godot;
+
+namespace GameSrc.Static;
+
+using ReplicaList =
+  Dictionary<
+    string,
+    List<Replica>
+  >;
 
 internal static class DialogueManager
 {
-  internal static string Scene { private get; set; } = "";
-
-  internal static Dictionary<string, List<Replica>> Dialogue { get; private set; } = [];
-  internal static Dictionary<string, Dictionary<string, List<Replica>>> Choices { get; private set; } = [];
+  internal static ReplicaList Dialogue { get; private set; } = [];
+  internal static Dictionary<string, ReplicaList> Choices { get; private set; } = [];
 
   internal static Dictionary<string, bool> Flags { get; private set; } = [];
 
@@ -45,8 +52,8 @@ internal static class DialogueManager
     string dialogueJson = File.ReadAllText(@$"Dialogue\{sceneName}.json");
     string choicesJson = File.ReadAllText(@$"Dialogue\Choices\{sceneName}.json");
 
-    Dialogue = JsonSerializer.Deserialize<Dictionary<string, List<Replica>>>(dialogueJson) ?? [];
-    Choices = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, List<Replica>>>>(choicesJson) ?? [];
+    Dialogue = JsonSerializer.Deserialize<ReplicaList>(dialogueJson) ?? [];
+    Choices = JsonSerializer.Deserialize<Dictionary<string, ReplicaList>>(choicesJson) ?? [];
   }
 
   internal static void DumpDialogueCache()
