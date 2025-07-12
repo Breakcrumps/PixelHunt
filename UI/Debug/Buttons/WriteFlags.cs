@@ -1,4 +1,4 @@
-using GameSrc.Static;
+using GameSrc.Dialogue;
 using Godot;
 
 internal partial class WriteFlags : Button

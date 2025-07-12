@@ -1,3 +1,4 @@
+using System.Linq;
 using GameSrc.Static;
 using Godot;
 
@@ -41,7 +42,7 @@ internal sealed partial class PlayerAnimator : Animator
 
     AnimPrefix = "Unsheathed";
 
-    if (Flags.Debug)
+    if (DebugFlags.GetDebugFlag(this))
       DEBUG_NotifyRequestClose();
   }
 
@@ -58,6 +59,9 @@ internal sealed partial class PlayerAnimator : Animator
     switch (CurrentAnim)
     {
       case "RunUnsheathe" when inputDirection == Vector2.Zero:
+        if (currentTime > .4)
+          return;
+
         PlayAnimation(
           "Unsheathe",
           startPos: currentTime + .35,
@@ -68,10 +72,45 @@ internal sealed partial class PlayerAnimator : Animator
       case "Unsheathe" when inputDirection != Vector2.Zero:
         PlayAnimation(
           "RunUnsheathe",
-          startPos: currentTime - .22,
+          startPos: currentTime - .3,
           bypass: true,
           noPrefix: true
         );
+        break;
+    }
+  }
+
+  internal void Run()
+  {
+    if (
+      CurrentAnim == $"{AnimPrefix}RunStart"
+      || CurrentAnim == $"{AnimPrefix}Run"
+      || CurrentAnim == $"RunUnsheathe"
+    )
+      return;
+      
+    if (
+      AnimPlayer!.HasAnimation($"{AnimPrefix}RunStart")
+      && (CurrentAnim != $"{AnimPrefix}Fall" || CurrentAnim != $"{AnimPrefix}Rise")
+    )
+      PlayAnimation("RunStart");
+    else
+      PlayAnimation("Run");
+  }
+
+  internal void StopOrIdle()
+  {
+    switch (AnimPlayer?.CurrentAnimation)
+    {
+      case var run when run == $"{AnimPrefix}Run":
+        PlayAnimation("RunEnd");
+        break;
+      case "RunUnsheathe":
+        PlayAnimation("RunEnd", bypass: true);
+        CanProcessRequests = true;
+        break;
+      case var notRunEnd when notRunEnd != $"{AnimPrefix}RunEnd":
+        PlayAnimation("Idle");
         break;
     }
   }

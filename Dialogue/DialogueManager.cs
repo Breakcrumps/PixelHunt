@@ -4,7 +4,7 @@ using System.Text.Json;
 using GameSrc.Types;
 using Godot;
 
-namespace GameSrc.Static;
+namespace GameSrc.Dialogue;
 
 using ReplicaList =
   Dictionary<
@@ -28,7 +28,7 @@ internal static class DialogueManager
 
   internal static void LoadFlags()
   {
-    string flagJson = File.ReadAllText(@"Saves\Flags.json");
+    string flagJson = File.ReadAllText(@"Dialogue\Flags\Flags.json");
 
     Flags = JsonSerializer.Deserialize<Dictionary<string, bool>>(flagJson)!;
   }
@@ -37,20 +37,20 @@ internal static class DialogueManager
   {
     string flagJson = JsonSerializer.Serialize(Flags);
 
-    File.WriteAllText(@"Saves\Flags.json", flagJson);
+    File.WriteAllText(@"Dialogue\Flags\Flags.json", flagJson);
   }
 
   internal static void ResetFlags()
   {
-    string defaultFlagJson = File.ReadAllText(@"Saves\Default\Flags.json");
+    string defaultFlagJson = File.ReadAllText(@"Dialogue\Flags\Default\Flags.json");
 
-    File.WriteAllText(@"Saves\Flags.json", defaultFlagJson);
+    File.WriteAllText(@"Dialogue\Flags\Flags.json", defaultFlagJson);
   }
 
   internal static void UpdateDialogueCache(string sceneName)
   {
-    string dialogueJson = File.ReadAllText(@$"Dialogue\{sceneName}.json");
-    string choicesJson = File.ReadAllText(@$"Dialogue\Choices\{sceneName}.json");
+    string dialogueJson = File.ReadAllText(@$"Dialogue\Data\{sceneName}.json");
+    string choicesJson = File.ReadAllText(@$"Dialogue\Data\Choices\{sceneName}.json");
 
     Dialogue = JsonSerializer.Deserialize<ReplicaList>(dialogueJson) ?? [];
     Choices = JsonSerializer.Deserialize<Dictionary<string, ReplicaList>>(choicesJson) ?? [];

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using GameSrc.Dialogue;
 using GameSrc.Static;
 using GameSrc.Types;
 using GameSrc.Utils;
@@ -144,7 +145,7 @@ internal partial class DialogueBox : Control
     Replica next = lines[0];
     lines.RemoveAt(0);
 
-    if (Flags.Debug)
+    if (DebugFlags.GetDebugFlag(this))
       GD.Print(next);
 
     if (next.Sound is not null)
@@ -230,7 +231,7 @@ internal partial class DialogueBox : Control
       }
     }
 
-    if (Flags.Debug)
+    if (DebugFlags.GetDebugFlag(this))
       GD.Print($"Wait indices: {string.Join(", ", _waitIndices)}");
   }
 

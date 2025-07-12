@@ -1,0 +1,23 @@
+using GameSrc.Animation;
+using GameSrc.Player.MoveStrategies;
+
+namespace GameSrc.Static;
+
+internal static class DebugFlags
+{
+  private static bool Debug => false;
+
+  private const bool AnimatorDebug = false;
+
+  private const bool PlayerAnimatorDebug = true;
+
+  private const bool FreeStrategyDebug = true;
+
+  internal static bool GetDebugFlag(object caller) => caller switch
+  {
+    PlayerAnimator => PlayerAnimatorDebug,
+    Animator => AnimatorDebug,
+    FreeMoveStrategy => FreeStrategyDebug,
+    _ => Debug
+  };
+}

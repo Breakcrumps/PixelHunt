@@ -1,17 +1,33 @@
-[gd_scene load_steps=20 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=23 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
-[ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Player/PlayerChar.cs" id="2_s1rgi"]
+[ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Characters/Player/PlayerChar.cs" id="2_s1rgi"]
 [ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Animation/AnimationHelper.cs" id="3_vlldt"]
 [ext_resource type="Script" uid="uid://b5jdbqsx3wlrx" path="res://Animation/PlayerAnimator.cs" id="5_j23h2"]
-[ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Player/Composites/CameraController.cs" id="5_lel00"]
-[ext_resource type="Script" uid="uid://cy02vpvcdixrx" path="res://Player/Composites/MoveStateMachine.cs" id="8_0j2ni"]
-[ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Player/MoveStrategies/FreeMoveStrategy.cs" id="8_s1rgi"]
-[ext_resource type="Script" uid="uid://blrscmul5u4le" path="res://Player/MoveStrategies/PushbackMoveStrategy.cs" id="9_j23h2"]
-[ext_resource type="Script" uid="uid://c3m2h1vrf6242" path="res://Player/MoveStrategies/DebugMoveStrategy.cs" id="10_0j2ni"]
+[ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Characters/Player/Composites/CameraController.cs" id="5_lel00"]
+[ext_resource type="Script" uid="uid://cy02vpvcdixrx" path="res://Characters/Player/Composites/MoveStateMachine.cs" id="8_0j2ni"]
+[ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Characters/Player/MoveStrategies/FreeMoveStrategy.cs" id="8_s1rgi"]
+[ext_resource type="Script" uid="uid://blrscmul5u4le" path="res://Characters/Player/MoveStrategies/PushbackMoveStrategy.cs" id="9_j23h2"]
+[ext_resource type="Script" uid="uid://c3m2h1vrf6242" path="res://Characters/Player/MoveStrategies/DebugMoveStrategy.cs" id="10_0j2ni"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0j2ni"]
 size = Vector3(1, 1.88367, 1)
+
+[sub_resource type="Animation" id="Animation_1niqm"]
+resource_name = "Idle"
+length = 0.0333367
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationHelper:Speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_j23h2"]
 resource_name = "Pushback"
@@ -85,6 +101,21 @@ tracks/0/keys = {
 "values": [15.0]
 }
 
+[sub_resource type="Animation" id="Animation_6fff4"]
+resource_name = "RunEnd"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationHelper:Speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_3mea3"]
 resource_name = "RunUnsheathe"
 length = 1.1
@@ -110,7 +141,21 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true]
+"values": [true, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Composites/PlayerAnimator")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["Run"],
+"method": &"QueueAnimation"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_5wa8t"]
@@ -184,6 +229,23 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_dl42p"]
+resource_name = "UnsheathedRunStart"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Composites/PlayerAnimator")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["Run"],
+"method": &"QueueAnimation"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_dm7nj"]
 resource_name = "Walk"
 length = 1.3
@@ -202,12 +264,15 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v0k0e"]
 _data = {
+&"Idle": SubResource("Animation_1niqm"),
 &"Pushback": SubResource("Animation_j23h2"),
 &"RESET": SubResource("Animation_0j2ni"),
 &"Run": SubResource("Animation_p7tob"),
+&"RunEnd": SubResource("Animation_6fff4"),
 &"RunUnsheathe": SubResource("Animation_3mea3"),
 &"Unsheathe": SubResource("Animation_5wa8t"),
 &"UnsheathedPushback": SubResource("Animation_v0k0e"),
+&"UnsheathedRunStart": SubResource("Animation_dl42p"),
 &"Walk": SubResource("Animation_dm7nj")
 }
 
@@ -223,6 +288,30 @@ _moveStateMachine = NodePath("MoveStateMachine")
 
 [node name="Armature" parent="." index="0"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(-0.00770796, -0.0222662, 0.0168539, 0.99958)
+bones/2/rotation = Quaternion(0.108126, 0.0204598, -0.0190063, 0.993745)
+bones/3/position = Vector3(0.197641, 0.289903, -0.0410065)
+bones/3/rotation = Quaternion(-0.00628256, 0.0082016, 0.992391, -0.122692)
+bones/4/rotation = Quaternion(0.0216839, -0.00419523, -0.051627, 0.998422)
+bones/5/rotation = Quaternion(0.00137122, -0.000836742, -0.00800313, 0.999967)
+bones/6/position = Vector3(-0.197641, 0.289903, -0.0410066)
+bones/6/rotation = Quaternion(0.00628227, 0.00820159, 0.992391, 0.122692)
+bones/7/rotation = Quaternion(0.0216839, 0.00419523, 0.051627, 0.998422)
+bones/8/rotation = Quaternion(0.00137122, 0.000836734, 0.00800314, 0.999967)
+bones/9/position = Vector3(0.442254, 0.625256, -0.120524)
+bones/9/rotation = Quaternion(0.00874754, -0.0191504, 0.929402, 0.368469)
+bones/10/rotation = Quaternion(-0.0343818, -0.0084567, 0.999371, -0.00217607)
+bones/11/rotation = Quaternion(-0.0545085, 0.000181018, -0.00969544, 0.998466)
+bones/12/rotation = Quaternion(0.60045, -0.0255379, 0.0235835, 0.798906)
+bones/13/rotation = Quaternion(0.0343818, -0.0084567, 0.999371, 0.00217607)
+bones/14/rotation = Quaternion(-0.0545085, -0.00018102, 0.00969544, 0.998466)
+bones/15/rotation = Quaternion(0.60045, 0.0255379, -0.0235835, 0.798906)
+bones/16/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
+bones/17/rotation = Quaternion(0.00374689, 0.707097, -0.707097, -0.00374689)
+bones/18/rotation = Quaternion(0.00319472, 0.7071, 0.7071, 0.00319472)
+bones/19/rotation = Quaternion(-0.00374689, 0.707097, -0.707097, 0.00374689)
 
 [node name="Legs" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.941833, 0)
@@ -278,12 +367,12 @@ _debugRunSpeed = 60.0
 _hoverVelocity = 40.0
 metadata/_custom_type_script = "uid://c3m2h1vrf6242"
 
-[node name="FreeMoveStrategy" type="Node" parent="MoveStateMachine" index="1" node_paths=PackedStringArray("_playerChar", "_cameraPivot", "_armature", "_animator", "_animHelper", "_moveStateMachine")]
+[node name="FreeMoveStrategy" type="Node" parent="MoveStateMachine" index="1" node_paths=PackedStringArray("_playerChar", "_cameraPivot", "_armature", "_playerAnimator", "_animHelper", "_moveStateMachine")]
 script = ExtResource("8_s1rgi")
 _playerChar = NodePath("../..")
 _cameraPivot = NodePath("../../CameraPivot")
 _armature = NodePath("../../Armature")
-_animator = NodePath("../../Composites/PlayerAnimator")
+_playerAnimator = NodePath("../../Composites/PlayerAnimator")
 _animHelper = NodePath("../../AnimationHelper")
 _moveStateMachine = NodePath("..")
 _g = 8.0

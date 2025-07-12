@@ -1,3 +1,4 @@
+using GameSrc.Dialogue;
 using GameSrc.Static;
 using Godot;
 
@@ -10,7 +11,7 @@ internal sealed partial class Scene : Node3D
   {
     DialogueManager.UpdateDialogueCache(Name);
 
-    if (Flags.Debug)
+    if (DebugFlags.GetDebugFlag(this))
     {
       DialogueManager.DumpDialogueCache();
       DialogueManager.DumpChoiceCache();

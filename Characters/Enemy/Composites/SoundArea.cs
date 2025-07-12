@@ -24,7 +24,7 @@ internal sealed partial class SoundArea : Area3D
     if (node is not PlayerChar playerChar)
       return;
 
-    if (Flags.Debug)
+    if (DebugFlags.GetDebugFlag(this))
       GD.Print($"{playerChar.Name} entered VisionCone sight!");
 
     _enemyStateMachine?.Transition("FollowState");

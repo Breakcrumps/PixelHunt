@@ -23,7 +23,7 @@ internal sealed partial class PushbackMoveStrategy : State
 
   internal override void PhysicsProcess(double delta)
   {
-    if (Flags.Debug)
+    if (DebugFlags.GetDebugFlag(this))
       GD.Print("PhysicsProcess called on PushbackMoveStrategy");
 
     _playerChar!.Velocity = PushbackDirection * _animHelper!.Speed;

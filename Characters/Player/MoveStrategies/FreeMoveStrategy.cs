@@ -2,6 +2,7 @@ using Godot;
 using GameSrc.Parents;
 using GameSrc.Player.Composites;
 using GameSrc.Animation;
+using GameSrc.Static;
 
 namespace GameSrc.Player.MoveStrategies;
 
@@ -11,7 +12,7 @@ internal sealed partial class FreeMoveStrategy : State
   [Export] private PlayerChar? _playerChar;
   [Export] private Node3D? _cameraPivot;
   [Export] private Node3D? _armature;
-  [Export] private PlayerAnimator? _animator;
+  [Export] private PlayerAnimator? _playerAnimator;
   [Export] private AnimationHelper? _animHelper;
   [Export] private MoveStateMachine? _moveStateMachine;
 
@@ -102,8 +103,8 @@ internal sealed partial class FreeMoveStrategy : State
   {
     if (!@event.IsActionPressed("Interact"))
       return;
-    
-    _animator?.FlipUnsheathe();
+
+    _playerAnimator?.FlipUnsheathe();
   }
 
   private void ApplyVelocity(Vector2 groundVelocity, float verticalVelocity)
@@ -135,17 +136,30 @@ internal sealed partial class FreeMoveStrategy : State
     if (_playerChar is null)
       return;
 
-    Vector2 horizontalVelocity = new(_playerChar.Velocity.X, _playerChar.Velocity.Z);
+    if (_playerChar.IsOnFloor())
+      AnimateOnGround();
+    else
+      AnimateInAir();
+  }
 
+  private void AnimateOnGround()
+  {
+    if (InputHelper.GetMovementDirection() != Vector2.Zero)
+      _playerAnimator?.Run();
+    else
+      _playerAnimator?.StopOrIdle();
+  }
+
+  private void AnimateInAir()
+  {
     string animation = (
-      !_playerChar.IsOnFloor()
-      ? _playerChar.Velocity.Y == 0 ? "Hover"
+      _playerChar!.Velocity.Y == 0 ? "Hover"
       : _playerChar.Velocity.Y > 0 ? "Rise" : "Fall"
-      : horizontalVelocity != Vector2.Zero
-      ? _slowWalk ? "Walk" : "Run"
-      : "Idle"
     );
 
-    _animator?.PlayAnimation(animation);
+    _playerAnimator?.PlayAnimation(animation, bypass: true);
+
+    if (DebugFlags.GetDebugFlag(this))
+      GD.Print("Animating in air!");
   }
 }

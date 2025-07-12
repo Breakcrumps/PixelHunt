@@ -25,7 +25,7 @@ internal sealed partial class PlayerChar : Character
   {
     Health -= attack.Damage;
 
-    if (Flags.Debug)
+    if (DebugFlags.GetDebugFlag(this))
       GD.Print($"Player was hit for {attack.Damage}HP, {Health}HP left.");
 
     _moveStateMachine?.HandlePushback(attackerPos);
