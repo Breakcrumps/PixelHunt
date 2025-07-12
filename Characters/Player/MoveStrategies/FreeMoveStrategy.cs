@@ -1,10 +1,10 @@
-using Godot;
-using GameSrc.Parents;
-using GameSrc.Player.Composites;
 using GameSrc.Animation;
+using GameSrc.Characters.Player.Composites;
+using GameSrc.Parents;
 using GameSrc.Static;
+using Godot;
 
-namespace GameSrc.Player.MoveStrategies;
+namespace GameSrc.Characters.Player.MoveStrategies;
 
 [GlobalClass]
 internal sealed partial class FreeMoveStrategy : State

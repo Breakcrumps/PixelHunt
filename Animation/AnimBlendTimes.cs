@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using GameSrc.Parents;
-using GameSrc.Player;
-using GameSrc.Enemy;
-using System.Text.Json;
 using System.IO;
+using System.Text.Json;
+using GameSrc.Characters;
+using GameSrc.Characters.Enemy;
+using GameSrc.Characters.Player;
 
 namespace GameSrc.Animation;
 

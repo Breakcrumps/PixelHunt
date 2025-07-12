@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GameSrc.Player.Composites;
+namespace GameSrc.Characters.Player.Composites;
 
 [GlobalClass]
 internal sealed partial class CameraController : Node

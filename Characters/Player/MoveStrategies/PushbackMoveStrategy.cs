@@ -1,9 +1,9 @@
-using Godot;
+using GameSrc.Animation;
 using GameSrc.Parents;
 using GameSrc.Static;
-using GameSrc.Animation;
+using Godot;
 
-namespace GameSrc.Player.MoveStrategies;
+namespace GameSrc.Characters.Player.MoveStrategies;
 
 [GlobalClass]
 internal sealed partial class PushbackMoveStrategy : State

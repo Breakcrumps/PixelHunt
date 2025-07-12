@@ -1,6 +1,6 @@
-using Godot;
-using GameSrc.Parents;
+using GameSrc.Characters;
 using GameSrc.Types;
+using Godot;
 
 namespace GameSrc.Utils;
 

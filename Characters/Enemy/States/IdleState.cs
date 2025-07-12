@@ -1,10 +1,10 @@
 using System;
-using Godot;
-using GameSrc.Enemy.Composites;
-using GameSrc.Parents;
 using GameSrc.Animation;
+using GameSrc.Characters.Enemy.Composites;
+using GameSrc.Parents;
+using Godot;
 
-namespace GameSrc.Enemy.States;
+namespace GameSrc.Characters.Enemy.States;
 
 [GlobalClass]
 internal sealed partial class IdleState : State

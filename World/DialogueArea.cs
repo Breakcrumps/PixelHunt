@@ -1,6 +1,6 @@
-using Godot;
-using GameSrc.Player;
+using GameSrc.Characters.Player;
 using GameSrc.UI;
+using Godot;
 
 namespace GameSrc.World;
 

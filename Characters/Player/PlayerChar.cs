@@ -1,11 +1,10 @@
-using Godot;
-using GameSrc.Parents;
-using GameSrc.Player.Composites;
-using GameSrc.Types;
-using GameSrc.Static;
 using GameSrc.Animation;
+using GameSrc.Characters.Player.Composites;
+using GameSrc.Static;
+using GameSrc.Types;
+using Godot;
 
-namespace GameSrc.Player;
+namespace GameSrc.Characters.Player;
 
 [GlobalClass]
 internal sealed partial class PlayerChar : Character

@@ -1,7 +1,7 @@
-using Godot;
 using GameSrc.Parents;
+using Godot;
 
-namespace GameSrc.Enemy.Composites;
+namespace GameSrc.Characters.Enemy.Composites;
 
 [GlobalClass]
 internal sealed partial class EnemyStateMachine : StateMachine

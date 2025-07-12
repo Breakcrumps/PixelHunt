@@ -2,6 +2,7 @@
 - [-] Change current run animation to a more relaxed one and add another one to sprint [REDACTED] Deprecated.
 - [x] Add an attack animation and sync the hitbox to its active frames.
 - [x] Reset animations after play in tree. [REDACTED] FUCK ANIMATION TREES!
-- [ ] Slow down RunUnsheathe.
+- [x] Slow down RunUnsheathe.
 - [x] Check if the sword spin has to do with blend. [REDACTED] It does.
-- [ ] Use sealed keyword, I suppose?
+- [x] Use sealed keyword, I suppose? [REDACTED] YESSIR!
+- [ ] Add jump preparation, especially when unsheathed.

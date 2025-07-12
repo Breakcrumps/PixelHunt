@@ -1,5 +1,5 @@
+using GameSrc.Characters;
 using Godot;
-using GameSrc.Parents;
 
 namespace GameSrc.World;
 

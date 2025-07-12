@@ -1,8 +1,7 @@
 {
     "*": {
       "*": 0.15,
-      "Fall": 0.21,
-      "UnsheathedRise": 0.15
+      "Fall": 0.21
     },
     "Unsheathe": {
       "UnsheathedIdle": 0.0

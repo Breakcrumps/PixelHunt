@@ -1,7 +1,7 @@
 using GameSrc.Types;
 using Godot;
 
-namespace GameSrc.Parents;
+namespace GameSrc.Characters;
 
 internal abstract partial class Character : CharacterBody3D
 {

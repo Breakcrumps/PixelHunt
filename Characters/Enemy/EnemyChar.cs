@@ -1,10 +1,9 @@
-using Godot;
-using GameSrc.Enemy.States;
-using GameSrc.Enemy.Composites;
-using GameSrc.Parents;
+using GameSrc.Characters.Enemy.Composites;
+using GameSrc.Characters.Enemy.States;
 using GameSrc.Types;
+using Godot;
 
-namespace GameSrc.Enemy;
+namespace GameSrc.Characters.Enemy;
 
 [GlobalClass]
 internal sealed partial class EnemyChar : Character

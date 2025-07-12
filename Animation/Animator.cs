@@ -1,7 +1,6 @@
-using Godot;
-using GameSrc.Parents;
-using GameSrc.Enemy;
+using GameSrc.Characters;
 using GameSrc.Static;
+using Godot;
 
 namespace GameSrc.Animation;
 

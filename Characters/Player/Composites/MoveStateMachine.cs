@@ -1,9 +1,9 @@
-using Godot;
-using GameSrc.Parents;
-using GameSrc.Player.MoveStrategies;
 using GameSrc.Animation;
+using GameSrc.Characters.Player.MoveStrategies;
+using GameSrc.Parents;
+using Godot;
 
-namespace GameSrc.Player.Composites;
+namespace GameSrc.Characters.Player.Composites;
 
 [GlobalClass]
 internal sealed partial class MoveStateMachine : StateMachine

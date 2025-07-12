@@ -1,8 +1,8 @@
-using Godot;
+using GameSrc.Characters.Player.Composites;
 using GameSrc.Parents;
-using GameSrc.Player.Composites;
+using Godot;
 
-namespace GameSrc.Player.MoveStrategies;
+namespace GameSrc.Characters.Player.MoveStrategies;
 
 [GlobalClass]
 internal sealed partial class DebugMoveStrategy : State
