@@ -34,18 +34,30 @@ internal sealed partial class PlayerAnimator : Animator
     PlayAnimation(
       inputDirection == Vector2.Zero
       ? "Unsheathe"
-      : "RunUnsheathe"
+      : "RunUnsheathe",
+      bypass: true
     );
 
     CanProcessRequests = false;
-
-    AnimPrefix = "Unsheathed";
-
-    if (DebugFlags.GetDebugFlag(this))
-      DEBUG_NotifyRequestClose();
   }
 
-  private void Sheathe() => AnimPrefix = "";
+  private void Sheathe()
+  {
+    if (Character is null)
+      return;
+
+    Vector2 inputDirection = InputHelper.GetMovementDirection();
+
+    PlayAnimation(
+      inputDirection == Vector2.Zero
+      ? "Sheathe"
+      : "RunSheathe",
+      noPrefix: true,
+      bypass: true
+    );
+
+    CanProcessRequests = false;
+  }
 
   private void ContinueUnsheathe()
   {
@@ -59,7 +71,10 @@ internal sealed partial class PlayerAnimator : Animator
     {
       case "RunUnsheathe" when inputDirection == Vector2.Zero:
         if (currentTime > .4)
+        {
+          CanProcessRequests = true;
           return;
+        }
 
         PlayAnimation(
           "Unsheathe",
@@ -69,6 +84,12 @@ internal sealed partial class PlayerAnimator : Animator
         );
         break;
       case "Unsheathe" when inputDirection != Vector2.Zero:
+        if (currentTime > .7)
+        {
+          CanProcessRequests = true;
+          return;
+        }
+
         PlayAnimation(
           "RunUnsheathe",
           startPos: currentTime - .3,
@@ -82,19 +103,12 @@ internal sealed partial class PlayerAnimator : Animator
   internal void Run()
   {
     if (
-      CurrentAnim == $"{AnimPrefix}RunStart"
-      || CurrentAnim == $"{AnimPrefix}Run"
-      || CurrentAnim == $"RunUnsheathe"
+      CurrentAnim == $"{AnimPrefix}Run"
+      || CurrentAnim == "RunUnsheathe"
     )
       return;
-      
-    if (
-      AnimPlayer!.HasAnimation($"{AnimPrefix}RunStart")
-      && (CurrentAnim != $"{AnimPrefix}Fall" || CurrentAnim != $"{AnimPrefix}Rise")
-    )
-      PlayAnimation("RunStart");
-    else
-      PlayAnimation("Run");
+
+    PlayAnimation("Run");
   }
 
   internal void StopOrIdle()

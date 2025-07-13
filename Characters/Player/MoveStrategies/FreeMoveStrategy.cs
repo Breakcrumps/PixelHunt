@@ -136,6 +136,9 @@ internal sealed partial class FreeMoveStrategy : State
     if (_playerChar is null)
       return;
 
+    if (_playerAnimator is null)
+      return;
+
     if (_playerChar.IsOnFloor())
       AnimateOnGround();
     else
@@ -145,9 +148,9 @@ internal sealed partial class FreeMoveStrategy : State
   private void AnimateOnGround()
   {
     if (InputHelper.GetMovementDirection() != Vector2.Zero)
-      _playerAnimator?.Run();
+      _playerAnimator!.Run();
     else
-      _playerAnimator?.StopOrIdle();
+      _playerAnimator!.StopOrIdle();
   }
 
   private void AnimateInAir()
@@ -157,7 +160,9 @@ internal sealed partial class FreeMoveStrategy : State
       : _playerChar.Velocity.Y > 0 ? "Rise" : "Fall"
     );
 
-    _playerAnimator?.PlayAnimation(animation, bypass: true);
+    _playerAnimator!.PlayAnimation(animation, bypass: true);
+
+    _playerAnimator.CanProcessRequests = true;
 
     if (DebugFlags.GetDebugFlag(this))
       GD.Print("Animating in air!");

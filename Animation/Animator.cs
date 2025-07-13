@@ -1,3 +1,4 @@
+using System.Text;
 using GameSrc.Characters;
 using GameSrc.Static;
 using Godot;
@@ -7,14 +8,14 @@ namespace GameSrc.Animation;
 [GlobalClass]
 internal partial class Animator : Node
 {
-  [Export] private protected bool CanProcessRequests { get; set; } = true;
+  [Export] internal bool CanProcessRequests { private get; set; } = true;
 
   [Export] private protected AnimationPlayer? AnimPlayer { get; private set; }
   [Export] private AnimationHelper? _animHelper;
 
   [Export] private protected Character? Character { get; private set; }
 
-  private protected string AnimPrefix { get; set; } = "";
+  [Export] private protected string AnimPrefix { get; set; } = "";
 
   private protected string CurrentAnim { get; private set; } = "";
 
@@ -23,7 +24,7 @@ internal partial class Animator : Node
     if (DebugFlags.GetDebugFlag(this))
       DEBUG_DumpBlendTimes();
   }
-  
+
   internal void PlayAnimation(
     string animName,
     double startPos = .0,
@@ -39,34 +40,44 @@ internal partial class Animator : Node
 
     animName = noPrefix ? $"{animName}" : $"{AnimPrefix}{animName}";
 
-    HandleBaseAnimation(animName, startPos);
+    HandleBaseAnimation(animName, out StringBuilder logBuilder, startPos);
 
-    HandleHelperAnim(animName, startPos);
+    HandleHelperAnim(animName, ref logBuilder, startPos);
+
+    string log = $"{logBuilder}";
+
+    if (log != "")
+      GD.Print(log);
   }
 
-  private void HandleBaseAnimation(string animName, double startPos = .0)
+  private void HandleBaseAnimation(string animName, out StringBuilder log, double startPos = .0)
   {
+    log = new();
+
     if (AnimPlayer!.CurrentAnimation == animName)
       return;
 
     if (!AnimPlayer.HasAnimation(animName))
       return;
 
-    if (DebugFlags.GetDebugFlag(this))
-      GD.Print($"PlayAnimation shipped {animName} to _animPlayer on {Character!.Name}!");
-
     double blendTime = DetermineBlendTime(CurrentAnim, animName);
 
     AnimPlayer.Play(animName, blendTime);
     AnimPlayer.Seek(startPos);
 
-    if (DebugFlags.GetDebugFlag(this))
-      GD.Print($"Blend time was {blendTime} here!");
+    if (animName == "UnsheathedRunEnd")
+      log.AppendLine($"CurrentAnim was {CurrentAnim}");
 
     CurrentAnim = animName;
+
+    if (DebugFlags.GetDebugFlag(this))
+    {
+      log.AppendLine($"PlayAnimation shipped {animName} to _animPlayer on {Character!.Name}!");
+      log.AppendLine($"Blend time was {blendTime} here!");
+    }
   }
 
-  private void HandleHelperAnim(string animName, double startPos = .0)
+  private void HandleHelperAnim(string animName, ref StringBuilder log, double startPos = .0)
   {
     if (_animHelper is null)
       return;
@@ -74,13 +85,17 @@ internal partial class Animator : Node
     if (!_animHelper.HasAnimation(animName))
       return;
 
-    if (DebugFlags.GetDebugFlag(this))
-      GD.Print($"HandleHelperAnim shipped {animName} to _animHelper on {Character!.Name}!");
-
     _animHelper.Play(animName);
     _animHelper.Seek(startPos);
+
+    if (DebugFlags.GetDebugFlag(this))
+      log.AppendLine($"HandleHelperAnim shipped {animName} to _animHelper on {Character!.Name}!");
   }
 
+  /// <summary>
+  /// !!! NOT RECOMENDED FOR USE !!! Bypasses a lot of logic associated with PlayAnimation().
+  /// </summary>
+  /// <param name="animName"></param>
   internal void QueueAnimation(string animName)
   {
     animName = $"{AnimPrefix}{animName}";
@@ -121,10 +136,6 @@ internal partial class Animator : Node
     return blendTime;
   }
 
-  internal void DEBUG_NotifyRequestClose()
-  {
-    GD.Print($"Request closed on {Character!.Name}'s Animator.");
-  }
   internal void DEBUG_NotifyRequestOpen()
   {
     if (!DebugFlags.GetDebugFlag(this))

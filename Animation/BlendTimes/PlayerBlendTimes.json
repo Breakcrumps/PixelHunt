@@ -1,12 +1,13 @@
 {
   "*": {
     "*": 0.15,
-    "Fall": 0.21
+    "Fall": 0.21,
+    "UnsheathedRunStart": 0.0
   },
   "Unsheathe": {
     "UnsheathedIdle": 0.0
   },
-  "RunUnsheathe": {
-    "UnsheathedRun": 0.0
+  "UnsheathedIdle": {
+    "Sheathe": 0.0
   }
 }
