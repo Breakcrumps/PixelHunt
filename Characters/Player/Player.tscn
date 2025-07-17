@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=28 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Characters/Player/PlayerChar.cs" id="2_s1rgi"]
+[ext_resource type="PackedScene" uid="uid://cjapflbpy4278" path="res://Import/Sword.glb" id="3_1niqm"]
 [ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Animation/AnimationHelper.cs" id="3_vlldt"]
 [ext_resource type="Script" uid="uid://b5jdbqsx3wlrx" path="res://Animation/PlayerAnimator.cs" id="5_j23h2"]
 [ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Characters/Player/Composites/CameraController.cs" id="5_lel00"]
@@ -130,6 +131,60 @@ tracks/0/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_2xv0b"]
+resource_name = "RunSheathe"
+length = 1.06667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationHelper:Speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [15.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Composites/PlayerAnimator:AnimPrefix")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.266667, 1.06667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["", ""]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Composites/PlayerAnimator")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.06667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["Run", 0.0, false, false],
+"method": &"PlayAnimation"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Composites/PlayerAnimator:CanProcessRequests")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.06667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_3mea3"]
 resource_name = "RunUnsheathe"
 length = 1.1
@@ -152,7 +207,7 @@ tracks/1/path = NodePath("Composites/PlayerAnimator")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1.1),
+"times": PackedFloat32Array(1.06667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": ["Run", 0.0, false, false],
@@ -166,7 +221,7 @@ tracks/2/path = NodePath("Composites/PlayerAnimator:CanProcessRequests")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1.1),
+"times": PackedFloat32Array(1.06667),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -178,7 +233,7 @@ tracks/3/path = NodePath("Composites/PlayerAnimator:AnimPrefix")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.4, 1.1),
+"times": PackedFloat32Array(0.4, 1.06667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": ["Unsheathed", "Unsheathed"]
@@ -386,60 +441,6 @@ tracks/0/keys = {
 "values": [2.0]
 }
 
-[sub_resource type="Animation" id="Animation_2xv0b"]
-resource_name = "RunSheathe"
-length = 1.06667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationHelper:Speed")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [15.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Composites/PlayerAnimator:AnimPrefix")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.266667, 1.06667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": ["", ""]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Composites/PlayerAnimator")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(1.06667),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": ["Run", 0.0, false, false],
-"method": &"PlayAnimation"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Composites/PlayerAnimator:CanProcessRequests")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(1.06667),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v0k0e"]
 _data = {
 &"Idle": SubResource("Animation_1niqm"),
@@ -468,38 +469,47 @@ _cameraController = NodePath("Composites/CameraController")
 _animator = NodePath("Composites/PlayerAnimator")
 _moveStateMachine = NodePath("MoveStateMachine")
 
-[node name="Armature" parent="." index="0"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+[node name="Skeleton3D" parent="." index="0"]
+bones/0/rotation = Quaternion(-0.035704, -0.0217854, 0.0174709, 0.998972)
+bones/1/position = Vector3(-0.0120845, 1.54812, -0.0416436)
+bones/1/rotation = Quaternion(0.0725911, 1.18895e-07, 8.65355e-09, 0.997362)
+bones/2/position = Vector3(0.1895, 1.48022, -0.0689277)
+bones/2/rotation = Quaternion(-0.0236585, 0.0461886, 0.988798, -0.13995)
+bones/3/position = Vector3(0.264521, 1.21886, -0.0421614)
+bones/3/rotation = Quaternion(-0.0248921, 0.0669225, 0.993561, -0.0879733)
+bones/4/position = Vector3(0.314642, 0.933724, -0.002013)
+bones/4/rotation = Quaternion(-0.0247161, 0.068157, 0.994161, -0.0799286)
+bones/5/position = Vector3(-0.205165, 1.46581, -0.0856397)
+bones/5/rotation = Quaternion(-0.0198677, 0.0410624, 0.993359, 0.105631)
+bones/6/position = Vector3(-0.262949, 1.1996, -0.064497)
+bones/6/rotation = Quaternion(-0.0195933, 0.0640064, 0.996271, 0.0544387)
+bones/7/position = Vector3(-0.295386, 0.911446, -0.0278445)
+bones/7/rotation = Quaternion(-0.0198394, 0.0655726, 0.996569, 0.0464369)
+bones/8/position = Vector3(0.426108, 1.81782, -0.162002)
+bones/8/rotation = Quaternion(-0.0243301, 0.00617826, 0.935758, 0.351748)
+bones/9/position = Vector3(0.098853, 0.867462, -0.0144391)
+bones/9/rotation = Quaternion(-0.0343073, 0.0195397, 0.999215, -0.00313822)
+bones/10/position = Vector3(0.100693, 0.494626, 0.000211565)
+bones/10/rotation = Quaternion(-0.0344539, -0.035289, 0.998772, 0.00468073)
+bones/11/position = Vector3(0.0977423, 0.069227, -0.0299892)
+bones/11/rotation = Quaternion(-4.06412e-05, 0.572213, 0.820105, -2.8341e-05)
+bones/12/position = Vector3(-0.098853, 0.867462, -0.0144391)
+bones/12/rotation = Quaternion(0.0343073, 0.0195397, 0.999215, 0.00313822)
+bones/13/position = Vector3(-0.100693, 0.494626, 0.000211565)
+bones/13/rotation = Quaternion(0.034454, -0.035289, 0.998772, -0.00468073)
+bones/14/position = Vector3(-0.0977423, 0.069227, -0.0299892)
+bones/14/rotation = Quaternion(4.06412e-05, 0.572213, 0.820105, 2.8341e-05)
+bones/17/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
+bones/18/rotation = Quaternion(0.00374689, 0.707097, -0.707097, -0.00374689)
+bones/19/rotation = Quaternion(0.00319472, 0.7071, 0.7071, 0.00319472)
+bones/20/rotation = Quaternion(-0.00374689, 0.707097, -0.707097, 0.00374689)
 
-[node name="Skeleton3D" parent="Armature" index="0"]
-bones/0/position = Vector3(1.6515e-17, 0.746811, 0.0098525)
-bones/0/rotation = Quaternion(0.279724, 0.00540053, 0.00241445, 0.960062)
-bones/1/rotation = Quaternion(0.269463, 0.354064, 0.10329, 0.889584)
-bones/2/rotation = Quaternion(-0.233284, -0.363374, -0.0876498, 0.897695)
-bones/3/position = Vector3(0.19764, 0.289903, -0.0410065)
-bones/3/rotation = Quaternion(-0.293031, 0.386186, 0.834261, -0.262683)
-bones/4/rotation = Quaternion(0.471785, -0.288243, -0.427331, 0.715349)
-bones/5/rotation = Quaternion(-0.0843304, 0.137058, 0.0406332, 0.98613)
-bones/6/position = Vector3(-0.197641, 0.289903, -0.0410066)
-bones/6/rotation = Quaternion(0.154622, 0.247849, 0.931013, 0.218808)
-bones/7/rotation = Quaternion(0.402568, 0.210384, 0.457876, 0.764217)
-bones/8/rotation = Quaternion(-0.00559328, -0.143985, 0.012116, 0.98949)
-bones/9/position = Vector3(0.00800008, -0.0350624, 0.362899)
-bones/9/rotation = Quaternion(0.0915835, -0.956002, 0.0181318, 0.278106)
-bones/10/rotation = Quaternion(-0.023986, 0.586724, 0.809134, -0.0219629)
-bones/11/rotation = Quaternion(-0.651153, 0.000135933, -0.115821, 0.750057)
-bones/12/rotation = Quaternion(0.730342, -0.123262, 0.142781, 0.656522)
-bones/13/rotation = Quaternion(0.0234968, 0.544519, 0.834165, 0.0843542)
-bones/14/rotation = Quaternion(-0.878133, -8.20206e-05, 0.156194, 0.452201)
-bones/15/rotation = Quaternion(0.543769, 0.0305111, -0.072165, 0.83557)
-bones/16/position = Vector3(0.0471862, 0.494628, 0.429989)
-bones/16/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
-bones/17/position = Vector3(0.0590043, 0.124235, -0.0811233)
-bones/17/rotation = Quaternion(-0.0715419, 0.800986, -0.584752, -0.106624)
-bones/18/position = Vector3(-0.066835, 0.494628, 0.429989)
-bones/18/rotation = Quaternion(0.00319472, 0.7071, 0.7071, 0.00319472)
-bones/19/position = Vector3(-0.0977423, 0.425616, -0.241498)
-bones/19/rotation = Quaternion(0.000238343, 0.998974, 0.0449793, 0.00529354)
+[node name="SwordAttachment" type="BoneAttachment3D" parent="Skeleton3D" index="1"]
+transform = Transform3D(-0.751362, -0.658603, -0.0411878, 0.658002, -0.75247, 0.0286789, -0.0498806, -0.00555343, 0.99874, 0.426108, 1.81782, -0.162002)
+bone_name = "Sword"
+bone_idx = 8
+
+[node name="Sword" parent="Skeleton3D/SwordAttachment" index="0" instance=ExtResource("3_1niqm")]
 
 [node name="Legs" type="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.941833, 0)
@@ -559,7 +569,7 @@ metadata/_custom_type_script = "uid://c3m2h1vrf6242"
 script = ExtResource("8_s1rgi")
 _playerChar = NodePath("../..")
 _cameraPivot = NodePath("../../CameraPivot")
-_armature = NodePath("../../Armature")
+_armature = NodePath("../../Skeleton3D")
 _playerAnimator = NodePath("../../Composites/PlayerAnimator")
 _animHelper = NodePath("../../AnimationHelper")
 _moveStateMachine = NodePath("..")

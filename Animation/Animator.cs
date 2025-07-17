@@ -35,9 +35,6 @@ internal partial class Animator : Node
     if (!CanProcessRequests && !bypass)
       return;
 
-    if (AnimPlayer is null)
-      return;
-
     animName = noPrefix ? $"{animName}" : $"{AnimPrefix}{animName}";
 
     HandleBaseAnimation(animName, out StringBuilder logBuilder, startPos);
@@ -54,7 +51,10 @@ internal partial class Animator : Node
   {
     log = new();
 
-    if (AnimPlayer!.CurrentAnimation == animName)
+    if (AnimPlayer is null)
+      return;
+
+    if (AnimPlayer.CurrentAnimation == animName)
       return;
 
     if (!AnimPlayer.HasAnimation(animName))
@@ -72,7 +72,7 @@ internal partial class Animator : Node
 
     if (DebugFlags.GetDebugFlag(this))
     {
-      log.AppendLine($"PlayAnimation shipped {animName} to _animPlayer on {Character!.Name}!");
+      log.AppendLine($"PlayAnimation shipped {animName} to AnimPlayer on {Character!.Name}!");
       log.AppendLine($"Blend time was {blendTime} here!");
     }
   }
@@ -80,6 +80,9 @@ internal partial class Animator : Node
   private void HandleHelperAnim(string animName, ref StringBuilder log, double startPos = .0)
   {
     if (_animHelper is null)
+      return;
+
+    if (_animHelper.CurrentAnimation == animName)
       return;
 
     if (!_animHelper.HasAnimation(animName))

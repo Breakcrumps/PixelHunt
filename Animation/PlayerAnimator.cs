@@ -118,7 +118,7 @@ internal sealed partial class PlayerAnimator : Animator
       case var run when run == $"{AnimPrefix}Run":
         PlayAnimation("RunEnd");
         break;
-      case "RunUnsheathe":
+      case "RunUnsheathe" or "RunSheathe":
         PlayAnimation("RunEnd", bypass: true);
         CanProcessRequests = true;
         break;
