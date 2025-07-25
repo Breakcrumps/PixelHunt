@@ -12,6 +12,9 @@ internal sealed partial class PlayerChar : Character
   [Export] private CameraController? _cameraController;
   [Export] private PlayerAnimator? _animator;
   [Export] private MoveStateMachine? _moveStateMachine;
+  [Export] private Skeleton3D? _skeleton;
+
+  public override void _Ready() => EnsureStartingRotation();
 
   public override void _PhysicsProcess(double delta)
   {
@@ -31,5 +34,16 @@ internal sealed partial class PlayerChar : Character
 
     if (Health <= 0)
       Die();
+  }
+
+  private void EnsureStartingRotation()
+  {
+    if (_skeleton is null)
+      return;
+
+    if (_skeleton.Rotation.Y is -Mathf.Pi or Mathf.Pi)
+      return;
+
+    _skeleton.Rotation = _skeleton.Rotation with { Y = Mathf.Pi };
   }
 }

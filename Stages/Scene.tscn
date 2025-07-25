@@ -35,7 +35,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.419071, 1.89406, -5.89816)
 
 [node name="KillBox" parent="." instance=ExtResource("9_tn73o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
-script = null
 
 [node name="UI" parent="." instance=ExtResource("2_v3fvj")]
 

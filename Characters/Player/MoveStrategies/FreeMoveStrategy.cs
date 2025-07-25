@@ -11,7 +11,7 @@ internal sealed partial class FreeMoveStrategy : State
 {
   [Export] private PlayerChar? _playerChar;
   [Export] private Node3D? _cameraPivot;
-  [Export] private Node3D? _armature;
+  [Export] private Skeleton3D? _armature;
   [Export] private PlayerAnimator? _playerAnimator;
   [Export] private AnimationHelper? _animHelper;
   [Export] private MoveStateMachine? _moveStateMachine;
@@ -116,16 +116,19 @@ internal sealed partial class FreeMoveStrategy : State
 
   private void AlignBody(double delta)
   {
+    if (_armature is null)
+      return;
+
     Vector2 horizontalVelocity = new(_playerChar!.Velocity.X, _playerChar.Velocity.Z);
 
     if (horizontalVelocity == Vector2.Zero)
       return;
 
-    _armature!.Rotation = _armature.Rotation with
+    _armature.Rotation = _armature.Rotation with
     {
       Y = Mathf.LerpAngle(
         from: _armature.Rotation.Y,
-        to: horizontalVelocity.AngleTo(new Vector2(0, 1)),
+        to: horizontalVelocity.AngleTo(new Vector2(0f, 1f)),
         weight: _turnSpeed * (float)delta
       )
     };
