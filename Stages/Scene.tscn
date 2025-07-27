@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://djwr7bjxuxdfk"]
+[gd_scene load_steps=10 format=3 uid="uid://djwr7bjxuxdfk"]
 
 [ext_resource type="PackedScene" uid="uid://cj7r5g45xbyij" path="res://Characters/Player/Player.tscn" id="1_o8g73"]
 [ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Stages/Scene.cs" id="1_v3fvj"]
@@ -9,9 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://birh8wqa6levw" path="res://Stages/Maps/Map.tscn" id="9_g6k5w"]
 [ext_resource type="PackedScene" uid="uid://8luqb703pkc2" path="res://World/KillBox.tscn" id="9_tn73o"]
 [ext_resource type="PackedScene" uid="uid://cu0iyt20pk40w" path="res://Characters/Enemy/Enemy.tscn" id="10_tn73o"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ps3kg"]
-size = Vector3(15.2304, 3.98584, 1)
 
 [node name="Scene" type="Node3D"]
 script = ExtResource("1_v3fvj")
@@ -37,11 +34,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.419071, 1.89406, -5.89816)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
 
 [node name="UI" parent="." instance=ExtResource("2_v3fvj")]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-collision_layer = 16
-collision_mask = 5
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.121185, 1.99292, -9.15038)
-shape = SubResource("BoxShape3D_ps3kg")

@@ -35,7 +35,8 @@ internal partial class Animator : Node
     if (!CanProcessRequests && !bypass)
       return;
 
-    animName = noPrefix ? $"{animName}" : $"{AnimPrefix}{animName}";
+    if (!noPrefix)
+      animName = $"{AnimPrefix}{animName}";
 
     HandleBaseAnimation(animName, out StringBuilder logBuilder, startPos);
 
@@ -130,11 +131,13 @@ internal partial class Animator : Node
     if (Character is null)
       return AnimBlendTimes.DefaultBlendTime;
 
-    if (!AnimBlendTimes.GetBlendTimes(Character).TryGetValue(from, out var fromBlendTimes))
-      fromBlendTimes = AnimBlendTimes.GetBlendTimes(Character)["*"];
+    var charBlendTimes = AnimBlendTimes.GetBlendTimes(Character);
+
+    if (!charBlendTimes.TryGetValue(from, out var fromBlendTimes))
+      fromBlendTimes = charBlendTimes["*"];
 
     if (!fromBlendTimes.TryGetValue(to, out double blendTime))
-      blendTime = AnimBlendTimes.GetBlendTimes(Character)["*"]["*"];
+      blendTime = charBlendTimes["*"]["*"];
 
     return blendTime;
   }

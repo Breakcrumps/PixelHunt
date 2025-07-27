@@ -17,9 +17,11 @@ internal abstract partial class StateMachine : Node
     }
   }
 
-  internal virtual void Process(double delta) { }
+  internal void Process(double delta) => CurrentState?.Process(delta);
 
-  internal virtual void PhysicsProcess(double delta) { }
+  internal void PhysicsProcess(double delta) => CurrentState?.PhysicsProcess(delta);
+
+  internal void UnhandledInput(InputEvent @event) => CurrentState?.UnhandledInput(@event);
 
   internal void Transition(string nextStateName)
   {

@@ -2,7 +2,7 @@ using Godot;
 
 namespace GameSrc.UI;
 
-internal partial class Ui : Control
+internal partial class UI : Control
 {
   public override void _Ready()
   {

@@ -18,14 +18,4 @@ internal sealed partial class EnemyStateMachine : StateMachine
     _initialState.Enter();
     CurrentState = _initialState;
   }
-
-  internal override void Process(double delta)
-  {
-    CurrentState?.Process(delta);
-  }
-
-  internal override void PhysicsProcess(double delta)
-  {
-    CurrentState?.PhysicsProcess(delta);
-  }
 }

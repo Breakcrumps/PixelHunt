@@ -128,7 +128,7 @@ internal sealed partial class FreeMoveStrategy : State
     {
       Y = Mathf.LerpAngle(
         from: _armature.Rotation.Y,
-        to: horizontalVelocity.AngleTo(new Vector2(0f, 1f)),
+        to: horizontalVelocity.AngleTo(Vector2.Down),
         weight: _turnSpeed * (float)delta
       )
     };
@@ -163,9 +163,9 @@ internal sealed partial class FreeMoveStrategy : State
       : _playerChar.Velocity.Y > 0 ? "Rise" : "Fall"
     );
 
-    _playerAnimator!.PlayAnimation(animation, bypass: true);
-
-    _playerAnimator.CanProcessRequests = true;
+    _playerAnimator!.CanProcessRequests = true;
+    
+    _playerAnimator.PlayAnimation(animation);
 
     if (DebugFlags.GetDebugFlag(this))
       GD.Print("Animating in air!");

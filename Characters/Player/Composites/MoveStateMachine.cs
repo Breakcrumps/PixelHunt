@@ -18,16 +18,6 @@ internal sealed partial class MoveStateMachine : StateMachine
     Transition("FreeMoveStrategy");
   }
 
-  internal override void PhysicsProcess(double delta)
-  {
-    CurrentState?.PhysicsProcess(delta);
-  }
-
-  public override void _UnhandledInput(InputEvent @event)
-  {
-    CurrentState?.UnhandledInput(@event);
-  }
-
   internal void HandlePushback(Vector3 attackerPos)
   {
     PushbackMoveStrategy pushbackMoveStrategy = (PushbackMoveStrategy)States["PushbackMoveStrategy"];

@@ -8,12 +8,8 @@ internal sealed partial class PlayerAnimator : Animator
 {
   public override void _Process(double delta)
   {
-    switch (AnimPlayer?.CurrentAnimation)
-    {
-      case "Unsheathe" or "RunUnsheathe":
-        ContinueUnsheathe();
-        break;
-    }
+    if (AnimPlayer?.CurrentAnimation is "Unsheathe" or "RunUnsheathe")
+      ContinueUnsheathe();
   }
 
   internal void FlipUnsheathe()
@@ -64,7 +60,7 @@ internal sealed partial class PlayerAnimator : Animator
     if (AnimPlayer is null)
       return;
 
-    double currentTime = AnimPlayer!.CurrentAnimationPosition;
+    double currentTime = AnimPlayer.CurrentAnimationPosition;
     Vector2 inputDirection = InputHelper.GetMovementDirection();
 
     switch (CurrentAnim)
@@ -119,8 +115,8 @@ internal sealed partial class PlayerAnimator : Animator
         PlayAnimation("RunEnd");
         break;
       case "RunUnsheathe" or "RunSheathe":
-        PlayAnimation("RunEnd", bypass: true);
         CanProcessRequests = true;
+        PlayAnimation("RunEnd");
         break;
       case var notRunEnd when notRunEnd != $"{AnimPrefix}RunEnd":
         PlayAnimation("Idle");

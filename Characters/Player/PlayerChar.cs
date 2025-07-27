@@ -23,6 +23,8 @@ internal sealed partial class PlayerChar : Character
     MoveAndSlide();
   }
 
+  public override void _UnhandledInput(InputEvent @event) => _moveStateMachine?.UnhandledInput(@event);
+
   internal override void ProcessHit(Attack attack, Vector3 attackerPos)
   {
     Health -= attack.Damage;
