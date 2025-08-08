@@ -1,8 +1,8 @@
-using GameSrc.Dialogue;
-using GameSrc.Static;
+using PixelHunt.Dialogue;
+using PixelHunt.Static;
 using Godot;
 
-namespace GameSrc.Stages;
+namespace PixelHunt.Stages;
 
 [GlobalClass]
 internal sealed partial class Scene : Node3D

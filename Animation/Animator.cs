@@ -1,9 +1,9 @@
 using System.Text;
-using GameSrc.Characters;
-using GameSrc.Static;
+using PixelHunt.Characters;
+using PixelHunt.Static;
 using Godot;
 
-namespace GameSrc.Animation;
+namespace PixelHunt.Animation;
 
 [GlobalClass]
 internal partial class Animator : Node

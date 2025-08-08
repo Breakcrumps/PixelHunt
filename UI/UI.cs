@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GameSrc.UI;
+namespace PixelHunt.UI;
 
 internal partial class UI : Control
 {

@@ -1,7 +1,7 @@
-using GameSrc.Static;
+using PixelHunt.Static;
 using Godot;
 
-namespace GameSrc.Animation;
+namespace PixelHunt.Animation;
 
 [GlobalClass]
 internal sealed partial class PlayerAnimator : Animator
@@ -20,9 +20,12 @@ internal sealed partial class PlayerAnimator : Animator
       Unsheathe();
   }
 
-  private void Unsheathe()
+  internal void Unsheathe()
   {
     if (Character is null)
+      return;
+
+    if (AnimPrefix == "Unsheathed")
       return;
 
     Vector2 inputDirection = InputHelper.GetMovementDirection();
@@ -37,9 +40,12 @@ internal sealed partial class PlayerAnimator : Animator
     CanProcessRequests = false;
   }
 
-  private void Sheathe()
+  internal void Sheathe()
   {
     if (Character is null)
+      return;
+
+    if (AnimPrefix != "Unsheathed")
       return;
 
     Vector2 inputDirection = InputHelper.GetMovementDirection();

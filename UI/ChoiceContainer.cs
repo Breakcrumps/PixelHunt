@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-namespace GameSrc.UI;
+namespace PixelHunt.UI;
 
 [GlobalClass]
 internal partial class ChoiceContainer : Control

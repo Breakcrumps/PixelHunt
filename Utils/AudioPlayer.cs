@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GameSrc.Utils;
+namespace PixelHunt.Utils;
 
 [GlobalClass]
 internal sealed partial class AudioPlayer : AudioStreamPlayer3D

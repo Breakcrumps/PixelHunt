@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GameSrc.World;
+namespace PixelHunt.World;
 
 [GlobalClass]
 internal sealed partial class Sun : DirectionalLight3D

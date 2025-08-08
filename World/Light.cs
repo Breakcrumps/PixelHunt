@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GameSrc.World;
+namespace PixelHunt.World;
 
 internal sealed partial class Light : StaticBody3D
 {

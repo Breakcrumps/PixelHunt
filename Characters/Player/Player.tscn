@@ -1,16 +1,18 @@
-[gd_scene load_steps=33 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=38 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Characters/Player/PlayerChar.cs" id="2_s1rgi"]
 [ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Animation/AnimationHelper.cs" id="3_vlldt"]
 [ext_resource type="Script" uid="uid://b5jdbqsx3wlrx" path="res://Animation/PlayerAnimator.cs" id="5_j23h2"]
-[ext_resource type="Script" uid="uid://yspitpsmijxs" path="res://Characters/Player/Composites/CameraController.cs" id="5_lel00"]
 [ext_resource type="Script" uid="uid://bx3y8ipt6s76s" path="res://Characters/Player/Composites/AttachmentManager.cs" id="6_6fff4"]
 [ext_resource type="PackedScene" uid="uid://dig6gkp4tqtsw" path="res://Import/Pipe.glb" id="7_6fff4"]
+[ext_resource type="Script" uid="uid://byyxpnygx1bkn" path="res://Characters/Player/Composites/CameraStateMachine.cs" id="7_6h4vt"]
 [ext_resource type="Script" uid="uid://cy02vpvcdixrx" path="res://Characters/Player/Composites/MoveStateMachine.cs" id="8_0j2ni"]
 [ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Characters/Player/MoveStrategies/FreeMoveStrategy.cs" id="8_s1rgi"]
 [ext_resource type="Script" uid="uid://blrscmul5u4le" path="res://Characters/Player/MoveStrategies/PushbackMoveStrategy.cs" id="9_j23h2"]
 [ext_resource type="Script" uid="uid://c3m2h1vrf6242" path="res://Characters/Player/MoveStrategies/DebugMoveStrategy.cs" id="10_0j2ni"]
+[ext_resource type="Script" uid="uid://ckbtme3wvkj3" path="res://Characters/Player/CameraModes/FreeCameraMode.cs" id="12_wraqo"]
+[ext_resource type="Script" uid="uid://2mnvj7hxcrw1" path="res://Characters/Player/CameraModes/LockOnCameraMode.cs" id="13_0ij6m"]
 
 [sub_resource type="Animation" id="Animation_5xivi"]
 resource_name = "Fall"
@@ -305,7 +307,7 @@ tracks/2/path = NodePath("Composites/PlayerAnimator:AnimPrefix")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.733333, 1.13333),
+"times": PackedFloat32Array(0, 1.13333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": ["", ""]
@@ -359,7 +361,7 @@ tracks/3/path = NodePath("Composites/PlayerAnimator:AnimPrefix")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.666667, 1.13333),
+"times": PackedFloat32Array(0, 1.13333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": ["Unsheathed", "Unsheathed"]
@@ -535,10 +537,19 @@ size = Vector3(1, 1.88367, 1)
 [sub_resource type="SphereShape3D" id="SphereShape3D_j23h2"]
 radius = 0.01
 
-[node name="Player" node_paths=PackedStringArray("_cameraController", "_animator", "_moveStateMachine", "_skeleton") groups=["Player"] instance=ExtResource("1_6ysni")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_wraqo"]
+size = Vector3(15, 15, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0ij6m"]
+size = Vector3(25, 25, 24)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2xv0b"]
+size = Vector3(5, 5, 5)
+
+[node name="Player" node_paths=PackedStringArray("_cameraStateMachine", "_animator", "_moveStateMachine", "_skeleton") groups=["Player"] instance=ExtResource("1_6ysni")]
 collision_mask = 28
 script = ExtResource("2_s1rgi")
-_cameraController = NodePath("Composites/CameraController")
+_cameraStateMachine = NodePath("CameraStateMachine")
 _animator = NodePath("Composites/PlayerAnimator")
 _moveStateMachine = NodePath("MoveStateMachine")
 _skeleton = NodePath("Skeleton3D")
@@ -563,24 +574,31 @@ spring_length = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" index="0"]
 
+[node name="Eyesight" type="Area3D" parent="CameraPivot/SpringArm3D" index="1"]
+collision_mask = 4
+
+[node name="EyesightCollision" type="CollisionShape3D" parent="CameraPivot/SpringArm3D/Eyesight" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+shape = SubResource("BoxShape3D_wraqo")
+
+[node name="EyesightCollision2" type="CollisionShape3D" parent="CameraPivot/SpringArm3D/Eyesight" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
+shape = SubResource("BoxShape3D_0ij6m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraPivot/SpringArm3D/Eyesight" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+shape = SubResource("BoxShape3D_2xv0b")
+
 [node name="Composites" type="Node" parent="." index="5"]
 
-[node name="CameraController" type="Node" parent="Composites" index="0" node_paths=PackedStringArray("_cameraSpring", "_cameraPivot", "_character")]
-script = ExtResource("5_lel00")
-_cameraSpring = NodePath("../../CameraPivot/SpringArm3D")
-_cameraPivot = NodePath("../../CameraPivot")
-_character = NodePath("../..")
-_zoomSpeed = 10.0
-metadata/_custom_type_script = "uid://yspitpsmijxs"
-
-[node name="PlayerAnimator" type="Node" parent="Composites" index="1" node_paths=PackedStringArray("AnimPlayer", "_animHelper", "Character")]
+[node name="PlayerAnimator" type="Node" parent="Composites" index="0" node_paths=PackedStringArray("AnimPlayer", "_animHelper", "Character")]
 script = ExtResource("5_j23h2")
 AnimPlayer = NodePath("../../AnimationPlayer")
 _animHelper = NodePath("../../AnimationHelper")
 Character = NodePath("../..")
 metadata/_custom_type_script = "uid://b5jdbqsx3wlrx"
 
-[node name="AttachmentManager" type="Node" parent="Composites" index="2" node_paths=PackedStringArray("_skeleton")]
+[node name="AttachmentManager" type="Node" parent="Composites" index="1" node_paths=PackedStringArray("_skeleton")]
 script = ExtResource("6_6fff4")
 _skeleton = NodePath("../../Skeleton3D")
 _swordModel = ExtResource("7_6fff4")
@@ -620,3 +638,23 @@ _playerChar = NodePath("../..")
 _animator = NodePath("../../Composites/PlayerAnimator")
 _animHelper = NodePath("../../AnimationHelper")
 metadata/_custom_type_script = "uid://blrscmul5u4le"
+
+[node name="CameraStateMachine" type="Node" parent="." index="7" node_paths=PackedStringArray("_cameraSpring")]
+script = ExtResource("7_6h4vt")
+_cameraSpring = NodePath("../CameraPivot/SpringArm3D")
+metadata/_custom_type_script = "uid://byyxpnygx1bkn"
+
+[node name="FreeCameraMode" type="Node" parent="CameraStateMachine" index="0" node_paths=PackedStringArray("_cameraStateMachine", "_cameraPivot", "_character")]
+script = ExtResource("12_wraqo")
+_cameraStateMachine = NodePath("..")
+_cameraPivot = NodePath("../../CameraPivot")
+_character = NodePath("../..")
+metadata/_custom_type_script = "uid://ckbtme3wvkj3"
+
+[node name="LockOnCameraMode" type="Node" parent="CameraStateMachine" index="1" node_paths=PackedStringArray("_cameraStateMachine", "_cameraPivot", "_eyesight", "_playerAnimator")]
+script = ExtResource("13_0ij6m")
+_cameraStateMachine = NodePath("..")
+_cameraPivot = NodePath("../../CameraPivot")
+_eyesight = NodePath("../../CameraPivot/SpringArm3D/Eyesight")
+_playerAnimator = NodePath("../../Composites/PlayerAnimator")
+metadata/_custom_type_script = "uid://2mnvj7hxcrw1"

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GameSrc.Characters.Player.Composites;
+namespace PixelHunt.Characters.Player.Composites;
 
 [GlobalClass]
 internal sealed partial class AttachmentManager : Node

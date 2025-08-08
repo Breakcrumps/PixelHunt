@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using GameSrc.Dialogue;
-using GameSrc.Static;
-using GameSrc.Types;
-using GameSrc.Utils;
+using PixelHunt.Dialogue;
+using PixelHunt.Static;
+using PixelHunt.Types;
+using PixelHunt.Utils;
 using Godot;
 
-namespace GameSrc.UI;
+namespace PixelHunt.UI;
 
 [GlobalClass]
 internal partial class DialogueBox : Control

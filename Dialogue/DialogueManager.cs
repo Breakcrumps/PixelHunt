@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using GameSrc.Types;
+using PixelHunt.Types;
 using Godot;
 
-namespace GameSrc.Dialogue;
+namespace PixelHunt.Dialogue;
 
 using ReplicaList =
   Dictionary<

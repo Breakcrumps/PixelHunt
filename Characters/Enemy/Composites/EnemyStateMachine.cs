@@ -1,7 +1,7 @@
-using GameSrc.Parents;
+using PixelHunt.Parents;
 using Godot;
 
-namespace GameSrc.Characters.Enemy.Composites;
+namespace PixelHunt.Characters.Enemy.Composites;
 
 [GlobalClass]
 internal sealed partial class EnemyStateMachine : StateMachine

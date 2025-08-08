@@ -1,8 +1,8 @@
-using GameSrc.Characters.Player;
-using GameSrc.UI;
+using PixelHunt.Characters.Player;
+using PixelHunt.UI;
 using Godot;
 
-namespace GameSrc.World;
+namespace PixelHunt.World;
 
 [GlobalClass]
 internal sealed partial class DialogueArea : Area3D

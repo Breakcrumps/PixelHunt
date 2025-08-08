@@ -1,9 +1,9 @@
-using GameSrc.Characters.Enemy.Composites;
-using GameSrc.Characters.Enemy.States;
-using GameSrc.Types;
+using PixelHunt.Characters.Enemy.Composites;
+using PixelHunt.Characters.Enemy.States;
+using PixelHunt.Types;
 using Godot;
 
-namespace GameSrc.Characters.Enemy;
+namespace PixelHunt.Characters.Enemy;
 
 [GlobalClass]
 internal sealed partial class EnemyChar : Character

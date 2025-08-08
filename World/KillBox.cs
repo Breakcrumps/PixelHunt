@@ -1,7 +1,7 @@
-using GameSrc.Characters;
+using PixelHunt.Characters;
 using Godot;
 
-namespace GameSrc.World;
+namespace PixelHunt.World;
 
 [GlobalClass]
 internal sealed partial class KillBox : Area3D

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GameSrc.Animation;
+namespace PixelHunt.Animation;
 
 [GlobalClass]
 internal sealed partial class AnimationHelper : AnimationPlayer

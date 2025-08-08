@@ -1,4 +1,4 @@
-using GameSrc.Stages;
+using PixelHunt.Stages;
 using Godot;
 
 internal partial class EnvLabel : Label

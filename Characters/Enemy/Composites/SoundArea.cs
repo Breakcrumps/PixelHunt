@@ -1,9 +1,9 @@
-using GameSrc.Characters.Enemy.States;
-using GameSrc.Characters.Player;
-using GameSrc.Static;
+using PixelHunt.Characters.Enemy.States;
+using PixelHunt.Characters.Player;
+using PixelHunt.Static;
 using Godot;
 
-namespace GameSrc.Characters.Enemy.Composites;
+namespace PixelHunt.Characters.Enemy.Composites;
 
 [GlobalClass]
 internal sealed partial class SoundArea : Area3D

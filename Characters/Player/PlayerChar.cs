@@ -1,15 +1,15 @@
-using GameSrc.Animation;
-using GameSrc.Characters.Player.Composites;
-using GameSrc.Static;
-using GameSrc.Types;
+using PixelHunt.Animation;
+using PixelHunt.Characters.Player.Composites;
+using PixelHunt.Static;
+using PixelHunt.Types;
 using Godot;
 
-namespace GameSrc.Characters.Player;
+namespace PixelHunt.Characters.Player;
 
 [GlobalClass]
 internal sealed partial class PlayerChar : Character
 {
-  [Export] private CameraController? _cameraController;
+  [Export] private CameraStateMachine? _cameraStateMachine;
   [Export] private PlayerAnimator? _animator;
   [Export] private MoveStateMachine? _moveStateMachine;
   [Export] private Skeleton3D? _skeleton;
@@ -19,11 +19,16 @@ internal sealed partial class PlayerChar : Character
   public override void _PhysicsProcess(double delta)
   {
     _moveStateMachine?.PhysicsProcess(delta);
+    _cameraStateMachine?.PhysicsProcess(delta);
 
     MoveAndSlide();
   }
 
-  public override void _UnhandledInput(InputEvent @event) => _moveStateMachine?.UnhandledInput(@event);
+  public override void _UnhandledInput(InputEvent @event)
+  {
+    _moveStateMachine?.UnhandledInput(@event);
+    _cameraStateMachine?.UnhandledInput(@event);
+  }
 
   internal override void ProcessHit(Attack attack, Vector3 attackerPos)
   {

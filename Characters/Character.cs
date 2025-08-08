@@ -1,7 +1,7 @@
-using GameSrc.Types;
+using PixelHunt.Types;
 using Godot;
 
-namespace GameSrc.Characters;
+namespace PixelHunt.Characters;
 
 internal abstract partial class Character : CharacterBody3D
 {

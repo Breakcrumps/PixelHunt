@@ -1,9 +1,9 @@
-using GameSrc.Animation;
-using GameSrc.Characters.Player.MoveStrategies;
-using GameSrc.Parents;
+using PixelHunt.Animation;
+using PixelHunt.Characters.Player.MoveStrategies;
+using PixelHunt.Parents;
 using Godot;
 
-namespace GameSrc.Characters.Player.Composites;
+namespace PixelHunt.Characters.Player.Composites;
 
 [GlobalClass]
 internal sealed partial class MoveStateMachine : StateMachine

@@ -1,10 +1,10 @@
-using GameSrc.Animation;
-using GameSrc.Characters.Player.Composites;
-using GameSrc.Parents;
-using GameSrc.Static;
+using PixelHunt.Animation;
+using PixelHunt.Characters.Player.Composites;
+using PixelHunt.Parents;
+using PixelHunt.Static;
 using Godot;
 
-namespace GameSrc.Characters.Player.MoveStrategies;
+namespace PixelHunt.Characters.Player.MoveStrategies;
 
 [GlobalClass]
 internal sealed partial class FreeMoveStrategy : State

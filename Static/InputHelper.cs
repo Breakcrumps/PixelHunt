@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GameSrc.Static;
+namespace PixelHunt.Static;
 
 internal static class InputHelper
 {

@@ -1,8 +1,8 @@
-using GameSrc.Characters.Player.Composites;
-using GameSrc.Parents;
+using PixelHunt.Characters.Player.Composites;
+using PixelHunt.Parents;
 using Godot;
 
-namespace GameSrc.Characters.Player.MoveStrategies;
+namespace PixelHunt.Characters.Player.MoveStrategies;
 
 [GlobalClass]
 internal sealed partial class DebugMoveStrategy : State

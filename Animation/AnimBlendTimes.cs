@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using GameSrc.Characters;
-using GameSrc.Characters.Enemy;
-using GameSrc.Characters.Player;
+using PixelHunt.Characters;
+using PixelHunt.Characters.Enemy;
+using PixelHunt.Characters.Player;
 
-namespace GameSrc.Animation;
+namespace PixelHunt.Animation;
 
 using BlendTimes =
   Dictionary<

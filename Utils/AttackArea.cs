@@ -1,8 +1,8 @@
-using GameSrc.Characters;
-using GameSrc.Types;
+using PixelHunt.Characters;
+using PixelHunt.Types;
 using Godot;
 
-namespace GameSrc.Utils;
+namespace PixelHunt.Utils;
 
 [GlobalClass]
 internal sealed partial class AttackArea : Area3D

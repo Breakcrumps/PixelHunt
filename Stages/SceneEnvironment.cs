@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GameSrc.Stages;
+namespace PixelHunt.Stages;
 
 [GlobalClass]
 internal sealed partial class SceneEnvironment : WorldEnvironment

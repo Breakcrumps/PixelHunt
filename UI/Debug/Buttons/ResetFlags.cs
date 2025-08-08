@@ -1,4 +1,4 @@
-using GameSrc.Dialogue;
+using PixelHunt.Dialogue;
 using Godot;
 
 internal partial class ResetFlags : Button

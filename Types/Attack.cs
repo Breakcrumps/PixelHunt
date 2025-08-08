@@ -1,4 +1,4 @@
-namespace GameSrc.Types;
+namespace PixelHunt.Types;
 
 internal record struct Attack(
   int Damage,

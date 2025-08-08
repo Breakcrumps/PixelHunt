@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace GameSrc.Parents;
+namespace PixelHunt.Parents;
 
 internal abstract partial class StateMachine : Node
 {
@@ -13,7 +13,9 @@ internal abstract partial class StateMachine : Node
     foreach (Node child in GetChildren())
     {
       if (child is State state)
+      {
         States.Add(child.Name, state);
+      }
     }
   }
 

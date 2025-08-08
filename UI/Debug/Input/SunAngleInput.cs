@@ -1,4 +1,4 @@
-using GameSrc.World;
+using PixelHunt.World;
 using Godot;
 
 internal partial class SunAngleInput : LineEdit

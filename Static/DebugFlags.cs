@@ -1,20 +1,23 @@
-using GameSrc.Animation;
-using GameSrc.Characters.Player.MoveStrategies;
+using PixelHunt.Animation;
+using PixelHunt.Characters.Player.Composites;
+using PixelHunt.Characters.Player.MoveStrategies;
 
-namespace GameSrc.Static;
+namespace PixelHunt.Static;
 
 internal static class DebugFlags
 {
   private const bool Debug = false;
   private const bool AnimatorDebug = false;
-  private const bool PlayerAnimatorDebug = true;
+  private const bool PlayerAnimatorDebug = false;
   private const bool FreeStrategyDebug = false;
+  private const bool CameraStateMachineDebug = true;
 
   internal static bool GetDebugFlag(object caller) => caller switch
   {
     PlayerAnimator => PlayerAnimatorDebug,
     Animator => AnimatorDebug,
     FreeMoveStrategy => FreeStrategyDebug,
+    CameraStateMachine => CameraStateMachineDebug,
     _ => Debug
   };
 }

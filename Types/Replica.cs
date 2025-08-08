@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GameSrc.Types;
+namespace PixelHunt.Types;
 
 internal sealed record Replica(
   string Who = "",

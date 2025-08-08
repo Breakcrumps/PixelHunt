@@ -1,10 +1,10 @@
-using GameSrc.Animation;
-using GameSrc.Characters.Enemy.Composites;
-using GameSrc.Characters.Player;
-using GameSrc.Parents;
+using PixelHunt.Animation;
+using PixelHunt.Characters.Enemy.Composites;
+using PixelHunt.Characters.Player;
+using PixelHunt.Parents;
 using Godot;
 
-namespace GameSrc.Characters.Enemy.States;
+namespace PixelHunt.Characters.Enemy.States;
 
 [GlobalClass]
 internal sealed partial class PushbackState : State

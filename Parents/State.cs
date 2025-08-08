@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GameSrc.Parents;
+namespace PixelHunt.Parents;
 
 internal abstract partial class State : Node
 {
