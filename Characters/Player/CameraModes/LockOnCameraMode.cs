@@ -14,6 +14,9 @@ internal sealed partial class LockOnCameraMode : State
   [Export] private Area3D? _eyesight;
   [Export] private PlayerAnimator? _playerAnimator;
 
+  [ExportGroup("Parameters")]
+  [Export] private float _lockOnSpeed = 20f;
+
   private Character? _targetChar;
 
   internal override void Enter()
@@ -50,10 +53,25 @@ internal sealed partial class LockOnCameraMode : State
 
   internal override void PhysicsProcess(double delta)
   {
+    // if (_targetChar is null)
+    //   return;
+
+    // _cameraPivot?.LookAt(_targetChar.GlobalPosition);
+
     if (_targetChar is null)
       return;
-    
-    _cameraPivot?.LookAt(_targetChar.GlobalPosition);
+    if (_cameraPivot is null)
+      return;
+
+    Quaternion currentRotation = _cameraPivot.Transform.Basis.GetRotationQuaternion();
+
+    Basis targetBasis = Basis.LookingAt(_targetChar.GlobalPosition - _cameraPivot.GlobalPosition);
+    Quaternion targetRotation = targetBasis.GetRotationQuaternion();
+
+    _cameraPivot.Transform = _cameraPivot.Transform with
+    {
+      Basis = new Basis(currentRotation.Slerp(targetRotation, _lockOnSpeed * (float)delta))
+    };
   }
 
   internal override void UnhandledInput(InputEvent @event)
