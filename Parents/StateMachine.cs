@@ -6,7 +6,7 @@ namespace PixelHunt.Parents;
 internal abstract partial class StateMachine : Node
 {
   private protected Dictionary<string, State> States { get; } = [];
-  private protected State? CurrentState { get; set; }
+  internal State? CurrentState { get; private protected set; }
 
   private protected void FillStates()
   {

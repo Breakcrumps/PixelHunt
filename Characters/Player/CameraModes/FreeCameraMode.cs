@@ -14,11 +14,6 @@ internal sealed partial class FreeCameraMode : State
   [ExportGroup("Parameters")]
   [Export(PropertyHint.Range, "0f, .01f")] private float _mouseSensitivity = .01f;
 
-  internal override void Enter()
-  {
-    GD.Print("Entered FreeCamera");
-  }
-
   internal override void PhysicsProcess(double delta)
   {
     MoveByArrows();

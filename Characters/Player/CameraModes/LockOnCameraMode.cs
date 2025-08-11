@@ -23,8 +23,6 @@ internal sealed partial class LockOnCameraMode : State
   {
     _playerAnimator?.Unsheathe();
 
-    _targetChar = null;
-
     if (_eyesight is null)
       return;
     if (_cameraPivot is null)
@@ -53,11 +51,6 @@ internal sealed partial class LockOnCameraMode : State
 
   internal override void PhysicsProcess(double delta)
   {
-    // if (_targetChar is null)
-    //   return;
-
-    // _cameraPivot?.LookAt(_targetChar.GlobalPosition);
-
     if (_targetChar is null)
       return;
     if (_cameraPivot is null)
@@ -70,13 +63,16 @@ internal sealed partial class LockOnCameraMode : State
 
     _cameraPivot.Transform = _cameraPivot.Transform with
     {
-      Basis = new Basis(currentRotation.Slerp(targetRotation, _lockOnSpeed * (float)delta))
+      Basis = new Basis(currentRotation.Slerp(to: targetRotation, weight: _lockOnSpeed * (float)delta))
     };
   }
 
   internal override void UnhandledInput(InputEvent @event)
   {
-    if (@event.IsActionReleased("Run"))
-      _cameraStateMachine?.Transition("FreeCameraMode");
+    if (!@event.IsActionReleased("Run"))
+      return;
+
+    _targetChar = null;
+    _cameraStateMachine?.Transition("FreeCameraMode");
   }
 }

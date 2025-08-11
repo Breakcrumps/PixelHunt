@@ -13,6 +13,7 @@ internal sealed partial class PlayerChar : Character
   [Export] private PlayerAnimator? _animator;
   [Export] private MoveStateMachine? _moveStateMachine;
   [Export] private Skeleton3D? _skeleton;
+  [Export] private BodyAlignStateMachine? _bodyAligner;
 
   public override void _Ready() => EnsureStartingRotation();
 
@@ -20,6 +21,7 @@ internal sealed partial class PlayerChar : Character
   {
     _moveStateMachine?.PhysicsProcess(delta);
     _cameraStateMachine?.PhysicsProcess(delta);
+    _bodyAligner?.PhysicsProcess(delta);
 
     MoveAndSlide();
   }

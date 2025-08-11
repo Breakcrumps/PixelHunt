@@ -18,7 +18,6 @@ internal sealed partial class FreeMoveStrategy : State
 
 
   [ExportGroup("Parameters")]
-  [Export] private float _turnSpeed = 10f;
   [Export] private float _jumpVelocity = 100f;
   [Export] private float _g = 9.8f;
 
@@ -34,8 +33,6 @@ internal sealed partial class FreeMoveStrategy : State
     float verticalVelocity = VerticalVelocity();
 
     ApplyVelocity(groundVelocity, verticalVelocity);
-
-    AlignBody(delta);
 
     AnimateMovement();
   }
@@ -114,25 +111,6 @@ internal sealed partial class FreeMoveStrategy : State
     _playerChar.Velocity = _playerChar.Velocity.Rotated(Vector3.Up, _cameraPivot!.Rotation.Y);
   }
 
-  private void AlignBody(double delta)
-  {
-    if (_armature is null)
-      return;
-
-    Vector2 horizontalVelocity = new(_playerChar!.Velocity.X, _playerChar.Velocity.Z);
-
-    if (horizontalVelocity == Vector2.Zero)
-      return;
-
-    _armature.Rotation = _armature.Rotation with
-    {
-      Y = Mathf.LerpAngle(
-        from: _armature.Rotation.Y,
-        to: horizontalVelocity.AngleTo(Vector2.Down),
-        weight: _turnSpeed * (float)delta
-      )
-    };
-  }
 
   private void AnimateMovement()
   {
