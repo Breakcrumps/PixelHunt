@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cu0iyt20pk40w"]
+[gd_scene load_steps=24 format=3 uid="uid://cu0iyt20pk40w"]
 
 [ext_resource type="Script" uid="uid://cbp87gphvl7u3" path="res://Characters/Enemy/EnemyChar.cs" id="1_3o4wt"]
 [ext_resource type="PackedScene" uid="uid://bor1ekmd5bk67" path="res://Import/Enemy.glb" id="1_uxjip"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://n7ncbwq8ebrb" path="res://Animation/Animator.cs" id="3_vonkd"]
 [ext_resource type="Script" uid="uid://dkknl66n7636l" path="res://Characters/Enemy/States/IdleState.cs" id="5_jd4ap"]
 [ext_resource type="Script" uid="uid://dgrjggavbt4ny" path="res://Characters/Enemy/Composites/EnemyStateMachine.cs" id="7_52jmu"]
+[ext_resource type="Script" uid="uid://dvcqva8cew3qf" path="res://Characters/Enemy/Composites/EnemyAligner.cs" id="7_fk8f4"]
 [ext_resource type="Script" uid="uid://bl0mb3mpwfrfn" path="res://Characters/Enemy/States/FollowState.cs" id="7_jd4ap"]
 [ext_resource type="Script" uid="uid://dn7r3or7ikdxl" path="res://Characters/Enemy/States/PushbackState.cs" id="7_uxjip"]
 [ext_resource type="Script" uid="uid://dq6eqfl1pnekr" path="res://Characters/Enemy/States/AttackState.cs" id="8_1ypri"]
@@ -47,6 +48,18 @@ tracks/1/keys = {
 "args": ["FollowState"],
 "method": &"Transition"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Composites/EnemyAligner:_canAlign")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.03333, 3.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_tmvn0"]
@@ -109,6 +122,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Composites/EnemyAligner:_canAlign")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_4m7de"]
 resource_name = "Walk"
@@ -141,11 +166,10 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_yekn0"]
 size = Vector3(5, 5, 5)
 
-[node name="Enemy" node_paths=PackedStringArray("_armature", "_stateMachine", "_pushbackState") instance=ExtResource("1_uxjip")]
+[node name="Enemy" node_paths=PackedStringArray("_stateMachine", "_pushbackState") instance=ExtResource("1_uxjip")]
 collision_layer = 4
 collision_mask = 19
 script = ExtResource("1_3o4wt")
-_armature = NodePath("Armature")
 _stateMachine = NodePath("EnemyStateMachine")
 _pushbackState = NodePath("EnemyStateMachine/PushbackState")
 
@@ -153,28 +177,29 @@ _pushbackState = NodePath("EnemyStateMachine/PushbackState")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Armature" index="0"]
-bones/0/position = Vector3(0, 0.671581, 9.31323e-10)
-bones/0/rotation = Quaternion(0.454321, 0.0307003, 0.028068, 0.889866)
-bones/1/rotation = Quaternion(-0.127648, -0.0383667, -0.0160718, 0.990947)
-bones/2/rotation = Quaternion(0.00862782, 0.208844, 0.976197, -0.0578784)
-bones/3/rotation = Quaternion(0.272148, -0.0512329, -0.231198, 0.932662)
-bones/5/rotation = Quaternion(-0.0699953, 0.836339, 0.524417, -0.143615)
-bones/6/rotation = Quaternion(-0.541178, 0.000151548, -0.0962593, 0.83538)
-bones/7/rotation = Quaternion(0.609323, -0.131886, -0.0368197, 0.781009)
-bones/8/rotation = Quaternion(-0.0395053, 0.461561, 0.875721, 0.136062)
-bones/9/rotation = Quaternion(0.0216839, 0.00419524, 0.0516271, 0.998422)
-bones/9/scale = Vector3(1, 1, 1)
-bones/10/rotation = Quaternion(0.00137121, 0.000836749, 0.00800315, 0.999967)
-bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(-0.014929, 0.423584, 0.897921, 0.118706)
-bones/12/rotation = Quaternion(-0.496436, -0.000156639, 0.088301, 0.863571)
-bones/13/rotation = Quaternion(0.916625, 0.0101517, -0.00207299, 0.399613)
+bones/0/position = Vector3(0, 0.557462, 0.655628)
+bones/0/rotation = Quaternion(0.451401, -0.0439791, -0.291985, 0.84205)
+bones/1/rotation = Quaternion(-0.354025, 0.058066, 0.27583, 0.891747)
+bones/2/rotation = Quaternion(0.394998, -0.187368, 0.850116, -0.293551)
+bones/3/rotation = Quaternion(0.772014, -0.0289017, -0.389846, 0.501178)
+bones/5/rotation = Quaternion(-0.320067, 0.349877, 0.799541, -0.368616)
+bones/6/rotation = Quaternion(-0.693569, 0.000128815, -0.123365, 0.709749)
+bones/7/rotation = Quaternion(0.851239, -0.480466, 0.113503, 0.177936)
+bones/8/rotation = Quaternion(-0.0976394, 0.675001, 0.623043, 0.382959)
+bones/9/rotation = Quaternion(0.0792201, 0.149113, 0.036961, 0.984949)
+bones/10/rotation = Quaternion(-0.0710209, -0.368325, 0.0397417, 0.926128)
+bones/10/scale = Vector3(1.00005, 1.00003, 1.00003)
+bones/11/rotation = Quaternion(-0.39228, -0.144317, 0.902414, -0.104581)
+bones/12/rotation = Quaternion(-0.0285033, -0.000181279, 0.00506989, 0.999581)
+bones/13/rotation = Quaternion(0.441787, -0.448472, 0.268292, 0.729189)
+bones/14/position = Vector3(-0.143145, 0.388623, 0.786567)
 bones/14/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
 bones/15/position = Vector3(0.226909, 0.0804559, 0.245408)
-bones/15/rotation = Quaternion(0.00374689, 0.707097, -0.707097, -0.00374689)
+bones/15/rotation = Quaternion(-0.10203, 0.719815, -0.670658, -0.14722)
+bones/16/position = Vector3(-0.748377, 0.420999, 0.800323)
 bones/16/rotation = Quaternion(0.00319472, 0.7071, 0.7071, 0.00319472)
-bones/17/position = Vector3(-0.162451, 0.0910731, -0.438505)
-bones/17/rotation = Quaternion(-0.00374689, 0.707097, -0.707097, 0.00374689)
+bones/17/position = Vector3(-0.162451, 0.265142, -0.0979291)
+bones/17/rotation = Quaternion(0.0638782, 0.986555, -0.149858, 0.013112)
 
 [node name="VisionCone" type="Area3D" parent="Armature" index="1" node_paths=PackedStringArray("_enemyStateMachine", "_followState", "_vision", "_rayCast")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.22725e-09, -0.929932, -0.0140381)
@@ -225,42 +250,53 @@ _animHelper = NodePath("../../AnimationHelper")
 Character = NodePath("../..")
 metadata/_custom_type_script = "uid://n7ncbwq8ebrb"
 
+[node name="EnemyAligner" type="Node" parent="Composites" index="1" node_paths=PackedStringArray("_enemyChar", "_armature")]
+script = ExtResource("7_fk8f4")
+_enemyChar = NodePath("../..")
+_armature = NodePath("../../Armature")
+metadata/_custom_type_script = "uid://dvcqva8cew3qf"
+
 [node name="EnemyStateMachine" type="Node" parent="." index="5" node_paths=PackedStringArray("_initialState")]
 script = ExtResource("7_52jmu")
 _initialState = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="EnemyStateMachine" index="0" node_paths=PackedStringArray("_enemyChar", "_animator", "_stateMachine", "_animPlayer", "_animHelper", "_visionArea", "_soundArea")]
+[node name="IdleState" type="Node" parent="EnemyStateMachine" index="0" node_paths=PackedStringArray("_enemyChar", "_enemyAligner", "_animator", "_animPlayer", "_animHelper", "_stateMachine", "_visionArea", "_soundArea")]
 script = ExtResource("5_jd4ap")
 _enemyChar = NodePath("../..")
+_enemyAligner = NodePath("../../Composites/EnemyAligner")
 _animator = NodePath("../../Composites/Animator")
-_stateMachine = NodePath("..")
 _animPlayer = NodePath("../../AnimationPlayer")
 _animHelper = NodePath("../../AnimationHelper")
+_stateMachine = NodePath("..")
 _visionArea = NodePath("../../Armature/VisionCone")
 _soundArea = NodePath("../../SoundArea")
 metadata/_custom_type_script = "uid://dkknl66n7636l"
 
-[node name="FollowState" type="Node" parent="EnemyStateMachine" index="1" node_paths=PackedStringArray("_enemyChar", "_animator", "_stateMachine", "_visionArea", "_soundArea", "_animHelper")]
+[node name="FollowState" type="Node" parent="EnemyStateMachine" index="1" node_paths=PackedStringArray("_enemyChar", "_enemyAligner", "_animator", "_animHelper", "_stateMachine", "_visionArea", "_soundArea", "_navigationAgent")]
 script = ExtResource("7_jd4ap")
 _enemyChar = NodePath("../..")
+_enemyAligner = NodePath("../../Composites/EnemyAligner")
 _animator = NodePath("../../Composites/Animator")
+_animHelper = NodePath("../../AnimationHelper")
 _stateMachine = NodePath("..")
 _visionArea = NodePath("../../Armature/VisionCone")
 _soundArea = NodePath("../../SoundArea")
-_animHelper = NodePath("../../AnimationHelper")
+_navigationAgent = NodePath("../../NavigationAgent3D")
 metadata/_custom_type_script = "uid://bl0mb3mpwfrfn"
 
-[node name="PushbackState" type="Node" parent="EnemyStateMachine" index="2" node_paths=PackedStringArray("_enemyChar", "_stateMachine", "_animator", "_animHelper")]
+[node name="PushbackState" type="Node" parent="EnemyStateMachine" index="2" node_paths=PackedStringArray("_enemyChar", "_stateMachine", "_enemyAligner", "_animator", "_animHelper")]
 script = ExtResource("7_uxjip")
 _enemyChar = NodePath("../..")
 _stateMachine = NodePath("..")
+_enemyAligner = NodePath("../../Composites/EnemyAligner")
 _animator = NodePath("../../Composites/Animator")
 _animHelper = NodePath("../../AnimationHelper")
 metadata/_custom_type_script = "uid://dn7r3or7ikdxl"
 
-[node name="AttackState" type="Node" parent="EnemyStateMachine" index="3" node_paths=PackedStringArray("_enemyChar", "_animator")]
+[node name="AttackState" type="Node" parent="EnemyStateMachine" index="3" node_paths=PackedStringArray("_enemyChar", "_enemyAligner", "_animator")]
 script = ExtResource("8_1ypri")
 _enemyChar = NodePath("../..")
+_enemyAligner = NodePath("../../Composites/EnemyAligner")
 _animator = NodePath("../../Composites/Animator")
 metadata/_custom_type_script = "uid://dq6eqfl1pnekr"
 
@@ -278,3 +314,5 @@ shape = SubResource("BoxShape3D_yekn0")
 [node name="RayCast3D" type="RayCast3D" parent="." index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.44784e-09, 1.07007, 3.80995e-05)
 collision_mask = 17
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="8"]

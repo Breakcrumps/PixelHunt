@@ -42,10 +42,7 @@ internal partial class Animator : Node
 
     HandleHelperAnim(animName, ref logBuilder, startPos);
 
-    string log = $"{logBuilder}";
-
-    if (log != "")
-      GD.Print(log);
+    LogAnimation(logBuilder);
   }
 
   private void HandleBaseAnimation(string animName, out StringBuilder log, double startPos = .0)
@@ -97,7 +94,7 @@ internal partial class Animator : Node
   }
 
   /// <summary>
-  /// !!! NOT RECOMENDED FOR USE !!! Bypasses a lot of logic associated with PlayAnimation().
+  /// !!! NOT RECOMENDED FOR USE !!! Bypasses a lot of logic associated with Animator.PlayAnimation().
   /// </summary>
   /// <param name="animName"></param>
   internal void QueueAnimation(string animName)
@@ -140,6 +137,17 @@ internal partial class Animator : Node
       blendTime = charBlendTimes["*"]["*"];
 
     return blendTime;
+  }
+
+  private void LogAnimation(StringBuilder logBuilder)
+  {
+    if (!DebugFlags.GetDebugFlag(this))
+      return;
+
+    string log = $"{logBuilder}";
+
+    if (log != "")
+      GD.Print(log);
   }
 
   internal void DEBUG_NotifyRequestOpen()

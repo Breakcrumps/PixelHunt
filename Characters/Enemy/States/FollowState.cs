@@ -3,18 +3,26 @@ using PixelHunt.Characters.Enemy.Composites;
 using PixelHunt.Characters.Player;
 using PixelHunt.Parents;
 using Godot;
+using PixelHunt.Static;
 
 namespace PixelHunt.Characters.Enemy.States;
 
 [GlobalClass]
 internal sealed partial class FollowState : State
 {
-  [Export] EnemyChar? _enemyChar;
+  [Export] private EnemyChar? _enemyChar;
+
+  [Export] private EnemyAligner? _enemyAligner;
+
   [Export] private Animator? _animator;
+  [Export] private AnimationHelper? _animHelper;
+
   [Export] private EnemyStateMachine? _stateMachine;
+
   [Export] private VisionCone? _visionArea;
   [Export] private SoundArea? _soundArea;
-  [Export] private AnimationHelper? _animHelper;
+
+  [Export] private NavigationAgent3D? _navigationAgent;
 
   internal PlayerChar? PlayerChar { private get; set; }
 
@@ -30,31 +38,60 @@ internal sealed partial class FollowState : State
       return;
 
     Vector3 diffVector = PlayerChar!.GlobalPosition - _enemyChar.GlobalPosition;
-    Vector2 direction = new(diffVector.X, diffVector.Z);
+    Vector2 distance = new(diffVector.X, diffVector.Z);
 
-    if (direction.Length() < 2f)
+    if (distance.Length() < 2f)
     {
       _stateMachine?.Transition("AttackState");
       return;
     }
 
-    if (direction.Length() > 30f)
+    if (distance.Length() > 30f)
     {
       _stateMachine?.Transition("IdleState");
       _visionArea?.EnableSearch();
       return;
     }
 
-    Vector2 velocity = direction.Normalized() * _animHelper!.Speed;
+    Vector2 direction = DetermineDirection();
 
-    _enemyChar.Velocity = _enemyChar.Velocity with
-    {
-      X = velocity.X,
-      Z = velocity.Y
-    };
+    _animator?.PlayAnimation(
+      direction == Vector2.Zero
+      ? "Idle"
+      : "Walk"
+    );
 
-    _animator?.PlayAnimation("Walk");
+    Vector2 velocity = direction * _animHelper!.Speed;
 
-    _enemyChar.AlignBody(delta);
+    _enemyChar.Velocity = new Vector3(velocity.X, 0f, velocity.Y);
+
+    _enemyAligner?.AlignBodyToVelocity(delta);
+  }
+
+  private Vector2 DetermineDirection()
+  {
+    if (_navigationAgent is null)
+      return Vector2.Zero;
+
+    if (PlayerChar is null)
+      return Vector2.Zero;
+
+    if (_enemyChar is null)
+      return Vector2.Zero;
+
+    _navigationAgent.TargetPosition = PlayerChar.GlobalPosition;
+
+    if (!_navigationAgent.IsTargetReachable())
+      return Vector2.Zero;
+
+    if (DebugFlags.GetDebugFlag(this))
+      GD.Print("Navigation was not finished.");
+
+    Vector3 nextDirection = _navigationAgent.GetNextPathPosition() - _enemyChar.GlobalPosition;
+
+    if (DebugFlags.GetDebugFlag(this))
+      GD.Print(_navigationAgent.GetNextPathPosition());
+
+    return new Vector2(nextDirection.X, nextDirection.Z).Normalized();
   }
 }

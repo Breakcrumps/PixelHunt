@@ -11,6 +11,7 @@ internal sealed partial class PushbackState : State
 {
   [Export] private EnemyChar? _enemyChar;
   [Export] private EnemyStateMachine? _stateMachine;
+  [Export] private EnemyAligner? _enemyAligner;
   [Export] private Animator? _animator;
   [Export] private AnimationHelper? _animHelper;
 
@@ -38,6 +39,6 @@ internal sealed partial class PushbackState : State
     else
       _enemyChar.Velocity = PushbackDirection * _animHelper.Speed;
 
-    _enemyChar.AlignBody(delta, inverse: true);
+    _enemyAligner?.AlignBodyToVelocity(delta, inverse: true);
   }
 }

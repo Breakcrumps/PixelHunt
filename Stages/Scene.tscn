@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://djwr7bjxuxdfk"]
+[gd_scene load_steps=11 format=3 uid="uid://djwr7bjxuxdfk"]
 
 [ext_resource type="PackedScene" uid="uid://cj7r5g45xbyij" path="res://Characters/Player/Player.tscn" id="1_o8g73"]
 [ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Stages/Scene.cs" id="1_v3fvj"]
@@ -9,6 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://birh8wqa6levw" path="res://Stages/Maps/Map.tscn" id="9_g6k5w"]
 [ext_resource type="PackedScene" uid="uid://8luqb703pkc2" path="res://World/KillBox.tscn" id="9_tn73o"]
 [ext_resource type="PackedScene" uid="uid://cu0iyt20pk40w" path="res://Characters/Enemy/Enemy.tscn" id="10_tn73o"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_ps3kg"]
+vertices = PackedVector3Array(-14.5, 0.5, -12.5, -14.5, 0.5, 12.5, 14.5, 0.5, 12.5, 14.5, 0.5, -12.5, 15.5, 16.25, -12.5, 15.5, 16.25, 12.5, 30.5, 16.25, 12.5, 30.5, 16.25, -12.5, -14.5, 20.5, 13.5, -14.5, 20.5, 28.5, 14.5, 20.5, 28.5, 14.5, 20.5, 13.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5), PackedInt32Array(11, 10, 8), PackedInt32Array(8, 10, 9)]
 
 [node name="Scene" type="Node3D"]
 script = ExtResource("1_v3fvj")
@@ -28,9 +32,12 @@ script = ExtResource("8_g6k5w")
 [node name="Enemy" parent="." instance=ExtResource("10_tn73o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.419071, 1.89406, -5.89816)
 
-[node name="Map" parent="." instance=ExtResource("9_g6k5w")]
-
 [node name="KillBox" parent="." instance=ExtResource("9_tn73o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
 
 [node name="UI" parent="." instance=ExtResource("2_v3fvj")]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_ps3kg")
+
+[node name="Map" parent="NavigationRegion3D" instance=ExtResource("9_g6k5w")]

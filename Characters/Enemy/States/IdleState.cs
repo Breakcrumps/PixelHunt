@@ -11,10 +11,15 @@ internal sealed partial class IdleState : State
 {
   [Export] bool _canWander = true;
   [Export] private EnemyChar? _enemyChar;
+
+  [Export] private EnemyAligner? _enemyAligner;
+
   [Export] private Animator? _animator;
-  [Export] private EnemyStateMachine? _stateMachine;
   [Export] private AnimationPlayer? _animPlayer;
   [Export] private AnimationHelper? _animHelper;
+
+  [Export] private EnemyStateMachine? _stateMachine;
+
   [Export] private VisionCone? _visionArea;
   [Export] private SoundArea? _soundArea;
 
@@ -91,7 +96,7 @@ internal sealed partial class IdleState : State
 
     _enemyChar.Velocity = new Vector3(horizontalVelocity.X, 0f, horizontalVelocity.Y);
 
-    _enemyChar.AlignBody(delta);
+    _enemyAligner?.AlignBodyToVelocity(delta);
   }
 
   private float RandomDirection() => _random.NextSingle() * 2 - 1;

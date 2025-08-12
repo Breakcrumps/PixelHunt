@@ -8,7 +8,6 @@ namespace PixelHunt.Characters.Enemy;
 [GlobalClass]
 internal sealed partial class EnemyChar : Character
 {
-  [Export] private Node3D? _armature;
   [Export] private EnemyStateMachine? _stateMachine;
   [Export] private PushbackState? _pushbackState;
 
@@ -24,29 +23,6 @@ internal sealed partial class EnemyChar : Character
     ApplyGravity();
 
     MoveAndSlide();
-  }
-
-  internal void AlignBody(double delta, bool inverse = false)
-  {
-    Vector2 horizontalVelocity = new(Velocity.X, Velocity.Z);
-
-    if (horizontalVelocity == Vector2.Zero)
-      return;
-
-    Vector2 refVector = (
-      inverse
-      ? new Vector2(0, -1)
-      : new Vector2(0, 1)
-    );
-
-    _armature!.Rotation = _armature.Rotation with
-    {
-      Y = Mathf.LerpAngle(
-        from: _armature.Rotation.Y,
-        to: horizontalVelocity.AngleTo(refVector),
-        weight: 10f * (float)delta
-      )
-    };
   }
 
   private void ApplyGravity()
