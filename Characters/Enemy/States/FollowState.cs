@@ -24,7 +24,7 @@ internal sealed partial class FollowState : State
 
   [Export] private NavigationAgent3D? _navigationAgent;
 
-  internal PlayerChar? PlayerChar { private get; set; }
+  internal Character? Target { private get; set; }
 
   internal override void Enter()
   {
@@ -37,7 +37,7 @@ internal sealed partial class FollowState : State
     if (_enemyChar is null)
       return;
 
-    Vector3 diffVector = PlayerChar!.GlobalPosition - _enemyChar.GlobalPosition;
+    Vector3 diffVector = Target!.GlobalPosition - _enemyChar.GlobalPosition;
     Vector2 distance = new(diffVector.X, diffVector.Z);
 
     if (distance.Length() < 2f)
@@ -73,13 +73,13 @@ internal sealed partial class FollowState : State
     if (_navigationAgent is null)
       return Vector2.Zero;
 
-    if (PlayerChar is null)
+    if (Target is null)
       return Vector2.Zero;
 
     if (_enemyChar is null)
       return Vector2.Zero;
 
-    _navigationAgent.TargetPosition = PlayerChar.GlobalPosition;
+    _navigationAgent.TargetPosition = Target.GlobalPosition;
 
     if (!_navigationAgent.IsTargetReachable())
       return Vector2.Zero;

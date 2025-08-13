@@ -1,10 +1,11 @@
-[gd_scene load_steps=41 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=42 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Characters/Player/PlayerChar.cs" id="2_s1rgi"]
 [ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Animation/AnimationHelper.cs" id="3_vlldt"]
 [ext_resource type="Script" uid="uid://b5jdbqsx3wlrx" path="res://Animation/PlayerAnimator.cs" id="5_j23h2"]
 [ext_resource type="Script" uid="uid://bx3y8ipt6s76s" path="res://Characters/Player/Composites/AttachmentManager.cs" id="6_6fff4"]
+[ext_resource type="Script" uid="uid://hoau23mrd4js" path="res://Mechanics/Pulse/PulseSources/PlayerPulseSource.cs" id="7_5xivi"]
 [ext_resource type="PackedScene" uid="uid://dig6gkp4tqtsw" path="res://Import/Pipe.glb" id="7_6fff4"]
 [ext_resource type="Script" uid="uid://byyxpnygx1bkn" path="res://Characters/Player/Composites/CameraStateMachine.cs" id="7_6h4vt"]
 [ext_resource type="Script" uid="uid://cy02vpvcdixrx" path="res://Characters/Player/Composites/MoveStateMachine.cs" id="8_0j2ni"]
@@ -549,11 +550,11 @@ size = Vector3(25, 25, 24)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2xv0b"]
 size = Vector3(5, 5, 5)
 
-[node name="Player" node_paths=PackedStringArray("_cameraStateMachine", "_animator", "_moveStateMachine", "_skeleton", "_bodyAligner") groups=["Player"] instance=ExtResource("1_6ysni")]
+[node name="Player" node_paths=PackedStringArray("_animator", "_cameraStateMachine", "_moveStateMachine", "_skeleton", "_bodyAligner") groups=["Player"] instance=ExtResource("1_6ysni")]
 collision_mask = 28
 script = ExtResource("2_s1rgi")
-_cameraStateMachine = NodePath("CameraStateMachine")
 _animator = NodePath("Composites/PlayerAnimator")
+_cameraStateMachine = NodePath("CameraStateMachine")
 _moveStateMachine = NodePath("MoveStateMachine")
 _skeleton = NodePath("Skeleton3D")
 _bodyAligner = NodePath("BodyAlignStateMachine")
@@ -608,6 +609,11 @@ _skeleton = NodePath("../../Skeleton3D")
 _swordModel = ExtResource("7_6fff4")
 metadata/_custom_type_script = "uid://bx3y8ipt6s76s"
 
+[node name="PlayerPulseSource" type="Node" parent="Composites" index="2" node_paths=PackedStringArray("_playerChar")]
+script = ExtResource("7_5xivi")
+_playerChar = NodePath("../..")
+metadata/_custom_type_script = "uid://hoau23mrd4js"
+
 [node name="MoveStateMachine" type="Node" parent="." index="6" node_paths=PackedStringArray("_playerChar", "_animHelper")]
 script = ExtResource("8_0j2ni")
 _playerChar = NodePath("..")
@@ -633,7 +639,6 @@ _armature = NodePath("../../Skeleton3D")
 _playerAnimator = NodePath("../../Composites/PlayerAnimator")
 _animHelper = NodePath("../../AnimationHelper")
 _moveStateMachine = NodePath("..")
-_g = 8.0
 metadata/_custom_type_script = "uid://dyk3bbbwwp4fn"
 
 [node name="PushbackMoveStrategy" type="Node" parent="MoveStateMachine" index="2" node_paths=PackedStringArray("_playerChar", "_animator", "_animHelper")]

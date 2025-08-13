@@ -62,8 +62,6 @@ internal sealed partial class FreeMoveStrategy : State
     HandleSlowWalk(@event);
 
     HandleDebug(@event);
-
-    HandleUnsheathe(@event);
   }
 
   private float VerticalVelocity()
@@ -124,14 +122,6 @@ internal sealed partial class FreeMoveStrategy : State
       return;
 
     _moveStateMachine?.Transition("DebugMoveStrategy");
-  }
-
-  private void HandleUnsheathe(InputEvent @event)
-  {
-    if (!@event.IsActionPressed("Interact"))
-      return;
-
-    _playerAnimator?.FlipUnsheathe();
   }
 
   private void ApplyVelocity(Vector2 groundVelocity, float verticalVelocity)

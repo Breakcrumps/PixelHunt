@@ -28,7 +28,7 @@ internal sealed partial class SoundArea : Area3D
       GD.Print($"{playerChar.Name} entered VisionCone sight!");
 
     _enemyStateMachine?.Transition("FollowState");
-    _followState!.PlayerChar = playerChar;
+    _followState!.Target = playerChar;
   }
 
   internal void DisableSearch()

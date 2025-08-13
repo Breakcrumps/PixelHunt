@@ -9,9 +9,11 @@ namespace PixelHunt.Characters.Player;
 [GlobalClass]
 internal sealed partial class PlayerChar : Character
 {
-  [Export] private CameraStateMachine? _cameraStateMachine;
   [Export] private PlayerAnimator? _animator;
+
+  [Export] private CameraStateMachine? _cameraStateMachine;
   [Export] private MoveStateMachine? _moveStateMachine;
+
   [Export] private Skeleton3D? _skeleton;
   [Export] private BodyAlignStateMachine? _bodyAligner;
 
@@ -31,6 +33,7 @@ internal sealed partial class PlayerChar : Character
     _moveStateMachine?.UnhandledInput(@event);
     _cameraStateMachine?.UnhandledInput(@event);
   }
+
 
   internal override void ProcessHit(Attack attack, Vector3 attackerPos)
   {

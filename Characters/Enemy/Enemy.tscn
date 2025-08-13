@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cu0iyt20pk40w"]
+[gd_scene load_steps=26 format=3 uid="uid://cu0iyt20pk40w"]
 
 [ext_resource type="Script" uid="uid://cbp87gphvl7u3" path="res://Characters/Enemy/EnemyChar.cs" id="1_3o4wt"]
 [ext_resource type="PackedScene" uid="uid://bor1ekmd5bk67" path="res://Import/Enemy.glb" id="1_uxjip"]
@@ -11,8 +11,10 @@
 [ext_resource type="Script" uid="uid://bl0mb3mpwfrfn" path="res://Characters/Enemy/States/FollowState.cs" id="7_jd4ap"]
 [ext_resource type="Script" uid="uid://dn7r3or7ikdxl" path="res://Characters/Enemy/States/PushbackState.cs" id="7_uxjip"]
 [ext_resource type="Script" uid="uid://dq6eqfl1pnekr" path="res://Characters/Enemy/States/AttackState.cs" id="8_1ypri"]
+[ext_resource type="Script" uid="uid://cdivbq812a11w" path="res://Mechanics/Pulse/PulseObeyers/EnemyPulseObeyer.cs" id="8_8157t"]
 [ext_resource type="Script" uid="uid://cybgyr37hht0y" path="res://Utils/AttackArea.cs" id="11_52jmu"]
 [ext_resource type="Script" uid="uid://dtu2rlrhiawg4" path="res://Characters/Enemy/Composites/SoundArea.cs" id="12_yqk80"]
+[ext_resource type="Script" uid="uid://dlbci2ep5fo6x" path="res://Characters/Enemy/States/PulseState.cs" id="14_ta0pv"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tmvn0"]
 data = PackedVector3Array(0, 0, -1, 0.1951, 0, -0.9808, 0, 2, 0, 0.1951, 0, -0.9808, 0.3827, 0, -0.9239, 0, 2, 0, 0.3827, 0, -0.9239, 0.5556, 0, -0.8315, 0, 2, 0, 0.5556, 0, -0.8315, 0.7071, 0, -0.7071, 0, 2, 0, 0.7071, 0, -0.7071, 0.8314, 0, -0.5556, 0, 2, 0, 0.8314, 0, -0.5556, 0.9239, 0, -0.3827, 0, 2, 0, 0.9239, 0, -0.3827, 0.9808, 0, -0.1951, 0, 2, 0, 0.9808, 0, -0.1951, 1, 0, 0, 0, 2, 0, 1, 0, 0, 0.9808, 0, 0.1951, 0, 2, 0, 0.9808, 0, 0.1951, 0.9239, 0, 0.3827, 0, 2, 0, 0.9239, 0, 0.3827, 0.8314, 0, 0.5556, 0, 2, 0, 0.8314, 0, 0.5556, 0.7071, 0, 0.7071, 0, 2, 0, 0.7071, 0, 0.7071, 0.5556, 0, 0.8314, 0, 2, 0, 0.5556, 0, 0.8314, 0.3827, 0, 0.9239, 0, 2, 0, 0.3827, 0, 0.9239, 0.1951, 0, 0.9808, 0, 2, 0, 0.1951, 0, 0.9808, 0, 0, 1, 0, 2, 0, 0, 0, 1, -0.1951, 0, 0.9808, 0, 2, 0, -0.1951, 0, 0.9808, -0.3827, 0, 0.9239, 0, 2, 0, -0.3827, 0, 0.9239, -0.5556, 0, 0.8314, 0, 2, 0, -0.5556, 0, 0.8314, -0.7071, 0, 0.7071, 0, 2, 0, -0.7071, 0, 0.7071, -0.8315, 0, 0.5556, 0, 2, 0, -0.8315, 0, 0.5556, -0.9239, 0, 0.3827, 0, 2, 0, -0.9239, 0, 0.3827, -0.9808, 0, 0.1951, 0, 2, 0, -0.9808, 0, 0.1951, -1, 0, 0, 0, 2, 0, -1, 0, 0, -0.9808, 0, -0.1951, 0, 2, 0, -0.9808, 0, -0.1951, -0.9239, 0, -0.3827, 0, 2, 0, -0.9239, 0, -0.3827, -0.8315, 0, -0.5556, 0, 2, 0, -0.8315, 0, -0.5556, -0.7071, 0, -0.7071, 0, 2, 0, -0.7071, 0, -0.7071, -0.5556, 0, -0.8315, 0, 2, 0, -0.5556, 0, -0.8315, -0.3827, 0, -0.9239, 0, 2, 0, -0.1951, 0, -0.9808, 0.1951, 0, -0.9808, 0, 0, -1, 0.1951, 0, -0.9808, 0.5556, 0, -0.8315, 0.3827, 0, -0.9239, -0.1951, 0, -0.9808, 0.5556, 0, -0.8315, 0.1951, 0, -0.9808, 0.5556, 0, -0.8315, 0.8314, 0, -0.5556, 0.7071, 0, -0.7071, 0.5556, 0, -0.8315, 0.9808, 0, -0.1951, 0.8314, 0, -0.5556, 0.8314, 0, -0.5556, 0.9808, 0, -0.1951, 0.9239, 0, -0.3827, -0.1951, 0, -0.9808, 0.9808, 0, -0.1951, 0.5556, 0, -0.8315, 0.9808, 0, -0.1951, 0.9808, 0, 0.1951, 1, 0, 0, 0.9808, 0, -0.1951, 0.8314, 0, 0.5556, 0.9808, 0, 0.1951, 0.9808, 0, 0.1951, 0.8314, 0, 0.5556, 0.9239, 0, 0.3827, 0.9808, 0, -0.1951, 0.1951, 0, 0.9808, 0.8314, 0, 0.5556, -0.1951, 0, -0.9808, 0.1951, 0, 0.9808, 0.9808, 0, -0.1951, 0.8314, 0, 0.5556, 0.5556, 0, 0.8314, 0.7071, 0, 0.7071, 0.8314, 0, 0.5556, 0.1951, 0, 0.9808, 0.5556, 0, 0.8314, 0.5556, 0, 0.8314, 0.1951, 0, 0.9808, 0.3827, 0, 0.9239, 0.1951, 0, 0.9808, -0.1951, 0, 0.9808, 0, 0, 1, 0.1951, 0, 0.9808, -0.5556, 0, 0.8314, -0.1951, 0, 0.9808, -0.1951, 0, 0.9808, -0.5556, 0, 0.8314, -0.3827, 0, 0.9239, 0.1951, 0, 0.9808, -0.1951, 0, -0.9808, -0.9808, 0, 0.1951, 0.1951, 0, 0.9808, -0.9808, 0, 0.1951, -0.5556, 0, 0.8314, -0.5556, 0, 0.8314, -0.8315, 0, 0.5556, -0.7071, 0, 0.7071, -0.5556, 0, 0.8314, -0.9808, 0, 0.1951, -0.8315, 0, 0.5556, -0.8315, 0, 0.5556, -0.9808, 0, 0.1951, -0.9239, 0, 0.3827, -0.5556, 0, -0.8315, -0.1951, 0, -0.9808, -0.3827, 0, -0.9239, -0.8315, 0, -0.5556, -0.1951, 0, -0.9808, -0.5556, 0, -0.8315, -0.9808, 0, 0.1951, -0.1951, 0, -0.9808, -0.8315, 0, -0.5556, -0.8315, 0, -0.5556, -0.5556, 0, -0.8315, -0.7071, 0, -0.7071, -0.9808, 0, 0.1951, -0.8315, 0, -0.5556, -0.9808, 0, -0.1951, -0.9808, 0, -0.1951, -0.8315, 0, -0.5556, -0.9239, 0, -0.3827, -0.9808, 0, 0.1951, -0.9808, 0, -0.1951, -1, 0, 0, -0.3827, 0, -0.9239, -0.1951, 0, -0.9808, 0, 2, 0, -0.1951, 0, -0.9808, 0, 0, -1, 0, 2, 0)
@@ -256,6 +258,13 @@ _enemyChar = NodePath("../..")
 _armature = NodePath("../../Armature")
 metadata/_custom_type_script = "uid://dvcqva8cew3qf"
 
+[node name="EnemyPulseObeyer" type="Node" parent="Composites" index="2" node_paths=PackedStringArray("_enemyChar", "_stateMachine", "_pulseState")]
+script = ExtResource("8_8157t")
+_enemyChar = NodePath("../..")
+_stateMachine = NodePath("../../EnemyStateMachine")
+_pulseState = NodePath("../../EnemyStateMachine/PulseState")
+metadata/_custom_type_script = "uid://cdivbq812a11w"
+
 [node name="EnemyStateMachine" type="Node" parent="." index="5" node_paths=PackedStringArray("_initialState")]
 script = ExtResource("7_52jmu")
 _initialState = NodePath("IdleState")
@@ -299,6 +308,13 @@ _enemyChar = NodePath("../..")
 _enemyAligner = NodePath("../../Composites/EnemyAligner")
 _animator = NodePath("../../Composites/Animator")
 metadata/_custom_type_script = "uid://dq6eqfl1pnekr"
+
+[node name="PulseState" type="Node" parent="EnemyStateMachine" index="4" node_paths=PackedStringArray("_enemyChar", "_enemyStateMachine", "_followState")]
+script = ExtResource("14_ta0pv")
+_enemyChar = NodePath("../..")
+_enemyStateMachine = NodePath("..")
+_followState = NodePath("../FollowState")
+metadata/_custom_type_script = "uid://dlbci2ep5fo6x"
 
 [node name="SoundArea" type="Area3D" parent="." index="6" node_paths=PackedStringArray("_enemyStateMachine", "_followState", "_soundCollision")]
 collision_layer = 4

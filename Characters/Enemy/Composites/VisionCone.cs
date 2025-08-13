@@ -68,7 +68,7 @@ internal sealed partial class VisionCone : Area3D
       return;
 
     _enemyStateMachine?.Transition("FollowState");
-    _followState!.PlayerChar = _playerChar;
+    _followState!.Target = _playerChar;
   }
 
   internal void DisableSearch()
