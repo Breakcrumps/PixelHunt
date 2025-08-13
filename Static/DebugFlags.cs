@@ -10,9 +10,9 @@ internal static class DebugFlags
   private const bool Debug = false;
   private const bool AnimatorDebug = false;
   private const bool PlayerAnimatorDebug = false;
-  private const bool FreeStrategyDebug = false;
+  private const bool FreeStrategyDebug = true;
   private const bool CameraStateMachineDebug = false;
-  private const bool FollowStateDebug = true;
+  private const bool FollowStateDebug = false;
 
   internal static bool GetDebugFlag(object caller) => caller switch
   {

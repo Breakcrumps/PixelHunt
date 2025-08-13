@@ -3,6 +3,7 @@ using PixelHunt.Characters.Player.Composites;
 using PixelHunt.Parents;
 using PixelHunt.Static;
 using Godot;
+using System.Diagnostics;
 
 namespace PixelHunt.Characters.Player.MoveStrategies;
 
@@ -18,11 +19,30 @@ internal sealed partial class FreeMoveStrategy : State
 
 
   [ExportGroup("Parameters")]
-  [Export] private float _jumpVelocity = 100f;
-  [Export] private float _g = 9.8f;
+  [Export] private float _jumpHeight = 400f;
+  [Export] private float _jumpTime = .45f; // Seconds.
+  [Export] private float _doubleJumpHeight = 300f;
+  private float _jumpVelocity;
+  private float _doubleJumpVelocity;
+  private float _g;
 
   private bool _slowWalk;
   private int _doubleJumps;
+
+  private readonly Stopwatch _tempWatch = new();
+
+  public override void _Ready()
+  {
+    _jumpTime *= Engine.PhysicsTicksPerSecond; // Frames.
+
+    _jumpVelocity = 2 * _jumpHeight / (.5f * _jumpTime);
+    _g = _jumpVelocity / (.5f * _jumpTime);
+
+    _doubleJumpVelocity = Mathf.Sqrt(2 * _doubleJumpHeight * _g);
+
+    if (DebugFlags.GetDebugFlag(this))
+      GD.Print($"{_jumpVelocity} {_g} {_doubleJumpVelocity}");
+  }
 
   internal override void PhysicsProcess(double delta)
   {
@@ -50,15 +70,25 @@ internal sealed partial class FreeMoveStrategy : State
   {
     float yVelocity = _playerChar!.IsOnFloor() ? 0f : _playerChar.Velocity.Y - _g;
 
+    if (DebugFlags.GetDebugFlag(this) && _playerChar.IsOnFloor())
+    {
+      if (_tempWatch.IsRunning)
+      {
+        GD.Print($"Time in air: {_tempWatch.Elapsed.Milliseconds}");
+        _tempWatch.Stop();
+      }
+    }
+
     if (Input.IsActionJustPressed("Jump"))
     {
       if (_playerChar.IsOnFloor())
       {
         yVelocity = _jumpVelocity;
+        _tempWatch.Restart();
       }
       else if (_doubleJumps != 0)
       {
-        yVelocity = _jumpVelocity;
+        yVelocity = _doubleJumpVelocity;
         _doubleJumps--;
       }
     }
@@ -144,8 +174,5 @@ internal sealed partial class FreeMoveStrategy : State
     _playerAnimator!.CanProcessRequests = true;
     
     _playerAnimator.PlayAnimation(animation);
-
-    if (DebugFlags.GetDebugFlag(this))
-      GD.Print("Animating in air!");
   }
 }

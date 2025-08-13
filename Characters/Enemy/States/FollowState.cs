@@ -90,7 +90,7 @@ internal sealed partial class FollowState : State
     Vector3 nextDirection = _navigationAgent.GetNextPathPosition() - _enemyChar.GlobalPosition;
 
     if (DebugFlags.GetDebugFlag(this))
-      GD.Print(_navigationAgent.GetNextPathPosition());
+      GD.Print($"Next path position: {_navigationAgent.GetNextPathPosition()}");
 
     return new Vector2(nextDirection.X, nextDirection.Z).Normalized();
   }
