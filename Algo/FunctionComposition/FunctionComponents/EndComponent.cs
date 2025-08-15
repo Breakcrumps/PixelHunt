@@ -1,6 +1,6 @@
 using System;
 
-namespace PixelHunt.Utils.FunctionComponents;
+namespace PixelHunt.Algo.FunctionComposition.FunctionComponents;
 
 internal sealed class EndComponent : FunctionComponent
 {

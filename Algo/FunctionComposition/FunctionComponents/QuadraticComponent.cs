@@ -1,4 +1,4 @@
-namespace PixelHunt.Utils.FunctionComponents;
+namespace PixelHunt.Algo.FunctionComposition.FunctionComponents;
 
 internal sealed class QuadraticComponent : FunctionComponent
 {

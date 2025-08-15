@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using PixelHunt.Utils.FunctionComponents;
+using PixelHunt.Algo.FunctionComposition;
+using PixelHunt.Algo.FunctionComposition.FunctionComponents;
 
 namespace PixelHunt.Utils;
 

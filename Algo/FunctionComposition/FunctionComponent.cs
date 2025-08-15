@@ -1,4 +1,4 @@
-namespace PixelHunt.Utils;
+namespace PixelHunt.Algo.FunctionComposition;
 
 internal abstract class FunctionComponent
 {
@@ -6,7 +6,7 @@ internal abstract class FunctionComponent
   /// <summary> Do NOT set yourself, FunctionComposer sets this automatically. </summary>
   internal float StartValue { get; set; } = 0f;
 
-  internal float Compute(int t)
+  internal virtual float Compute(int t)
     => Algorithm(t - Start) + StartValue;
 
   private protected abstract float Algorithm(int t);

@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using PixelHunt.Static;
+using PixelHunt.Types;
+using PixelHunt.Utils;
 using ScottPlot;
 using ScottPlot.Plottables;
 
-namespace PixelHunt.Utils;
+namespace PixelHunt.Algo.FunctionComposition;
 
-internal class FunctionComposer
+internal sealed class FunctionComposer
 {
   private readonly List<FunctionComponent> _components;
 
@@ -28,11 +30,11 @@ internal class FunctionComposer
   {
     Plot plot = new();
 
-    plot.Axes.SetLimits(.0, ResultDuration, .0, 50);
+    plot.Axes.SetLimits(.0, ResultDuration.Frames, .0, 50);
 
     FunctionPlot f = plot.Add.Function(t => Execute((int)t));
     f.MinX = 0;
-    f.MaxX = ResultDuration;
+    f.MaxX = ResultDuration.Frames;
 
     plot.SavePng("Output/Ass.png", 400, 300);
   }
@@ -50,5 +52,6 @@ internal class FunctionComposer
     throw new ArgumentException("Wrong time for composite function.", nameof(t));
   }
 
-  internal int ResultDuration => _components[^1].Start;
+  /// <summary> Frames. </summary>
+  internal GameTime ResultDuration => new(_components[^1].Start);
 }

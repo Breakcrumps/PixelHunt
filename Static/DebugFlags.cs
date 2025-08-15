@@ -1,8 +1,8 @@
+using PixelHunt.Algo.FunctionComposition;
 using PixelHunt.Animation;
 using PixelHunt.Characters.Enemy.States;
 using PixelHunt.Characters.Player.Composites;
 using PixelHunt.Characters.Player.MoveStrategies;
-using PixelHunt.Utils;
 
 namespace PixelHunt.Static;
 
