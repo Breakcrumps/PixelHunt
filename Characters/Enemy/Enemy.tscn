@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cu0iyt20pk40w"]
+[gd_scene load_steps=27 format=3 uid="uid://cu0iyt20pk40w"]
 
 [ext_resource type="Script" uid="uid://cbp87gphvl7u3" path="res://Characters/Enemy/EnemyChar.cs" id="1_3o4wt"]
 [ext_resource type="PackedScene" uid="uid://bor1ekmd5bk67" path="res://Import/Enemy.glb" id="1_uxjip"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://dn7r3or7ikdxl" path="res://Characters/Enemy/States/PushbackState.cs" id="7_uxjip"]
 [ext_resource type="Script" uid="uid://dq6eqfl1pnekr" path="res://Characters/Enemy/States/AttackState.cs" id="8_1ypri"]
 [ext_resource type="Script" uid="uid://cdivbq812a11w" path="res://Mechanics/Pulse/PulseObeyers/EnemyPulseObeyer.cs" id="8_8157t"]
+[ext_resource type="Script" uid="uid://cds0f60e2t3lk" path="res://Characters/Enemy/Composites/GravityComposite.cs" id="9_ec6pp"]
 [ext_resource type="Script" uid="uid://cybgyr37hht0y" path="res://Utils/AttackArea.cs" id="11_52jmu"]
 [ext_resource type="Script" uid="uid://dtu2rlrhiawg4" path="res://Characters/Enemy/Composites/SoundArea.cs" id="12_yqk80"]
 [ext_resource type="Script" uid="uid://dlbci2ep5fo6x" path="res://Characters/Enemy/States/PulseState.cs" id="14_ta0pv"]
@@ -265,6 +266,11 @@ _stateMachine = NodePath("../../EnemyStateMachine")
 _pulseState = NodePath("../../EnemyStateMachine/PulseState")
 metadata/_custom_type_script = "uid://cdivbq812a11w"
 
+[node name="GravityComposite" type="Node" parent="Composites" index="3" node_paths=PackedStringArray("_enemyChar")]
+script = ExtResource("9_ec6pp")
+_enemyChar = NodePath("../..")
+metadata/_custom_type_script = "uid://cds0f60e2t3lk"
+
 [node name="EnemyStateMachine" type="Node" parent="." index="5" node_paths=PackedStringArray("_initialState")]
 script = ExtResource("7_52jmu")
 _initialState = NodePath("IdleState")
@@ -309,11 +315,12 @@ _enemyAligner = NodePath("../../Composites/EnemyAligner")
 _animator = NodePath("../../Composites/Animator")
 metadata/_custom_type_script = "uid://dq6eqfl1pnekr"
 
-[node name="PulseState" type="Node" parent="EnemyStateMachine" index="4" node_paths=PackedStringArray("_enemyChar", "_enemyStateMachine", "_followState")]
+[node name="PulseState" type="Node" parent="EnemyStateMachine" index="4" node_paths=PackedStringArray("_enemyChar", "_enemyStateMachine", "_followState", "_gravityComposite")]
 script = ExtResource("14_ta0pv")
 _enemyChar = NodePath("../..")
 _enemyStateMachine = NodePath("..")
 _followState = NodePath("../FollowState")
+_gravityComposite = NodePath("../../Composites/GravityComposite")
 metadata/_custom_type_script = "uid://dlbci2ep5fo6x"
 
 [node name="SoundArea" type="Area3D" parent="." index="6" node_paths=PackedStringArray("_enemyStateMachine", "_followState", "_soundCollision")]

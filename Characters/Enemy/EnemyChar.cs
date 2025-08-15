@@ -20,17 +20,7 @@ internal sealed partial class EnemyChar : Character
   {
     _stateMachine?.PhysicsProcess(delta);
 
-    ApplyGravity();
-
     MoveAndSlide();
-  }
-
-  private void ApplyGravity()
-  {
-    if (IsOnFloor())
-      return;
-
-    Velocity = Velocity with { Y = Velocity.Y - 10f };
   }
 
   internal override void ProcessHit(Attack attack, Vector3 attackerPos)

@@ -63,7 +63,11 @@ internal sealed partial class FollowState : State
 
     Vector2 velocity = direction * _animHelper!.Speed;
 
-    _enemyChar.Velocity = new Vector3(velocity.X, 0f, velocity.Y);
+    _enemyChar.Velocity = _enemyChar.Velocity with
+    {
+      X = velocity.X,
+      Z = velocity.Y
+    };
 
     _enemyAligner?.AlignBodyToVelocity(delta);
   }

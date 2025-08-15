@@ -628,7 +628,7 @@ _collision = NodePath("../../Legs")
 _moveStateMachine = NodePath("..")
 _debugWalkSpeed = 40.0
 _debugRunSpeed = 60.0
-_hoverVelocity = 40.0
+_hoverVelocity = 100.0
 metadata/_custom_type_script = "uid://c3m2h1vrf6242"
 
 [node name="FreeMoveStrategy" type="Node" parent="MoveStateMachine" index="1" node_paths=PackedStringArray("_playerChar", "_cameraPivot", "_armature", "_playerAnimator", "_animHelper", "_moveStateMachine")]

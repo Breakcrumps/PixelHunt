@@ -4,11 +4,15 @@ namespace PixelHunt.Mechanics.Pulse;
 
 internal abstract partial class PulseObeyer : Node
 {
-  public override void _Ready()
+  public sealed override void _Ready()
   {
-    PulseSource pulseSource = (PulseSource)GetTree().GetFirstNodeInGroup("PulseSources");
+    foreach (Node node in GetTree().GetNodesInGroup("PulseSources"))
+    {
+      if (node is not PulseSource pulseSource)
+        continue;
 
-    pulseSource.Pulse += ObeyPulse;
+      pulseSource.Pulse += ObeyPulse;
+    }
   }
 
   private protected abstract void ObeyPulse(PulseParams pulseParams);

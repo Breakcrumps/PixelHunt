@@ -22,7 +22,7 @@ internal sealed partial class EnemyPulseObeyer : PulseObeyer
 
     Vector3 distance = pulseParams.Actor.GlobalPosition - _enemyChar.GlobalPosition;
 
-    if (distance.Length() > 100f)
+    if (distance.Length() > pulseParams.Radius)
       return;
 
     _pulseState.PulseParams = pulseParams;

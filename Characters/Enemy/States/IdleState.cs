@@ -90,11 +90,15 @@ internal sealed partial class IdleState : State
       return;
 
     if (_enemyChar is null)
-        return;
+      return;
 
     Vector2 horizontalVelocity = _moveDirection * _animHelper!.Speed;
 
-    _enemyChar.Velocity = new Vector3(horizontalVelocity.X, 0f, horizontalVelocity.Y);
+    _enemyChar.Velocity = _enemyChar.Velocity with
+    {
+      X = horizontalVelocity.X,
+      Z = horizontalVelocity.Y
+    };
 
     _enemyAligner?.AlignBodyToVelocity(delta);
   }
