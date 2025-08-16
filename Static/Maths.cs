@@ -18,6 +18,9 @@ internal static class Maths
     if (power == 1)
       return operand;
 
+    if (power == 2)
+      return operand * operand;
+
     while (power != 1)
     {
       operand *= operand;
@@ -26,4 +29,7 @@ internal static class Maths
 
     return operand;
   }
+
+  internal static float RandomInRange(float from, float to, int precision = 1)
+    => from + MathF.Round(Random.Shared.NextSingle() * (to - from), precision);
 }

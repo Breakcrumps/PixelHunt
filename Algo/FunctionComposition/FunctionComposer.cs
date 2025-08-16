@@ -12,6 +12,8 @@ internal sealed class FunctionComposer
 {
   private readonly List<FunctionComponent> _components;
 
+  /// <summary> If no <c>EndComponent</c> is given, it is filled in a frame after the last component. </summary>
+  /// <param name="components"></param>
   internal FunctionComposer(params List<FunctionComponent> components)
   {
     components.InsertionSort();
@@ -39,6 +41,20 @@ internal sealed class FunctionComposer
     plot.SavePng("Output/Ass.png", 400, 300);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="time"> GameTime. </param>
+  /// <returns></returns>
+  internal float Execute(GameTime time)
+    => Execute(time.Frames);
+
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="t"> Frames. </param>
+  /// <returns></returns>
+  /// <exception cref="ArgumentException"></exception>
   internal float Execute(int t)
   {
     for (int i = 0; i < _components.Count - 1; i++)

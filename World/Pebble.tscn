@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ovieawgmqytt"]
+
+[ext_resource type="PackedScene" uid="uid://cynp83g47lgfi" path="res://Import/Pebble.glb" id="1_vetwd"]
+[ext_resource type="Script" uid="uid://biqbhjfvnb3c0" path="res://Mechanics/Pulse/PulseObeyers/RigidPulseObeyer.cs" id="2_iknud"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iknud"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Pebble" instance=ExtResource("1_vetwd")]
+collision_layer = 16
+collision_mask = 16
+mass = 0.1
+gravity_scale = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+shape = SubResource("BoxShape3D_iknud")
+
+[node name="RigidPulseObeyer" type="Node" parent="." index="2" node_paths=PackedStringArray("_body")]
+script = ExtResource("2_iknud")
+_body = NodePath("..")
+metadata/_custom_type_script = "uid://biqbhjfvnb3c0"

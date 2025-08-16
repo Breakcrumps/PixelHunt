@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://djwr7bjxuxdfk"]
+[gd_scene load_steps=12 format=3 uid="uid://djwr7bjxuxdfk"]
 
 [ext_resource type="PackedScene" uid="uid://cj7r5g45xbyij" path="res://Characters/Player/Player.tscn" id="1_o8g73"]
 [ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Stages/Scene.cs" id="1_v3fvj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b240q6ecqc53s" path="res://World/Sun.cs" id="8_g6k5w"]
 [ext_resource type="PackedScene" uid="uid://birh8wqa6levw" path="res://Stages/Maps/Map.tscn" id="9_g6k5w"]
 [ext_resource type="PackedScene" uid="uid://8luqb703pkc2" path="res://World/KillBox.tscn" id="9_tn73o"]
+[ext_resource type="PackedScene" uid="uid://ovieawgmqytt" path="res://World/Pebble.tscn" id="10_s8qhh"]
 [ext_resource type="PackedScene" uid="uid://cu0iyt20pk40w" path="res://Characters/Enemy/Enemy.tscn" id="10_tn73o"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ps3kg"]
@@ -41,3 +42,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 0)
 navigation_mesh = SubResource("NavigationMesh_ps3kg")
 
 [node name="Map" parent="NavigationRegion3D" instance=ExtResource("9_g6k5w")]
+
+[node name="Pebble" parent="." instance=ExtResource("10_s8qhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72925, 2.19649, 0)
+
+[node name="Pebble2" parent="." instance=ExtResource("10_s8qhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10979, 3.38516)
+
+[node name="Pebble3" parent="." instance=ExtResource("10_s8qhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25101, 0.874886, -5.9512)
+
+[node name="Pebble4" parent="." instance=ExtResource("10_s8qhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.93792, 1.27255, -2.07023)

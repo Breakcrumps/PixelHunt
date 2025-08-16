@@ -25,7 +25,7 @@ internal sealed partial class EnemyPulseObeyer : PulseObeyer
     if (distance.Length() > pulseParams.Radius)
       return;
 
-    _pulseState.PulseParams = pulseParams;
+    _pulseState.PulseParams = pulseParams;    
     _stateMachine?.Transition("PulseState");
   }
 }

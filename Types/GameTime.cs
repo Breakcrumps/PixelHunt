@@ -4,13 +4,16 @@ using Godot;
 
 namespace PixelHunt.Types;
 
-internal struct GameTime : IEquatable<GameTime>, IEqualityOperators<GameTime, GameTime, bool>, IComparable<GameTime>
+internal struct GameTime
+  : IEquatable<GameTime>, IEqualityOperators<GameTime, GameTime, bool>,
+    IComparable<GameTime>, IMultiplyOperators<GameTime, int, GameTime>,
+    IAdditionOperators<GameTime, GameTime, GameTime>
 {
   internal int Frames { get; set; }
   internal readonly float Seconds => Frames / Engine.PhysicsTicksPerSecond;
 
   internal GameTime(int frames) { Frames = frames; }
-  
+
 
   public readonly bool Equals(GameTime other)
     => Frames == other.Frames;
@@ -31,4 +34,14 @@ internal struct GameTime : IEquatable<GameTime>, IEqualityOperators<GameTime, Ga
 
   public static bool operator !=(GameTime left, GameTime right)
     => !left.Equals(right);
+
+  public static GameTime operator *(GameTime left, int right)
+    => new(left.Frames * right);
+
+  public static GameTime operator +(GameTime left, GameTime right)
+    => new(left.Frames + right.Frames);
+
+  internal static GameTime Zero => new(0);
+  internal static GameTime Frame => new(1);
+  internal static GameTime Second => new(Engine.PhysicsTicksPerSecond);
 }
