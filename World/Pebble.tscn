@@ -7,7 +7,7 @@
 size = Vector3(0.1, 0.1, 0.1)
 
 [node name="Pebble" instance=ExtResource("1_vetwd")]
-collision_layer = 16
+collision_layer = 32
 collision_mask = 16
 mass = 0.1
 gravity_scale = 2.0

@@ -18,8 +18,8 @@ internal sealed partial class PlayerPulseSource : PulseSource
 
   [ExportGroup("Parameters")]
   [Export] private PulseTechnique _pulseTechnique = PulseTechnique.Agility;
-  [Export] private int _cooldownFrames;
-  
+  [Export] private int _cooldownFrames = 200;
+
   private GameTime _cooldown = GameTime.Zero;
 
   public override void _UnhandledInput(InputEvent @event)
@@ -37,8 +37,6 @@ internal sealed partial class PlayerPulseSource : PulseSource
 
     _animator.PlayAnimation($"Pulse{Enum.GetName(_pulseTechnique)}");
     _animator.CanProcessRequests = false;
-
-    _cooldown = GameTime.Frame * _cooldownFrames;
   }
 
   internal void EmitPulse()
@@ -56,4 +54,7 @@ internal sealed partial class PlayerPulseSource : PulseSource
 
     _cooldown.Frames -= 1;
   }
+
+  internal void StartCooldown()
+    => _cooldown = GameTime.Frame * _cooldownFrames;
 }

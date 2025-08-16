@@ -7,11 +7,11 @@ namespace PixelHunt.Static;
 internal static class PulseFunctions
 {
   private static FunctionComposer EnemyLevel1() => new(
-    new QuadraticComponent { A = .08f },
+    new QuadraticComponent { A = Maths.RandomInRange(.07f, .1f, 2) },
     new LinearComponent { A = .05f, Start = 2 },
     new SineComponent
     {
-      Amplitude = Maths.RandomInRange(from: .4f, to: .6f),
+      Amplitude = Maths.RandomInRange(from: .2f, to: .4f),
       Frequency = Maths.RandomInRange(from: .05f, to: .07f, precision: 2),
       Start = 30
     },
@@ -26,7 +26,7 @@ internal static class PulseFunctions
   };
 
   internal static FunctionComposer Pebble() => new(
-    new QuadraticComponent { A = .08f },
+    new QuadraticComponent { A = Maths.RandomInRange(.07f, .1f, 2) },
     new LinearComponent { A = .05f, Start = 2 },
     new SineComponent
     {

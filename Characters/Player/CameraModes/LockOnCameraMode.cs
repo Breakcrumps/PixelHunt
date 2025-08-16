@@ -74,5 +74,7 @@ internal sealed partial class LockOnCameraMode : State
 
     _targetChar = null;
     _cameraStateMachine?.Transition("FreeCameraMode");
+
+    _playerAnimator?.Sheathe();
   }
 }

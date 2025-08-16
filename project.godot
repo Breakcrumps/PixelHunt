@@ -159,6 +159,7 @@ Pulse={
 3d_physics/layer_3="Enemies"
 3d_physics/layer_4="EnemyWeapon"
 3d_physics/layer_5="Map"
+3d_physics/layer_6="Small Rubbish"
 
 [physics]
 
