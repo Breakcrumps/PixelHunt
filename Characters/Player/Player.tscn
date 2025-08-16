@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=44 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Characters/Player/PlayerChar.cs" id="2_s1rgi"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Characters/Player/MoveStrategies/FreeMoveStrategy.cs" id="8_s1rgi"]
 [ext_resource type="Script" uid="uid://blrscmul5u4le" path="res://Characters/Player/MoveStrategies/PushbackMoveStrategy.cs" id="9_j23h2"]
 [ext_resource type="Script" uid="uid://c3m2h1vrf6242" path="res://Characters/Player/MoveStrategies/DebugMoveStrategy.cs" id="10_0j2ni"]
+[ext_resource type="Script" uid="uid://cf7wkn411tk3t" path="res://Characters/Player/MoveStrategies/StopMoveStrategy.cs" id="12_k8aph"]
 [ext_resource type="Script" uid="uid://ckbtme3wvkj3" path="res://Characters/Player/CameraModes/FreeCameraMode.cs" id="12_wraqo"]
 [ext_resource type="Script" uid="uid://2mnvj7hxcrw1" path="res://Characters/Player/CameraModes/LockOnCameraMode.cs" id="13_0ij6m"]
 [ext_resource type="Script" uid="uid://dhxxt3yx602n2" path="res://Characters/Player/Composites/BodyAlignStateMachine.cs" id="14_2xv0b"]
@@ -513,10 +514,55 @@ tracks/0/keys = {
 "values": [2.0]
 }
 
+[sub_resource type="Animation" id="Animation_870kv"]
+resource_name = "PulseStrength"
+length = 0.800003
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Composites/PlayerPulseSource")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.533333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"EmitPulse"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Composites/PlayerAnimator:CanProcessRequests")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MoveStateMachine")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["FreeMoveStrategy"],
+"method": &"Transition"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v0k0e"]
 _data = {
 &"Fall": SubResource("Animation_5xivi"),
 &"Idle": SubResource("Animation_1niqm"),
+&"PulseStrength": SubResource("Animation_870kv"),
 &"Pushback": SubResource("Animation_j23h2"),
 &"RESET": SubResource("Animation_0j2ni"),
 &"Rise": SubResource("Animation_7jpmk"),
@@ -558,6 +604,43 @@ _cameraStateMachine = NodePath("CameraStateMachine")
 _moveStateMachine = NodePath("MoveStateMachine")
 _skeleton = NodePath("Skeleton3D")
 _bodyAligner = NodePath("BodyAlignStateMachine")
+
+[node name="Skeleton3D" parent="." index="0"]
+bones/0/rotation = Quaternion(-0.0648627, -0.0210503, 0.00377712, 0.997665)
+bones/1/position = Vector3(-0.00145957, 1.48806, -0.0739542)
+bones/1/rotation = Quaternion(0.0170743, 1.19192e-07, 2.0354e-09, 0.999854)
+bones/2/position = Vector3(0.196288, 1.4757, -0.069118)
+bones/2/rotation = Quaternion(-0.022668, 0.0464714, 0.990556, -0.126989)
+bones/3/position = Vector3(0.26445, 1.21247, -0.0423907)
+bones/3/rotation = Quaternion(-0.0236294, 0.0672396, 0.994636, -0.074963)
+bones/4/position = Vector3(0.307107, 0.926113, -0.00226042)
+bones/4/rotation = Quaternion(-0.0234372, 0.0684749, 0.995131, -0.0669117)
+bones/5/position = Vector3(-0.198632, 1.47164, -0.0855272)
+bones/5/rotation = Quaternion(-0.0189504, 0.0413899, 0.991894, 0.118632)
+bones/6/position = Vector3(-0.263361, 1.20704, -0.0643215)
+bones/6/rotation = Quaternion(-0.0183725, 0.0643088, 0.995477, 0.0674734)
+bones/7/position = Vector3(-0.303315, 0.91984, -0.0276238)
+bones/7/rotation = Quaternion(-0.0185976, 0.0658751, 0.99588, 0.0594756)
+bones/8/position = Vector3(0.441597, 1.80697, -0.162397)
+bones/8/rotation = Quaternion(-0.0238994, 0.00665975, 0.931074, 0.363986)
+bones/9/position = Vector3(0.098853, 0.867462, -0.0144391)
+bones/9/rotation = Quaternion(-0.0343073, 0.0195424, 0.999215, -0.00313859)
+bones/10/position = Vector3(0.100693, 0.494626, 0.000213451)
+bones/10/rotation = Quaternion(-0.034454, -0.0352912, 0.998772, 0.00468108)
+bones/11/position = Vector3(0.0977423, 0.069227, -0.0299892)
+bones/11/rotation = Quaternion(-4.06362e-05, 0.572213, 0.820105, -2.83424e-05)
+bones/12/position = Vector3(-0.098853, 0.867462, -0.0144391)
+bones/12/rotation = Quaternion(0.0343073, 0.0195414, 0.999215, 0.00313848)
+bones/13/position = Vector3(-0.100693, 0.494626, 0.000212763)
+bones/13/rotation = Quaternion(0.034454, -0.0352904, 0.998772, -0.00468101)
+bones/14/position = Vector3(-0.0977423, 0.0692269, -0.0299892)
+bones/14/rotation = Quaternion(4.0631e-05, 0.572213, 0.820105, 2.83482e-05)
+bones/16/position = Vector3(-1.32349e-23, 0.910213, -0.023425)
+bones/16/rotation = Quaternion(-0.0201793, 1.19185e-07, -2.40555e-09, 0.999796)
+bones/17/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
+bones/18/rotation = Quaternion(0.00374689, 0.707097, -0.707097, -0.00374689)
+bones/19/rotation = Quaternion(0.00319472, 0.7071, 0.7071, 0.00319472)
+bones/20/rotation = Quaternion(-0.00374689, 0.707097, -0.707097, 0.00374689)
 
 [node name="AnimationHelper" type="AnimationPlayer" parent="." index="2"]
 libraries = {
@@ -609,9 +692,12 @@ _skeleton = NodePath("../../Skeleton3D")
 _swordModel = ExtResource("7_6fff4")
 metadata/_custom_type_script = "uid://bx3y8ipt6s76s"
 
-[node name="PlayerPulseSource" type="Node" parent="Composites" index="2" node_paths=PackedStringArray("_playerChar")]
+[node name="PlayerPulseSource" type="Node" parent="Composites" index="2" node_paths=PackedStringArray("_playerChar", "_animator", "_moveStateMachine")]
 script = ExtResource("7_5xivi")
 _playerChar = NodePath("../..")
+_animator = NodePath("../PlayerAnimator")
+_moveStateMachine = NodePath("../../MoveStateMachine")
+_pulseTechnique = 1
 metadata/_custom_type_script = "uid://hoau23mrd4js"
 
 [node name="MoveStateMachine" type="Node" parent="." index="6" node_paths=PackedStringArray("_playerChar", "_animHelper")]
@@ -647,6 +733,11 @@ _playerChar = NodePath("../..")
 _animator = NodePath("../../Composites/PlayerAnimator")
 _animHelper = NodePath("../../AnimationHelper")
 metadata/_custom_type_script = "uid://blrscmul5u4le"
+
+[node name="StopMoveStrategy" type="Node" parent="MoveStateMachine" index="3" node_paths=PackedStringArray("_playerChar")]
+script = ExtResource("12_k8aph")
+_playerChar = NodePath("../..")
+metadata/_custom_type_script = "uid://cf7wkn411tk3t"
 
 [node name="CameraStateMachine" type="Node" parent="." index="7" node_paths=PackedStringArray("_cameraSpring")]
 script = ExtResource("7_6h4vt")

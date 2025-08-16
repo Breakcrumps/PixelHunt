@@ -10,7 +10,7 @@ internal struct GameTime
     IAdditionOperators<GameTime, GameTime, GameTime>
 {
   internal int Frames { get; set; }
-  internal readonly float Seconds => Frames / Engine.PhysicsTicksPerSecond;
+  internal readonly float Seconds() => Frames / Engine.PhysicsTicksPerSecond;
 
   internal GameTime(int frames) { Frames = frames; }
 

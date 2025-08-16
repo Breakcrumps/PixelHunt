@@ -6,7 +6,7 @@ namespace PixelHunt.Static;
 
 internal static class PulseFunctions
 {
-  internal static FunctionComposer EnemyLevel1() => new(
+  private static FunctionComposer EnemyLevel1() => new(
     new QuadraticComponent { A = .08f },
     new LinearComponent { A = .05f, Start = 2 },
     new SineComponent
@@ -18,6 +18,12 @@ internal static class PulseFunctions
     new QuadraticNullifier { Start = 150, End = 180 },
     new EndComponent { Start = 180 }
   );
+
+  internal static FunctionComposer EnemyFunction(int level) => level switch
+  {
+    1 => EnemyLevel1(),
+    _ => throw new ArgumentException("Invalid pulse level for enemy pulse!", nameof(level))
+  };
 
   internal static FunctionComposer Pebble() => new(
     new QuadraticComponent { A = .08f },
@@ -31,10 +37,4 @@ internal static class PulseFunctions
     new QuadraticNullifier { Start = 150, End = 180 },
     new EndComponent { Start = 180 }
   );
-
-  internal static FunctionComposer GetEnemyFunction(int level) => level switch
-  {
-    1 => EnemyLevel1(),
-    _ => throw new ArgumentException("Invalid pulse level for enemy pulse!", nameof(level))
-  };
 }

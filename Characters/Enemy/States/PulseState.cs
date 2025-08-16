@@ -19,7 +19,7 @@ internal sealed partial class PulseState : State
   [Export] private Animator? _animator;
 
   internal PulseParams? PulseParams { private get; set; }
-  internal FunctionComposer PulseFunction { private get; set; } = PulseFunctions.EnemyLevel1();
+  internal FunctionComposer PulseFunction { private get; set; } = PulseFunctions.EnemyFunction(level: 1);
 
   private float _initialHeight;
 
@@ -28,7 +28,7 @@ internal sealed partial class PulseState : State
   internal override void Enter()
   {
     if (PulseParams is not null)
-      PulseFunction = PulseFunctions.GetEnemyFunction(PulseParams.Level);
+      PulseFunction = PulseFunctions.EnemyFunction(PulseParams.Level);
 
     _currentTime = new GameTime(0);
 
