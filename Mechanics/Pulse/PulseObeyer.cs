@@ -2,6 +2,7 @@ using Godot;
 
 namespace PixelHunt.Mechanics.Pulse;
 
+[GlobalClass]
 internal abstract partial class PulseObeyer : Node
 {
   public sealed override void _Ready()

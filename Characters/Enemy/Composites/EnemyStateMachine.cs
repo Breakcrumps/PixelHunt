@@ -8,6 +8,8 @@ internal sealed partial class EnemyStateMachine : StateMachine
 {
   [Export] private State? _initialState;
 
+  internal bool CanTransition { private get; set; } = true;
+
   public override void _Ready()
   {
     FillStates();
@@ -17,5 +19,13 @@ internal sealed partial class EnemyStateMachine : StateMachine
 
     _initialState.Enter();
     CurrentState = _initialState;
+  }
+
+  internal override void Transition(string nextStateName)
+  {
+    if (!CanTransition)
+      return;
+    
+    base.Transition(nextStateName);
   }
 }

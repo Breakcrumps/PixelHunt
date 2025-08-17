@@ -2,6 +2,7 @@ using Godot;
 
 namespace PixelHunt.Parents;
 
+[GlobalClass]
 internal abstract partial class State : Node
 {
   internal virtual void Enter() { }

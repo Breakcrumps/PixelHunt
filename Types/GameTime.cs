@@ -1,13 +1,14 @@
 using System;
 using System.Numerics;
 using Godot;
+using ScottPlot.AxisPanels;
 
 namespace PixelHunt.Types;
 
 internal struct GameTime
   : IEquatable<GameTime>, IEqualityOperators<GameTime, GameTime, bool>,
     IComparable<GameTime>, IMultiplyOperators<GameTime, int, GameTime>,
-    IAdditionOperators<GameTime, GameTime, GameTime>
+    IAdditionOperators<GameTime, GameTime, GameTime>, IUnaryNegationOperators<GameTime, GameTime>
 {
   internal int Frames { get; set; }
   internal readonly float Seconds() => Frames / Engine.PhysicsTicksPerSecond;
@@ -40,6 +41,9 @@ internal struct GameTime
 
   public static GameTime operator +(GameTime left, GameTime right)
     => new(left.Frames + right.Frames);
+
+  public static GameTime operator -(GameTime value)
+    => new(-value.Frames);
 
   internal static GameTime Zero => new(0);
   internal static GameTime Frame => new(1);

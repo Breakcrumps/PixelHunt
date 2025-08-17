@@ -68,6 +68,5 @@ internal sealed class FunctionComposer
     throw new ArgumentException("Wrong time for composite function.", nameof(t));
   }
 
-  /// <summary> Frames. </summary>
   internal GameTime ResultDuration => new(_components[^1].Start);
 }

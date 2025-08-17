@@ -3,6 +3,7 @@ using Godot;
 
 namespace PixelHunt.Parents;
 
+[GlobalClass]
 internal abstract partial class StateMachine : Node
 {
   private protected Dictionary<string, State> States { get; } = [];
@@ -25,7 +26,7 @@ internal abstract partial class StateMachine : Node
 
   internal void UnhandledInput(InputEvent @event) => CurrentState?.UnhandledInput(@event);
 
-  internal void Transition(string nextStateName)
+  internal virtual void Transition(string nextStateName)
   {
     State newState = States[nextStateName];
 

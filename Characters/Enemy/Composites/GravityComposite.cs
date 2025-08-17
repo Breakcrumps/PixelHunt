@@ -8,7 +8,7 @@ internal sealed partial class GravityComposite : Node
   [Export] private EnemyChar? _enemyChar;
 
   [ExportGroup("Parameters")]
-  private float _g = 2f;
+  private float _g = 1f;
   
   internal bool CanGravitate { private get; set; } = true;
 

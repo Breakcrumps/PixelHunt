@@ -3,6 +3,7 @@ using Godot;
 
 namespace PixelHunt.Mechanics.Pulse;
 
+[GlobalClass]
 internal partial class PulseSource : Node
 {
   internal event Action<PulseParams>? Pulse;

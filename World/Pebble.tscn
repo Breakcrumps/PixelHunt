@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ovieawgmqytt"]
+[gd_scene load_steps=5 format=3 uid="uid://ovieawgmqytt"]
 
 [ext_resource type="PackedScene" uid="uid://cynp83g47lgfi" path="res://Import/Pebble.glb" id="1_vetwd"]
 [ext_resource type="Script" uid="uid://biqbhjfvnb3c0" path="res://Mechanics/Pulse/PulseObeyers/RigidPulseObeyer.cs" id="2_iknud"]
+[ext_resource type="Script" uid="uid://drrcj45y650ie" path="res://Mechanics/Stasis/StasisObeyers/RigidStasisObeyer.cs" id="3_ax6dt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iknud"]
 size = Vector3(0.1, 0.1, 0.1)
@@ -19,3 +20,9 @@ shape = SubResource("BoxShape3D_iknud")
 script = ExtResource("2_iknud")
 _body = NodePath("..")
 metadata/_custom_type_script = "uid://biqbhjfvnb3c0"
+
+[node name="RigidStasisObeyer" type="Node" parent="." index="3" node_paths=PackedStringArray("_body", "_pulseObeyer")]
+script = ExtResource("3_ax6dt")
+_body = NodePath("..")
+_pulseObeyer = NodePath("../RigidPulseObeyer")
+metadata/_custom_type_script = "uid://drrcj45y650ie"

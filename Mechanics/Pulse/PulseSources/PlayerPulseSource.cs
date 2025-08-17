@@ -52,7 +52,7 @@ internal sealed partial class PlayerPulseSource : PulseSource
     if (_cooldown == GameTime.Zero)
       return;
 
-    _cooldown.Frames -= 1;
+    _cooldown.Frames--;
   }
 
   internal void StartCooldown()

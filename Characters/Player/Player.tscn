@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=45 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Characters/Player/PlayerChar.cs" id="2_s1rgi"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dig6gkp4tqtsw" path="res://Import/Pipe.glb" id="7_6fff4"]
 [ext_resource type="Script" uid="uid://byyxpnygx1bkn" path="res://Characters/Player/Composites/CameraStateMachine.cs" id="7_6h4vt"]
 [ext_resource type="Script" uid="uid://cy02vpvcdixrx" path="res://Characters/Player/Composites/MoveStateMachine.cs" id="8_0j2ni"]
+[ext_resource type="Script" uid="uid://co6lweoovdpnh" path="res://Mechanics/Stasis/StasisSources/PlayerStasisSource.cs" id="8_74fb0"]
 [ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Characters/Player/MoveStrategies/FreeMoveStrategy.cs" id="8_s1rgi"]
 [ext_resource type="Script" uid="uid://blrscmul5u4le" path="res://Characters/Player/MoveStrategies/PushbackMoveStrategy.cs" id="9_j23h2"]
 [ext_resource type="Script" uid="uid://c3m2h1vrf6242" path="res://Characters/Player/MoveStrategies/DebugMoveStrategy.cs" id="10_0j2ni"]
@@ -702,6 +703,11 @@ _animator = NodePath("../PlayerAnimator")
 _moveStateMachine = NodePath("../../MoveStateMachine")
 _pulseTechnique = 1
 metadata/_custom_type_script = "uid://hoau23mrd4js"
+
+[node name="PlayerStasisSource" type="Node" parent="Composites" index="3" node_paths=PackedStringArray("_playerChar")]
+script = ExtResource("8_74fb0")
+_playerChar = NodePath("../..")
+metadata/_custom_type_script = "uid://co6lweoovdpnh"
 
 [node name="MoveStateMachine" type="Node" parent="." index="6" node_paths=PackedStringArray("_playerChar", "_animHelper")]
 script = ExtResource("8_0j2ni")

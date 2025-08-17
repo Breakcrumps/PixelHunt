@@ -3,6 +3,7 @@ using Godot;
 
 namespace PixelHunt.Characters;
 
+[GlobalClass]
 internal abstract partial class Character : CharacterBody3D
 {
   [ExportGroup("Parameters")]
