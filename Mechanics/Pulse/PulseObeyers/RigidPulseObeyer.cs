@@ -14,6 +14,8 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
 
   private GameTime _currentTime;
   private float _initialHeight;
+  
+  internal float InitialGravityScale { get; private set; }
 
   internal bool Pulsing { get; set; }
 
@@ -22,7 +24,8 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
     if (_body is null)
       return;
 
-    _body.Freeze = true;
+    InitialGravityScale = _body.GravityScale;
+    _body.GravityScale = 0f;
 
     _currentTime = GameTime.Zero;
     _initialHeight = _body.GlobalPosition.Y;
@@ -47,7 +50,7 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
 
     if (_currentTime == _pulseFunction.ResultDuration)
     {
-      _body.Freeze = false;
+      _body.GravityScale = InitialGravityScale;
 
       Pulsing = false;
     }

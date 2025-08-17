@@ -41,6 +41,9 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
     
     if (_body is null)
       return;
+
+    if (_pulseObeyer is null)
+      return;
     
     _stasisTime.Frames--;
 
@@ -49,6 +52,7 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
       _inStasis = false;
 
       _body.Freeze = false;
+      _body.GravityScale = _pulseObeyer.InitialGravityScale;
     }
   }
 }

@@ -8,8 +8,8 @@
 size = Vector3(1.94556, 0.628052, 0.531189)
 
 [node name="Barrel" instance=ExtResource("1_821y4")]
-collision_layer = 32
-collision_mask = 49
+collision_layer = 64
+collision_mask = 115
 
 [node name="RigidPulseObeyer" type="Node" parent="." index="1" node_paths=PackedStringArray("_body")]
 script = ExtResource("2_kvfoa")
