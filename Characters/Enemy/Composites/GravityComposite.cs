@@ -8,9 +8,12 @@ internal sealed partial class GravityComposite : Node
   [Export] private EnemyChar? _enemyChar;
 
   [ExportGroup("Parameters")]
-  private float _g = 1f;
+  private float _g = 9.8f; // Per second.
   
   internal bool CanGravitate { private get; set; } = true;
+
+  public override void _Ready()
+    => _g /= Engine.PhysicsTicksPerSecond; // Per frame.
 
   public override void _PhysicsProcess(double delta)
   {
