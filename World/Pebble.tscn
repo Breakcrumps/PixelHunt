@@ -16,9 +16,10 @@ gravity_scale = 2.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 shape = SubResource("BoxShape3D_iknud")
 
-[node name="RigidPulseObeyer" type="Node" parent="." index="2" node_paths=PackedStringArray("_body")]
+[node name="RigidPulseObeyer" type="Node" parent="." index="2" node_paths=PackedStringArray("_body", "_stasisObeyer")]
 script = ExtResource("2_iknud")
 _body = NodePath("..")
+_stasisObeyer = NodePath("../RigidStasisObeyer")
 metadata/_custom_type_script = "uid://biqbhjfvnb3c0"
 
 [node name="RigidStasisObeyer" type="Node" parent="." index="3" node_paths=PackedStringArray("_body", "_pulseObeyer")]

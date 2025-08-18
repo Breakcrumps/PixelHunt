@@ -1,5 +1,4 @@
 using Godot;
-using PixelHunt.Characters;
 using PixelHunt.Characters.Enemy.Composites;
 using PixelHunt.Characters.Enemy.States;
 using PixelHunt.Types;
@@ -15,7 +14,7 @@ internal sealed partial class EnemyStasisObeyer : StasisObeyer
   private StasisParams? _stasisParams;
 
   private GameTime _stasisTime = GameTime.Zero;
-  private bool _inStasis;
+  internal bool InStasis { get; private set; }
 
   private protected override void ObeyStasis(StasisParams stasisParams)
   {
@@ -25,7 +24,7 @@ internal sealed partial class EnemyStasisObeyer : StasisObeyer
     if (_stateMachine.CurrentState is not PulseState)
       return;
 
-    _inStasis = true;
+    InStasis = true;
 
     _stateMachine.Transition("StopState");
     _stateMachine.CanTransition = false;
@@ -37,7 +36,7 @@ internal sealed partial class EnemyStasisObeyer : StasisObeyer
 
   public override void _PhysicsProcess(double delta)
   {
-    if (!_inStasis)
+    if (!InStasis)
       return;
 
     if (_stateMachine is null)
@@ -50,7 +49,7 @@ internal sealed partial class EnemyStasisObeyer : StasisObeyer
 
     if (_stasisTime == GameTime.Zero)
     {
-      _inStasis = false;
+      InStasis = false;
 
       _followState.Target = _stasisParams?.Actor;
 

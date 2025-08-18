@@ -12,7 +12,7 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
 
   private GameTime _stasisTime = GameTime.Zero;
 
-  private bool _inStasis;
+  internal bool InStasis { get; private set; }
 
   private protected override void ObeyStasis(StasisParams stasisParams)
   {
@@ -31,12 +31,12 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
 
     _stasisTime = stasisParams.Duration;
 
-    _inStasis = true;
+    InStasis = true;
   }
 
   public override void _PhysicsProcess(double delta)
   {
-    if (!_inStasis)
+    if (!InStasis)
       return;
     
     if (_body is null)
@@ -49,7 +49,7 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
 
     if (_stasisTime == GameTime.Zero)
     {
-      _inStasis = false;
+      InStasis = false;
 
       _body.Freeze = false;
       _body.GravityScale = _pulseObeyer.InitialGravityScale;

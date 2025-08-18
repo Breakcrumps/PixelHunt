@@ -2,6 +2,7 @@ using Godot;
 using PixelHunt.Characters.Enemy;
 using PixelHunt.Characters.Enemy.Composites;
 using PixelHunt.Characters.Enemy.States;
+using PixelHunt.Mechanics.Stasis.StasisObeyers;
 
 namespace PixelHunt.Mechanics.Pulse.PulseObeyers;
 
@@ -11,12 +12,16 @@ internal sealed partial class EnemyPulseObeyer : PulseObeyer
   [Export] private EnemyChar? _enemyChar;
   [Export] private EnemyStateMachine? _stateMachine;
   [Export] private PulseState? _pulseState;
+  [Export] private EnemyStasisObeyer? _stasisObeyer;
   
   private protected override void ObeyPulse(PulseParams pulseParams)
   {
-    if (_enemyChar is null)
+    if (_stasisObeyer is null || _stasisObeyer.InStasis)
       return;
     
+    if (_enemyChar is null)
+      return;
+
     if (_pulseState is null)
       return;
 
@@ -25,7 +30,7 @@ internal sealed partial class EnemyPulseObeyer : PulseObeyer
     if (distance.Length() > pulseParams.Radius)
       return;
 
-    _pulseState.PulseParams = pulseParams;    
+    _pulseState.PulseParams = pulseParams;
     _stateMachine?.Transition("PulseState");
   }
 }

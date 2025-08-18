@@ -11,9 +11,10 @@ size = Vector3(1.94556, 0.628052, 0.531189)
 collision_layer = 64
 collision_mask = 115
 
-[node name="RigidPulseObeyer" type="Node" parent="." index="1" node_paths=PackedStringArray("_body")]
+[node name="RigidPulseObeyer" type="Node" parent="." index="1" node_paths=PackedStringArray("_body", "_stasisObeyer")]
 script = ExtResource("2_kvfoa")
 _body = NodePath("..")
+_stasisObeyer = NodePath("../RigidStasisObeyer")
 metadata/_custom_type_script = "uid://biqbhjfvnb3c0"
 
 [node name="RigidStasisObeyer" type="Node" parent="." index="2" node_paths=PackedStringArray("_body", "_pulseObeyer")]

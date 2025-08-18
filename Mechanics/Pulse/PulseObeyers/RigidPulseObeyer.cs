@@ -1,5 +1,6 @@
 using Godot;
 using PixelHunt.Algo.FunctionComposition;
+using PixelHunt.Mechanics.Stasis.StasisObeyers;
 using PixelHunt.Static;
 using PixelHunt.Types;
 
@@ -9,6 +10,7 @@ namespace PixelHunt.Mechanics.Pulse.PulseObeyers;
 internal sealed partial class RigidPulseObeyer : PulseObeyer
 {
   [Export] private RigidBody3D? _body;
+  [Export] private RigidStasisObeyer? _stasisObeyer;
 
   private readonly FunctionComposer _pulseFunction = PulseFunctions.GeneratePebbleFunction();
 
@@ -21,6 +23,9 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
 
   private protected override void ObeyPulse(PulseParams pulseParams)
   {
+    if (_stasisObeyer is null || _stasisObeyer.InStasis)
+      return;
+    
     if (_body is null)
       return;
 
