@@ -10,6 +10,7 @@ namespace PixelHunt.Characters.Enemy.States;
 internal sealed partial class IdleState : State
 {
   [Export] bool _canWander = true;
+
   [Export] private EnemyChar? _enemyChar;
 
   [Export] private EnemyAligner? _enemyAligner;
@@ -103,8 +104,8 @@ internal sealed partial class IdleState : State
     _enemyAligner?.AlignBodyToVelocity(delta);
   }
 
-  private float RandomDirection() => _random.NextSingle() * 2 - 1;
-  private float RandomTime() => _random.NextSingle() * 4 + 1;
+  private float RandomDirection() => _random.NextSingle() * 2f - 1f;
+  private float RandomTime() => _random.NextSingle() * 4f + 5f;
   private bool InBounds()
   {
     Vector2 currentPos = new(_enemyChar!.GlobalPosition.X, _enemyChar.GlobalPosition.Z);

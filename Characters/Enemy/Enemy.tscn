@@ -260,11 +260,12 @@ _enemyChar = NodePath("../..")
 _armature = NodePath("../../Armature")
 metadata/_custom_type_script = "uid://dvcqva8cew3qf"
 
-[node name="EnemyPulseObeyer" type="Node" parent="Composites" index="2" node_paths=PackedStringArray("_enemyChar", "_stateMachine", "_pulseState")]
+[node name="EnemyPulseObeyer" type="Node" parent="Composites" index="2" node_paths=PackedStringArray("_enemyChar", "_stateMachine", "_pulseState", "_stasisObeyer")]
 script = ExtResource("8_8157t")
 _enemyChar = NodePath("../..")
 _stateMachine = NodePath("../../EnemyStateMachine")
 _pulseState = NodePath("../../EnemyStateMachine/PulseState")
+_stasisObeyer = NodePath("../EnemyStasisObeyer")
 metadata/_custom_type_script = "uid://cdivbq812a11w"
 
 [node name="GravityComposite" type="Node" parent="Composites" index="3" node_paths=PackedStringArray("_enemyChar")]

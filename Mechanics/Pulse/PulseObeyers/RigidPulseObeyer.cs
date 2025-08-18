@@ -3,6 +3,7 @@ using PixelHunt.Algo.FunctionComposition;
 using PixelHunt.Mechanics.Stasis.StasisObeyers;
 using PixelHunt.Static;
 using PixelHunt.Types;
+using PixelHunt.World;
 
 namespace PixelHunt.Mechanics.Pulse.PulseObeyers;
 
@@ -11,21 +12,25 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
 {
   [Export] private RigidBody3D? _body;
   [Export] private RigidStasisObeyer? _stasisObeyer;
+  [Export] private GroundRaycast? _groundRaycast;
 
   private readonly FunctionComposer _pulseFunction = PulseFunctions.GeneratePebbleFunction();
 
   private GameTime _currentTime;
   private float _initialHeight;
-  
+
   internal float InitialGravityScale { get; private set; }
 
   internal bool Pulsing { get; set; }
 
   private protected override void ObeyPulse(PulseParams pulseParams)
   {
-    if (_stasisObeyer is null || _stasisObeyer.InStasis)
+    if (_groundRaycast is null || !_groundRaycast.IsOnFloor())
       return;
     
+    if (_stasisObeyer is null || _stasisObeyer.InStasis)
+      return;
+
     if (_body is null)
       return;
 

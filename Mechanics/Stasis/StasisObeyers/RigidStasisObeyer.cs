@@ -14,6 +14,16 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
 
   internal bool InStasis { get; private set; }
 
+  public override void _Ready()
+  {
+    base._Ready();
+    
+    if (_body is null)
+      return;
+    
+    _body.FreezeMode = RigidBody3D.FreezeModeEnum.Kinematic;
+  }
+
   private protected override void ObeyStasis(StasisParams stasisParams)
   {
     if (_pulseObeyer is null)
@@ -26,8 +36,6 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
       return;
 
     _pulseObeyer.Pulsing = false;
-
-    _body.Freeze = true;
 
     _stasisTime = stasisParams.Duration;
 
@@ -51,7 +59,6 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
     {
       InStasis = false;
 
-      _body.Freeze = false;
       _body.GravityScale = _pulseObeyer.InitialGravityScale;
     }
   }
