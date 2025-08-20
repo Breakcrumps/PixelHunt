@@ -7,8 +7,8 @@ internal static class Maths
 {
   private const float Tolerance = 1e-15f;
 
-  internal static bool IsRoughly(this float left, float n)
-    => Mathf.Abs(left - n) < Tolerance;
+  internal static bool IsRoughly(this float left, float n, float tolerance = Tolerance)
+    => Mathf.Abs(left - n) < tolerance;
 
   internal static int Pow(this int operand, int power)
   {

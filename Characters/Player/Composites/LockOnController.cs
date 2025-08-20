@@ -5,6 +5,7 @@ using PixelHunt.Types;
 
 namespace PixelHunt.Characters.Player.Composites;
 
+// I hate this one more than my life.
 [GlobalClass]
 internal sealed partial class LockOnController : Node
 {
@@ -16,6 +17,7 @@ internal sealed partial class LockOnController : Node
   private float _initialSpringLength;
 
   private GameTime _timeFacingTheWrongWay = GameTime.Zero; // Genius name.
+  private bool _overflow;
 
   private Character? _targetChar;
 
@@ -32,6 +34,41 @@ internal sealed partial class LockOnController : Node
   {
     HandleInput();
 
+    if (_overflow)
+      ForceNeutralPerspective(delta);
+    else
+      LockOnMouseMovement(delta);
+  }
+
+  private void ForceNeutralPerspective(double delta)
+  {
+    if (_cameraPivot is null)
+      return;
+
+    if (_targetChar is null)
+      return;
+
+    _cameraPivot.Position = _cameraPivot.Position.Lerp(to: _initialPivotPosition, weight: 5f * (float)delta);
+
+    Vector3 difVector3D = _targetChar.GlobalPosition - _cameraPivot.GlobalPosition;
+    Vector2 difVector2D = new(difVector3D.X, difVector3D.Z);
+
+    float resultAngle = difVector2D.Angle() + Mathf.Pi / 2f;
+
+    _cameraPivot.Rotation = _cameraPivot.Rotation with
+    {
+      Y = _cameraPivot.Rotation.Y.LerpF(to: resultAngle, weight: 5f * (float)delta)
+    };
+
+    if (_cameraPivot.Rotation.Y.IsRoughly(resultAngle, tolerance: .1f))
+    {
+      _timeFacingTheWrongWay = GameTime.Zero;
+      _overflow = false;
+    }
+  }
+
+  private void LockOnMouseMovement(double delta)
+  {
     if (_cameraPivot is null)
       return;
 
@@ -70,18 +107,19 @@ internal sealed partial class LockOnController : Node
       _cameraPivot.Position = _cameraPivot.Position.Lerp(to: newPivotPosition, weight: (float)delta);
     }
 
-    if (angle <= -3f / 4f * Mathf.Pi || angle >= 3f / 4f * Mathf.Pi)
+    if (angle <= -2f / 3f * Mathf.Pi || angle >= 2f / 3f * Mathf.Pi)
     {
-      
-
       _timeFacingTheWrongWay.Frames++;
     }
     else
     {
       _timeFacingTheWrongWay = GameTime.Zero;
     }
+
+    _overflow = _timeFacingTheWrongWay == GameTime.Second;
   }
-  
+
+
   private void HandleInput()
   {
     if (Input.IsActionPressed("LockOn"))
@@ -94,6 +132,7 @@ internal sealed partial class LockOnController : Node
     else
     {
       _targetChar = null;
+      _timeFacingTheWrongWay = GameTime.Zero;
     }
   }
 

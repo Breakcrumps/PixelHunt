@@ -5,22 +5,26 @@ namespace PixelHunt.Characters.Player.Composites;
 [GlobalClass]
 internal sealed partial class CameraController : Node
 {
-  [Export] private SpringArm3D? _cameraSpring;
   [Export] private Node3D? _cameraPivot;
-  [Export] private CharacterBody3D? _character;
 
   [ExportGroup("Parameters")]
   [Export(PropertyHint.Range, "0f, .01f")] private float _mouseSensitivity = .01f;
-  [Export(PropertyHint.Range, "10f, 90f")] private float _tiltLimit = 75f;
+  [Export(PropertyHint.Range, "10f, 90f")] private float _tiltLimit = 75f; // Degrees.
   [Export] private float _turnSpeed = 5f;
   [Export] private float _zoomSpeed = 10f;
 
   public override void _UnhandledInput(InputEvent @event)
     => HandleMouseMovement(@event);
 
+  public override void _Ready()
+    => _tiltLimit *= Mathf.Pi / 180f; // Radians.
+
   private void HandleMouseMovement(InputEvent @event)
   {
     if (@event is not InputEventMouseMotion mouseMotion)
+      return;
+
+    if (_cameraPivot is null)
       return;
 
     Vector2 motion = mouseMotion.Relative;
