@@ -32,4 +32,10 @@ internal static class Maths
 
   internal static float RandomInRange(float from, float to, int precision = 1)
     => from + MathF.Round(Random.Shared.NextSingle() * (to - from), precision);
+
+  internal static float LerpF(this float operand, float to, float weight)
+    => Mathf.Lerp(from: operand, to: to, weight: weight);
+
+  internal static float Abs(this float operand)
+    => Mathf.Abs(operand);
 }

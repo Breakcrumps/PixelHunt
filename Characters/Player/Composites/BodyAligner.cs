@@ -1,35 +1,20 @@
 using Godot;
-using PixelHunt.Characters.Player.CameraModes;
-using PixelHunt.Characters.Player.Composites;
-using PixelHunt.Parents;
 
-namespace PixelHunt.Characters.Player.BodyAligns;
+namespace PixelHunt.Characters.Player.Composites;
 
 [GlobalClass]
-internal sealed partial class DefaultAlign : State
+internal sealed partial class BodyAligner : Node
 {
-  [Export] private BodyAlignStateMachine? _bodyAligner;
-
   [Export] private PlayerChar? _playerChar;
   [Export] private Skeleton3D? _armature;
-  [Export] private CameraStateMachine? _cameraStateMachine;
 
   [ExportGroup("Parameters")]
   [Export] private float _turnSpeed = 10f;
 
-  internal override void PhysicsProcess(double delta)
+  public override void _PhysicsProcess(double delta)
   {
     if (_playerChar is null)
       return;
-      
-    if (_cameraStateMachine is null)
-      return;
-
-    if (!_playerChar.IsOnFloor() && _cameraStateMachine.CurrentState is LockOnCameraMode)
-    {
-      _bodyAligner?.Transition("LockOnAlign");
-      return;
-    }
 
     AlignBody(delta);
   }

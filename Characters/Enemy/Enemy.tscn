@@ -260,24 +260,10 @@ _enemyChar = NodePath("../..")
 _armature = NodePath("../../Armature")
 metadata/_custom_type_script = "uid://dvcqva8cew3qf"
 
-[node name="EnemyPulseObeyer" type="Node" parent="Composites" index="2" node_paths=PackedStringArray("_enemyChar", "_stateMachine", "_pulseState", "_stasisObeyer")]
-script = ExtResource("8_8157t")
-_enemyChar = NodePath("../..")
-_stateMachine = NodePath("../../EnemyStateMachine")
-_pulseState = NodePath("../../EnemyStateMachine/PulseState")
-_stasisObeyer = NodePath("../EnemyStasisObeyer")
-metadata/_custom_type_script = "uid://cdivbq812a11w"
-
-[node name="GravityComposite" type="Node" parent="Composites" index="3" node_paths=PackedStringArray("_enemyChar")]
+[node name="GravityComposite" type="Node" parent="Composites" index="2" node_paths=PackedStringArray("_enemyChar")]
 script = ExtResource("9_ec6pp")
 _enemyChar = NodePath("../..")
 metadata/_custom_type_script = "uid://cds0f60e2t3lk"
-
-[node name="EnemyStasisObeyer" type="Node" parent="Composites" index="4" node_paths=PackedStringArray("_stateMachine", "_followState")]
-script = ExtResource("10_g1s5f")
-_stateMachine = NodePath("../../EnemyStateMachine")
-_followState = NodePath("../../EnemyStateMachine/FollowState")
-metadata/_custom_type_script = "uid://cpv0hxwhvrnc8"
 
 [node name="EnemyStateMachine" type="Node" parent="." index="5" node_paths=PackedStringArray("_initialState")]
 script = ExtResource("7_52jmu")
@@ -354,3 +340,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.44784e-09, 1.07007, 3.8099
 collision_mask = 17
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="8"]
+
+[node name="Mechanics" type="Node" parent="." index="9"]
+
+[node name="EnemyPulseObeyer" type="Node" parent="Mechanics" index="0" node_paths=PackedStringArray("_enemyChar", "_stateMachine", "_pulseState", "_stasisObeyer")]
+script = ExtResource("8_8157t")
+_enemyChar = NodePath("../..")
+_stateMachine = NodePath("../../EnemyStateMachine")
+_pulseState = NodePath("../../EnemyStateMachine/PulseState")
+_stasisObeyer = NodePath("../EnemyStasisObeyer")
+metadata/_custom_type_script = "uid://cdivbq812a11w"
+
+[node name="EnemyStasisObeyer" type="Node" parent="Mechanics" index="1" node_paths=PackedStringArray("_stateMachine", "_followState")]
+script = ExtResource("10_g1s5f")
+_stateMachine = NodePath("../../EnemyStateMachine")
+_followState = NodePath("../../EnemyStateMachine/FollowState")
+metadata/_custom_type_script = "uid://cpv0hxwhvrnc8"

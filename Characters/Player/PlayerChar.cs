@@ -11,19 +11,17 @@ internal sealed partial class PlayerChar : Character
 {
   [Export] private PlayerAnimator? _animator;
 
-  [Export] private CameraStateMachine? _cameraStateMachine;
+  [Export] private CameraController? _cameraController;
   [Export] private MoveStateMachine? _moveStateMachine;
+  [Export] private BodyAligner? _bodyAligner;
 
   [Export] private Skeleton3D? _skeleton;
-  [Export] private BodyAlignStateMachine? _bodyAligner;
 
   public override void _Ready() => EnsureStartingRotation();
 
   public override void _PhysicsProcess(double delta)
   {
     _moveStateMachine?.PhysicsProcess(delta);
-    _cameraStateMachine?.PhysicsProcess(delta);
-    _bodyAligner?.PhysicsProcess(delta);
 
     MoveAndSlide();
   }
@@ -31,7 +29,6 @@ internal sealed partial class PlayerChar : Character
   public override void _UnhandledInput(InputEvent @event)
   {
     _moveStateMachine?.UnhandledInput(@event);
-    _cameraStateMachine?.UnhandledInput(@event);
   }
 
 
