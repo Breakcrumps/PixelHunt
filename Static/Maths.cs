@@ -38,4 +38,9 @@ internal static class Maths
 
   internal static float Abs(this float operand)
     => Mathf.Abs(operand);
+
+  internal static bool IsRoughly(this Quaternion operand, Quaternion other, float tolerance = Tolerance) => (
+    operand.X.IsRoughly(other.X, tolerance) && operand.Y.IsRoughly(other.Y, tolerance)
+    && operand.Z.IsRoughly(other.Z, tolerance) && operand.W.IsRoughly(other.W, tolerance)
+  );
 }

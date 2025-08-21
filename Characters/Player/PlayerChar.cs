@@ -1,4 +1,3 @@
-using PixelHunt.Animation;
 using PixelHunt.Characters.Player.Composites;
 using PixelHunt.Static;
 using PixelHunt.Types;
@@ -9,12 +8,7 @@ namespace PixelHunt.Characters.Player;
 [GlobalClass]
 internal sealed partial class PlayerChar : Character
 {
-  [Export] private PlayerAnimator? _animator;
-
-  [Export] private CameraController? _cameraController;
   [Export] private MoveStateMachine? _moveStateMachine;
-  [Export] private BodyAligner? _bodyAligner;
-
   [Export] private Skeleton3D? _skeleton;
 
   public override void _Ready() => EnsureStartingRotation();

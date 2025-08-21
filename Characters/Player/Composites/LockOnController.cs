@@ -12,9 +12,12 @@ internal sealed partial class LockOnController : Node
   [Export] private Area3D? _eyesight;
   [Export] private Node3D? _cameraPivot;
   [Export] private SpringArm3D? _cameraSpring;
+  [Export] private PlayerChar? _playerChar;
+  [Export] private Camera3D? _camera;
 
   private Vector3 _initialPivotPosition;
   private float _initialSpringLength;
+  private float _initialFov;
 
   private GameTime _timeFacingTheWrongWay = GameTime.Zero; // Genius name.
   private bool _overflow;
@@ -28,6 +31,9 @@ internal sealed partial class LockOnController : Node
 
     if (_cameraSpring is not null)
       _initialSpringLength = _cameraSpring.SpringLength;
+
+    if (_camera is not null)
+      _initialFov = _camera.Fov;
   }
 
   public override void _PhysicsProcess(double delta)
@@ -50,21 +56,34 @@ internal sealed partial class LockOnController : Node
 
     _cameraPivot.Position = _cameraPivot.Position.Lerp(to: _initialPivotPosition, weight: 5f * (float)delta);
 
-    Vector3 difVector3D = _targetChar.GlobalPosition - _cameraPivot.GlobalPosition;
-    Vector2 difVector2D = new(difVector3D.X, difVector3D.Z);
+    // Vector3 difVector3D = _targetChar.GlobalPosition - _cameraPivot.GlobalPosition;
+    // Vector2 difVector2D = new(difVector3D.X, difVector3D.Z);
 
-    float resultAngle = difVector2D.Angle() + Mathf.Pi / 2f;
+    // float resultAngle = difVector2D.Angle() + Mathf.Pi / 2f;
 
-    _cameraPivot.Rotation = _cameraPivot.Rotation with
-    {
-      Y = _cameraPivot.Rotation.Y.LerpF(to: resultAngle, weight: 5f * (float)delta)
-    };
+    // _cameraPivot.Rotation = _cameraPivot.Rotation with
+    // {
+    //   Y = _cameraPivot.Rotation.Y.LerpF(to: resultAngle, weight: 5f * (float)delta)
+    // };
 
-    if (_cameraPivot.Rotation.Y.IsRoughly(resultAngle, tolerance: .1f))
+    // if (_cameraPivot.Rotation.Y.IsRoughly(resultAngle, tolerance: .1f))
+    // {
+    //   _timeFacingTheWrongWay = GameTime.Zero;
+    //   _overflow = false;
+    // }
+
+    Quaternion currentOrientation = _cameraPivot.GlobalBasis.GetRotationQuaternion();
+
+    Transform3D newTransform = _cameraPivot.GlobalTransform.LookingAt(_targetChar.GlobalPosition);
+    Quaternion newOrientation = newTransform.Basis.GetRotationQuaternion();
+
+    if (currentOrientation.IsRoughly(newOrientation, tolerance: .01f))
     {
       _timeFacingTheWrongWay = GameTime.Zero;
       _overflow = false;
     }
+
+    _cameraPivot.GlobalBasis = new(currentOrientation.Slerp(to: newOrientation, weight: 5f * (float)delta));
   }
 
   private void LockOnMouseMovement(double delta)
@@ -75,13 +94,19 @@ internal sealed partial class LockOnController : Node
     if (_cameraSpring is null)
       return;
 
+    if (_camera is null)
+      return;
+
     if (_targetChar is null)
     {
       _cameraPivot.Position = _cameraPivot.Position.Lerp(to: _initialPivotPosition, weight: 10f * (float)delta);
       _cameraSpring.SpringLength = _cameraSpring.SpringLength.LerpF(to: _initialSpringLength, weight: 10f * (float)delta);
+      _camera.Fov = _camera.Fov.LerpF(to: _initialFov, weight: 5f * (float)delta);
 
       return;
     }
+
+    _camera.Fov = _camera.Fov.LerpF(to: _initialFov + 2f, weight: 5f * (float)delta);
 
     Vector3 forward3D = -_cameraPivot.Basis.Z;
     Vector2 forward2D = new(forward3D.X, forward3D.Z);
@@ -93,21 +118,24 @@ internal sealed partial class LockOnController : Node
 
     if (-Mathf.Pi / 4f <= angle && angle <= Mathf.Pi / 4f)
     {
-      _cameraSpring.SpringLength = _cameraSpring.SpringLength.LerpF(to: _initialSpringLength + 1f, weight: 5f * (float)delta);
+      _cameraSpring.SpringLength = _cameraSpring.SpringLength.LerpF(to: _initialSpringLength + .5f, weight: 5f * (float)delta);
 
       _cameraPivot.Position = _cameraPivot.Position.Lerp(to: _initialPivotPosition, weight: 5f * (float)delta);
     }
     else
     {
-      _cameraSpring.SpringLength = _cameraSpring.SpringLength.LerpF(to: _initialSpringLength + 2f, weight: 5f * (float)delta);
+      float amplitude = difVector2D.Length();
 
-      Vector3 newPivotPosition = _initialPivotPosition + (difVector3D with { Y = 0f }).Normalized();
-      newPivotPosition = _cameraPivot.ToLocal(newPivotPosition) with { Y = _cameraPivot.Position.Y };
+      _cameraSpring.SpringLength = _cameraSpring.SpringLength.LerpF(to: _initialSpringLength + .1f * amplitude, weight: 5f * (float)delta);
 
-      _cameraPivot.Position = _cameraPivot.Position.Lerp(to: newPivotPosition, weight: (float)delta);
+      Vector3 newPivotPosition = _initialPivotPosition + _cameraPivot.ToLocal(difVector3D with { Y = 0f }).Normalized() * .3f * amplitude;
+      newPivotPosition = newPivotPosition with { Y = _cameraPivot.Position.Y };
+      newPivotPosition = newPivotPosition.Rotated(Vector3.Up, _cameraPivot.Rotation.Y);
+
+      _cameraPivot.Position = _cameraPivot.Position.Lerp(to: newPivotPosition, weight: 5f * (float)delta);
     }
 
-    if (angle <= -2f / 3f * Mathf.Pi || angle >= 2f / 3f * Mathf.Pi)
+    if (angle <= -7f / 12f * Mathf.Pi || angle >= 7f / 12f * Mathf.Pi)
     {
       _timeFacingTheWrongWay.Frames++;
     }

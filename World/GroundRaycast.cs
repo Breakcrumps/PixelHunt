@@ -19,7 +19,7 @@ internal sealed partial class GroundRaycast : RayCast3D
     if (_body is null)
       return false;
 
-    TargetPosition = new Vector3(0f, -.5f, 0f);
+    TargetPosition = ToLocal(GlobalPosition + new Vector3(0f, -.5f, 0f));
 
     return IsColliding();
   }

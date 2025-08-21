@@ -1,8 +1,9 @@
-[gd_scene load_steps=42 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=43 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Characters/Player/PlayerChar.cs" id="2_s1rgi"]
 [ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Animation/AnimationHelper.cs" id="3_vlldt"]
+[ext_resource type="Texture2D" uid="uid://cxdm6qy455vlw" path="res://Import/5-old-photo-camera-drawing-4-1024x941.png" id="4_5xivi"]
 [ext_resource type="Script" uid="uid://b5jdbqsx3wlrx" path="res://Animation/PlayerAnimator.cs" id="5_j23h2"]
 [ext_resource type="Script" uid="uid://bx3y8ipt6s76s" path="res://Characters/Player/Composites/AttachmentManager.cs" id="6_6fff4"]
 [ext_resource type="Script" uid="uid://ce15vipmgn6ve" path="res://Characters/Player/Composites/BodyAligner.cs" id="7_0ij6m"]
@@ -597,12 +598,10 @@ size = Vector3(25, 25, 24)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2xv0b"]
 size = Vector3(5, 5, 5)
 
-[node name="Player" node_paths=PackedStringArray("_animator", "_moveStateMachine", "_bodyAligner", "_skeleton") groups=["Player"] instance=ExtResource("1_6ysni")]
+[node name="Player" node_paths=PackedStringArray("_moveStateMachine", "_skeleton") groups=["Player"] instance=ExtResource("1_6ysni")]
 collision_mask = 28
 script = ExtResource("2_s1rgi")
-_animator = NodePath("Composites/PlayerAnimator")
 _moveStateMachine = NodePath("MoveStateMachine")
-_bodyAligner = NodePath("")
 _skeleton = NodePath("Skeleton3D")
 
 [node name="Skeleton3D" parent="." index="0"]
@@ -677,6 +676,10 @@ shape = SubResource("BoxShape3D_0ij6m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 shape = SubResource("BoxShape3D_2xv0b")
 
+[node name="DEBUG" type="Sprite3D" parent="CameraPivot" index="1"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+texture = ExtResource("4_5xivi")
+
 [node name="Composites" type="Node" parent="." index="5"]
 
 [node name="PlayerAnimator" type="Node" parent="Composites" index="0" node_paths=PackedStringArray("AnimPlayer", "_animHelper", "Character")]
@@ -698,18 +701,18 @@ _playerChar = NodePath("../..")
 _armature = NodePath("../../Skeleton3D")
 metadata/_custom_type_script = "uid://ce15vipmgn6ve"
 
-[node name="CameraController" type="Node" parent="Composites" index="3" node_paths=PackedStringArray("_cameraSpring", "_cameraPivot", "_character")]
+[node name="CameraController" type="Node" parent="Composites" index="3" node_paths=PackedStringArray("_cameraPivot")]
 script = ExtResource("8_2xv0b")
-_cameraSpring = NodePath("../../CameraPivot/SpringArm3D")
 _cameraPivot = NodePath("../../CameraPivot")
-_character = NodePath("../..")
 metadata/_custom_type_script = "uid://cocc8feenl8bv"
 
-[node name="LockOnController" type="Node" parent="Composites" index="4" node_paths=PackedStringArray("_eyesight", "_cameraPivot", "_cameraSpring")]
+[node name="LockOnController" type="Node" parent="Composites" index="4" node_paths=PackedStringArray("_eyesight", "_cameraPivot", "_cameraSpring", "_playerChar", "_camera")]
 script = ExtResource("9_7jpmk")
 _eyesight = NodePath("../../CameraPivot/SpringArm3D/Eyesight")
 _cameraPivot = NodePath("../../CameraPivot")
 _cameraSpring = NodePath("../../CameraPivot/SpringArm3D")
+_playerChar = NodePath("../..")
+_camera = NodePath("../../CameraPivot/SpringArm3D/Camera3D")
 metadata/_custom_type_script = "uid://dmw11owa6g2k8"
 
 [node name="MoveStateMachine" type="Node" parent="." index="6" node_paths=PackedStringArray("_playerChar", "_animHelper")]
