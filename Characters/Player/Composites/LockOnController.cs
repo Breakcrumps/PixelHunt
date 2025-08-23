@@ -36,9 +36,15 @@ internal sealed partial class LockOnController : Node
       _initialFov = _camera.Fov;
   }
 
+
   public override void _PhysicsProcess(double delta)
   {
-    HandleInput();
+    if (_cameraPivot is null)
+      return;
+
+    _overflow = _timeFacingTheWrongWay == GameTime.Second;
+
+    HandleInput(delta);
 
     if (_overflow)
       ForceNeutralPerspective(delta);
@@ -46,51 +52,78 @@ internal sealed partial class LockOnController : Node
       LockOnMouseMovement(delta);
   }
 
+  private void HandleInput(double delta)
+  {
+    if (Input.IsActionPressed("LockOn"))
+    {
+      if (_targetChar is not null)
+        return;
+
+      _targetChar = FindTarget();
+    }
+    else
+    {
+      _targetChar = null;
+
+      _cameraPivot!.Position = _cameraPivot.Position.Lerp(to: _initialPivotPosition, weight: 5f * (float)delta);
+
+      QuitOverflow();
+    }
+  }
+
+  private Character? FindTarget()
+  {
+    if (_eyesight is null)
+      return null;
+
+    Character? target = null;
+
+    foreach (Node node in _eyesight!.GetOverlappingBodies())
+    {
+      if (node is not EnemyChar enemyChar)
+        continue;
+
+      if (_targetChar is null)
+      {
+        target = enemyChar;
+        continue;
+      }
+
+      Vector3 currentDistance = _targetChar.GlobalPosition - _cameraPivot!.GlobalPosition;
+      Vector3 candidateDistance = enemyChar.GlobalPosition - _cameraPivot.GlobalPosition;
+
+      if (candidateDistance.Length() < currentDistance.Length())
+      {
+        target = enemyChar;
+      }
+    }
+
+    return target;
+  }
+
   private void ForceNeutralPerspective(double delta)
   {
-    if (_cameraPivot is null)
-      return;
-
     if (_targetChar is null)
       return;
 
-    _cameraPivot.Position = _cameraPivot.Position.Lerp(to: _initialPivotPosition, weight: 5f * (float)delta);
-
-    // Vector3 difVector3D = _targetChar.GlobalPosition - _cameraPivot.GlobalPosition;
-    // Vector2 difVector2D = new(difVector3D.X, difVector3D.Z);
-
-    // float resultAngle = difVector2D.Angle() + Mathf.Pi / 2f;
-
-    // _cameraPivot.Rotation = _cameraPivot.Rotation with
-    // {
-    //   Y = _cameraPivot.Rotation.Y.LerpF(to: resultAngle, weight: 5f * (float)delta)
-    // };
-
-    // if (_cameraPivot.Rotation.Y.IsRoughly(resultAngle, tolerance: .1f))
-    // {
-    //   _timeFacingTheWrongWay = GameTime.Zero;
-    //   _overflow = false;
-    // }
+    _cameraPivot!.Position = _cameraPivot.Position.Lerp(to: _initialPivotPosition, weight: 5f * (float)delta);
 
     Quaternion currentOrientation = _cameraPivot.GlobalBasis.GetRotationQuaternion();
 
     Transform3D newTransform = _cameraPivot.GlobalTransform.LookingAt(_targetChar.GlobalPosition);
     Quaternion newOrientation = newTransform.Basis.GetRotationQuaternion();
 
-    if (currentOrientation.IsRoughly(newOrientation, tolerance: .01f))
-    {
-      _timeFacingTheWrongWay = GameTime.Zero;
-      _overflow = false;
-    }
+    if (
+      currentOrientation.IsRoughly(newOrientation, tolerance: .01f)
+      || !Input.GetLastMouseVelocity().IsRoughlyZero(tolerance: .01f)
+    )
+      QuitOverflow();
 
     _cameraPivot.GlobalBasis = new(currentOrientation.Slerp(to: newOrientation, weight: 5f * (float)delta));
   }
 
   private void LockOnMouseMovement(double delta)
   {
-    if (_cameraPivot is null)
-      return;
-
     if (_cameraSpring is null)
       return;
 
@@ -99,7 +132,7 @@ internal sealed partial class LockOnController : Node
 
     if (_targetChar is null)
     {
-      _cameraPivot.Position = _cameraPivot.Position.Lerp(to: _initialPivotPosition, weight: 10f * (float)delta);
+      _cameraPivot!.Position = _cameraPivot.Position.Lerp(to: _initialPivotPosition, weight: 10f * (float)delta);
       _cameraSpring.SpringLength = _cameraSpring.SpringLength.LerpF(to: _initialSpringLength, weight: 10f * (float)delta);
       _camera.Fov = _camera.Fov.LerpF(to: _initialFov, weight: 5f * (float)delta);
 
@@ -108,7 +141,7 @@ internal sealed partial class LockOnController : Node
 
     _camera.Fov = _camera.Fov.LerpF(to: _initialFov + 2f, weight: 5f * (float)delta);
 
-    Vector3 forward3D = -_cameraPivot.Basis.Z;
+    Vector3 forward3D = -_cameraPivot!.Basis.Z;
     Vector2 forward2D = new(forward3D.X, forward3D.Z);
 
     Vector3 difVector3D = _targetChar.GlobalPosition - _cameraPivot.GlobalPosition;
@@ -116,7 +149,7 @@ internal sealed partial class LockOnController : Node
 
     float angle = forward2D.AngleTo(difVector2D); // Radians.
 
-    if (-Mathf.Pi / 4f <= angle && angle <= Mathf.Pi / 4f)
+    if (angle.BetweenRadians(-1f / 4f, 1f / 4f))
     {
       _cameraSpring.SpringLength = _cameraSpring.SpringLength.LerpF(to: _initialSpringLength + .5f, weight: 5f * (float)delta);
 
@@ -135,65 +168,15 @@ internal sealed partial class LockOnController : Node
       _cameraPivot.Position = _cameraPivot.Position.Lerp(to: newPivotPosition, weight: 5f * (float)delta);
     }
 
-    if (angle <= -7f / 12f * Mathf.Pi || angle >= 7f / 12f * Mathf.Pi)
-    {
+    if (!angle.BetweenRadians(-7f / 12f, 7f / 12f) && Input.GetLastMouseVelocity().IsRoughlyZero(tolerance: .01f))
       _timeFacingTheWrongWay.Frames++;
-    }
     else
-    {
       _timeFacingTheWrongWay = GameTime.Zero;
-    }
-
-    _overflow = _timeFacingTheWrongWay == GameTime.Second;
   }
 
-
-  private void HandleInput()
+  private void QuitOverflow()
   {
-    if (Input.IsActionPressed("LockOn"))
-    {
-      if (_targetChar is not null)
-        return;
-
-      _targetChar = FindTarget();
-    }
-    else
-    {
-      _targetChar = null;
-      _timeFacingTheWrongWay = GameTime.Zero;
-    }
-  }
-
-  private Character? FindTarget()
-  {
-    if (_cameraPivot is null)
-      return null;
-
-    if (_eyesight is null)
-      return null;
-
-    Character? target = null;
-
-    foreach (Node node in _eyesight!.GetOverlappingBodies())
-    {
-      if (node is not EnemyChar enemyChar)
-        continue;
-
-      if (_targetChar is null)
-      {
-        target = enemyChar;
-        continue;
-      }
-
-      Vector3 currentDistance = _targetChar.GlobalPosition - _cameraPivot.GlobalPosition;
-      Vector3 candidateDistance = enemyChar.GlobalPosition - _cameraPivot.GlobalPosition;
-
-      if (candidateDistance.Length() < currentDistance.Length())
-      {
-        target = enemyChar;
-      }
-    }
-
-    return target;
+    _timeFacingTheWrongWay = GameTime.Zero;
+    _overflow = false;
   }
 }

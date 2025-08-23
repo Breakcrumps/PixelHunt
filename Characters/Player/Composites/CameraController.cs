@@ -1,4 +1,5 @@
 using Godot;
+using PixelHunt.Static;
 
 namespace PixelHunt.Characters.Player.Composites;
 
@@ -13,6 +14,8 @@ internal sealed partial class CameraController : Node
   [Export] private float _turnSpeed = 5f;
   [Export] private float _zoomSpeed = 10f;
 
+  private bool _canControlCamera = true;
+
   public override void _UnhandledInput(InputEvent @event)
     => HandleMouseMovement(@event);
 
@@ -21,6 +24,9 @@ internal sealed partial class CameraController : Node
 
   private void HandleMouseMovement(InputEvent @event)
   {
+    if (!_canControlCamera)
+      return;
+    
     if (@event is not InputEventMouseMotion mouseMotion)
       return;
 
@@ -28,6 +34,7 @@ internal sealed partial class CameraController : Node
       return;
 
     Vector2 motion = mouseMotion.Relative;
+
     Vector3 newRotation = _cameraPivot!.Rotation;
 
     newRotation.X -= motion.Y * _mouseSensitivity;
@@ -35,5 +42,15 @@ internal sealed partial class CameraController : Node
     newRotation.Y -= motion.X * _mouseSensitivity;
 
     _cameraPivot.Rotation = newRotation;
+  }
+
+  public override void _PhysicsProcess(double delta)
+  {
+    _canControlCamera = !Input.IsActionPressed("Aim");
+    
+    if (_cameraPivot is null)
+      return;
+    
+    _cameraPivot.Rotation = _cameraPivot.Rotation with { Z = 0f };
   }
 }
