@@ -11,7 +11,12 @@ internal sealed partial class PlayerChar : Character
   [Export] private MoveStateMachine? _moveStateMachine;
   [Export] private Skeleton3D? _skeleton;
 
-  public override void _Ready() => EnsureStartingRotation();
+  public override void _Ready()
+  {
+    GlobalInstances.PlayerChar = this;
+    
+    EnsureStartingRotation();
+  }
 
   public override void _PhysicsProcess(double delta)
   {

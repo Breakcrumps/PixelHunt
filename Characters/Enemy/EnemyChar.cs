@@ -2,6 +2,7 @@ using PixelHunt.Characters.Enemy.Composites;
 using PixelHunt.Characters.Enemy.States;
 using PixelHunt.Types;
 using Godot;
+using PixelHunt.Mechanics.Markers;
 
 namespace PixelHunt.Characters.Enemy;
 
@@ -10,6 +11,7 @@ internal sealed partial class EnemyChar : Character
 {
   [Export] private EnemyStateMachine? _stateMachine;
   [Export] private PushbackState? _pushbackState;
+  [Export] internal LockOnMarker? LockOnMarker { get; private set; }
 
   public override void _Process(double delta)
   {

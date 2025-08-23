@@ -3,6 +3,7 @@ using PixelHunt.Parents;
 using Godot;
 using PixelHunt.Characters.Player;
 using PixelHunt.Characters.Enemy.Composites;
+using PixelHunt.Static;
 
 namespace PixelHunt.Characters.Enemy.States;
 
@@ -16,9 +17,7 @@ internal sealed partial class AttackState : State
   private PlayerChar? _playerChar;
 
   public override void _Ready()
-  {
-    _playerChar = (PlayerChar)GetTree().GetFirstNodeInGroup("Player");
-  }
+    => _playerChar = GlobalInstances.PlayerChar;
 
   internal override void Enter()
   {

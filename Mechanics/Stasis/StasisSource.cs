@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using PixelHunt.Static;
 
 namespace PixelHunt.Mechanics.Stasis;
 
@@ -9,7 +10,7 @@ internal partial class StasisSource : Node
   internal Action<StasisParams>? Stasis;
 
   public override void _Ready()
-    => AddToGroup("StasisSources");
+    => NodeGroups.StasisSources.Add(this);
 
   private protected void EmitStasis(StasisParams stasisParams)
     => Stasis?.Invoke(stasisParams);

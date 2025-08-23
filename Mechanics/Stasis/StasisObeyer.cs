@@ -1,4 +1,5 @@
 using Godot;
+using PixelHunt.Static;
 
 namespace PixelHunt.Mechanics.Stasis;
 
@@ -6,15 +7,7 @@ namespace PixelHunt.Mechanics.Stasis;
 internal abstract partial class StasisObeyer : Node
 {
   public override void _Ready()
-  {
-    foreach (Node node in GetTree().GetNodesInGroup("StasisSources"))
-    {
-      if (node is not StasisSource stasisSource)
-        continue;
-
-      stasisSource.Stasis += ObeyStasis;
-    }
-  }
+    => NodeGroups.StasisSources.ForEach(x => x.Stasis += ObeyStasis);
 
   private protected abstract void ObeyStasis(StasisParams stasisParams);
 }

@@ -1,4 +1,5 @@
 using Godot;
+using PixelHunt.Static;
 
 namespace PixelHunt.Mechanics.Pulse;
 
@@ -6,15 +7,7 @@ namespace PixelHunt.Mechanics.Pulse;
 internal abstract partial class PulseObeyer : Node
 {
   public sealed override void _Ready()
-  {
-    foreach (Node node in GetTree().GetNodesInGroup("PulseSources"))
-    {
-      if (node is not PulseSource pulseSource)
-        continue;
-
-      pulseSource.Pulse += ObeyPulse;
-    }
-  }
+    => NodeGroups.PulseSources.ForEach(x => x.Pulse += ObeyPulse);
 
   private protected abstract void ObeyPulse(PulseParams pulseParams);
 }
