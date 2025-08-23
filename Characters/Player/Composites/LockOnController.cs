@@ -76,6 +76,7 @@ internal sealed partial class LockOnController : Node
     }
     else
     {
+      _targetChar?.LockOnMarker?.HideMarker();
       _targetChar = null;
 
       LerpToDefaults(delta);

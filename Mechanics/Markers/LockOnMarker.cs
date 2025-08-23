@@ -1,4 +1,5 @@
 using Godot;
+using PixelHunt.Static;
 
 namespace PixelHunt.Mechanics.Markers;
 
@@ -8,14 +9,16 @@ internal sealed partial class LockOnMarker : Node3D
   [Export] private Sprite3D? _sprite;
   [Export] private AnimationPlayer? _animPlayer;
 
+  private bool _active;
+
   public override void _Ready()
   {
     if (_sprite is null)
       return;
-    
+
     _sprite.Visible = false;
   }
-  
+
   internal void ShowMarker()
   {
     if (_animPlayer is null)
@@ -24,6 +27,7 @@ internal sealed partial class LockOnMarker : Node3D
     if (_sprite is null)
       return;
 
+    _active = true;
     _animPlayer.Play("Spin");
     _sprite.Visible = true;
   }
@@ -36,7 +40,19 @@ internal sealed partial class LockOnMarker : Node3D
     if (_sprite is null)
       return;
 
+    _active = false;
     _animPlayer.Stop();
     _sprite.Visible = false;
+  }
+
+  public override void _Process(double delta)
+  {
+    if (!_active)
+      return;
+
+    if (GlobalInstances.PlayerCamera is not Camera3D camera)
+      return;
+
+    LookAt(camera.GlobalPosition);
   }
 }

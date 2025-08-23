@@ -598,11 +598,12 @@ size = Vector3(25, 25, 24)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2xv0b"]
 size = Vector3(5, 5, 5)
 
-[node name="Player" node_paths=PackedStringArray("_moveStateMachine", "_skeleton") instance=ExtResource("1_6ysni")]
+[node name="Player" node_paths=PackedStringArray("_moveStateMachine", "_skeleton", "_camera") instance=ExtResource("1_6ysni")]
 collision_mask = 28
 script = ExtResource("2_s1rgi")
 _moveStateMachine = NodePath("MoveStateMachine")
 _skeleton = NodePath("Skeleton3D")
+_camera = NodePath("CameraPivot/SpringArm3D/Camera3D")
 
 [node name="Skeleton3D" parent="." index="0"]
 bones/0/rotation = Quaternion(-0.0648627, -0.0210503, 0.00377712, 0.997665)

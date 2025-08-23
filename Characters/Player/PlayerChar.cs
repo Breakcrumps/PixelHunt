@@ -10,11 +10,13 @@ internal sealed partial class PlayerChar : Character
 {
   [Export] private MoveStateMachine? _moveStateMachine;
   [Export] private Skeleton3D? _skeleton;
+  [Export] private Camera3D? _camera;
 
   public override void _Ready()
   {
     GlobalInstances.PlayerChar = this;
-    
+    GlobalInstances.PlayerCamera = _camera;
+
     EnsureStartingRotation();
   }
 
