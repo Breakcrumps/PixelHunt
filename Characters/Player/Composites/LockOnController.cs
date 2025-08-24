@@ -10,7 +10,7 @@ namespace PixelHunt.Characters.Player.Composites;
 internal sealed partial class LockOnController : Node
 {
   [Export] private Area3D? _eyesight;
-  [Export] private Node3D? _cameraPivot;
+  [Export] private CameraPivot? _cameraPivot;
   [Export] private SpringArm3D? _cameraSpring;
   [Export] private PlayerChar? _playerChar;
   [Export] private Camera3D? _camera;
@@ -91,23 +91,20 @@ internal sealed partial class LockOnController : Node
 
     ILockOnMarkerBearer? target = null;
 
+    float bestDistance = float.PositiveInfinity;
+
     foreach (Node node in _eyesight!.GetOverlappingBodies())
     {
       if (node is not ILockOnMarkerBearer markerBearer)
         continue;
 
-      if (_target is null)
+      float candidateDistance = (markerBearer.GlobalPosition - _cameraPivot!.GlobalPosition).Length();
+
+      if (candidateDistance < bestDistance)
       {
         target = markerBearer;
-        continue;
-      }
 
-      Vector3 currentDistance = _target.GlobalPosition - _cameraPivot!.GlobalPosition;
-      Vector3 candidateDistance = markerBearer.GlobalPosition - _cameraPivot.GlobalPosition;
-
-      if (candidateDistance.Length() < currentDistance.Length())
-      {
-        target = markerBearer;
+        bestDistance = candidateDistance;
       }
     }
 

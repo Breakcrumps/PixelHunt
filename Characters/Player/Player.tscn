@@ -1,23 +1,21 @@
-[gd_scene load_steps=46 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=44 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Characters/Player/PlayerChar.cs" id="2_s1rgi"]
 [ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Animation/AnimationHelper.cs" id="3_vlldt"]
-[ext_resource type="Texture2D" uid="uid://cxdm6qy455vlw" path="res://Import/5-old-photo-camera-drawing-4-1024x941.png" id="4_5xivi"]
-[ext_resource type="Script" uid="uid://buifsvgyanc4a" path="res://Characters/Player/Nodes/AimArea.cs" id="5_74fb0"]
+[ext_resource type="Script" uid="uid://cocc8feenl8bv" path="res://Characters/Player/Nodes/CameraPivot.cs" id="4_5xivi"]
+[ext_resource type="Script" uid="uid://cem6xv7g4ywac" path="res://Characters/Player/Nodes/AimArea.cs" id="5_74fb0"]
 [ext_resource type="Script" uid="uid://b5jdbqsx3wlrx" path="res://Animation/PlayerAnimator.cs" id="5_j23h2"]
 [ext_resource type="Script" uid="uid://bx3y8ipt6s76s" path="res://Characters/Player/Composites/AttachmentManager.cs" id="6_6fff4"]
 [ext_resource type="Script" uid="uid://ce15vipmgn6ve" path="res://Characters/Player/Composites/BodyAligner.cs" id="7_0ij6m"]
 [ext_resource type="Script" uid="uid://hoau23mrd4js" path="res://Mechanics/Pulse/PulseSources/PlayerPulseSource.cs" id="7_5xivi"]
 [ext_resource type="PackedScene" uid="uid://dig6gkp4tqtsw" path="res://Import/Pipe.glb" id="7_6fff4"]
 [ext_resource type="Script" uid="uid://cy02vpvcdixrx" path="res://Characters/Player/Composites/MoveStateMachine.cs" id="8_0j2ni"]
-[ext_resource type="Script" uid="uid://cocc8feenl8bv" path="res://Characters/Player/Composites/CameraController.cs" id="8_2xv0b"]
 [ext_resource type="Script" uid="uid://co6lweoovdpnh" path="res://Mechanics/Stasis/StasisSources/PlayerStasisSource.cs" id="8_74fb0"]
 [ext_resource type="Script" uid="uid://dyk3bbbwwp4fn" path="res://Characters/Player/MoveStrategies/FreeMoveStrategy.cs" id="8_s1rgi"]
 [ext_resource type="Script" uid="uid://dmw11owa6g2k8" path="res://Characters/Player/Composites/LockOnController.cs" id="9_7jpmk"]
 [ext_resource type="Script" uid="uid://blrscmul5u4le" path="res://Characters/Player/MoveStrategies/PushbackMoveStrategy.cs" id="9_j23h2"]
 [ext_resource type="Script" uid="uid://c3m2h1vrf6242" path="res://Characters/Player/MoveStrategies/DebugMoveStrategy.cs" id="10_0j2ni"]
-[ext_resource type="Script" uid="uid://bte4v1b3ft26l" path="res://Mechanics/Aim/AimController.cs" id="11_k8aph"]
 [ext_resource type="Script" uid="uid://cf7wkn411tk3t" path="res://Characters/Player/MoveStrategies/StopMoveStrategy.cs" id="12_k8aph"]
 
 [sub_resource type="Animation" id="Animation_5xivi"]
@@ -658,6 +656,7 @@ shape = SubResource("BoxShape3D_0j2ni")
 
 [node name="CameraPivot" type="Node3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75084, 0)
+script = ExtResource("4_5xivi")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" index="0"]
 collision_mask = 20
@@ -681,16 +680,12 @@ shape = SubResource("BoxShape3D_0ij6m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 shape = SubResource("BoxShape3D_2xv0b")
 
-[node name="DEBUG" type="Sprite3D" parent="CameraPivot" index="1"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
-texture = ExtResource("4_5xivi")
-
-[node name="AimArea" type="Area3D" parent="CameraPivot" index="2"]
+[node name="AimArea" type="Area3D" parent="CameraPivot" index="1"]
 collision_mask = 96
 script = ExtResource("5_74fb0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CameraPivot/AimArea" index="0"]
-transform = Transform3D(2, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, -25)
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, -25)
 shape = SubResource("BoxShape3D_5xivi")
 
 [node name="Composites" type="Node" parent="." index="5"]
@@ -714,12 +709,7 @@ _playerChar = NodePath("../..")
 _armature = NodePath("../../Skeleton3D")
 metadata/_custom_type_script = "uid://ce15vipmgn6ve"
 
-[node name="CameraController" type="Node" parent="Composites" index="3" node_paths=PackedStringArray("_cameraPivot")]
-script = ExtResource("8_2xv0b")
-_cameraPivot = NodePath("../../CameraPivot")
-metadata/_custom_type_script = "uid://cocc8feenl8bv"
-
-[node name="LockOnController" type="Node" parent="Composites" index="4" node_paths=PackedStringArray("_eyesight", "_cameraPivot", "_cameraSpring", "_playerChar", "_camera")]
+[node name="LockOnController" type="Node" parent="Composites" index="3" node_paths=PackedStringArray("_eyesight", "_cameraPivot", "_cameraSpring", "_playerChar", "_camera")]
 script = ExtResource("9_7jpmk")
 _eyesight = NodePath("../../CameraPivot/SpringArm3D/Eyesight")
 _cameraPivot = NodePath("../../CameraPivot")
@@ -727,11 +717,6 @@ _cameraSpring = NodePath("../../CameraPivot/SpringArm3D")
 _playerChar = NodePath("../..")
 _camera = NodePath("../../CameraPivot/SpringArm3D/Camera3D")
 metadata/_custom_type_script = "uid://dmw11owa6g2k8"
-
-[node name="AimController" type="Node" parent="Composites" index="5" node_paths=PackedStringArray("_aimArea")]
-script = ExtResource("11_k8aph")
-_aimArea = NodePath("../../CameraPivot/AimArea")
-metadata/_custom_type_script = "uid://bte4v1b3ft26l"
 
 [node name="MoveStateMachine" type="Node" parent="." index="6" node_paths=PackedStringArray("_playerChar", "_animHelper")]
 script = ExtResource("8_0j2ni")

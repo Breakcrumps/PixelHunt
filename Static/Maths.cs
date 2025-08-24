@@ -7,6 +7,12 @@ internal static class Maths
 {
   private const float Tolerance = 1e-15f;
 
+  internal static float Round(this float operand, int digits)
+    => MathF.Round(operand, digits);
+
+  internal static float SinF(this float operand)
+    => Mathf.Sin(operand);
+
   internal static bool IsRoughly(this float operand, float n, float tolerance = Tolerance)
     => Mathf.Abs(operand - n) < tolerance;
 

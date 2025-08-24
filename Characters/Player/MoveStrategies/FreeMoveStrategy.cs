@@ -11,7 +11,7 @@ namespace PixelHunt.Characters.Player.MoveStrategies;
 internal sealed partial class FreeMoveStrategy : State
 {
   [Export] private PlayerChar? _playerChar;
-  [Export] private Node3D? _cameraPivot;
+  [Export] private CameraPivot? _cameraPivot;
   [Export] private Skeleton3D? _armature;
   [Export] private PlayerAnimator? _playerAnimator;
   [Export] private AnimationHelper? _animHelper;

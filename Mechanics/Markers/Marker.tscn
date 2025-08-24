@@ -46,7 +46,7 @@ _animPlayer = NodePath("AnimationPlayer")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-render_priority = 1
+no_depth_test = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

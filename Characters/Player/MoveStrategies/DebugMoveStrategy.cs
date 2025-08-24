@@ -8,7 +8,7 @@ namespace PixelHunt.Characters.Player.MoveStrategies;
 internal sealed partial class DebugMoveStrategy : State
 {
   [Export] private PlayerChar? _playerChar;
-  [Export] private Node3D? _cameraPivot;
+  [Export] private CameraPivot? _cameraPivot;
   [Export] private CollisionShape3D? _collision;
   [Export] private MoveStateMachine? _moveStateMachine;
 
