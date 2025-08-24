@@ -1,5 +1,4 @@
 using Godot;
-using PixelHunt.Characters.Enemy;
 using PixelHunt.Mechanics.Markers;
 using PixelHunt.Static;
 using PixelHunt.Types;
@@ -23,7 +22,7 @@ internal sealed partial class LockOnController : Node
   private GameTime _timeFacingTheWrongWay = GameTime.Zero; // Genius name.
   private bool _overflow;
 
-  private EnemyChar? _targetChar;
+  private ILockOnMarkerBearer? _target;
 
   public override void _Ready()
   {
@@ -53,7 +52,7 @@ internal sealed partial class LockOnController : Node
 
     HandleInput(delta);
 
-    if (_targetChar is null)
+    if (_target is null)
       return;
 
     if (_overflow)
@@ -66,18 +65,18 @@ internal sealed partial class LockOnController : Node
   {
     if (Input.IsActionPressed("LockOn"))
     {
-      if (_targetChar is not null)
+      if (_target is not null)
         return;
 
-      _targetChar = FindTarget();
+      _target = FindTarget();
 
-      if (_targetChar is null)
+      if (_target is null)
         LerpToDefaults(delta);
     }
     else
     {
-      _targetChar?.LockOnMarker?.HideMarker();
-      _targetChar = null;
+      _target?.LockOnMarker?.HideMarker();
+      _target = null;
 
       LerpToDefaults(delta);
 
@@ -85,30 +84,30 @@ internal sealed partial class LockOnController : Node
     }
   }
 
-  private EnemyChar? FindTarget()
+  private ILockOnMarkerBearer? FindTarget()
   {
     if (_eyesight is null)
       return null;
 
-    EnemyChar? target = null;
+    ILockOnMarkerBearer? target = null;
 
     foreach (Node node in _eyesight!.GetOverlappingBodies())
     {
-      if (node is not EnemyChar enemyChar)
+      if (node is not ILockOnMarkerBearer markerBearer)
         continue;
 
-      if (_targetChar is null)
+      if (_target is null)
       {
-        target = enemyChar;
+        target = markerBearer;
         continue;
       }
 
-      Vector3 currentDistance = _targetChar.GlobalPosition - _cameraPivot!.GlobalPosition;
-      Vector3 candidateDistance = enemyChar.GlobalPosition - _cameraPivot.GlobalPosition;
+      Vector3 currentDistance = _target.GlobalPosition - _cameraPivot!.GlobalPosition;
+      Vector3 candidateDistance = markerBearer.GlobalPosition - _cameraPivot.GlobalPosition;
 
       if (candidateDistance.Length() < currentDistance.Length())
       {
-        target = enemyChar;
+        target = markerBearer;
       }
     }
 
@@ -123,7 +122,7 @@ internal sealed partial class LockOnController : Node
 
     Quaternion currentOrientation = _cameraPivot.GlobalBasis.GetRotationQuaternion();
 
-    Transform3D newTransform = _cameraPivot.GlobalTransform.LookingAt(_targetChar!.GlobalPosition);
+    Transform3D newTransform = _cameraPivot.GlobalTransform.LookingAt(_target!.GlobalPosition);
     Quaternion newOrientation = newTransform.Basis.GetRotationQuaternion();
 
     if (
@@ -142,7 +141,7 @@ internal sealed partial class LockOnController : Node
     Vector3 forward3D = -_cameraPivot!.Basis.Z;
     Vector2 forward2D = new(forward3D.X, forward3D.Z);
 
-    Vector3 difVector3D = _targetChar!.GlobalPosition - _cameraPivot.GlobalPosition;
+    Vector3 difVector3D = _target!.GlobalPosition - _cameraPivot.GlobalPosition;
     Vector2 difVector2D = new(difVector3D.X, difVector3D.Z);
 
     float angle = forward2D.AngleTo(difVector2D); // Radians.

@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/Barrel.glb-363e933790310a57d53b6dcbcc9428f6.s
 
 [params]
 
-nodes/root_type="RigidBody3D"
+nodes/root_type="Rubbish"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

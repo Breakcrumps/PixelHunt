@@ -1,18 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://ovieawgmqytt"]
+[gd_scene load_steps=8 format=3 uid="uid://ovieawgmqytt"]
 
 [ext_resource type="PackedScene" uid="uid://cynp83g47lgfi" path="res://Import/Pebble.glb" id="1_vetwd"]
 [ext_resource type="Script" uid="uid://biqbhjfvnb3c0" path="res://Mechanics/Pulse/PulseObeyers/RigidPulseObeyer.cs" id="2_iknud"]
 [ext_resource type="Script" uid="uid://drrcj45y650ie" path="res://Mechanics/Stasis/StasisObeyers/RigidStasisObeyer.cs" id="3_ax6dt"]
 [ext_resource type="Script" uid="uid://4l6wl1ecej4t" path="res://World/GroundRaycast.cs" id="4_o42lp"]
+[ext_resource type="PackedScene" uid="uid://deugpnn7uid4o" path="res://Mechanics/Markers/Marker.tscn" id="5_gfjfi"]
+[ext_resource type="Texture2D" uid="uid://bl6l7gneq5cgk" path="res://Import/Untitled2.png" id="6_gitws"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iknud"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="Pebble" instance=ExtResource("1_vetwd")]
+[node name="Pebble" node_paths=PackedStringArray("AimMarker") instance=ExtResource("1_vetwd")]
 collision_layer = 32
 collision_mask = 16
 mass = 0.1
 gravity_scale = 2.0
+AimMarker = NodePath("AimMarker")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 shape = SubResource("BoxShape3D_iknud")
@@ -34,3 +37,6 @@ metadata/_custom_type_script = "uid://drrcj45y650ie"
 script = ExtResource("4_o42lp")
 _body = NodePath("..")
 metadata/_custom_type_script = "uid://4l6wl1ecej4t"
+
+[node name="AimMarker" parent="." index="5" instance=ExtResource("5_gfjfi")]
+_texture = ExtResource("6_gitws")

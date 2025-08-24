@@ -4,8 +4,9 @@ using PixelHunt.Static;
 namespace PixelHunt.Mechanics.Markers;
 
 [GlobalClass]
-internal sealed partial class LockOnMarker : Node3D
+internal sealed partial class Marker : Node3D
 {
+  [Export] private Texture2D? _texture;
   [Export] private Sprite3D? _sprite;
   [Export] private AnimationPlayer? _animPlayer;
 
@@ -16,6 +17,7 @@ internal sealed partial class LockOnMarker : Node3D
     if (_sprite is null)
       return;
 
+    _sprite.Texture = _texture;
     _sprite.Visible = false;
   }
 

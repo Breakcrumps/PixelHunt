@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bixe0dweyf1ea"]
+[gd_scene load_steps=5 format=3 uid="uid://deugpnn7uid4o"]
 
-[ext_resource type="Texture2D" uid="uid://bk84pdae2qsm3" path="res://Import/Untitled.png" id="1_3nfie"]
-[ext_resource type="Script" uid="uid://l7qrfjd42aby" path="res://Mechanics/Markers/LockOnMarker.cs" id="1_xi6eh"]
+[ext_resource type="Script" uid="uid://dkduecig7m8l3" path="res://Mechanics/Markers/Marker.cs" id="1_ixbhl"]
 
 [sub_resource type="Animation" id="Animation_amudy"]
 length = 0.001
@@ -40,15 +39,14 @@ _data = {
 &"Spin": SubResource("Animation_xi6eh")
 }
 
-[node name="LockOnMarker" type="Node3D" node_paths=PackedStringArray("_sprite", "_animPlayer")]
-script = ExtResource("1_xi6eh")
+[node name="Marker" type="Node3D" node_paths=PackedStringArray("_sprite", "_animPlayer")]
+script = ExtResource("1_ixbhl")
 _sprite = NodePath("Sprite3D")
 _animPlayer = NodePath("AnimationPlayer")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 render_priority = 1
-texture = ExtResource("1_3nfie")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

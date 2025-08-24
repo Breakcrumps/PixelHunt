@@ -7,11 +7,13 @@ using PixelHunt.Mechanics.Markers;
 namespace PixelHunt.Characters.Enemy;
 
 [GlobalClass]
-internal sealed partial class EnemyChar : Character
+internal sealed partial class EnemyChar : Character, ILockOnMarkerBearer, IAimMarkerBearer
 {
   [Export] private EnemyStateMachine? _stateMachine;
   [Export] private PushbackState? _pushbackState;
-  [Export] internal LockOnMarker? LockOnMarker { get; private set; }
+
+  [Export] public Marker? LockOnMarker { get; private set; }
+  [Export] public Marker? AimMarker { get; private set; }
 
   public override void _Process(double delta)
   {

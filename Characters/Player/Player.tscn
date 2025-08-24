@@ -1,9 +1,10 @@
-[gd_scene load_steps=43 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=46 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Characters/Player/PlayerChar.cs" id="2_s1rgi"]
 [ext_resource type="Script" uid="uid://cdgf2m0sxnllw" path="res://Animation/AnimationHelper.cs" id="3_vlldt"]
 [ext_resource type="Texture2D" uid="uid://cxdm6qy455vlw" path="res://Import/5-old-photo-camera-drawing-4-1024x941.png" id="4_5xivi"]
+[ext_resource type="Script" uid="uid://buifsvgyanc4a" path="res://Characters/Player/Nodes/AimArea.cs" id="5_74fb0"]
 [ext_resource type="Script" uid="uid://b5jdbqsx3wlrx" path="res://Animation/PlayerAnimator.cs" id="5_j23h2"]
 [ext_resource type="Script" uid="uid://bx3y8ipt6s76s" path="res://Characters/Player/Composites/AttachmentManager.cs" id="6_6fff4"]
 [ext_resource type="Script" uid="uid://ce15vipmgn6ve" path="res://Characters/Player/Composites/BodyAligner.cs" id="7_0ij6m"]
@@ -16,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dmw11owa6g2k8" path="res://Characters/Player/Composites/LockOnController.cs" id="9_7jpmk"]
 [ext_resource type="Script" uid="uid://blrscmul5u4le" path="res://Characters/Player/MoveStrategies/PushbackMoveStrategy.cs" id="9_j23h2"]
 [ext_resource type="Script" uid="uid://c3m2h1vrf6242" path="res://Characters/Player/MoveStrategies/DebugMoveStrategy.cs" id="10_0j2ni"]
+[ext_resource type="Script" uid="uid://bte4v1b3ft26l" path="res://Mechanics/Aim/AimController.cs" id="11_k8aph"]
 [ext_resource type="Script" uid="uid://cf7wkn411tk3t" path="res://Characters/Player/MoveStrategies/StopMoveStrategy.cs" id="12_k8aph"]
 
 [sub_resource type="Animation" id="Animation_5xivi"]
@@ -598,6 +600,8 @@ size = Vector3(25, 25, 24)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2xv0b"]
 size = Vector3(5, 5, 5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5xivi"]
+
 [node name="Player" node_paths=PackedStringArray("_moveStateMachine", "_skeleton", "_camera") instance=ExtResource("1_6ysni")]
 collision_mask = 28
 script = ExtResource("2_s1rgi")
@@ -681,6 +685,14 @@ shape = SubResource("BoxShape3D_2xv0b")
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 texture = ExtResource("4_5xivi")
 
+[node name="AimArea" type="Area3D" parent="CameraPivot" index="2"]
+collision_mask = 96
+script = ExtResource("5_74fb0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraPivot/AimArea" index="0"]
+transform = Transform3D(2, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, -25)
+shape = SubResource("BoxShape3D_5xivi")
+
 [node name="Composites" type="Node" parent="." index="5"]
 
 [node name="PlayerAnimator" type="Node" parent="Composites" index="0" node_paths=PackedStringArray("AnimPlayer", "_animHelper", "Character")]
@@ -715,6 +727,11 @@ _cameraSpring = NodePath("../../CameraPivot/SpringArm3D")
 _playerChar = NodePath("../..")
 _camera = NodePath("../../CameraPivot/SpringArm3D/Camera3D")
 metadata/_custom_type_script = "uid://dmw11owa6g2k8"
+
+[node name="AimController" type="Node" parent="Composites" index="5" node_paths=PackedStringArray("_aimArea")]
+script = ExtResource("11_k8aph")
+_aimArea = NodePath("../../CameraPivot/AimArea")
+metadata/_custom_type_script = "uid://bte4v1b3ft26l"
 
 [node name="MoveStateMachine" type="Node" parent="." index="6" node_paths=PackedStringArray("_playerChar", "_animHelper")]
 script = ExtResource("8_0j2ni")

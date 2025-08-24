@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/Pebble.glb-22c0ae6785b179214621063ab5c7dd4d.s
 
 [params]
 
-nodes/root_type="RigidBody3D"
+nodes/root_type="Rubbish"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
