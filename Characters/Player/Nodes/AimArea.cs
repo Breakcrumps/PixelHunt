@@ -1,6 +1,7 @@
 using Godot;
+using PixelHunt.Characters.Player.Composites;
 using PixelHunt.Mechanics.Markers;
-using PixelHunt.Static;
+
 using static Godot.Mathf;
 
 namespace PixelHunt.Mechanics.Aim;
@@ -8,7 +9,13 @@ namespace PixelHunt.Mechanics.Aim;
 [GlobalClass]
 internal sealed partial class AimArea : Area3D
 {
-  private IAimMarkerBearer? _target;
+  [Export] private MoveStateMachine? _moveStateMachine;
+  
+  [Export] private float _threshold = 5f; 
+  
+  internal IAimMarkerBearer? Target { get; private set; }
+
+  internal bool CanRetarget { private get; set; } = true;
 
   public override void _PhysicsProcess(double delta)
   {
@@ -16,7 +23,7 @@ internal sealed partial class AimArea : Area3D
       return;
 
     RelinquishTarget();
-    _target = DetermineTarget();
+    Target = DetermineTarget();
   }
 
   private IAimMarkerBearer? DetermineTarget()
@@ -49,8 +56,8 @@ internal sealed partial class AimArea : Area3D
 
   private void RelinquishTarget()
   {
-    _target?.AimMarker?.HideMarker();
-    _target = null;
+    Target?.AimMarker?.HideMarker();
+    Target = null;
   }
 
   private float GetError(IAimMarkerBearer candidate)
@@ -66,12 +73,28 @@ internal sealed partial class AimArea : Area3D
 
   public override void _UnhandledInput(InputEvent @event)
   {
+    HandleAreaRotation(@event);
+
+    if (@event.IsActionPressed("Homing") && Target is not null)
+      _moveStateMachine?.Transition("HomingMoveStrategy");
+  }
+
+  private void HandleAreaRotation(InputEvent @event)
+  {
+    if (!CanRetarget)
+      return;
+    
     if (!Input.IsActionPressed("Aim"))
       return;
 
-    if (@event is not InputEventMouseMotion mouseMotion)
+    if (@event is not InputEventMouseMotion mouseEvent)
       return;
 
-    Rotation = new Vector3(0f, -(mouseMotion.Relative.Angle().Round(digits: 1) + Pi / 2f), 0f);
+    Vector2 mouseMotion = mouseEvent.Relative;
+
+    if (mouseMotion.Length() < _threshold)
+      return;
+
+    Rotation = new Vector3(0f, -(mouseMotion.Angle() + Pi / 2f), 0f);
   }
 }

@@ -10,12 +10,12 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_iknud"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="Pebble" node_paths=PackedStringArray("AimMarker") instance=ExtResource("1_vetwd")]
+[node name="Pebble" instance=ExtResource("1_vetwd")]
 collision_layer = 32
 collision_mask = 16
 mass = 0.1
 gravity_scale = 2.0
-AimMarker = NodePath("AimMarker")
+script = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 shape = SubResource("BoxShape3D_iknud")

@@ -16,11 +16,20 @@ internal static class Maths
   internal static bool IsRoughly(this float operand, float n, float tolerance = Tolerance)
     => Mathf.Abs(operand - n) < tolerance;
 
+  internal static bool IsRoughlyZero(this float operand, float tolerance = Tolerance)
+    => Mathf.Abs(operand - 0f) < tolerance;
+
   internal static bool IsRoughly(this Vector2 operand, Vector2 to, float tolerance = Tolerance)
     => operand.X.IsRoughly(to.X, tolerance) && operand.Y.IsRoughly(to.Y, tolerance);
 
   internal static bool IsRoughlyZero(this Vector2 operand, float tolerance = Tolerance)
-    => operand.X.IsRoughly(0f, tolerance) && operand.Y.IsRoughly(0f, tolerance);
+    => operand.X.IsRoughlyZero(tolerance) && operand.Y.IsRoughlyZero(tolerance);
+
+  internal static bool IsRoughlyZero(this Vector3 operand, float tolerance = Tolerance) => (
+    operand.X.IsRoughlyZero(tolerance)
+    && operand.Y.IsRoughlyZero(tolerance)
+    && operand.Z.IsRoughlyZero(tolerance)
+  );
 
   internal static bool BetweenRadians(this float operand, float left, float right, bool outer = false) => (
     outer

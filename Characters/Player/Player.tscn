@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=45 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Characters/Player/PlayerChar.cs" id="2_s1rgi"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://blrscmul5u4le" path="res://Characters/Player/MoveStrategies/PushbackMoveStrategy.cs" id="9_j23h2"]
 [ext_resource type="Script" uid="uid://c3m2h1vrf6242" path="res://Characters/Player/MoveStrategies/DebugMoveStrategy.cs" id="10_0j2ni"]
 [ext_resource type="Script" uid="uid://cf7wkn411tk3t" path="res://Characters/Player/MoveStrategies/StopMoveStrategy.cs" id="12_k8aph"]
+[ext_resource type="Script" uid="uid://0y1ujn1lluu2" path="res://Characters/Player/MoveStrategies/HomingMoveStrategy.cs" id="16_k8aph"]
 
 [sub_resource type="Animation" id="Animation_5xivi"]
 resource_name = "Fall"
@@ -680,9 +681,10 @@ shape = SubResource("BoxShape3D_0ij6m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 shape = SubResource("BoxShape3D_2xv0b")
 
-[node name="AimArea" type="Area3D" parent="CameraPivot" index="1"]
-collision_mask = 96
+[node name="AimArea" type="Area3D" parent="CameraPivot" index="1" node_paths=PackedStringArray("_moveStateMachine")]
+collision_mask = 100
 script = ExtResource("5_74fb0")
+_moveStateMachine = NodePath("../../MoveStateMachine")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CameraPivot/AimArea" index="0"]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, -25)
@@ -756,6 +758,13 @@ metadata/_custom_type_script = "uid://blrscmul5u4le"
 script = ExtResource("12_k8aph")
 _playerChar = NodePath("../..")
 metadata/_custom_type_script = "uid://cf7wkn411tk3t"
+
+[node name="HomingMoveStrategy" type="Node" parent="MoveStateMachine" index="4" node_paths=PackedStringArray("_playerChar", "_aimArea", "_moveStateMachine")]
+script = ExtResource("16_k8aph")
+_playerChar = NodePath("../..")
+_aimArea = NodePath("../../CameraPivot/AimArea")
+_moveStateMachine = NodePath("..")
+metadata/_custom_type_script = "uid://0y1ujn1lluu2"
 
 [node name="Mechanics" type="Node" parent="." index="7"]
 
