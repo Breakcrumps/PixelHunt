@@ -602,48 +602,11 @@ size = Vector3(5, 5, 5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_5xivi"]
 
 [node name="Player" node_paths=PackedStringArray("_moveStateMachine", "_skeleton", "_camera") instance=ExtResource("1_6ysni")]
-collision_mask = 28
+collision_mask = 156
 script = ExtResource("2_s1rgi")
 _moveStateMachine = NodePath("MoveStateMachine")
 _skeleton = NodePath("Skeleton3D")
 _camera = NodePath("CameraPivot/SpringArm3D/Camera3D")
-
-[node name="Skeleton3D" parent="." index="0"]
-bones/0/rotation = Quaternion(-0.0648627, -0.0210503, 0.00377712, 0.997665)
-bones/1/position = Vector3(-0.00145957, 1.48806, -0.0739542)
-bones/1/rotation = Quaternion(0.0170743, 1.19192e-07, 2.0354e-09, 0.999854)
-bones/2/position = Vector3(0.196288, 1.4757, -0.069118)
-bones/2/rotation = Quaternion(-0.022668, 0.0464714, 0.990556, -0.126989)
-bones/3/position = Vector3(0.26445, 1.21247, -0.0423907)
-bones/3/rotation = Quaternion(-0.0236294, 0.0672396, 0.994636, -0.074963)
-bones/4/position = Vector3(0.307107, 0.926113, -0.00226042)
-bones/4/rotation = Quaternion(-0.0234372, 0.0684749, 0.995131, -0.0669117)
-bones/5/position = Vector3(-0.198632, 1.47164, -0.0855272)
-bones/5/rotation = Quaternion(-0.0189504, 0.0413899, 0.991894, 0.118632)
-bones/6/position = Vector3(-0.263361, 1.20704, -0.0643215)
-bones/6/rotation = Quaternion(-0.0183725, 0.0643088, 0.995477, 0.0674734)
-bones/7/position = Vector3(-0.303315, 0.91984, -0.0276238)
-bones/7/rotation = Quaternion(-0.0185976, 0.0658751, 0.99588, 0.0594756)
-bones/8/position = Vector3(0.441597, 1.80697, -0.162397)
-bones/8/rotation = Quaternion(-0.0238994, 0.00665975, 0.931074, 0.363986)
-bones/9/position = Vector3(0.098853, 0.867462, -0.0144391)
-bones/9/rotation = Quaternion(-0.0343073, 0.0195424, 0.999215, -0.00313859)
-bones/10/position = Vector3(0.100693, 0.494626, 0.000213451)
-bones/10/rotation = Quaternion(-0.034454, -0.0352912, 0.998772, 0.00468108)
-bones/11/position = Vector3(0.0977423, 0.069227, -0.0299892)
-bones/11/rotation = Quaternion(-4.06362e-05, 0.572213, 0.820105, -2.83424e-05)
-bones/12/position = Vector3(-0.098853, 0.867462, -0.0144391)
-bones/12/rotation = Quaternion(0.0343073, 0.0195414, 0.999215, 0.00313848)
-bones/13/position = Vector3(-0.100693, 0.494626, 0.000212763)
-bones/13/rotation = Quaternion(0.034454, -0.0352904, 0.998772, -0.00468101)
-bones/14/position = Vector3(-0.0977423, 0.0692269, -0.0299892)
-bones/14/rotation = Quaternion(4.0631e-05, 0.572213, 0.820105, 2.83482e-05)
-bones/16/position = Vector3(-1.32349e-23, 0.910213, -0.023425)
-bones/16/rotation = Quaternion(-0.0201793, 1.19185e-07, -2.40555e-09, 0.999796)
-bones/17/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
-bones/18/rotation = Quaternion(0.00374689, 0.707097, -0.707097, -0.00374689)
-bones/19/rotation = Quaternion(0.00319472, 0.7071, 0.7071, 0.00319472)
-bones/20/rotation = Quaternion(-0.00374689, 0.707097, -0.707097, 0.00374689)
 
 [node name="AnimationHelper" type="AnimationPlayer" parent="." index="2"]
 libraries = {

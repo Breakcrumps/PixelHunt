@@ -12,7 +12,7 @@ size = Vector3(1.94556, 0.628052, 0.531189)
 
 [node name="Barrel" node_paths=PackedStringArray("AimMarker") instance=ExtResource("1_821y4")]
 collision_layer = 64
-collision_mask = 115
+collision_mask = 117
 AimMarker = NodePath("Marker")
 
 [node name="RigidPulseObeyer" type="Node" parent="." index="1" node_paths=PackedStringArray("_body", "_stasisObeyer", "_groundRaycast")]

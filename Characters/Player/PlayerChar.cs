@@ -25,6 +25,8 @@ internal sealed partial class PlayerChar : Character
     _moveStateMachine?.PhysicsProcess(delta);
 
     MoveAndSlide();
+
+    // HandleRigidCollision();
   }
 
   public override void _UnhandledInput(InputEvent @event)

@@ -3,7 +3,6 @@ using PixelHunt.Static;
 
 namespace PixelHunt.Mechanics.Markers;
 
-[GlobalClass]
 internal sealed partial class Marker : Node3D
 {
   [Export] private Texture2D? _texture;

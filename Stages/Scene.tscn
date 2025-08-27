@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://djwr7bjxuxdfk"]
+[gd_scene load_steps=14 format=3 uid="uid://djwr7bjxuxdfk"]
 
 [ext_resource type="PackedScene" uid="uid://cj7r5g45xbyij" path="res://Characters/Player/Player.tscn" id="1_o8g73"]
 [ext_resource type="Script" uid="uid://bv3i0p5t37646" path="res://Stages/Scene.cs" id="1_v3fvj"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ovieawgmqytt" path="res://World/Pebble.tscn" id="10_s8qhh"]
 [ext_resource type="PackedScene" uid="uid://cu0iyt20pk40w" path="res://Characters/Enemy/Enemy.tscn" id="10_tn73o"]
 [ext_resource type="PackedScene" uid="uid://b46xubrbdh1gu" path="res://World/Barrel.tscn" id="11_adiyf"]
+[ext_resource type="PackedScene" uid="uid://cqghbjb3ki1q8" path="res://World/Wall.tscn" id="12_1brnh"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ps3kg"]
 vertices = PackedVector3Array(-14.5, 0.5, -12.5, -14.5, 0.5, 12.5, 14.5, 0.5, 12.5, 14.5, 0.5, -12.5, 15.5, 16.25, -12.5, 15.5, 16.25, 12.5, 30.5, 16.25, 12.5, 30.5, 16.25, -12.5, -14.5, 20.5, 13.5, -14.5, 20.5, 28.5, 14.5, 20.5, 28.5, 14.5, 20.5, 13.5)
@@ -76,3 +77,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2984, 0.775097, -5.26527)
 
 [node name="Pebble8" parent="." instance=ExtResource("10_s8qhh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.3395, 1.19404, 6.86198)
+
+[node name="Wall" parent="." instance=ExtResource("12_1brnh")]
+transform = Transform3D(1, 0, 0, 0, 0.862372, 0.506275, 0, -0.506275, 0.862372, -4.06642, 2.91336, -5.89613)

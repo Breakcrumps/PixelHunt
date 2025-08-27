@@ -171,6 +171,7 @@ Homing={
 3d_physics/layer_5="Map"
 3d_physics/layer_6="Small Rubbish"
 3d_physics/layer_7="Large Rubbish"
+3d_physics/layer_8="Immovable Rubbish"
 
 [physics]
 
