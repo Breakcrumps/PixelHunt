@@ -11,9 +11,9 @@ internal sealed partial class AimArea : Area3D
 {
   [Export] private MoveStateMachine? _moveStateMachine;
   
-  [Export] private float _threshold = 5f; 
+  [Export] private float _threshold = 2f; 
   
-  internal IAimMarkerBearer? Target { get; private set; }
+  internal IAimMarkerBearer? Target { get; set; }
 
   internal bool CanRetarget { private get; set; } = true;
 

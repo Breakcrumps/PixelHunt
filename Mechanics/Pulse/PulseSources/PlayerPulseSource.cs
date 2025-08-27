@@ -30,6 +30,9 @@ internal sealed partial class PlayerPulseSource : PulseSource
     if (!@event.IsActionPressed("Pulse"))
       return;
 
+    if (_playerChar is null || !_playerChar.IsOnFloor())
+      return;
+
     if (_animator is null)
       return;
 

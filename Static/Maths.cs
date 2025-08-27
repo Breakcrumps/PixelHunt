@@ -1,6 +1,8 @@
 using System;
 using Godot;
 
+using static Godot.Mathf;
+
 namespace PixelHunt.Static;
 
 internal static class Maths
@@ -11,13 +13,13 @@ internal static class Maths
     => MathF.Round(operand, digits);
 
   internal static float SinF(this float operand)
-    => Mathf.Sin(operand);
+    => Sin(operand);
 
   internal static bool IsRoughly(this float operand, float n, float tolerance = Tolerance)
-    => Mathf.Abs(operand - n) < tolerance;
+    => Abs(operand - n) < tolerance;
 
   internal static bool IsRoughlyZero(this float operand, float tolerance = Tolerance)
-    => Mathf.Abs(operand - 0f) < tolerance;
+    => Abs(operand - 0f) < tolerance;
 
   internal static bool IsRoughly(this Vector2 operand, Vector2 to, float tolerance = Tolerance)
     => operand.X.IsRoughly(to.X, tolerance) && operand.Y.IsRoughly(to.Y, tolerance);
@@ -31,10 +33,13 @@ internal static class Maths
     && operand.Z.IsRoughlyZero(tolerance)
   );
 
+  internal static float MaxAxis(this Vector3 operand)
+    => Max(Max(operand.X, operand.Y), operand.Z);
+
   internal static bool BetweenRadians(this float operand, float left, float right, bool outer = false) => (
     outer
-    ? left * Mathf.Pi >= operand || operand >= right * Mathf.Pi
-    : left * Mathf.Pi <= operand && operand <= right * Mathf.Pi
+    ? left * Pi >= operand || operand >= right * Pi
+    : left * Pi <= operand && operand <= right * Pi
   );
 
   internal static int Pow(this int operand, int power)
@@ -61,10 +66,10 @@ internal static class Maths
     => from + MathF.Round(Random.Shared.NextSingle() * (to - from), precision);
 
   internal static float LerpF(this float operand, float to, float weight)
-    => Mathf.Lerp(from: operand, to: to, weight: weight);
+    => Lerp(from: operand, to: to, weight: weight);
 
   internal static float Abs(this float operand)
-    => Mathf.Abs(operand);
+    => Abs(operand);
 
   internal static bool IsRoughly(this Quaternion operand, Quaternion other, float tolerance = Tolerance) => (
     operand.X.IsRoughly(other.X, tolerance) && operand.Y.IsRoughly(other.Y, tolerance)

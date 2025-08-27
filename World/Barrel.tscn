@@ -32,10 +32,11 @@ metadata/_custom_type_script = "uid://drrcj45y650ie"
 transform = Transform3D(0.26, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302, 0)
 shape = SubResource("BoxShape3D_kvfoa")
 
-[node name="GroundRaycast" type="RayCast3D" parent="." index="4" node_paths=PackedStringArray("_body")]
+[node name="GroundRaycast" type="RayCast3D" parent="." index="4" node_paths=PackedStringArray("_body", "_collision")]
 collision_mask = 16
 script = ExtResource("4_lgs0n")
 _body = NodePath("..")
+_collision = NodePath("../CollisionShape3D")
 metadata/_custom_type_script = "uid://4l6wl1ecej4t"
 
 [node name="Marker" parent="." index="5" instance=ExtResource("5_qd6v4")]

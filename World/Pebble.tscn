@@ -33,9 +33,10 @@ _body = NodePath("..")
 _pulseObeyer = NodePath("../RigidPulseObeyer")
 metadata/_custom_type_script = "uid://drrcj45y650ie"
 
-[node name="GroundRaycast" type="RayCast3D" parent="." index="4" node_paths=PackedStringArray("_body")]
+[node name="GroundRaycast" type="RayCast3D" parent="." index="4" node_paths=PackedStringArray("_body", "_collision")]
 script = ExtResource("4_o42lp")
 _body = NodePath("..")
+_collision = NodePath("../CollisionShape3D")
 metadata/_custom_type_script = "uid://4l6wl1ecej4t"
 
 [node name="AimMarker" parent="." index="5" instance=ExtResource("5_gfjfi")]

@@ -18,7 +18,7 @@ internal sealed partial class HomingMoveStrategy : State
 
   private GameTime _time;
 
-  private readonly FunctionComposer _homingFunction = new(
+  private readonly FunctionComposer _speedComposer = new(
     new QuadraticComponent { A = .07f },
     new LinearComponent { A = 0f, Start = 30 },
     new EndComponent { Start = int.MaxValue }
@@ -56,7 +56,7 @@ internal sealed partial class HomingMoveStrategy : State
   }
 
   private float GetSpeed(GameTime time)
-    => _homingFunction.Execute(time);
+    => _speedComposer.Execute(time);
 
   internal override void Exit()
   {
@@ -64,5 +64,8 @@ internal sealed partial class HomingMoveStrategy : State
       return;
 
     _aimArea.CanRetarget = true;
+
+    _aimArea.Target?.QueueFree();
+    _aimArea.Target = null;
   }
 }
