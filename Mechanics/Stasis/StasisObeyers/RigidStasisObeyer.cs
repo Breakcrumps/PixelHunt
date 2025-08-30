@@ -3,6 +3,7 @@ using PixelHunt.Algo.FunctionComposition;
 using PixelHunt.Algo.FunctionComposition.FunctionComponents;
 using PixelHunt.Algo.FunctionComposition.FunctionComponents.Modifiers;
 using PixelHunt.Mechanics.Pulse.PulseObeyers;
+using PixelHunt.Static;
 using PixelHunt.Types;
 
 namespace PixelHunt.Mechanics.Stasis.StasisObeyers;
@@ -12,6 +13,7 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
 {
   [Export] private RigidBody3D? _body;
   [Export] private RigidPulseObeyer? _pulseObeyer;
+  [Export] private RubbleType _rubbleType;
 
   private GameTime _stasisTime;
   private GameTime _duration;
@@ -57,7 +59,9 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
 
     _body.LinearVelocity = Vector3.Zero;
     _body.AngularVelocity = Vector3.Zero;
-    _body.LockRotation = true;
+
+    if (_rubbleType == RubbleType.Wall)
+      _body.Freeze = true;
   }
 
   public override void _PhysicsProcess(double delta)
@@ -83,7 +87,7 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
       InStasis = false;
 
       _body.GravityScale = _pulseObeyer.InitialGravityScale;
-      _body.LockRotation = false;
+      _body.Freeze = false;
     }
   }
 }

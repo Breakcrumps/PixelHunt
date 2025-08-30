@@ -4,6 +4,8 @@ using PixelHunt.Algo.FunctionComposition.FunctionComponents;
 
 namespace PixelHunt.Static;
 
+internal enum RubbleType { Generic, Wall }
+
 internal static class PulseFunctions
 {
   private static FunctionComposer GenerateEnemyLevel1() => new(
@@ -25,9 +27,28 @@ internal static class PulseFunctions
     _ => throw new ArgumentException("Invalid pulse level for enemy pulse!", nameof(level))
   };
 
-  internal static FunctionComposer GeneratePebbleFunction() => new(
+  internal static FunctionComposer GenerateRubbleFunction(RubbleType rubbleType) => rubbleType switch
+  {
+    RubbleType.Wall => GenerateWallFunction(),
+    _ => GenerateGenericRubbleFunction()
+  };
+
+  private static FunctionComposer GenerateGenericRubbleFunction() => new(
     new QuadraticComponent { A = Maths.RandomInRange(.07f, .1f, 2) },
     new LinearComponent { A = .05f, Start = 2 },
+    new SineComponent
+    {
+      Amplitude = Maths.RandomInRange(from: .7f, to: .9f),
+      Frequency = Maths.RandomInRange(from: .07f, to: .09f, precision: 2),
+      Start = 30
+    },
+    new QuadraticNullifier { Start = 150, End = 180 },
+    new EndComponent { Start = 180 }
+  );
+
+  private static FunctionComposer GenerateWallFunction() => new(
+    new QuadraticComponent { A = Maths.RandomInRange(.07f, .1f, 2) },
+    new LinearComponent { A = .07f, Start = 2 },
     new SineComponent
     {
       Amplitude = Maths.RandomInRange(from: .7f, to: .9f),

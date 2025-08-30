@@ -13,8 +13,9 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
   [Export] private RigidBody3D? _body;
   [Export] private RigidStasisObeyer? _stasisObeyer;
   [Export] private GroundRaycast? _groundRaycast;
+  [Export] private RubbleType _rubbleType;
 
-  private readonly FunctionComposer _pulseFunction = PulseFunctions.GeneratePebbleFunction();
+  private FunctionComposer? _pulseFunction;
 
   private GameTime _currentTime;
   private float _initialHeight;
@@ -23,11 +24,18 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
 
   internal bool Pulsing { get; set; }
 
+  public override void _Ready()
+  {
+    base._Ready();
+
+    _pulseFunction = PulseFunctions.GenerateRubbleFunction(_rubbleType);
+  }
+
   private protected override void ObeyPulse(PulseParams pulseParams)
   {
     if (_groundRaycast is null || !_groundRaycast.IsOnFloor())
       return;
-    
+
     if (_stasisObeyer is null || _stasisObeyer.InStasis)
       return;
 
@@ -55,7 +63,7 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
 
     _body.GlobalPosition = _body.GlobalPosition with
     {
-      Y = _initialHeight + _pulseFunction.Execute(_currentTime.Frames)
+      Y = _initialHeight + _pulseFunction!.Execute(_currentTime.Frames)
     };
 
     if (_currentTime == _pulseFunction.ResultDuration)

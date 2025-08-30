@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using PixelHunt.Static;
 using PixelHunt.Types;
 using PixelHunt.Utils;
 using ScottPlot;
@@ -23,22 +22,19 @@ internal sealed class FunctionComposer
     components.EnsureEndpoint();
 
     _components = components;
-
-    if (DebugFlags.GetDebugFlag(this))
-      PlotFunction();
   }
 
-  private void PlotFunction()
+  internal void Plot(string filename, GameTime? upTo = null)
   {
     Plot plot = new();
 
-    plot.Axes.SetLimits(.0, ResultDuration.Frames, .0, 50);
+    plot.Axes.SetLimits(.0, upTo?.Frames ?? ResultDuration.Frames, .0, 50);
 
     FunctionPlot f = plot.Add.Function(t => Execute((int)t));
     f.MinX = 0;
     f.MaxX = ResultDuration.Frames;
 
-    plot.SavePng("Output/Ass.png", 400, 300);
+    plot.SavePng($"Output/{filename}.png", 400, 300);
   }
 
   /// <summary>

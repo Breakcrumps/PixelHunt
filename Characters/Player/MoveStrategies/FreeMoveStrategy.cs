@@ -29,8 +29,6 @@ internal sealed partial class FreeMoveStrategy : State
   private bool _slowWalk;
   private int _doubleJumps;
 
-  private readonly Stopwatch _tempWatch = new();
-
   public override void _Ready()
   {
     _jumpTime *= Engine.PhysicsTicksPerSecond; // Frames.
@@ -68,21 +66,11 @@ internal sealed partial class FreeMoveStrategy : State
   {
     float yVelocity = _playerChar!.IsOnFloor() ? 0f : _playerChar.Velocity.Y - _g;
 
-    if (DebugFlags.GetDebugFlag(this) && _playerChar.IsOnFloor())
-    {
-      if (_tempWatch.IsRunning)
-      {
-        GD.Print($"Time in air: {_tempWatch.Elapsed.Milliseconds}");
-        _tempWatch.Stop();
-      }
-    }
-
     if (Input.IsActionJustPressed("Jump"))
     {
       if (_playerChar.IsOnFloor())
       {
         yVelocity = _jumpVelocity;
-        _tempWatch.Restart();
       }
       else if (_doubleJumps != 0)
       {
@@ -92,6 +80,14 @@ internal sealed partial class FreeMoveStrategy : State
     }
 
     return yVelocity;
+  }
+
+  internal void Jump()
+  {
+    if (_playerChar is null)
+      return;
+    
+    _playerChar.Velocity = _playerChar.Velocity with { Y = _jumpVelocity };
   }
 
   private Vector2 GroundVelocity()
