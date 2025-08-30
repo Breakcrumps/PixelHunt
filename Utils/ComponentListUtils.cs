@@ -35,6 +35,6 @@ internal static class ComponentListUtils
     if (components[^1] is EndComponent)
       return;
 
-    components.Add(new EndComponent() { Start = components[^1].Start });
+    components.Add(new EndComponent() { Start = int.MaxValue });
   }
 }

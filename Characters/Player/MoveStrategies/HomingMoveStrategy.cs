@@ -65,7 +65,6 @@ internal sealed partial class HomingMoveStrategy : State
 
     _aimArea.CanRetarget = true;
 
-    _aimArea.Target?.QueueFree();
     _aimArea.Target = null;
   }
 }

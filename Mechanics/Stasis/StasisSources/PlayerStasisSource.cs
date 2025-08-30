@@ -17,6 +17,6 @@ internal sealed partial class PlayerStasisSource : StasisSource
     if (_playerChar is null)
       return;
 
-    EmitStasis(new StasisParams(_playerChar, GameTime.Frame * 180));
+    EmitStasis(new StasisParams(_playerChar, GameTime.Second * 8));
   }
 } 

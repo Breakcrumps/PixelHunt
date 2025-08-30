@@ -6,3 +6,4 @@
 - [x] Check if the sword spin has to do with blend. [REDACTED] It does.
 - [x] Use sealed keyword, I suppose? [REDACTED] YESSIR!
 - [ ] Add jump preparation, especially when unsheathed.
+- [ ] Improve wall-run logic.

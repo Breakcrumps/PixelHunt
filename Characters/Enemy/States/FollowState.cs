@@ -1,6 +1,5 @@
 using PixelHunt.Animation;
 using PixelHunt.Characters.Enemy.Composites;
-using PixelHunt.Characters.Player;
 using PixelHunt.Parents;
 using Godot;
 using PixelHunt.Static;

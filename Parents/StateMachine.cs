@@ -33,6 +33,9 @@ internal abstract partial class StateMachine : Node
     if (newState is null)
       return;
 
+    if (!newState.Condition())
+      return;
+
     CurrentState?.Exit();
 
     newState.Enter();

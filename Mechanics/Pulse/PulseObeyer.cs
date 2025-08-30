@@ -9,5 +9,8 @@ internal abstract partial class PulseObeyer : Node
   public sealed override void _Ready()
     => NodeGroups.PulseSources.ForEach(x => x.Pulse += ObeyPulse);
 
+  public sealed override void _ExitTree()
+    => NodeGroups.PulseSources.ForEach(x => x.Pulse -= ObeyPulse);
+
   private protected abstract void ObeyPulse(PulseParams pulseParams);
 }

@@ -10,6 +10,7 @@ namespace PixelHunt.Mechanics.Aim;
 internal sealed partial class AimArea : Area3D
 {
   [Export] private MoveStateMachine? _moveStateMachine;
+  [Export] private RayCast3D? _rayCast;
   
   [Export] private float _threshold = 2f; 
   
@@ -28,14 +29,23 @@ internal sealed partial class AimArea : Area3D
 
   private IAimMarkerBearer? DetermineTarget()
   {
+    if (_rayCast is null)
+      return null;
+    
     IAimMarkerBearer? target = null;
 
-    float bestError = float.PositiveInfinity;
-    float bestDistance = float.PositiveInfinity;
+    float bestError = Target is null ? float.PositiveInfinity : GetError(Target);
+    float bestDistance = Target is null ? float.PositiveInfinity : GetDistance(Target);
 
     foreach (Node node in GetOverlappingBodies())
     {
       if (node is not IAimMarkerBearer candidate)
+        continue;
+
+      _rayCast.TargetPosition = _rayCast.ToLocal(candidate.GlobalPosition);
+      _rayCast.ForceRaycastUpdate();
+
+      if (_rayCast.GetCollider() != candidate)
         continue;
 
       if (
@@ -67,6 +77,17 @@ internal sealed partial class AimArea : Area3D
 
     return hypotenuse.Length() * Sin(hypotenuse.AngleTo(cathetus));
   }
+
+  // private float GetError(IAimMarkerBearer candidate)
+  // {
+  //   Vector3 difVector = candidate.GlobalPosition - GlobalPosition;
+  //   Vector3 forward = -GlobalBasis.Z;
+
+  //   Vector2 hypotenuse = new(difVector.X, difVector.Z);
+  //   Vector2 cathetus = new(forward.X, forward.Z);
+
+  //   return hypotenuse.Length() * Sin(hypotenuse.AngleTo(cathetus));
+  // }
 
   private float GetDistance(IAimMarkerBearer candidate)
     => (candidate.GlobalPosition - GlobalPosition).Length();

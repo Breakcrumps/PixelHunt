@@ -11,6 +11,9 @@ internal sealed partial class MoveStateMachine : StateMachine
   [Export] private PlayerChar? _playerChar;
   [Export] private AnimationHelper? _animHelper;
 
+  [ExportGroup("Exposed states")]
+  [Export] internal WallRunStrategy? WallRunStrategy { get; private set; }
+
   public override void _Ready()
   {
     FillStates();

@@ -5,6 +5,8 @@ namespace PixelHunt.Parents;
 [GlobalClass]
 internal abstract partial class State : Node
 {
+  internal virtual bool Condition() => true;
+  
   internal virtual void Enter() { }
 
   internal virtual void Exit() { }

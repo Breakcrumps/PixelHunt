@@ -8,7 +8,7 @@ namespace PixelHunt.Characters.Player;
 [GlobalClass]
 internal sealed partial class PlayerChar : Character
 {
-  [Export] private MoveStateMachine? _moveStateMachine;
+  [Export] internal MoveStateMachine? MoveStateMachine { get; private set; }
   [Export] private Skeleton3D? _skeleton;
   [Export] private Camera3D? _camera;
 
@@ -22,7 +22,7 @@ internal sealed partial class PlayerChar : Character
 
   public override void _PhysicsProcess(double delta)
   {
-    _moveStateMachine?.PhysicsProcess(delta);
+    MoveStateMachine?.PhysicsProcess(delta);
 
     MoveAndSlide();
 
@@ -31,7 +31,7 @@ internal sealed partial class PlayerChar : Character
 
   public override void _UnhandledInput(InputEvent @event)
   {
-    _moveStateMachine?.UnhandledInput(@event);
+    MoveStateMachine?.UnhandledInput(@event);
   }
 
 
@@ -42,7 +42,7 @@ internal sealed partial class PlayerChar : Character
     if (DebugFlags.GetDebugFlag(this))
       GD.Print($"Player was hit for {attack.Damage}HP, {Health}HP left.");
 
-    _moveStateMachine?.HandlePushback(attackerPos);
+    MoveStateMachine?.HandlePushback(attackerPos);
 
     if (Health <= 0)
       Die();
