@@ -38,17 +38,13 @@ internal partial class Animator : Node
     if (!noPrefix)
       animName = $"{AnimPrefix}{animName}";
 
-    HandleBaseAnimation(animName, out StringBuilder logBuilder, startPos);
+    HandleBaseAnimation(animName, startPos);
 
-    HandleHelperAnim(animName, ref logBuilder, startPos);
-
-    LogAnimation(logBuilder);
+    HandleHelperAnim(animName, startPos);
   }
 
-  private void HandleBaseAnimation(string animName, out StringBuilder log, double startPos = .0)
+  private void HandleBaseAnimation(string animName, double startPos = .0)
   {
-    log = new();
-
     if (AnimPlayer is null)
       return;
 
@@ -56,26 +52,20 @@ internal partial class Animator : Node
       return;
 
     if (!AnimPlayer.HasAnimation(animName))
+    {
+      GD.Print($"No animation called {animName} found.");
       return;
+    }
 
     double blendTime = DetermineBlendTime(CurrentAnim, animName);
 
     AnimPlayer.Play(animName, blendTime);
     AnimPlayer.Seek(startPos);
 
-    if (animName == "UnsheathedRunEnd")
-      log.AppendLine($"CurrentAnim was {CurrentAnim}");
-
     CurrentAnim = animName;
-
-    if (DebugFlags.GetDebugFlag(this))
-    {
-      log.AppendLine($"PlayAnimation shipped {animName} to AnimPlayer on {Character!.Name}!");
-      log.AppendLine($"Blend time was {blendTime} here!");
-    }
   }
 
-  private void HandleHelperAnim(string animName, ref StringBuilder log, double startPos = .0)
+  private void HandleHelperAnim(string animName, double startPos = .0)
   {
     if (_animHelper is null)
       return;
@@ -88,9 +78,6 @@ internal partial class Animator : Node
 
     _animHelper.Play(animName);
     _animHelper.Seek(startPos);
-
-    if (DebugFlags.GetDebugFlag(this))
-      log.AppendLine($"HandleHelperAnim shipped {animName} to _animHelper on {Character!.Name}!");
   }
 
   /// <summary>
@@ -137,17 +124,6 @@ internal partial class Animator : Node
       blendTime = charBlendTimes["*"]["*"];
 
     return blendTime;
-  }
-
-  private void LogAnimation(StringBuilder logBuilder)
-  {
-    if (!DebugFlags.GetDebugFlag(this))
-      return;
-
-    string log = $"{logBuilder}";
-
-    if (log != "")
-      GD.Print(log);
   }
 
   internal void DEBUG_NotifyRequestOpen()

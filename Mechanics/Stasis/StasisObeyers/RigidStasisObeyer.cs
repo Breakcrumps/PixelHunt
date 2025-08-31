@@ -2,8 +2,8 @@ using Godot;
 using PixelHunt.Algo.FunctionComposition;
 using PixelHunt.Algo.FunctionComposition.FunctionComponents;
 using PixelHunt.Algo.FunctionComposition.FunctionComponents.Modifiers;
+using PixelHunt.Algo.FunctionComposition.Functions;
 using PixelHunt.Mechanics.Pulse.PulseObeyers;
-using PixelHunt.Static;
 using PixelHunt.Types;
 
 namespace PixelHunt.Mechanics.Stasis.StasisObeyers;
@@ -13,7 +13,7 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
 {
   [Export] private RigidBody3D? _body;
   [Export] private RigidPulseObeyer? _pulseObeyer;
-  [Export] private RubbleType _rubbleType;
+  [Export] private RubbishType _rubbleType;
 
   private GameTime _stasisTime;
   private GameTime _duration;
@@ -21,11 +21,6 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
   internal bool InStasis { get; private set; }
 
   private float _initialXPos;
-
-  private static readonly FunctionComposer _stasisWiggle = new(
-    new SineComponent { Shift = 3, Damper = new DamperModifier { Severity = 2f, Sharpness = .1f }, FrequencyFunc = t => t },
-    new EndComponent { Start = 100 }
-  );
 
   public override void _Ready()
   {
@@ -60,7 +55,7 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
     _body.LinearVelocity = Vector3.Zero;
     _body.AngularVelocity = Vector3.Zero;
 
-    if (_rubbleType == RubbleType.Wall)
+    if (_rubbleType == RubbishType.Wall)
       _body.Freeze = true;
   }
 
@@ -79,7 +74,7 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
 
     _body.GlobalPosition = _body.GlobalPosition with 
     { 
-      X = _initialXPos + _stasisWiggle.ExecuteOrZero(_stasisTime) 
+      X = _initialXPos + StasisFunctions.StasisWiggle.ExecuteOrZero(_stasisTime) 
     };
 
     if (_stasisTime == _duration)

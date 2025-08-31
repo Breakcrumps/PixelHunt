@@ -1,6 +1,7 @@
 using Godot;
 using PixelHunt.Algo.FunctionComposition;
 using PixelHunt.Algo.FunctionComposition.FunctionComponents;
+using PixelHunt.Algo.FunctionComposition.FunctionComponents.Nullifiers;
 using PixelHunt.Characters.Player.Composites;
 using PixelHunt.Parents;
 using PixelHunt.Static;
@@ -27,20 +28,20 @@ internal sealed partial class WallRunStrategy : State
   private Vector3 _direction;
 
   private readonly FunctionComposer _heightFunction = new(
-    new SineComponent { Frequency = Mathf.Pi / 60f, Amplitude = 2f },
+    new SineNullifier { End = 60 },
     new LinearComponent { A = -.5f, Start = 60 }
   );
 
   public override void _Ready()
     => _heightFunction.Plot("WallRun", upTo: GameTime.Second * 3);
 
-  internal override bool Condition()
-  {
-    if (_playerChar is null)
-      return false;
+  // internal override bool Condition()
+  // {
+  //   if (_playerChar is null)
+  //     return false;
 
-    return _playerChar.Velocity.Y >= -10f;
-  }
+  //   return _playerChar.Velocity.Y >= -10f;
+  // }
 
   internal override void Enter()
   {

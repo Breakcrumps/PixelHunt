@@ -3,7 +3,6 @@ using PixelHunt.Characters.Player.Composites;
 using PixelHunt.Parents;
 using PixelHunt.Static;
 using Godot;
-using System.Diagnostics;
 
 namespace PixelHunt.Characters.Player.MoveStrategies;
 
@@ -20,7 +19,7 @@ internal sealed partial class FreeMoveStrategy : State
 
   [ExportGroup("Parameters")]
   [Export] private float _jumpHeight = 400f;
-  [Export] private float _jumpTime = .45f; // Seconds.
+  [Export] private float _jumpTime = .6f; // Seconds.
   [Export] private float _doubleJumpHeight = 300f;
   private float _jumpVelocity;
   private float _doubleJumpVelocity;

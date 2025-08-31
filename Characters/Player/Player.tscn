@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cj7r5g45xbyij"]
+[gd_scene load_steps=47 format=3 uid="uid://cj7r5g45xbyij"]
 
 [ext_resource type="PackedScene" uid="uid://8c0hqe75ovjj" path="res://Import/Player.glb" id="1_6ysni"]
 [ext_resource type="Script" uid="uid://durmyuhsum1yf" path="res://Characters/Player/PlayerChar.cs" id="2_s1rgi"]
@@ -366,6 +366,50 @@ tracks/2/keys = {
 "values": ["", ""]
 }
 
+[sub_resource type="Animation" id="Animation_u61tb"]
+resource_name = "Stasis"
+length = 0.633337
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationHelper:Speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mechanics/PlayerStasisSource")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"EmitStasis"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MoveStateMachine")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.633333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["FreeMoveStrategy"],
+"method": &"Transition"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_5wa8t"]
 resource_name = "Unsheathe"
 length = 1.13334
@@ -575,6 +619,7 @@ _data = {
 &"RunSheathe": SubResource("Animation_2xv0b"),
 &"RunUnsheathe": SubResource("Animation_3mea3"),
 &"Sheathe": SubResource("Animation_0ij6m"),
+&"Stasis": SubResource("Animation_u61tb"),
 &"Unsheathe": SubResource("Animation_5wa8t"),
 &"UnsheathedFall": SubResource("Animation_74fb0"),
 &"UnsheathedPushback": SubResource("Animation_v0k0e"),
@@ -608,6 +653,44 @@ script = ExtResource("2_s1rgi")
 MoveStateMachine = NodePath("MoveStateMachine")
 _skeleton = NodePath("Skeleton3D")
 _camera = NodePath("CameraPivot/SpringArm3D/Camera3D")
+
+[node name="Skeleton3D" parent="." index="0"]
+bones/0/position = Vector3(-8.58201e-11, 1.178, -0.0345992)
+bones/0/rotation = Quaternion(-0.0648627, -0.0210503, 0.00377712, 0.997665)
+bones/1/position = Vector3(-0.00145957, 1.47914, -0.0739542)
+bones/1/rotation = Quaternion(0.0170743, 1.19192e-07, 2.0354e-09, 0.999854)
+bones/2/position = Vector3(0.196288, 1.46678, -0.069118)
+bones/2/rotation = Quaternion(-0.022668, 0.0464714, 0.990556, -0.126989)
+bones/3/position = Vector3(0.26445, 1.20354, -0.0423907)
+bones/3/rotation = Quaternion(-0.0236294, 0.0672396, 0.994636, -0.074963)
+bones/4/position = Vector3(0.307107, 0.917192, -0.00226042)
+bones/4/rotation = Quaternion(-0.0234372, 0.0684749, 0.995131, -0.0669117)
+bones/5/position = Vector3(-0.198632, 1.46272, -0.0855272)
+bones/5/rotation = Quaternion(-0.0237908, 0.139576, 0.977803, 0.154444)
+bones/6/position = Vector3(-0.282968, 1.21317, -0.0129566)
+bones/6/rotation = Quaternion(0.0935502, 0.65625, 0.744231, 0.0818836)
+bones/7/position = Vector3(-0.282704, 1.17656, 0.277022)
+bones/7/rotation = Quaternion(0.0241201, 0.700202, 0.329139, -0.63309)
+bones/8/position = Vector3(0.441597, 1.79805, -0.162397)
+bones/8/rotation = Quaternion(-0.0238994, 0.00665975, 0.931074, 0.363986)
+bones/9/position = Vector3(0.098853, 0.858541, -0.0144391)
+bones/9/rotation = Quaternion(-0.0342511, 0.0745174, 0.996571, -0.0109734)
+bones/10/position = Vector3(0.105109, 0.489646, 0.0412599)
+bones/10/rotation = Quaternion(-0.0343506, -0.0834813, 0.99585, 0.0115525)
+bones/11/position = Vector3(0.0977423, 0.069227, -0.0299892)
+bones/11/rotation = Quaternion(-4.06362e-05, 0.572213, 0.820105, -2.83424e-05)
+bones/12/position = Vector3(-0.098853, 0.858541, -0.0144391)
+bones/12/rotation = Quaternion(0.0342511, 0.0745171, 0.996571, 0.0109734)
+bones/13/position = Vector3(-0.105109, 0.489646, 0.0412597)
+bones/13/rotation = Quaternion(0.0343506, -0.083481, 0.99585, -0.0115525)
+bones/14/position = Vector3(-0.0977423, 0.0692269, -0.0299892)
+bones/14/rotation = Quaternion(4.0631e-05, 0.572213, 0.820105, 2.83482e-05)
+bones/16/position = Vector3(-8.58201e-11, 0.901292, -0.023425)
+bones/16/rotation = Quaternion(-0.0201793, 1.19185e-07, -2.40555e-09, 0.999796)
+bones/17/rotation = Quaternion(-0.00319472, 0.7071, 0.7071, -0.00319472)
+bones/18/rotation = Quaternion(0.00374689, 0.707097, -0.707097, -0.00374689)
+bones/19/rotation = Quaternion(0.00319472, 0.7071, 0.7071, 0.00319472)
+bones/20/rotation = Quaternion(-0.00374689, 0.707097, -0.707097, 0.00374689)
 
 [node name="AnimationHelper" type="AnimationPlayer" parent="." index="2"]
 libraries = {
@@ -735,10 +818,11 @@ _aimArea = NodePath("../../CameraPivot/AimArea")
 _moveStateMachine = NodePath("..")
 metadata/_custom_type_script = "uid://0y1ujn1lluu2"
 
-[node name="WallRunStrategy" type="Node" parent="MoveStateMachine" index="5" node_paths=PackedStringArray("_playerChar", "_cameraPivot", "_moveStateMachine")]
+[node name="WallRunStrategy" type="Node" parent="MoveStateMachine" index="5" node_paths=PackedStringArray("_playerChar", "_cameraPivot", "_freeMoveStrategy", "_moveStateMachine")]
 script = ExtResource("17_74fb0")
 _playerChar = NodePath("../..")
 _cameraPivot = NodePath("../../CameraPivot")
+_freeMoveStrategy = NodePath("../FreeMoveStrategy")
 _moveStateMachine = NodePath("..")
 metadata/_custom_type_script = "uid://bvf8w04hc5763"
 
@@ -752,7 +836,9 @@ _moveStateMachine = NodePath("../../MoveStateMachine")
 _pulseTechnique = 1
 metadata/_custom_type_script = "uid://hoau23mrd4js"
 
-[node name="PlayerStasisSource" type="Node" parent="Mechanics" index="1" node_paths=PackedStringArray("_playerChar")]
+[node name="PlayerStasisSource" type="Node" parent="Mechanics" index="1" node_paths=PackedStringArray("_playerChar", "_moveStateMachine", "_animator")]
 script = ExtResource("8_74fb0")
 _playerChar = NodePath("../..")
+_moveStateMachine = NodePath("../../MoveStateMachine")
+_animator = NodePath("../../Composites/PlayerAnimator")
 metadata/_custom_type_script = "uid://co6lweoovdpnh"

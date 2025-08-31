@@ -7,3 +7,4 @@
 - [x] Use sealed keyword, I suppose? [REDACTED] YESSIR!
 - [ ] Add jump preparation, especially when unsheathed.
 - [ ] Improve wall-run logic.
+- [ ] Make GroundCast logic more dynamic.

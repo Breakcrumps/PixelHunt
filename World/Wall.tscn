@@ -23,6 +23,7 @@ mass = 100.0
 AimMarker = NodePath("Marker")
 
 [node name="Marker" parent="." index="1" instance=ExtResource("2_d4bsp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.96, 0)
 _texture = ExtResource("3_v8m5h")
 
 [node name="RigidPulseObeyer" type="Node" parent="." index="2" node_paths=PackedStringArray("_body", "_stasisObeyer", "_groundRaycast")]
@@ -30,13 +31,13 @@ script = ExtResource("4_i4rva")
 _body = NodePath("..")
 _stasisObeyer = NodePath("../RigidStasisObeyer")
 _groundRaycast = NodePath("../GroundRaycast")
-_rubbleType = 1
 metadata/_custom_type_script = "uid://biqbhjfvnb3c0"
 
 [node name="RigidStasisObeyer" type="Node" parent="." index="3" node_paths=PackedStringArray("_body", "_pulseObeyer")]
 script = ExtResource("5_q45c4")
 _body = NodePath("..")
 _pulseObeyer = NodePath("../RigidPulseObeyer")
+_rubbleType = 1
 metadata/_custom_type_script = "uid://drrcj45y650ie"
 
 [node name="GroundRaycast" type="RayCast3D" parent="." index="4" node_paths=PackedStringArray("_body", "_collision")]

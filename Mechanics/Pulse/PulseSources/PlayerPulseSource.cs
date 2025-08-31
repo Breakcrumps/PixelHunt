@@ -13,7 +13,7 @@ internal enum PulseTechnique { Agility, Strength }
 internal sealed partial class PlayerPulseSource : PulseSource
 {
   [Export] private PlayerChar? _playerChar;
-  [Export] private Animator? _animator;
+  [Export] private PlayerAnimator? _animator;
   [Export] private MoveStateMachine? _moveStateMachine;
 
   [ExportGroup("Parameters")]

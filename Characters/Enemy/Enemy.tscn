@@ -270,8 +270,9 @@ script = ExtResource("9_ec6pp")
 _enemyChar = NodePath("../..")
 metadata/_custom_type_script = "uid://cds0f60e2t3lk"
 
-[node name="EnemyStateMachine" type="Node" parent="." index="5" node_paths=PackedStringArray("_initialState")]
+[node name="EnemyStateMachine" type="Node" parent="." index="5" node_paths=PackedStringArray("_tempLabel", "_initialState")]
 script = ExtResource("7_52jmu")
+_tempLabel = NodePath("../TEMP")
 _initialState = NodePath("IdleState")
 
 [node name="IdleState" type="Node" parent="EnemyStateMachine" index="0" node_paths=PackedStringArray("_enemyChar", "_enemyAligner", "_animator", "_animPlayer", "_animHelper", "_stateMachine", "_visionArea", "_soundArea")]
@@ -356,8 +357,9 @@ _pulseState = NodePath("../../EnemyStateMachine/PulseState")
 _stasisObeyer = NodePath("../EnemyStasisObeyer")
 metadata/_custom_type_script = "uid://cdivbq812a11w"
 
-[node name="EnemyStasisObeyer" type="Node" parent="Mechanics" index="1" node_paths=PackedStringArray("_stateMachine", "_followState")]
+[node name="EnemyStasisObeyer" type="Node" parent="Mechanics" index="1" node_paths=PackedStringArray("_enemyChar", "_stateMachine", "_followState")]
 script = ExtResource("10_g1s5f")
+_enemyChar = NodePath("../..")
 _stateMachine = NodePath("../../EnemyStateMachine")
 _followState = NodePath("../../EnemyStateMachine/FollowState")
 metadata/_custom_type_script = "uid://cpv0hxwhvrnc8"
@@ -369,3 +371,9 @@ _texture = ExtResource("20_p8cch")
 [node name="AimMarker" parent="." index="11" instance=ExtResource("20_1ov00")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841, 0)
 _texture = ExtResource("21_p8cch")
+
+[node name="TEMP" type="Label3D" parent="." index="12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79741, 0)
+billboard = 1
+no_depth_test = true
+font_size = 50

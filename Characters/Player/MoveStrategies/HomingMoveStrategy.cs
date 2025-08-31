@@ -3,6 +3,7 @@ using PixelHunt.Algo.FunctionComposition;
 using PixelHunt.Algo.FunctionComposition.FunctionComponents;
 using PixelHunt.Characters.Player.Composites;
 using PixelHunt.Mechanics.Aim;
+using PixelHunt.Mechanics.Markers;
 using PixelHunt.Parents;
 using PixelHunt.Static;
 using PixelHunt.Types;
@@ -16,12 +17,13 @@ internal sealed partial class HomingMoveStrategy : State
   [Export] private AimArea? _aimArea;
   [Export] private MoveStateMachine? _moveStateMachine;
 
+  private Marker? _target;
+
   private GameTime _time;
 
   private readonly FunctionComposer _speedComposer = new(
     new QuadraticComponent { A = .07f },
-    new LinearComponent { A = 0f, Start = 30 },
-    new EndComponent { Start = int.MaxValue }
+    new LinearComponent { A = 0f, Start = 30 }
   );
 
   internal override void Enter()
@@ -30,6 +32,7 @@ internal sealed partial class HomingMoveStrategy : State
       return;
 
     _aimArea.CanRetarget = false;
+    _target = _aimArea.Target?.AimMarker;
 
     _time = GameTime.Zero;
   }
@@ -39,12 +42,12 @@ internal sealed partial class HomingMoveStrategy : State
     if (_playerChar is null)
       return;
 
-    if (_aimArea is null || _aimArea.Target is null)
+    if (_target is null)
       return;
 
     _time.Frames++;
 
-    Vector3 difVector = _aimArea.Target.GlobalPosition - _playerChar.GlobalPosition;
+    Vector3 difVector = _target.GlobalPosition - _playerChar.GlobalPosition;
 
     if (difVector.IsRoughlyZero(tolerance: 2f))
     {
@@ -65,6 +68,6 @@ internal sealed partial class HomingMoveStrategy : State
 
     _aimArea.CanRetarget = true;
 
-    _aimArea.Target = null;
+    _target = null;
   }
 }

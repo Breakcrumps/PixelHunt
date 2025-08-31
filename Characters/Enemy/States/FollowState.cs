@@ -37,18 +37,17 @@ internal sealed partial class FollowState : State
       return;
 
     Vector3 diffVector = Target!.GlobalPosition - _enemyChar.GlobalPosition;
-    Vector2 distance = new(diffVector.X, diffVector.Z);
+    Vector2 diffVector2D = new(diffVector.X, diffVector.Z);
 
-    if (distance.Length() < 2f)
+    if (diffVector2D.Length() < 2f)
     {
       _stateMachine?.Transition("AttackState");
       return;
     }
 
-    if (distance.Length() > 30f)
+    if (diffVector2D.Length() > 30f)
     {
       _stateMachine?.Transition("IdleState");
-      _visionArea?.EnableSearch();
       return;
     }
 

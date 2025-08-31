@@ -1,10 +1,10 @@
 using Godot;
 using PixelHunt.Algo.FunctionComposition;
+using PixelHunt.Algo.FunctionComposition.Functions;
 using PixelHunt.Animation;
 using PixelHunt.Characters.Enemy.Composites;
 using PixelHunt.Mechanics.Pulse;
 using PixelHunt.Parents;
-using PixelHunt.Static;
 using PixelHunt.Types;
 
 namespace PixelHunt.Characters.Enemy.States;

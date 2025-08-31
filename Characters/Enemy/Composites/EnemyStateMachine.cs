@@ -6,6 +6,7 @@ namespace PixelHunt.Characters.Enemy.Composites;
 [GlobalClass]
 internal sealed partial class EnemyStateMachine : StateMachine
 {
+  [Export] private Label3D? _tempLabel;
   [Export] private State? _initialState;
 
   internal bool CanTransition { private get; set; } = true;
@@ -25,7 +26,10 @@ internal sealed partial class EnemyStateMachine : StateMachine
   {
     if (!CanTransition)
       return;
-    
+
     base.Transition(nextStateName);
+
+    if (_tempLabel is not null)
+      _tempLabel.Text = CurrentState?.Name;
   }
 }

@@ -1,6 +1,6 @@
 using PixelHunt.Static;
 
-namespace PixelHunt.Algo.FunctionComposition.FunctionComponents;
+namespace PixelHunt.Algo.FunctionComposition.FunctionComponents.Nullifiers;
 
 internal sealed class QuadraticNullifier : FunctionComponent
 {

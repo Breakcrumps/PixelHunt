@@ -148,8 +148,10 @@ internal sealed partial class LockOnController : Node
       _cameraSpring!.SpringLength = _cameraSpring.SpringLength.LerpF(to: _initialSpringLength + .5f, weight: 5f * (float)delta);
 
       _cameraPivot.Position = _cameraPivot.Position.Lerp(to: _initialPivotPosition, weight: 5f * (float)delta);
+
+      _timeFacingTheWrongWay = GameTime.Zero;
     }
-    else
+    else if (angle.BetweenRadians(-7f / 12f, 7f / 12f))
     {
       float amplitude = difVector2D.Length();
 
@@ -160,12 +162,16 @@ internal sealed partial class LockOnController : Node
       newPivotPosition = newPivotPosition.Rotated(Vector3.Up, _cameraPivot.Rotation.Y);
 
       _cameraPivot.Position = _cameraPivot.Position.Lerp(to: newPivotPosition, weight: 5f * (float)delta);
-    }
 
-    if (!angle.BetweenRadians(-7f / 12f, 7f / 12f) && Input.GetLastMouseVelocity().IsRoughlyZero(tolerance: .01f))
-      _timeFacingTheWrongWay.Frames++;
-    else
       _timeFacingTheWrongWay = GameTime.Zero;
+    }
+    else
+    {
+      if (Input.GetLastMouseVelocity().IsRoughlyZero(tolerance: .01f))
+        _timeFacingTheWrongWay.Frames++;
+
+      LerpToDefaults(delta);
+    }
   }
 
   private void LerpToDefaults(double delta)

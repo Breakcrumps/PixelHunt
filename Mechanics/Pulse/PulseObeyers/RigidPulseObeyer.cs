@@ -1,7 +1,7 @@
 using Godot;
 using PixelHunt.Algo.FunctionComposition;
+using PixelHunt.Algo.FunctionComposition.Functions;
 using PixelHunt.Mechanics.Stasis.StasisObeyers;
-using PixelHunt.Static;
 using PixelHunt.Types;
 using PixelHunt.World;
 
@@ -13,9 +13,9 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
   [Export] private RigidBody3D? _body;
   [Export] private RigidStasisObeyer? _stasisObeyer;
   [Export] private GroundRaycast? _groundRaycast;
-  [Export] private RubbleType _rubbleType;
+  [Export] private RubbishType _rubbishType;
 
-  private FunctionComposer? _pulseFunction;
+  private FunctionComposer _pulseFunction;
 
   private GameTime _currentTime;
   private float _initialHeight;
@@ -24,12 +24,8 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
 
   internal bool Pulsing { get; set; }
 
-  public override void _Ready()
-  {
-    base._Ready();
-
-    _pulseFunction = PulseFunctions.GenerateRubbleFunction(_rubbleType);
-  }
+  private RigidPulseObeyer()
+    => _pulseFunction = PulseFunctions.GenerateRubbleFunction(_rubbishType);
 
   private protected override void ObeyPulse(PulseParams pulseParams)
   {
@@ -49,6 +45,9 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
     _initialHeight = _body.GlobalPosition.Y;
 
     Pulsing = true;
+
+    if (_rubbishType == RubbishType.Wall)
+      _body.Freeze = true;
   }
 
   public override void _PhysicsProcess(double delta)
@@ -63,7 +62,7 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
 
     _body.GlobalPosition = _body.GlobalPosition with
     {
-      Y = _initialHeight + _pulseFunction!.Execute(_currentTime.Frames)
+      Y = _initialHeight + _pulseFunction.Execute(_currentTime.Frames)
     };
 
     if (_currentTime == _pulseFunction.ResultDuration)
@@ -71,6 +70,8 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
       _body.GravityScale = InitialGravityScale;
 
       Pulsing = false;
+
+      _body.Freeze = false;
     }
   }
 }

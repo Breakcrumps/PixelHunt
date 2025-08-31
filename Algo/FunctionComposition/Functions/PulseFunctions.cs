@@ -1,10 +1,11 @@
 using System;
-using PixelHunt.Algo.FunctionComposition;
 using PixelHunt.Algo.FunctionComposition.FunctionComponents;
+using PixelHunt.Algo.FunctionComposition.FunctionComponents.Nullifiers;
+using PixelHunt.Static;
 
-namespace PixelHunt.Static;
+namespace PixelHunt.Algo.FunctionComposition.Functions;
 
-internal enum RubbleType { Generic, Wall }
+internal enum RubbishType { Generic, Wall }
 
 internal static class PulseFunctions
 {
@@ -27,9 +28,9 @@ internal static class PulseFunctions
     _ => throw new ArgumentException("Invalid pulse level for enemy pulse!", nameof(level))
   };
 
-  internal static FunctionComposer GenerateRubbleFunction(RubbleType rubbleType) => rubbleType switch
+  internal static FunctionComposer GenerateRubbleFunction(RubbishType rubbleType) => rubbleType switch
   {
-    RubbleType.Wall => GenerateWallFunction(),
+    RubbishType.Wall => GenerateWallFunction(),
     _ => GenerateGenericRubbleFunction()
   };
 

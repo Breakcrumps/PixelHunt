@@ -33,6 +33,19 @@ internal sealed partial class IdleState : State
 
   private Vector2 _moveDirection;
   private float _wanderTime;
+  
+  internal override void Enter()
+  {
+    _visionArea?.EnableSearch();
+    _soundArea?.EnableSearch();
+
+    if (_enemyChar is null)
+      return;
+
+    _initialPos = new Vector2(_enemyChar.GlobalPosition.X, _enemyChar.GlobalPosition.Z);
+
+    RandomiseWander();
+  }
 
   private void RandomiseWander()
   {
@@ -51,7 +64,7 @@ internal sealed partial class IdleState : State
 
     if (_animator is null)
       return;
-      
+
     if (_moveDirection == Vector2.Zero)
     {
       _animator.PlayAnimation("Idle");
@@ -62,19 +75,6 @@ internal sealed partial class IdleState : State
       _animator.PlayAnimation("Walk");
       _wanderTime = RandomTime();
     }
-  }
-
-  internal override void Enter()
-  {
-    _visionArea?.EnableSearch();
-    _soundArea?.EnableSearch();
-
-    if (_enemyChar is null)
-      return;
-
-    _initialPos = new Vector2(_enemyChar.GlobalPosition.X, _enemyChar.GlobalPosition.Z);
-
-    RandomiseWander();
   }
 
   internal override void Process(double delta)
