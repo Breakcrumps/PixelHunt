@@ -15,9 +15,9 @@ internal sealed partial class RigidPushObeyer : PushObeyer
     if (_rigidBody is null)
       return;
 
-    float distance = pushParams.Actor.GlobalPosition.DistanceTo(_rigidBody.GlobalPosition);
-    float effectStrength = _effectStrength / distance;
+    if (_rigidBody.GlobalPosition.DistanceTo(pushParams.Actor.GlobalPosition) > 20f)
+      return;
 
-    _rigidBody.ApplyImpulse(pushParams.Direction * effectStrength);
+    _rigidBody.ApplyCentralImpulse(Mathf.Pow(_rigidBody.Mass, .5f) * pushParams.Direction * _effectStrength);
   }
 }

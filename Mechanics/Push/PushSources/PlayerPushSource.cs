@@ -27,6 +27,9 @@ internal sealed partial class PlayerPushSource : PushSource
     if (_armature is null)
       return;
 
+    if (_playerChar is null)
+      return;
+
     Vector3 direction = _armature.GlobalBasis.Z with { Y = 0f };
 
     EmitPush(new PushParams(direction.Normalized(), Actor: _playerChar));

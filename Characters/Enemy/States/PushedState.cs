@@ -1,6 +1,7 @@
 using Godot;
 using PixelHunt.Characters.Enemy.Composites;
 using PixelHunt.Parents;
+using PixelHunt.Static;
 
 namespace PixelHunt.Characters.Enemy.States;
 
@@ -10,6 +11,7 @@ internal sealed partial class PushedState : State
   [Export] private EnemyChar? _enemyChar;
   [Export] private EnemyStateMachine? _stateMachine;
   [Export] private FollowState? _followState;
+  [Export] private GravityComposite? _gravityComposite;
 
   [Export] private int _pushFrames = 10;
 
@@ -19,7 +21,12 @@ internal sealed partial class PushedState : State
   private Vector3 _velocity;
 
   internal override void Enter()
-    => _velocity = InitialVelocity;
+  {
+    _velocity = InitialVelocity;
+
+    if (_gravityComposite is not null)
+      _gravityComposite.CanGravitate = true;
+  }
 
   internal override void PhysicsProcess(double delta)
   {
@@ -29,11 +36,12 @@ internal sealed partial class PushedState : State
     if (_enemyChar is null)
       return;
 
-    _enemyChar.Velocity = _velocity;
+    _enemyChar.Velocity = new Vector3(_velocity.X, _enemyChar.Velocity.Y, _velocity.Z);
 
-    _velocity -= InitialVelocity * 1f / _pushFrames;
+    if (_enemyChar.IsOnFloor())
+      _velocity -= InitialVelocity * 1f / _pushFrames;
 
-    if (_velocity.IsZeroApprox())
+    if (_velocity.IsRoughlyZero(tolerance: .1f))
     {
       _followState.Target = Actor;
       _stateMachine?.Transition("FollowState");

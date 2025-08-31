@@ -23,11 +23,11 @@ internal sealed partial class EnemyPushObeyer : PushObeyer
     if (_pushedState is null)
       return;
 
-    float distance = pushParams.Actor.GlobalPosition.DistanceTo(_enemyChar.GlobalPosition);
-    float effectStrength = _effectStrength / distance;
+    if (_enemyChar.GlobalPosition.DistanceTo(pushParams.Actor.GlobalPosition) > 20f)
+      return;
 
     _pushedState.Actor = pushParams.Actor;
-    _pushedState.InitialVelocity = pushParams.Direction * effectStrength;
+    _pushedState.InitialVelocity = pushParams.Direction * _effectStrength;
 
     _stateMachine?.Transition("PushedState");
   }

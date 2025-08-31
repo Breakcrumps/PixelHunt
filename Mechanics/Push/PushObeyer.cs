@@ -10,7 +10,7 @@ internal abstract partial class PushObeyer : Node
   [Export] private protected StasisObeyer? StasisObeyer { get; private set; }
 
   [ExportGroup("Parameters")]
-  [Export] private protected float _effectStrength = 20f;
+  [Export] private protected float _effectStrength = 15f;
 
   public override void _Ready()
     => NodeGroups.PushSources.ForEach(x => x.Push += ObeyPush);
