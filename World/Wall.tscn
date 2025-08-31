@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqghbjb3ki1q8"]
+[gd_scene load_steps=13 format=3 uid="uid://cqghbjb3ki1q8"]
 
 [ext_resource type="PackedScene" uid="uid://dym8xrei86f13" path="res://Import/Wall.glb" id="1_pfgxy"]
 [ext_resource type="PackedScene" uid="uid://deugpnn7uid4o" path="res://Mechanics/Markers/Marker.tscn" id="2_d4bsp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://biqbhjfvnb3c0" path="res://Mechanics/Pulse/PulseObeyers/RigidPulseObeyer.cs" id="4_i4rva"]
 [ext_resource type="Script" uid="uid://drrcj45y650ie" path="res://Mechanics/Stasis/StasisObeyers/RigidStasisObeyer.cs" id="5_q45c4"]
 [ext_resource type="Script" uid="uid://4l6wl1ecej4t" path="res://World/GroundRaycast.cs" id="6_7xyy6"]
+[ext_resource type="Script" uid="uid://dvy1q8x60eoo" path="res://Mechanics/Push/PushObeyers/RigidPushObeyer.cs" id="6_q45c4"]
 [ext_resource type="Script" uid="uid://c8xcjmdxbdhuh" path="res://World/WallRunAligner.cs" id="7_d4bsp"]
 [ext_resource type="Script" uid="uid://0h8obaxfpxti" path="res://World/WallRunArea.cs" id="8_v8m5h"]
 [ext_resource type="Script" uid="uid://c3lc5iikvibxq" path="res://World/WallAligner.cs" id="9_i4rva"]
@@ -40,23 +41,29 @@ _pulseObeyer = NodePath("../RigidPulseObeyer")
 _rubbleType = 1
 metadata/_custom_type_script = "uid://drrcj45y650ie"
 
-[node name="GroundRaycast" type="RayCast3D" parent="." index="4" node_paths=PackedStringArray("_body", "_collision")]
+[node name="RigidPushObeyer" type="Node" parent="." index="4" node_paths=PackedStringArray("_rigidBody", "StasisObeyer")]
+script = ExtResource("6_q45c4")
+_rigidBody = NodePath("..")
+StasisObeyer = NodePath("../RigidStasisObeyer")
+metadata/_custom_type_script = "uid://dvy1q8x60eoo"
+
+[node name="GroundRaycast" type="RayCast3D" parent="." index="5" node_paths=PackedStringArray("_body", "_collision")]
 script = ExtResource("6_7xyy6")
 _body = NodePath("..")
 _collision = NodePath("../CollisionShape3D")
 metadata/_custom_type_script = "uid://4l6wl1ecej4t"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.96, 0)
 shape = SubResource("BoxShape3D_pfgxy")
 
-[node name="WallRunAligner" type="Node" parent="." index="6" node_paths=PackedStringArray("_wall", "_pulseObeyer")]
+[node name="WallRunAligner" type="Node" parent="." index="7" node_paths=PackedStringArray("_wall", "_pulseObeyer")]
 script = ExtResource("7_d4bsp")
 _wall = NodePath("..")
 _pulseObeyer = NodePath("../RigidPulseObeyer")
 metadata/_custom_type_script = "uid://c8xcjmdxbdhuh"
 
-[node name="WallRunArea" type="Area3D" parent="." index="7" node_paths=PackedStringArray("_wall", "_pulseObeyer", "_stasisObeyer")]
+[node name="WallRunArea" type="Area3D" parent="." index="8" node_paths=PackedStringArray("_wall", "_pulseObeyer", "_stasisObeyer")]
 collision_layer = 128
 script = ExtResource("8_v8m5h")
 _wall = NodePath("..")
@@ -67,7 +74,7 @@ _stasisObeyer = NodePath("../RigidStasisObeyer")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.96, 0)
 shape = SubResource("BoxShape3D_d4bsp")
 
-[node name="WallAligner" type="Node" parent="." index="8" node_paths=PackedStringArray("_wall", "_pulseObeyer", "_stasisObeyer", "_groundRaycast")]
+[node name="WallAligner" type="Node" parent="." index="9" node_paths=PackedStringArray("_wall", "_pulseObeyer", "_stasisObeyer", "_groundRaycast")]
 script = ExtResource("9_i4rva")
 _wall = NodePath("..")
 _pulseObeyer = NodePath("../RigidPulseObeyer")

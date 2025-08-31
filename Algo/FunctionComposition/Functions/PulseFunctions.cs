@@ -28,13 +28,13 @@ internal static class PulseFunctions
     _ => throw new ArgumentException("Invalid pulse level for enemy pulse!", nameof(level))
   };
 
-  internal static FunctionComposer GenerateRubbleFunction(RubbishType rubbleType) => rubbleType switch
+  internal static FunctionComposer GenerateRubbishFunction(RubbishType rubbleType) => rubbleType switch
   {
     RubbishType.Wall => GenerateWallFunction(),
-    _ => GenerateGenericRubbleFunction()
+    _ => GenerateGenericRubbishFunction()
   };
 
-  private static FunctionComposer GenerateGenericRubbleFunction() => new(
+  private static FunctionComposer GenerateGenericRubbishFunction() => new(
     new QuadraticComponent { A = Maths.RandomInRange(.07f, .1f, 2) },
     new LinearComponent { A = .05f, Start = 2 },
     new SineComponent

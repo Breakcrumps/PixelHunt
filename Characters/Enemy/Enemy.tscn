@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cu0iyt20pk40w"]
+[gd_scene load_steps=34 format=3 uid="uid://cu0iyt20pk40w"]
 
 [ext_resource type="Script" uid="uid://cbp87gphvl7u3" path="res://Characters/Enemy/EnemyChar.cs" id="1_3o4wt"]
 [ext_resource type="PackedScene" uid="uid://bor1ekmd5bk67" path="res://Import/Enemy.glb" id="1_uxjip"]
@@ -17,7 +17,9 @@
 [ext_resource type="Script" uid="uid://cybgyr37hht0y" path="res://Utils/AttackArea.cs" id="11_52jmu"]
 [ext_resource type="Script" uid="uid://dtu2rlrhiawg4" path="res://Characters/Enemy/Composites/SoundArea.cs" id="12_yqk80"]
 [ext_resource type="Script" uid="uid://dlbci2ep5fo6x" path="res://Characters/Enemy/States/PulseState.cs" id="14_ta0pv"]
+[ext_resource type="Script" uid="uid://dcal2ufdh681k" path="res://Characters/Enemy/States/PushedState.cs" id="16_qubgi"]
 [ext_resource type="Script" uid="uid://e55ng7r4ysrv" path="res://Characters/Enemy/States/StopState.cs" id="16_uf1ik"]
+[ext_resource type="Script" uid="uid://rp5sg7rltaw3" path="res://Mechanics/Push/PushObeyers/EnemyPushObeyer.cs" id="19_248c8"]
 [ext_resource type="PackedScene" uid="uid://deugpnn7uid4o" path="res://Mechanics/Markers/Marker.tscn" id="20_1ov00"]
 [ext_resource type="Texture2D" uid="uid://bk84pdae2qsm3" path="res://Import/Untitled.png" id="20_p8cch"]
 [ext_resource type="Texture2D" uid="uid://bl6l7gneq5cgk" path="res://Import/Untitled2.png" id="21_p8cch"]
@@ -330,6 +332,11 @@ _enemyChar = NodePath("../..")
 _gravityComposite = NodePath("../../Composites/GravityComposite")
 metadata/_custom_type_script = "uid://e55ng7r4ysrv"
 
+[node name="PushedState" type="Node" parent="EnemyStateMachine" index="6" node_paths=PackedStringArray("_enemyChar")]
+script = ExtResource("16_qubgi")
+_enemyChar = NodePath("../..")
+metadata/_custom_type_script = "uid://dcal2ufdh681k"
+
 [node name="SoundArea" type="Area3D" parent="." index="6" node_paths=PackedStringArray("_enemyStateMachine", "_followState", "_soundCollision")]
 collision_layer = 4
 script = ExtResource("12_yqk80")
@@ -363,6 +370,14 @@ _enemyChar = NodePath("../..")
 _stateMachine = NodePath("../../EnemyStateMachine")
 _followState = NodePath("../../EnemyStateMachine/FollowState")
 metadata/_custom_type_script = "uid://cpv0hxwhvrnc8"
+
+[node name="EnemyPushObeyer" type="Node" parent="Mechanics" index="2" node_paths=PackedStringArray("_enemyChar", "_stateMachine", "_pushedState", "StasisObeyer")]
+script = ExtResource("19_248c8")
+_enemyChar = NodePath("../..")
+_stateMachine = NodePath("../../EnemyStateMachine")
+_pushedState = NodePath("../../EnemyStateMachine/PushedState")
+StasisObeyer = NodePath("../EnemyStasisObeyer")
+metadata/_custom_type_script = "uid://rp5sg7rltaw3"
 
 [node name="LockOnMarker" parent="." index="10" instance=ExtResource("20_1ov00")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841, 0)

@@ -63,6 +63,9 @@ internal static class Maths
     return operand;
   }
 
+  internal static int RandomItem(this int[] ints)
+    => ints[Random.Shared.Next(maxValue: ints.Length)];
+
   internal static float RandomInRange(float from, float to, int precision = 1)
     => from + MathF.Round(Random.Shared.NextSingle() * (to - from), precision);
 

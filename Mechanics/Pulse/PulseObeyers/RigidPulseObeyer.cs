@@ -25,7 +25,7 @@ internal sealed partial class RigidPulseObeyer : PulseObeyer
   internal bool Pulsing { get; set; }
 
   private RigidPulseObeyer()
-    => _pulseFunction = PulseFunctions.GenerateRubbleFunction(_rubbishType);
+    => _pulseFunction = PulseFunctions.GenerateRubbishFunction(_rubbishType);
 
   private protected override void ObeyPulse(PulseParams pulseParams)
   {

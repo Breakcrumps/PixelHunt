@@ -6,6 +6,8 @@ namespace PixelHunt.Mechanics.Stasis;
 [GlobalClass]
 internal abstract partial class StasisObeyer : Node
 {
+  internal bool InStasis { get; private protected set; }
+  
   public override void _Ready()
     => NodeGroups.StasisSources.ForEach(x => x.Stasis += ObeyStasis);
 

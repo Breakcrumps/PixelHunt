@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b46xubrbdh1gu"]
+[gd_scene load_steps=9 format=3 uid="uid://b46xubrbdh1gu"]
 
 [ext_resource type="PackedScene" uid="uid://cg6jo7rw3qnyl" path="res://Import/Barrel.glb" id="1_821y4"]
 [ext_resource type="Script" uid="uid://biqbhjfvnb3c0" path="res://Mechanics/Pulse/PulseObeyers/RigidPulseObeyer.cs" id="2_kvfoa"]
 [ext_resource type="Script" uid="uid://drrcj45y650ie" path="res://Mechanics/Stasis/StasisObeyers/RigidStasisObeyer.cs" id="3_lgs0n"]
+[ext_resource type="Script" uid="uid://dvy1q8x60eoo" path="res://Mechanics/Push/PushObeyers/RigidPushObeyer.cs" id="4_1u38x"]
 [ext_resource type="Script" uid="uid://4l6wl1ecej4t" path="res://World/GroundRaycast.cs" id="4_lgs0n"]
 [ext_resource type="PackedScene" uid="uid://deugpnn7uid4o" path="res://Mechanics/Markers/Marker.tscn" id="5_qd6v4"]
 [ext_resource type="Texture2D" uid="uid://bl6l7gneq5cgk" path="res://Import/Untitled2.png" id="6_aqwqq"]
@@ -28,16 +29,22 @@ _body = NodePath("..")
 _pulseObeyer = NodePath("../RigidPulseObeyer")
 metadata/_custom_type_script = "uid://drrcj45y650ie"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3"]
+[node name="RigidPushObeyer" type="Node" parent="." index="3" node_paths=PackedStringArray("_rigidBody", "StasisObeyer")]
+script = ExtResource("4_1u38x")
+_rigidBody = NodePath("..")
+StasisObeyer = NodePath("../RigidStasisObeyer")
+metadata/_custom_type_script = "uid://dvy1q8x60eoo"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="4"]
 transform = Transform3D(0.26, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302, 0)
 shape = SubResource("BoxShape3D_kvfoa")
 
-[node name="GroundRaycast" type="RayCast3D" parent="." index="4" node_paths=PackedStringArray("_body", "_collision")]
+[node name="GroundRaycast" type="RayCast3D" parent="." index="5" node_paths=PackedStringArray("_body", "_collision")]
 collision_mask = 16
 script = ExtResource("4_lgs0n")
 _body = NodePath("..")
 _collision = NodePath("../CollisionShape3D")
 metadata/_custom_type_script = "uid://4l6wl1ecej4t"
 
-[node name="Marker" parent="." index="5" instance=ExtResource("5_qd6v4")]
+[node name="Marker" parent="." index="6" instance=ExtResource("5_qd6v4")]
 _texture = ExtResource("6_aqwqq")

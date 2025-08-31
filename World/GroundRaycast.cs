@@ -3,11 +3,16 @@ using PixelHunt.Static;
 
 namespace PixelHunt.World;
 
+/// <summary>
+/// For when a RigidBody needs to know if it's grounded.
+/// </summary>
 [GlobalClass]
 internal sealed partial class GroundRaycast : RayCast3D
 {
   [Export] private RigidBody3D? _body;
   [Export] private CollisionShape3D? _collision;
+
+  [Export] private float _margin;
 
   private float _reach;
 
@@ -21,7 +26,7 @@ internal sealed partial class GroundRaycast : RayCast3D
 
     Position = new Vector3(0f, boxShape.Size.Y / 2f, 0f);
 
-    _reach = boxShape.Size.MaxAxis() / 2f;
+    _reach = boxShape.Size.MaxAxis() / 2f + _margin;
 
     CollisionMask = 1 << 4;
   }

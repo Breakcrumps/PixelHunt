@@ -1,9 +1,8 @@
 using Godot;
 using PixelHunt.Algo.FunctionComposition;
-using PixelHunt.Algo.FunctionComposition.FunctionComponents;
-using PixelHunt.Algo.FunctionComposition.FunctionComponents.Modifiers;
 using PixelHunt.Algo.FunctionComposition.Functions;
 using PixelHunt.Mechanics.Pulse.PulseObeyers;
+using PixelHunt.Static;
 using PixelHunt.Types;
 
 namespace PixelHunt.Mechanics.Stasis.StasisObeyers;
@@ -18,9 +17,10 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
   private GameTime _stasisTime;
   private GameTime _duration;
 
-  internal bool InStasis { get; private set; }
+  private FunctionComposer? _stasisWiggle;
+  private int _wiggleAxis;
 
-  private float _initialXPos;
+  private float _initialWigglePos;
 
   public override void _Ready()
   {
@@ -31,7 +31,7 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
 
     _body.FreezeMode = RigidBody3D.FreezeModeEnum.Kinematic;
 
-    _initialXPos = _body.GlobalPosition.X;
+    _initialWigglePos = _body.GlobalPosition.X;
   }
 
   private protected override void ObeyStasis(StasisParams stasisParams)
@@ -49,6 +49,11 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
 
     _stasisTime = GameTime.Zero;
     _duration = stasisParams.Duration;
+
+    _stasisWiggle = StasisFunctions.GenerateStasisWiggle();
+    _wiggleAxis = StasisFunctions.WiggleAxes.RandomItem();
+
+    _initialWigglePos = _body.GlobalPosition[_wiggleAxis];
 
     InStasis = true;
 
@@ -69,13 +74,15 @@ internal sealed partial class RigidStasisObeyer : StasisObeyer
 
     if (_pulseObeyer is null)
       return;
+
+    if (_stasisWiggle is null)
+      return;
     
     _stasisTime.Frames++;
 
-    _body.GlobalPosition = _body.GlobalPosition with 
-    { 
-      X = _initialXPos + StasisFunctions.StasisWiggle.ExecuteOrZero(_stasisTime) 
-    };
+    Vector3 newGlobalPosition = _body.GlobalPosition;
+    newGlobalPosition[_wiggleAxis] = _initialWigglePos + _stasisWiggle.ExecuteOrZero(_stasisTime);
+    _body.GlobalPosition = newGlobalPosition;
 
     if (_stasisTime == _duration)
     {
