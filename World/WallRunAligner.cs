@@ -1,6 +1,6 @@
 using Godot;
 using PixelHunt.Mechanics.Pulse.PulseObeyers;
-
+using PixelHunt.Static;
 using static Godot.Mathf;
 
 namespace PixelHunt.World;
