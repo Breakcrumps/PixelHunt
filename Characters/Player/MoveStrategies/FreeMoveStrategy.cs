@@ -27,6 +27,7 @@ internal sealed partial class FreeMoveStrategy : State
 
   private bool _slowWalk;
   private int _doubleJumps;
+  private bool _airDashed;
 
   public override void _Ready()
   {
@@ -43,10 +44,22 @@ internal sealed partial class FreeMoveStrategy : State
 
   internal override void PhysicsProcess(double delta)
   {
-    if (_playerChar!.IsOnFloor())
-      _doubleJumps = 1;
+    if (_playerChar is null)
+      return;
 
-    Vector2 groundVelocity = GroundVelocity();
+    if (_playerChar.IsOnFloor())
+    {
+      _doubleJumps = 1;
+      _airDashed = false;
+    }
+    else if (Input.IsActionJustPressed("Airdash") && !_airDashed && InputHelper.IsMovementInput())
+    {
+      _moveStateMachine?.Transition("AirdashMoveStrategy");
+      _airDashed = true;
+      return;
+    }
+
+    Vector2 groundVelocity = HorizontalVelocity();
     float verticalVelocity = VerticalVelocity();
 
     ApplyVelocity(groundVelocity, verticalVelocity);
@@ -89,7 +102,7 @@ internal sealed partial class FreeMoveStrategy : State
     _playerChar.Velocity = _playerChar.Velocity with { Y = _jumpVelocity };
   }
 
-  private Vector2 GroundVelocity()
+  private Vector2 HorizontalVelocity()
   {
     if (_animHelper is null)
       return Vector2.Zero;
@@ -143,8 +156,13 @@ internal sealed partial class FreeMoveStrategy : State
 
   private void AnimateOnGround()
   {
-    if (InputHelper.GetMovementDirection() != Vector2.Zero)
-      _playerAnimator!.Run();
+    if (InputHelper.IsMovementInput())
+    {
+      if (!_slowWalk)
+        _playerAnimator!.Run();
+      else
+        _playerAnimator!.PlayAnimation("Walk");
+    }
     else
       _playerAnimator!.StopOrIdle();
   }

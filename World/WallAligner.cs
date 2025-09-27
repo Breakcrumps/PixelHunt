@@ -5,6 +5,9 @@ using PixelHunt.Static;
 
 namespace PixelHunt.World;
 
+/// <summary>
+/// A stupid fix for walls always standing straight stupid.
+/// </summary>
 [GlobalClass]
 internal sealed partial class WallAligner : Node
 {

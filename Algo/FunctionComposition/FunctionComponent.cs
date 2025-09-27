@@ -4,7 +4,7 @@ internal abstract class FunctionComponent
 {
   internal int Start { get; init; } = 0;
   /// <summary>
-  /// Do NOT set yourself, FunctionComposer sets this automatically.
+  /// Only set this manually for the first component in a composer - all the rest get their <c>StartValue</c> assigned automatically.
   /// </summary>
   internal float StartValue { get; set; } = 0f;
 

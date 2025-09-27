@@ -1,4 +1,5 @@
 using Godot;
+using PixelHunt.Characters.Player.Composites;
 using PixelHunt.Mechanics.Pulse.PulseObeyers;
 using PixelHunt.Static;
 using static Godot.Mathf;
@@ -9,11 +10,20 @@ namespace PixelHunt.World;
 internal sealed partial class WallRunAligner : Node
 {
   [Export] private LargeRubbish? _wall;
+
   [Export] private RigidPulseObeyer? _pulseObeyer;
 
   private static Vector3 _horizontalOrientation = new(Pi / 2f, 0f, 0f);
 
   private bool _flipped = false;
+
+  public override void _Ready()
+  {
+    if (GlobalInstances.PlayerBuffers is not PlayerBuffers buffers)
+      return;
+
+    buffers.RotateShortPress += () => _flipped = !_flipped;
+  }
 
   public override void _PhysicsProcess(double delta)
   {
@@ -26,11 +36,5 @@ internal sealed partial class WallRunAligner : Node
     Vector3 desiredOrientation = _flipped ? _horizontalOrientation : Vector3.Zero;
 
     _wall.Rotation = _wall.Rotation.Lerp(to: desiredOrientation, weight: 5f * (float)delta);
-  }
-
-  public override void _UnhandledInput(InputEvent @event)
-  {
-    if (@event.IsActionPressed("FlipWalls"))
-      _flipped = !_flipped;
   }
 }

@@ -28,8 +28,13 @@ internal abstract partial class StateMachine : Node
 
   internal virtual void Transition(string nextStateName)
   {
-    State newState = States[nextStateName];
-
+    if (!States.TryGetValue(nextStateName, out State? newState))
+    {
+      GD.Print($"No state named {nextStateName} on {Name}!");
+      
+      return;
+    }
+    
     if (newState is null)
       return;
 

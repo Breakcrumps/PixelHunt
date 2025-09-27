@@ -28,10 +28,8 @@ internal sealed partial class PlayerAnimator : Animator
     if (AnimPrefix == "Unsheathed")
       return;
 
-    Vector2 inputDirection = InputHelper.GetMovementDirection();
-
     PlayAnimation(
-      inputDirection == Vector2.Zero
+      !InputHelper.IsMovementInput()
       ? "Unsheathe"
       : "RunUnsheathe",
       bypass: true
@@ -48,10 +46,8 @@ internal sealed partial class PlayerAnimator : Animator
     if (AnimPrefix != "Unsheathed")
       return;
 
-    Vector2 inputDirection = InputHelper.GetMovementDirection();
-
     PlayAnimation(
-      inputDirection == Vector2.Zero
+      !InputHelper.IsMovementInput()
       ? "Sheathe"
       : "RunSheathe",
       noPrefix: true,
@@ -67,11 +63,10 @@ internal sealed partial class PlayerAnimator : Animator
       return;
 
     double currentTime = AnimPlayer.CurrentAnimationPosition;
-    Vector2 inputDirection = InputHelper.GetMovementDirection();
 
     switch (CurrentAnim)
     {
-      case "RunUnsheathe" when inputDirection == Vector2.Zero:
+      case "RunUnsheathe" when !InputHelper.IsMovementInput():
         if (currentTime > .4)
         {
           CanProcessRequests = true;
@@ -85,7 +80,7 @@ internal sealed partial class PlayerAnimator : Animator
           noPrefix: true
         );
         break;
-      case "Unsheathe" when inputDirection != Vector2.Zero:
+      case "Unsheathe" when InputHelper.IsMovementInput():
         if (currentTime > .7)
         {
           CanProcessRequests = true;

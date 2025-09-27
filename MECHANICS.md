@@ -1,0 +1,3 @@
+- [x] Airdash.
+- [ ] Barrels spinning and vortexing surrounding objects and enemies.
+- [ ] Small rubbish collecting into large rubbish and/or mechas.

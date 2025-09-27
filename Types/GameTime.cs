@@ -9,8 +9,9 @@ namespace PixelHunt.Types;
 /// </summary>
 internal struct GameTime
   : IEquatable<GameTime>, IEqualityOperators<GameTime, GameTime, bool>,
-    IComparable<GameTime>, IMultiplyOperators<GameTime, int, GameTime>,
-    IAdditionOperators<GameTime, GameTime, GameTime>, IUnaryNegationOperators<GameTime, GameTime>
+    IComparable<GameTime>, IComparisonOperators<GameTime, GameTime, bool>,
+    IMultiplyOperators<GameTime, int, GameTime>, IAdditionOperators<GameTime, GameTime, GameTime>,
+    IUnaryNegationOperators<GameTime, GameTime>
 {
   //* Data
   internal int Frames { get; set; }
@@ -18,6 +19,10 @@ internal struct GameTime
 
   //* Constructors
   internal GameTime(int frames) { Frames = frames; }
+
+  //* Actions with data
+  internal void Increment()
+    => Frames++;
 
   //* Equality methods
   public readonly bool Equals(GameTime other)
@@ -32,6 +37,18 @@ internal struct GameTime
   //* Comparison methods
   public readonly int CompareTo(GameTime other)
     => Frames.CompareTo(other.Frames);
+
+  public static bool operator >(GameTime left, GameTime right)
+    => left.Frames > right.Frames;
+
+  public static bool operator >=(GameTime left, GameTime right)
+    => left.Frames >= right.Frames;
+
+  public static bool operator <(GameTime left, GameTime right)
+    => left.Frames < right.Frames;
+
+  public static bool operator <=(GameTime left, GameTime right)
+    => left.Frames <= right.Frames;
 
   //* Arithmetic operators
   public static bool operator ==(GameTime left, GameTime right)

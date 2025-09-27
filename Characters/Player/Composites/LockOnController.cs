@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using PixelHunt.Mechanics.Markers;
 using PixelHunt.Static;
@@ -6,7 +7,7 @@ using PixelHunt.Types;
 namespace PixelHunt.Characters.Player.Composites;
 
 // I hate this one more than my life.
-[GlobalClass]
+[GlobalClass, Obsolete]
 internal sealed partial class LockOnController : Node
 {
   [Export] private Area3D? _eyesight;
