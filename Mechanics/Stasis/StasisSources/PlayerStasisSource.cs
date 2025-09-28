@@ -11,11 +11,12 @@ internal sealed partial class PlayerStasisSource : StasisSource
 {
   [Export] private PlayerChar? _playerChar;
   [Export] private MoveStateMachine? _moveStateMachine;
+  [Export] private PlayerBuffers? _playerBuffers;
   [Export] private PlayerAnimator? _animator;
 
-  public override void _UnhandledInput(InputEvent @event)
+  public override void _PhysicsProcess(double delta)
   {
-    if (!@event.IsActionPressed("Stasis"))
+    if (_playerBuffers is null || !_playerBuffers.ButtonLongPressed("Stasis"))
       return;
 
     _moveStateMachine?.Transition("StopMoveStrategy");

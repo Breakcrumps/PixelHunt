@@ -22,7 +22,13 @@ internal sealed partial class WallRunAligner : Node
     if (GlobalInstances.PlayerBuffers is not PlayerBuffers buffers)
       return;
 
-    buffers.RotateShortPress += () => _flipped = !_flipped;
+    buffers.ShortPress += (button) =>
+    {
+      if (button != "Rotate")
+        return;
+      
+      _flipped = !_flipped;
+    };
   }
 
   public override void _PhysicsProcess(double delta)

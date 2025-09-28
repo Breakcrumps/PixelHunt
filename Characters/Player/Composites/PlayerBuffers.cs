@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using PixelHunt.Static;
 using PixelHunt.Types;
@@ -8,32 +9,49 @@ namespace PixelHunt.Characters.Player.Composites;
 [GlobalClass]
 internal sealed partial class PlayerBuffers : Node
 {
-  internal GameTime RotateButtonAccumulator { get; private set; }
+  [Export] private int _longPressFrames = 10;
+  
+  private readonly Dictionary<string, GameTime> _bufferedButtons = new()
+  {
+    ["Rotate"] = GameTime.Zero,
+    ["Pulse"] = GameTime.Zero,
+    ["Stasis"] = GameTime.Zero
+  };
 
-  internal event Action? RotateShortPress;
-  internal bool RotateLongPressed()
-    => RotateButtonAccumulator > GameTime.Frame * 15;
-  private bool RotateShortReleased() => (
-    RotateButtonAccumulator > GameTime.Zero
-    && RotateButtonAccumulator <= GameTime.Frame * 15
-  );
+  internal event Action<string>? ShortPress;
+
+  internal bool ButtonLongPressed(string button)
+  {
+    if (!_bufferedButtons.TryGetValue(button, out GameTime bufferFrames))
+      return false;
+
+    return bufferFrames > GameTime.Frame * _longPressFrames;
+  }
 
   public override void _Ready()
     => GlobalInstances.PlayerBuffers = this;
 
   public override void _PhysicsProcess(double delta)
-    => HandleRotate();
-
-  private void HandleRotate()
   {
-    if (Input.IsActionPressed("Rotate"))
-      RotateButtonAccumulator += GameTime.Frame;
-    else
+    foreach (var (button, bufferTime) in _bufferedButtons)
     {
-      if (RotateShortReleased())
-        RotateShortPress?.Invoke();
-      
-      RotateButtonAccumulator = GameTime.Zero;
+      if (Input.IsActionPressed(button))
+        _bufferedButtons[button] += GameTime.Frame;
+      else
+      {
+        if (ButtonShortReleased(button))
+          ShortPress?.Invoke(button);
+
+        _bufferedButtons[button] = GameTime.Zero;
+      }
     }
+  }
+  
+  private bool ButtonShortReleased(string button)
+  {
+    if (!_bufferedButtons.TryGetValue(button, out GameTime bufferFrames))
+      return false;
+
+    return bufferFrames > GameTime.Zero && bufferFrames <= GameTime.Frame * _longPressFrames;
   }
 }

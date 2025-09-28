@@ -827,18 +827,20 @@ metadata/_custom_type_script = "uid://bqim205tl4eq7"
 
 [node name="Mechanics" type="Node" parent="." index="7"]
 
-[node name="PlayerPulseSource" type="Node" parent="Mechanics" index="0" node_paths=PackedStringArray("_playerChar", "_animator", "_moveStateMachine")]
+[node name="PlayerPulseSource" type="Node" parent="Mechanics" index="0" node_paths=PackedStringArray("_playerChar", "_animator", "_moveStateMachine", "_playerBuffers")]
 script = ExtResource("7_5xivi")
 _playerChar = NodePath("../..")
 _animator = NodePath("../../Composites/PlayerAnimator")
 _moveStateMachine = NodePath("../../MoveStateMachine")
+_playerBuffers = NodePath("../../Composites/PlayerBuffers")
 _pulseTechnique = 1
 metadata/_custom_type_script = "uid://hoau23mrd4js"
 
-[node name="PlayerStasisSource" type="Node" parent="Mechanics" index="1" node_paths=PackedStringArray("_playerChar", "_moveStateMachine", "_animator")]
+[node name="PlayerStasisSource" type="Node" parent="Mechanics" index="1" node_paths=PackedStringArray("_playerChar", "_moveStateMachine", "_playerBuffers", "_animator")]
 script = ExtResource("8_74fb0")
 _playerChar = NodePath("../..")
 _moveStateMachine = NodePath("../../MoveStateMachine")
+_playerBuffers = NodePath("../../Composites/PlayerBuffers")
 _animator = NodePath("../../Composites/PlayerAnimator")
 metadata/_custom_type_script = "uid://co6lweoovdpnh"
 

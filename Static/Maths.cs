@@ -7,6 +7,9 @@ internal static class Maths
 {
   private const float Tolerance = 1e-15f;
 
+  internal static Vector2 ToVector2(this Vector3 vector3)
+    => new(vector3.X, vector3.Z);
+
   internal static Vector3 ToVector3(this Vector2 vector2)
     => new(vector2.X, 0f, vector2.Y);
 

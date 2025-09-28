@@ -29,7 +29,7 @@ internal sealed partial class RubbishRotator : Node
     if (GlobalInstances.PlayerBuffers is not PlayerBuffers buffers)
       return;
 
-    if (buffers.RotateLongPressed())
+    if (buffers.ButtonLongPressed("Rotate"))
     {
       _rotationTime.Frames++;
 
